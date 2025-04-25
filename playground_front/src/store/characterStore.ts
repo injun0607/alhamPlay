@@ -4,11 +4,32 @@ import { create } from 'zustand';
 import { Character, CharacterStats, StartingRegion } from '@/types/character';
 import { useGameStore } from './gameStore';
 
+interface Stats {
+  strength: number;
+  intelligence: number;
+  dexterity: number;
+  vitality: number;
+  luck: number;
+  mana: number;
+  hp: number;
+  mp: number;
+  agility: number;
+}
+
+interface InventoryItem {
+  name: string;
+  quantity: number;
+}
+
 interface CharacterStore {
-  character: Character | null;
-  isCreating: boolean;
+  name: string;
+  stats: Stats;
+  inventory: InventoryItem[];
+  isCreatingCharacter: boolean;
+  setCharacterName: (name: string) => void;
+  setCharacterStats: (stats: Partial<Stats>) => void;
+  addItemToInventory: (itemName: string, quantity: number) => void;
   startCharacterCreation: () => void;
-  createCharacter: (name: string, startingRegion: StartingRegion) => void;
 }
 
 const getInitialStats = (region: StartingRegion): CharacterStats => {
@@ -58,30 +79,47 @@ const getInitialStats = (region: StartingRegion): CharacterStats => {
   }
 };
 
-export const useCharacterStore = create<CharacterStore>()((set) => {
-  const gameStore = useGameStore.getState();
+const initialStats: Stats = {
+  strength: 0,
+  intelligence: 0,
+  dexterity: 0,
+  vitality: 0,
+  luck: 0,
+  mana: 0,
+  hp: 100,
+  mp: 50,
+  agility: 0
+};
 
-  return {
-    character: null,
-    isCreating: false,
-    
-    startCharacterCreation: () => set({ isCreating: true }),
-    
-    createCharacter: (name: string, startingRegion: StartingRegion) => {
-      const newCharacter = {
-        name,
-        startingRegion,
-        stats: getInitialStats(startingRegion),
-        position: { x: 0, y: 0 }
+export const useCharacterStore = create<CharacterStore>((set) => ({
+  name: '',
+  stats: initialStats,
+  inventory: [],
+  isCreatingCharacter: false,
+
+  setCharacterName: (name) => set({ name }),
+  
+  setCharacterStats: (newStats) => 
+    set((state) => ({
+      stats: { ...state.stats, ...newStats }
+    })),
+  
+  addItemToInventory: (itemName, quantity) => 
+    set((state) => {
+      const existingItem = state.inventory.find(item => item.name === itemName);
+      if (existingItem) {
+        return {
+          inventory: state.inventory.map(item =>
+            item.name === itemName
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
+          )
+        };
+      }
+      return {
+        inventory: [...state.inventory, { name: itemName, quantity }]
       };
-      
-      // gameStore에도 캐릭터 정보 저장
-      gameStore.setCharacter(newCharacter);
-      
-      set({
-        character: newCharacter,
-        isCreating: false
-      });
-    }
-  };
-}); 
+    }),
+
+  startCharacterCreation: () => set({ isCreatingCharacter: true }),
+})); 

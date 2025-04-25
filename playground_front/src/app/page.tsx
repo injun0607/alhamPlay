@@ -1,23 +1,31 @@
 'use client'
 
-import { MapView } from '@/components/map/MapView';
-import { ActionMenu } from '@/components/map/ActionMenu';
-import { StartScreen } from '@/components/start/StartScreen';
-import { CharacterCreation } from '@/components/character/CharacterCreation';
-import { useCharacterStore } from '@/store/characterStore';
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { StartScene } from '@/components/start/StartScene';
+import { IntroScene } from '@/components/start/IntroScene';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const { character, isCreating } = useCharacterStore();
+  const [currentScene, setCurrentScene] = useState<'start' | 'intro'>('start');
+  const router = useRouter();
 
-  if (!character) {
-    return isCreating ? <CharacterCreation /> : <StartScreen />;
-  }
+  const handleStartNewGame = () => {
+    setCurrentScene('intro');
+  };
+
+  const handleIntroComplete = () => {
+    router.push('/character/create');
+  };
 
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">RPG Game</h1>
-      <MapView />
-      <ActionMenu />
-    </main>
+    <AnimatePresence mode="wait">
+      {currentScene === 'start' && (
+        <StartScene onStartNewGame={handleStartNewGame} />
+      )}
+      {currentScene === 'intro' && (
+        <IntroScene onComplete={handleIntroComplete} />
+      )}
+    </AnimatePresence>
   );
 }
