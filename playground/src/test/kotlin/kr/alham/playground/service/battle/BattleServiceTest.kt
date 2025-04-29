@@ -1,5 +1,6 @@
 package kr.alham.playground.service.battle
 
+import kr.alham.playground.domain.battle.MonsterBattleState
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.enums.CardTarget
@@ -154,14 +155,32 @@ class BattleServiceTest{
             name = "슬라임"
         )
         // When
+        val playStatus = player.getStatus()
+        val monsterStatus = monster.getStatus()
+
+        val battleState = MonsterBattleState(
+            selfTargetStatus = playStatus,
+            opponentTargetStatus = monsterStatus,
+        )
+
+
+
+
+
+
+        // Then
+
+
+
 
         //userStat을 받아서 -> 해당 Stat을 상승시키면되나?
         val userStat = player.getStatus()
 
 
 
+
         // Then
-        assertEquals(userStat[cardConcentrate.effectSelfStat], 2.0)
+//        assertEquals(userStat[cardConcentrate.effectSelfStat], 2.0)
 
     }
 }

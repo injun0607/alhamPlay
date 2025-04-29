@@ -2,6 +2,7 @@ package kr.alham.playground.domain.player
 
 import kr.alham.playground.domain.common.TargetElement
 import kr.alham.playground.domain.common.TargetElementStatus
+import kr.alham.playground.domain.common.TargetElementStatusMap
 
 class Player(
     val id: Long? = null,
@@ -16,21 +17,22 @@ class Player(
     override val lck: Double = 1.0,
 ): TargetElement {
 
-    override fun getStatus(): Map<TargetElementStatus, Double> {
-        return mapOf(
-            TargetElementStatus.HP to hp,
-            TargetElementStatus.MP to mp,
-            TargetElementStatus.ATK to atk,
-            TargetElementStatus.DEF to def,
-            TargetElementStatus.STR to str,
-            TargetElementStatus.DEX to dex,
-            TargetElementStatus.INT to int,
-            TargetElementStatus.LCK to lck
+    override fun getStatus(): TargetElementStatusMap {
+        return TargetElementStatusMap(
+            mutableMapOf(
+                TargetElementStatus.HP to hp,
+                TargetElementStatus.MP to mp,
+                TargetElementStatus.ATK to atk,
+                TargetElementStatus.DEF to def,
+                TargetElementStatus.STR to str,
+                TargetElementStatus.DEX to dex,
+                TargetElementStatus.INT to int,
+                TargetElementStatus.LCK to lck
+            )
         )
-
     }
 
-    override fun getStatusValue(): Double {
-        TODO("Not yet implemented")
+    override fun getStatusValue(targetElementStatus: TargetElementStatus): Double {
+        return getStatus().get(targetElementStatus)
     }
 }

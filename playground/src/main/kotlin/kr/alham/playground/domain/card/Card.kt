@@ -12,10 +12,10 @@ class Card(
     var battlePhase: BattlePhase = BattlePhase.PREPARATION,
     var name: String = "",
     var description: String = "",
-    var skillTarget: CardTarget = CardTarget.SELF,
-    var skillType: CardType = CardType.ATTACK,
-    var skillAttribute: CardAttribute = CardAttribute.NONE,
-    var counterSkillAttribute: CardAttribute = CardAttribute.NONE,
+    var cardTarget: CardTarget = CardTarget.SELF,
+    var cardType: CardType = CardType.ATTACK,
+    var cardAttribute: CardAttribute = CardAttribute.NONE,
+    var counterCardAttribute: CardAttribute = CardAttribute.NONE,
     var cost: Int = 0,
     var effectOpponentNum: Int = 0,
     var effectOpponentStat: TargetElementStatus = TargetElementStatus.HP,
@@ -24,5 +24,6 @@ class Card(
     var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
     var effectSelfTurn: Int = 0,
 ) {
+
 
 }

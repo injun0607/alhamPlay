@@ -1,5 +1,6 @@
 package kr.alham.playground.service.battle
 
+import kr.alham.playground.domain.battle.MonsterBattleState
 import kr.alham.playground.domain.common.TargetElement
 import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.dto.battle.MonsterBattleDTO
@@ -20,8 +21,11 @@ class BattleService {
     }
 
 
-    private fun monsterBattlePreparation(monsterBattleDTO: MonsterBattleDTO){
-        TODO("Not yet implemented")
+    /**
+     * 몬스터와 BattlePreparation 단계
+     */
+    private fun monsterBattlePreparation(){
+
     }
 
     private fun monsterBattleEngagement(){
