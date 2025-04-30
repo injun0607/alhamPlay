@@ -8,7 +8,7 @@ class CardTest{
     @Test
     fun `테스트1_effectSelfNum`(){
         val card = Card(
-            effectSelfNum = 8
+            effectSelfNum = 8.0
         )
 
         val num = 2;

@@ -1,5 +1,7 @@
 package kr.alham.playground.domain.common
 
+import kr.alham.playground.domain.enums.CardType
+
 interface TargetElement{
     val name: String
     val hp: Double
@@ -52,6 +54,12 @@ class TargetElementStatusMap(
 
 }
 
+
+class DurationStatus(
+    val durationStatus: TargetElementStatus,
+    val duration: Int,
+    val durationValue: Double,
+)
 class TargetElementStatusEmptyMap(
     private val statusMap: MutableMap<TargetElementStatus, Double> = mutableMapOf()
 ){

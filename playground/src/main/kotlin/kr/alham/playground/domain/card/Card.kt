@@ -17,10 +17,10 @@ class Card(
     var cardAttribute: CardAttribute = CardAttribute.NONE,
     var counterCardAttribute: CardAttribute = CardAttribute.NONE,
     var cost: Int = 0,
-    var effectOpponentNum: Int = 0,
+    var effectOpponentNum: Double = 0.0,
     var effectOpponentStat: TargetElementStatus = TargetElementStatus.HP,
     var effectOpponentTurn: Int = 0,
-    var effectSelfNum: Int = 0,
+    var effectSelfNum: Double = 0.0,
     var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
     var effectSelfTurn: Int = 0,
 ) {

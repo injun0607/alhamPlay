@@ -3,34 +3,32 @@ package kr.alham.playground.pattern.cardeffect
 import kr.alham.playground.domain.battle.BattleState
 import kr.alham.playground.domain.card.Card
 import kr.alham.playground.domain.enums.CardTarget
+import kr.alham.playground.domain.enums.CardType
+import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Component
 
-class AttackCardEffect() :CardEffectStrategy{
-    override fun applyEffect(card: Card, battleState: BattleState): BattleState {
-        when(card.cardTarget){
-            CardTarget.SELF -> {
-                var selfStatus = battleState.selfTargetStatus.get(card.effectSelfStat)
+/**
+ * 공격 카드 효과
+ * 1.
+ * 2.
+ * 3.
+ */
+@Component
+class AttackCardEffect() :TargetBasedCardEffect(){
+    override fun supportedType(): CardType = CardType.ATTACK
+    override fun applyEffectToSelf(card: Card, battleState: BattleState) {
+        println("applyEffectToSelf")
+    }
 
-            }
-            CardTarget.OPPONENT -> {
-                //상대방에게 영향
-                var opponentStatus = battleState.opponentTargetStatus.get(card.effectOpponentStat)
-                opponentStatus -= card.effectOpponentNum;
-                battleState.opponentTargetStatus.set(card.effectOpponentStat, opponentStatus)
-            }
-            CardTarget.MUTUAL -> {
-                //서로에게 영향
-                var selfStatus = battleState.selfTargetStatus.get(card.effectSelfStat)
-                var opponentStatus = battleState.opponentTargetStatus.get(card.effectOpponentStat)
+    override fun applyEffectToOpponent(card: Card, battleState: BattleState) {
+        val effectedStat = card.effectOpponentStat
+        val damage = card.effectOpponentNum
 
-                selfStatus -= card.effectSelfNum
-                opponentStatus -= card.effectOpponentNum
+        val afterEffectStat = battleState.opponentTargetStatus.get(effectedStat) - damage
+        battleState.opponentTargetStatus.set(effectedStat, afterEffectStat)
+    }
 
-                battleState.selfTargetStatus.set(card.effectSelfStat, selfStatus)
-                battleState.opponentTargetStatus.set(card.effectOpponentStat, opponentStatus)
-            }
-        }
-
-        return battleState
-
+    override fun applyEffectToMutual(card: Card, battleState: BattleState) {
+        println("applyEffectToMutual")
     }
 }
