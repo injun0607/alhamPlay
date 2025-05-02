@@ -3,10 +3,10 @@ package kr.alham.playground.dto.battle
 import kr.alham.playground.dto.card.CardIdDTO
 
 class MonsterBattleDTO(
-    var userId: Long = 0,
+    var playerId: Long = 0,
     var monsterId: Long = 0,
-    var preparationCard: CardIdDTO = CardIdDTO(),
+    var preparationCard: List<CardIdDTO> = listOf(),
     var engagementCardList: List<CardIdDTO> = listOf(),
-    var finalizationCard: CardIdDTO = CardIdDTO(),
+    var finalizationCard: List<CardIdDTO> = listOf(),
 ) {
 }

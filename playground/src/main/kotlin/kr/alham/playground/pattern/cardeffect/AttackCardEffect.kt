@@ -1,10 +1,8 @@
 package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.BattleState
-import kr.alham.playground.domain.card.Card
-import kr.alham.playground.domain.enums.CardTarget
+import kr.alham.playground.dto.card.CardDTO
 import kr.alham.playground.domain.enums.CardType
-import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 
 /**
@@ -16,19 +14,19 @@ import org.springframework.stereotype.Component
 @Component
 class AttackCardEffect() :TargetBasedCardEffect(){
     override fun supportedType(): CardType = CardType.ATTACK
-    override fun applyEffectToSelf(card: Card, battleState: BattleState) {
+    override fun applyEffectToSelf(cardDTO: CardDTO, battleState: BattleState) {
         println("applyEffectToSelf")
     }
 
-    override fun applyEffectToOpponent(card: Card, battleState: BattleState) {
-        val effectedStat = card.effectOpponentStat
-        val damage = card.effectOpponentNum
+    override fun applyEffectToOpponent(cardDTO: CardDTO, battleState: BattleState) {
+        val effectedStat = cardDTO.effectOpponentStat
+        val damage = cardDTO.effectOpponentNum
 
-        val afterEffectStat = battleState.opponentTargetStatus.get(effectedStat) - damage
+        val afterEffectStat = battleState.engagementMonsterBattleStatus.get(effectedStat) - damage
         battleState.opponentTargetStatus.set(effectedStat, afterEffectStat)
     }
 
-    override fun applyEffectToMutual(card: Card, battleState: BattleState) {
+    override fun applyEffectToMutual(cardDTO: CardDTO, battleState: BattleState) {
         println("applyEffectToMutual")
     }
 }

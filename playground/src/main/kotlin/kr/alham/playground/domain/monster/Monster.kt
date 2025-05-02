@@ -1,10 +1,15 @@
 package kr.alham.playground.domain.monster
 
+import jakarta.persistence.*
 import kr.alham.playground.domain.common.TargetElement
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 
+@Entity
+@Table(name = "al_monster")
 class Monster(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     override val name: String = "",
     override val hp: Double = 10.0,

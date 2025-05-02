@@ -1,0 +1,56 @@
+package kr.alham.playground.domain.battle
+
+import kr.alham.playground.domain.common.DurationStatus
+import kr.alham.playground.domain.common.TargetElementStatusMap
+import kr.alham.playground.domain.enums.BattlePhase
+import kr.alham.playground.domain.card.Card
+
+class PreparationMonsterBattleStatus(
+    val battlePhase: BattlePhase = BattlePhase.PREPARATION,
+    val playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    val monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    var playerCardList: List<Card> = listOf(),
+    var monsterCardList: List<Card> = listOf(),
+){
+
+}
+
+class EngagementMonsterBattleStatus(
+    val battlePhase: BattlePhase = BattlePhase.ENGAGEMENT,
+    val playerStatus: List<TargetElementStatusMap> = listOf(),
+    val monsterStatus: List<TargetElementStatusMap> = listOf(),
+    val playerDurationStatus: List<DurationStatus> = listOf(),
+    val monsterDurationStatus: List<DurationStatus> = listOf(),
+    var playerCardList: List<Card> = listOf(),
+    var monsterCardList: List<Card> = listOf(),
+){
+
+    fun isExistPlayerDurationStatus(): Boolean {
+        return playerDurationStatus.isNotEmpty()
+    }
+
+    fun isExistMonsterDurationStatus(): Boolean {
+        return monsterDurationStatus.isNotEmpty()
+    }
+
+}
+
+class FinalizationBattleStatus(
+    val battlePhase: BattlePhase = BattlePhase.FINALIZATION,
+    val playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    val monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    val playerDurationStatus: List<DurationStatus> = listOf(),
+    val monsterDurationStatus: List<DurationStatus> = listOf(),
+    var playerCardList: List<Card> = listOf(),
+    var monsterCardList: List<Card> = listOf(),
+){
+
+    fun isExistPlayerDurationStatus(): Boolean {
+        return playerDurationStatus.isNotEmpty()
+    }
+
+    fun isExistMonsterDurationStatus(): Boolean {
+        return monsterDurationStatus.isNotEmpty()
+    }
+
+}

@@ -1,17 +1,15 @@
 package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.MonsterBattleState
-import kr.alham.playground.domain.card.Card
+import kr.alham.playground.domain.card.CardDTO
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.enums.CardTarget
-import kr.alham.playground.domain.enums.CardType
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 
-class AttackCardEffectTest{
+class AttackCardEffectTestDTO{
 
 
 //    private lateinit var attackCardEffect: AttackCardEffect
@@ -29,7 +27,7 @@ class AttackCardEffectTest{
         val attackCardEffect = AttackCardEffect()
 
         // Arrange
-        var cardBash = Card(
+        var cardDTOBash = CardDTO(
             name = "강타",
             battlePhase = BattlePhase.ENGAGEMENT,
             description = "상대방에게 5의 피해를 줍니다.",
@@ -45,7 +43,7 @@ class AttackCardEffectTest{
         )
 
         // Act
-        attackCardEffect.applyEffect(cardBash, battleState)
+        attackCardEffect.applyEffect(cardDTOBash, battleState)
 
         // Assert
         assertEquals(battleState.opponentTargetStatus.get(TargetElementStatus.HP), 5.0)

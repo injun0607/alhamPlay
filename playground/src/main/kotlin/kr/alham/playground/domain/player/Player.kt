@@ -1,10 +1,16 @@
 package kr.alham.playground.domain.player
 
+import jakarta.persistence.*
 import kr.alham.playground.domain.common.TargetElement
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 
+@Entity
+@Table(name = "al_player")
 class Player(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "player_id")
     val id: Long? = null,
     override val name: String = "",
     override val hp: Double = 10.0,
@@ -16,6 +22,7 @@ class Player(
     override val int: Double = 1.0,
     override val lck: Double = 1.0,
 ): TargetElement {
+
 
     override fun getStatus(): TargetElementStatusMap {
         return TargetElementStatusMap(

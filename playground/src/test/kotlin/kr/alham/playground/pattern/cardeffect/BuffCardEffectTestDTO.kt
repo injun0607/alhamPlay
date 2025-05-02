@@ -2,7 +2,7 @@ package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.BattleState
 import kr.alham.playground.domain.battle.MonsterBattleState
-import kr.alham.playground.domain.card.Card
+import kr.alham.playground.domain.card.CardDTO
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
@@ -11,14 +11,14 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 
-class BuffCardEffectTest{
+class BuffCardEffectTestDTO{
 
 
 
     private lateinit var buffCardEffect: BuffCardEffect
     private lateinit var battleState: BattleState
-    private lateinit var buffCardSelf: Card
-    private lateinit var buffCardMutual: Card
+    private lateinit var buffCardSelfDTO: CardDTO
+    private lateinit var buffCardMutualDTO: CardDTO
 
     @BeforeEach
     fun setUp() {
@@ -28,7 +28,7 @@ class BuffCardEffectTest{
             opponentTargetStatus = TargetElementStatusMap()
         )
 
-        buffCardSelf = Card(
+        buffCardSelfDTO = CardDTO(
             name = "집중",
             battlePhase = BattlePhase.ENGAGEMENT,
             description = "자신에게 민첩 +1",
@@ -38,7 +38,7 @@ class BuffCardEffectTest{
             effectSelfStat = TargetElementStatus.DEX,
         )
 
-        buffCardMutual = Card(
+        buffCardMutualDTO = CardDTO(
             name = "집중",
             battlePhase = BattlePhase.ENGAGEMENT,
             description = "자신에게 민첩 + 3 , 상대에게 민첩 + 1",
@@ -56,16 +56,15 @@ class BuffCardEffectTest{
 
     @Test
     fun `selfBuffCardTest`() {
-        buffCardEffect.applyEffect(buffCardSelf, battleState)
+        buffCardEffect.applyEffect(buffCardSelfDTO, battleState)
         assertEquals(battleState.selfTargetStatus.get(TargetElementStatus.DEX), 2.0)
     }
 
     @Test
     fun `mutualBuffCardTest`(){
-        buffCardEffect.applyEffect(buffCardMutual, battleState)
+        buffCardEffect.applyEffect(buffCardMutualDTO, battleState)
         assertEquals(battleState.selfTargetStatus.get(TargetElementStatus.DEX), 4.0)
         assertEquals(battleState.opponentTargetStatus.get(TargetElementStatus.DEX), 2.0)
-
     }
 
 

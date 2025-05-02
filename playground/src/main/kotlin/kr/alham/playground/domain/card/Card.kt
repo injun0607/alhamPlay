@@ -1,29 +1,85 @@
 package kr.alham.playground.domain.card
 
+import jakarta.persistence.*
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.enums.CardAttribute
 import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 
-class Card(
-    var id: Long? = null,
-    var uuid: String? = null,
-    var battlePhase: BattlePhase = BattlePhase.PREPARATION,
-    var name: String = "",
-    var description: String = "",
-    var cardTarget: CardTarget = CardTarget.SELF,
-    var cardType: CardType = CardType.ATTACK,
-    var cardAttribute: CardAttribute = CardAttribute.NONE,
-    var counterCardAttribute: CardAttribute = CardAttribute.NONE,
-    var cost: Int = 0,
-    var effectOpponentNum: Double = 0.0,
-    var effectOpponentStat: TargetElementStatus = TargetElementStatus.HP,
-    var effectOpponentTurn: Int = 0,
-    var effectSelfNum: Double = 0.0,
-    var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
-    var effectSelfTurn: Int = 0,
-) {
+interface Card{
+    var id: Long?
+    var uuid: String?
+    var battlePhase: BattlePhase
+    var name: String
+    var description: String
+    var cardTarget: CardTarget
+    var cardType: CardType
+    var cardAttribute: CardAttribute
+    var counterCardAttribute: CardAttribute
+    var cost: Int
+    var effectOpponentNum: Double
+    var effectOpponentStat: TargetElementStatus
+    var effectOpponentTurn: Int
+    var effectSelfNum: Double
+    var effectSelfStat: TargetElementStatus
+    var effectSelfTurn: Int
+}
 
+
+@Entity
+@Table(name = "al_player_card")
+class PlayerCard(
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "player_card_id")
+    override var id: Long? = null,
+    override var uuid: String? = null,
+    override var battlePhase: BattlePhase = BattlePhase.PREPARATION,
+    override var name: String = "",
+    override var description: String = "",
+    override var cardTarget: CardTarget = CardTarget.SELF,
+    override var cardType: CardType = CardType.ATTACK,
+    override var cardAttribute: CardAttribute = CardAttribute.NONE,
+    override var counterCardAttribute: CardAttribute = CardAttribute.NONE,
+    override var cost: Int = 0,
+    override var effectOpponentNum: Double = 0.0,
+    override var effectOpponentStat: TargetElementStatus = TargetElementStatus.HP,
+    override var effectOpponentTurn: Int = 0,
+    override var effectSelfNum: Double = 0.0,
+    override var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
+    override var effectSelfTurn: Int = 0,
+): Card {
+
+
+}
+
+
+@Entity
+@Table(name = "al_monster_card")
+class MonsterCard(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "monster_card_id")
+    override var id: Long? = null,
+    override var uuid: String? = null,
+    override var battlePhase: BattlePhase = BattlePhase.PREPARATION,
+    override var name: String = "",
+    override var description: String = "",
+    override var cardTarget: CardTarget = CardTarget.SELF,
+    override var cardType: CardType = CardType.ATTACK,
+    override var cardAttribute: CardAttribute = CardAttribute.NONE,
+    override var counterCardAttribute: CardAttribute = CardAttribute.NONE,
+    override var cost: Int = 0,
+    override var effectOpponentNum: Double = 0.0,
+    override var effectOpponentStat: TargetElementStatus = TargetElementStatus.HP,
+    override var effectOpponentTurn: Int = 0,
+    override var effectSelfNum: Double = 0.0,
+    override var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
+    override var effectSelfTurn: Int = 0,
+    var battleOrder: Int = 0,
+
+): Card{
 
 }

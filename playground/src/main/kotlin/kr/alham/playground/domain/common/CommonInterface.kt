@@ -56,10 +56,11 @@ class TargetElementStatusMap(
 
 
 class DurationStatus(
-    val durationStatus: TargetElementStatus,
-    val duration: Int,
-    val durationValue: Double,
+    val durationStatus: TargetElementStatus = TargetElementStatus.HP,
+    val duration: Int = 0,
+    val durationValue: Double = 0.0,
 )
+
 class TargetElementStatusEmptyMap(
     private val statusMap: MutableMap<TargetElementStatus, Double> = mutableMapOf()
 ){

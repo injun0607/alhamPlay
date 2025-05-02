@@ -1,74 +1,56 @@
 package kr.alham.playground.domain.battle
 
+import kr.alham.playground.domain.card.Card
 import kr.alham.playground.domain.common.TargetElement
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusEmptyMap
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
 
-interface BattleState{
-    var selfTargetStatus: TargetElementStatusMap
-    var opponentTargetStatus: TargetElementStatusMap
-    val preparationSelfStatus: TargetElementStatusEmptyMap
-    val engagementSelfStatus: TargetElementStatusEmptyMap
-    val finalizationSelfStatus: TargetElementStatusEmptyMap
-    val preparationOpponentStatus: TargetElementStatusEmptyMap
-    val engagementOpponentStatus: TargetElementStatusEmptyMap
-    val finalizationOpponentStatus: TargetElementStatusEmptyMap
-
-    fun getSelfTargetStatusValue(targetElementStatus: TargetElementStatus): Double
-    fun getOpponentTargetStatusValue(targetElementStatus: TargetElementStatus): Double
-
-
-    fun isExistPreparationSelfStatus(): Boolean
-    fun isExistEngagementSelfStatus(): Boolean
-    fun isExistFinalizationSelfStatus(): Boolean
-    fun isExistPreparationOpponentStatus(): Boolean
-    fun isExistEngagementOpponentStatus(): Boolean
-    fun isExistFinalizationOpponentStatus(): Boolean
-
+interface BattleState {
+    var preparationMonsterBattleStatus: PreparationMonsterBattleStatus
+    var engagementMonsterBattleStatus: EngagementMonsterBattleStatus
+    var finalizationMonsterBattleStatus: FinalizationBattleStatus
+    fun getStatus(card: Card)
 }
 
+
+
 class MonsterBattleState(
-    override var selfTargetStatus: TargetElementStatusMap,
-    override var opponentTargetStatus: TargetElementStatusMap,
-    override var preparationSelfStatus: TargetElementStatusEmptyMap = TargetElementStatusEmptyMap(),
-    override var engagementSelfStatus: TargetElementStatusEmptyMap = TargetElementStatusEmptyMap(),
-    override var finalizationSelfStatus: TargetElementStatusEmptyMap = TargetElementStatusEmptyMap(),
-    override var preparationOpponentStatus: TargetElementStatusEmptyMap = TargetElementStatusEmptyMap(),
-    override var engagementOpponentStatus: TargetElementStatusEmptyMap = TargetElementStatusEmptyMap(),
-    override var finalizationOpponentStatus: TargetElementStatusEmptyMap = TargetElementStatusEmptyMap(),
+    override var preparationMonsterBattleStatus: PreparationMonsterBattleStatus = PreparationMonsterBattleStatus(),
+    override var engagementMonsterBattleStatus: EngagementMonsterBattleStatus = EngagementMonsterBattleStatus(),
+    override var finalizationMonsterBattleStatus: FinalizationBattleStatus = FinalizationBattleStatus(),
 ) : BattleState {
 
-    override fun getSelfTargetStatusValue(targetElementStatus: TargetElementStatus): Double {
-        return selfTargetStatus.get(targetElementStatus)
+    override fun getStatus(card: Card) {
+
+    }
+    fun getPreparationPlayerStatus(): TargetElementStatusMap{
+        return preparationMonsterBattleStatus.playerStatus
     }
 
-    override fun getOpponentTargetStatusValue(targetElementStatus: TargetElementStatus): Double {
-        return opponentTargetStatus.get(targetElementStatus)
+    fun getPreparationMonsterStatus(): TargetElementStatusMap{
+        return preparationMonsterBattleStatus.monsterStatus
     }
 
-    override fun isExistPreparationSelfStatus(): Boolean {
-        return !preparationSelfStatus.isEmpty()
+
+    fun getEngagementPlayerStatus(): List<TargetElementStatusMap>{
+        return engagementMonsterBattleStatus.playerStatus
     }
 
-    override fun isExistEngagementSelfStatus(): Boolean {
-        return !engagementSelfStatus.isEmpty()
+    fun getEngagementMonsterStatus(): List<TargetElementStatusMap>{
+        return engagementMonsterBattleStatus.monsterStatus
     }
 
-    override fun isExistFinalizationSelfStatus(): Boolean {
-        return !finalizationSelfStatus.isEmpty()
+
+    fun getFinalizationPlayerStatus(): TargetElementStatusMap{
+        return finalizationMonsterBattleStatus.playerStatus
     }
 
-    override fun isExistPreparationOpponentStatus(): Boolean {
-        return !preparationOpponentStatus.isEmpty()
+    fun getFinalizationMonsterStatus(): TargetElementStatusMap{
+        return finalizationMonsterBattleStatus.monsterStatus
     }
 
-    override fun isExistEngagementOpponentStatus(): Boolean {
-        return !engagementOpponentStatus.isEmpty()
-    }
 
-    override fun isExistFinalizationOpponentStatus(): Boolean {
-        return !finalizationOpponentStatus.isEmpty()
-    }
+
 }

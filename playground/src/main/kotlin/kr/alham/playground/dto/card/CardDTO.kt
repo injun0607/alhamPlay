@@ -7,6 +7,7 @@ import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 
 class CardIdDTO(
+    var id: Long = 0L,
     var uuid: Long = 0L,
 ){}
 
@@ -27,3 +28,4 @@ class CardDTO(
     var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
     var effectSelfTurn: Int = 0,
 ){}
+
