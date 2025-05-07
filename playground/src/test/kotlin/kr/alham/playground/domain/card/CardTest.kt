@@ -3,11 +3,11 @@ package kr.alham.playground.domain.card
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class CardDTOTest{
+class CardTest{
 
     @Test
     fun `테스트1_effectSelfNum`(){
-        val cardDTO = CardDTO(
+        val cardDTO = PlayerCard(
             effectSelfNum = 8.0
         )
 

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: playground
+  profiles:
+    include: database

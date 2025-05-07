@@ -2,7 +2,7 @@ package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.BattleState
 import kr.alham.playground.domain.battle.MonsterBattleState
-import kr.alham.playground.domain.card.CardDTO
+import kr.alham.playground.domain.card.PlayerCard
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
@@ -16,19 +16,17 @@ class BuffCardEffectTestDTO{
 
 
     private lateinit var buffCardEffect: BuffCardEffect
-    private lateinit var battleState: BattleState
-    private lateinit var buffCardSelfDTO: CardDTO
-    private lateinit var buffCardMutualDTO: CardDTO
+    private lateinit var buffPlayerCard: PlayerCard
+    private lateinit var buffMutualCard: PlayerCard
+
+
 
     @BeforeEach
     fun setUp() {
         buffCardEffect = BuffCardEffect()
-        battleState = MonsterBattleState(
-            selfTargetStatus = TargetElementStatusMap(),
-            opponentTargetStatus = TargetElementStatusMap()
-        )
 
-        buffCardSelfDTO = CardDTO(
+
+        buffPlayerCard = PlayerCard(
             name = "집중",
             battlePhase = BattlePhase.ENGAGEMENT,
             description = "자신에게 민첩 +1",
@@ -38,7 +36,7 @@ class BuffCardEffectTestDTO{
             effectSelfStat = TargetElementStatus.DEX,
         )
 
-        buffCardMutualDTO = CardDTO(
+        buffMutualCard = PlayerCard(
             name = "집중",
             battlePhase = BattlePhase.ENGAGEMENT,
             description = "자신에게 민첩 + 3 , 상대에게 민첩 + 1",
@@ -56,15 +54,23 @@ class BuffCardEffectTestDTO{
 
     @Test
     fun `selfBuffCardTest`() {
-        buffCardEffect.applyEffect(buffCardSelfDTO, battleState)
-        assertEquals(battleState.selfTargetStatus.get(TargetElementStatus.DEX), 2.0)
+        val selfStatus = TargetElementStatusMap()
+        val opponentStatus = TargetElementStatusMap()
+
+
+        buffCardEffect.applyEffect(buffPlayerCard, selfStatus,opponentStatus)
+        assertEquals(selfStatus.get(TargetElementStatus.DEX), 2.0)
     }
 
     @Test
     fun `mutualBuffCardTest`(){
-        buffCardEffect.applyEffect(buffCardMutualDTO, battleState)
-        assertEquals(battleState.selfTargetStatus.get(TargetElementStatus.DEX), 4.0)
-        assertEquals(battleState.opponentTargetStatus.get(TargetElementStatus.DEX), 2.0)
+
+        val selfStatus = TargetElementStatusMap()
+        val opponentStatus = TargetElementStatusMap()
+
+        buffCardEffect.applyEffect(buffMutualCard, selfStatus, opponentStatus)
+        assertEquals(selfStatus.get(TargetElementStatus.DEX), 4.0)
+        assertEquals(opponentStatus.get(TargetElementStatus.DEX), 2.0)
     }
 
 

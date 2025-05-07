@@ -1,7 +1,8 @@
 package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.MonsterBattleState
-import kr.alham.playground.domain.card.CardDTO
+import kr.alham.playground.domain.card.Card
+import kr.alham.playground.domain.card.PlayerCard
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
@@ -27,7 +28,7 @@ class AttackCardEffectTestDTO{
         val attackCardEffect = AttackCardEffect()
 
         // Arrange
-        var cardDTOBash = CardDTO(
+        var cardDTOBash = PlayerCard(
             name = "강타",
             battlePhase = BattlePhase.ENGAGEMENT,
             description = "상대방에게 5의 피해를 줍니다.",
@@ -37,16 +38,14 @@ class AttackCardEffectTestDTO{
             effectOpponentStat = TargetElementStatus.HP,
         )
 
-        var battleState = MonsterBattleState(
-            selfTargetStatus = TargetElementStatusMap(),
-            opponentTargetStatus = TargetElementStatusMap()
-        )
+        val selfStatus = TargetElementStatusMap()
+        val opponentStatus = TargetElementStatusMap()
 
         // Act
-        attackCardEffect.applyEffect(cardDTOBash, battleState)
+        attackCardEffect.applyEffect(cardDTOBash, selfStatus, opponentStatus)
 
         // Assert
-        assertEquals(battleState.opponentTargetStatus.get(TargetElementStatus.HP), 5.0)
+        assertEquals(opponentStatus.get(TargetElementStatus.HP), 5.0)
     }
 
 //    @Test

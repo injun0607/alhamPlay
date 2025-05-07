@@ -1,34 +1,36 @@
 package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.BattleState
-import kr.alham.playground.dto.card.CardDTO
+import kr.alham.playground.domain.card.Card
+import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 
 interface CardEffectStrategy {
     fun supportedType(): CardType
-    fun applyEffect(cardDTO: CardDTO, battleState: BattleState): BattleState
+    fun applyEffect(card: Card, selfStatus: TargetElementStatusMap, opponentStatus: TargetElementStatusMap)
+
 
 }
 
 abstract class TargetBasedCardEffect: CardEffectStrategy {
-    override fun applyEffect(cardDTO: CardDTO, battleState: BattleState): BattleState {
-        when(cardDTO.cardTarget){
+    override fun applyEffect(card: Card, selfStatus:TargetElementStatusMap, opponentStatus: TargetElementStatusMap){
+
+        when(card.cardTarget){
             CardTarget.SELF -> {
-                applyEffectToSelf(cardDTO,battleState)
+                applyEffectToSelf(card,selfStatus)
             }
             CardTarget.OPPONENT -> {
-                applyEffectToOpponent(cardDTO,battleState)
+                applyEffectToOpponent(card,opponentStatus)
             }
             CardTarget.MUTUAL -> {
-                applyEffectToMutual(cardDTO,battleState)
+                applyEffectToMutual(card,selfStatus, opponentStatus)
             }
         }
-        return battleState
     }
 
-    protected open fun applyEffectToSelf(cardDTO: CardDTO, battleState: BattleState){}
-    protected open fun applyEffectToOpponent(cardDTO: CardDTO, battleState: BattleState){}
-    protected open fun applyEffectToMutual(cardDTO: CardDTO, battleState: BattleState){}
+    protected open fun applyEffectToSelf(card: Card, selfStatus: TargetElementStatusMap){}
+    protected open fun applyEffectToOpponent(card: Card, opponentStatus: TargetElementStatusMap){}
+    protected open fun applyEffectToMutual(card: Card, selfStatus: TargetElementStatusMap, opponentStatus: TargetElementStatusMap){}
 
 }

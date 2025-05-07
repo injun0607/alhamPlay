@@ -11,7 +11,14 @@ interface BattleState {
     var preparationMonsterBattleStatus: PreparationMonsterBattleStatus
     var engagementMonsterBattleStatus: EngagementMonsterBattleStatus
     var finalizationMonsterBattleStatus: FinalizationBattleStatus
-    fun getStatus(card: Card)
+    fun getSelfStatus(battlePhase: BattlePhase): TargetElementStatusMap
+    fun getOpponentStatus(battlePhase: BattlePhase): TargetElementStatusMap
+    fun getPreparationSelfStatus(): TargetElementStatusMap
+    fun getPreparationOpponentStatus(): TargetElementStatusMap
+    fun getEngagementSelfStatus(): TargetElementStatusMap
+    fun getEngagementOpponentStatus(): TargetElementStatusMap
+    fun getFinalizationSelfStatus(): TargetElementStatusMap
+    fun getFinalizationOpponentStatus(): TargetElementStatusMap
 }
 
 
@@ -22,35 +29,43 @@ class MonsterBattleState(
     override var finalizationMonsterBattleStatus: FinalizationBattleStatus = FinalizationBattleStatus(),
 ) : BattleState {
 
-    override fun getStatus(card: Card) {
-
+    override fun getSelfStatus(battlePhase: BattlePhase): TargetElementStatusMap {
+        return when(battlePhase) {
+            BattlePhase.PREPARATION -> preparationMonsterBattleStatus.playerStatus
+            BattlePhase.ENGAGEMENT -> engagementMonsterBattleStatus.playerStatus
+            BattlePhase.FINALIZATION -> finalizationMonsterBattleStatus.playerStatus
+        }
     }
-    fun getPreparationPlayerStatus(): TargetElementStatusMap{
+
+    override fun getOpponentStatus(battlePhase: BattlePhase): TargetElementStatusMap {
+        return when(battlePhase){
+            BattlePhase.PREPARATION -> preparationMonsterBattleStatus.monsterStatus
+            BattlePhase.ENGAGEMENT -> engagementMonsterBattleStatus.monsterStatus
+            BattlePhase.FINALIZATION -> finalizationMonsterBattleStatus.monsterStatus
+        }
+    }
+
+    override fun getPreparationSelfStatus(): TargetElementStatusMap {
         return preparationMonsterBattleStatus.playerStatus
     }
 
-    fun getPreparationMonsterStatus(): TargetElementStatusMap{
+    override fun getPreparationOpponentStatus(): TargetElementStatusMap {
         return preparationMonsterBattleStatus.monsterStatus
     }
 
-
-    fun getEngagementPlayerStatus(): List<TargetElementStatusMap>{
+    override fun getEngagementSelfStatus(): TargetElementStatusMap {
         return engagementMonsterBattleStatus.playerStatus
     }
 
-    fun getEngagementMonsterStatus(): List<TargetElementStatusMap>{
+    override fun getEngagementOpponentStatus(): TargetElementStatusMap {
         return engagementMonsterBattleStatus.monsterStatus
     }
 
-
-    fun getFinalizationPlayerStatus(): TargetElementStatusMap{
+    override fun getFinalizationSelfStatus(): TargetElementStatusMap {
         return finalizationMonsterBattleStatus.playerStatus
     }
 
-    fun getFinalizationMonsterStatus(): TargetElementStatusMap{
+    override fun getFinalizationOpponentStatus(): TargetElementStatusMap {
         return finalizationMonsterBattleStatus.monsterStatus
     }
-
-
-
 }
