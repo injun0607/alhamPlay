@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class BuffCardEffect : TargetBasedCardEffect(){
-    override fun supportedType(): CardType = CardType.BUFF
 
     override fun applyEffectToSelf(card: Card, selfStatus: TargetElementStatusMap) {
         val effectedStat = card.effectSelfStat

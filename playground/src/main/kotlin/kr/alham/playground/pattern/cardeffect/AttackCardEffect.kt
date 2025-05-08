@@ -1,33 +1,72 @@
 package kr.alham.playground.pattern.cardeffect
 
-import kr.alham.playground.domain.battle.BattleState
-import kr.alham.playground.domain.card.Card
-import kr.alham.playground.domain.common.TargetElementStatusMap
+import kr.alham.playground.domain.battle.BattleStatus
 import kr.alham.playground.domain.enums.CardType
 import org.springframework.stereotype.Component
 
 /**
- * 공격 카드 효과
+ * 공격 vs 공격 카드 효과
  * 1.
  * 2.
  * 3.
  */
 @Component
-class AttackCardEffect() :TargetBasedCardEffect(){
-    override fun supportedType(): CardType = CardType.ATTACK
-    override fun applyEffectToSelf(card: Card, selfStatus: TargetElementStatusMap) {
-        println("applyEffectToSelf")
-    }
+class AttackToAttackCardEffect() :TargetBasedCardEffect(){
+    override fun supportedType(): Pair<CardType,CardType> = Pair(CardType.ATTACK, CardType.ATTACK)
+    override fun selfToSelf(targetOne: BattleStatus, targetTwo: BattleStatus){
+        val cardOne = targetOne.card
+        val cardTwo = targetTwo.card
 
-    override fun applyEffectToOpponent(card: Card, opponentStatus: TargetElementStatusMap) {
-        val effectedStat = card.effectOpponentStat
-        val damage = card.effectOpponentNum
+        val targetOneStatus = targetOne.status
+        val targetTwoStatus = targetTwo.status
 
-        val afterEffectStat = opponentStatus.get(effectedStat) - damage
-        opponentStatus.set(effectedStat, afterEffectStat)
-    }
+        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneStatus = cardOne.effectSelfStat
 
-    override fun applyEffectToMutual(card: Card, selfStatus: TargetElementStatusMap, opponentStatus: TargetElementStatusMap) {
-        println("applyEffectToMutual")
+        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoStatus = cardTwo.effectSelfStat
+
+        val cardOneDamage = calculateDamage(targetOne)
+        val cardTwoDamage = calculateDamage(targetTwo)
+
+        val targetOneAfterEffectStat = targetOneStatus.get(cardOneStatus) - cardOneDamage
+        val targetTwoAfterEffectStat = targetTwoStatus.get(cardTwoStatus) - cardTwoDamage
+
+        targetOneStatus.set(cardOneStatus,targetOneAfterEffectStat)
+        targetTwoStatus.set(cardTwoStatus,targetTwoAfterEffectStat)
     }
+    override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
 }
+
+
+@Component
+class AttackToDefenceCardEffect() :TargetBasedCardEffect() {
+    override fun supportedType(): Pair<CardType, CardType> = Pair(CardType.ATTACK, CardType.DEFENCE)
+    override fun selfToSelf(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+
+
+}
+
+@Component
+class AttackToEvasionCardEffect() :TargetBasedCardEffect() {
+    override fun supportedType(): Pair<CardType, CardType> = Pair(CardType.ATTACK, CardType.EVASION)
+    override fun selfToSelf(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+
+}
+
+
+

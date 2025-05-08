@@ -8,10 +8,14 @@ class CardEffectFactory(
     private val strategies: List<TargetBasedCardEffect>,
 ) {
 
-    private val strategyMap: Map<CardType, CardEffectStrategy> = strategies.associateBy { it.supportedType() }
+    private val defaultStrategy: CardEffectStrategy = DefaultCardEffect()
 
-    fun get(cardType: CardType): CardEffectStrategy {
-        return strategyMap[cardType] ?: throw IllegalArgumentException("No strategy found for card type: $cardType")
+    private val strategyMap: Map<Pair<CardType,CardType>, CardEffectStrategy> = strategies
+        .filter{it.supportedType() != null}
+        .associateBy { it.supportedType()!!}
+
+    fun get(key: Pair<CardType,CardType>): CardEffectStrategy {
+        return strategyMap[key] ?: defaultStrategy
     }
 
 }

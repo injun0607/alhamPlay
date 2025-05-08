@@ -6,6 +6,17 @@ import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.card.Card
 
 
+class BattleStatus(
+    val card: Card,
+    val status: TargetElementStatusMap,
+
+    val damage: Double,
+    val shield: Double,
+){}
+
+
+
+
 class PreparationMonsterBattleStatus(
     val battlePhase: BattlePhase = BattlePhase.PREPARATION,
     val playerStatus: TargetElementStatusMap = TargetElementStatusMap(),

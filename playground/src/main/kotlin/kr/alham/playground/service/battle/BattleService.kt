@@ -1,9 +1,13 @@
 package kr.alham.playground.service.battle
 
 import kr.alham.playground.domain.battle.BattleState
+import kr.alham.playground.domain.battle.BattleStatus
 import kr.alham.playground.domain.battle.MonsterBattleState
 import kr.alham.playground.domain.battle.PreparationMonsterBattleStatus
+import kr.alham.playground.domain.card.Card
+import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
+import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.player.PlayerCardInfo
 import kr.alham.playground.dto.battle.MonsterBattleDTO
 import kr.alham.playground.pattern.cardeffect.CardEffectFactory
@@ -171,13 +175,100 @@ class BattleService(
      * 몬스터와 BattleEngagement 단계
      */
     private fun monsterBattleEngagement(battleState: BattleState): BattleState{
-        val playerStatue = battleState.getEngagementSelfStatus()
+        val playerStatus = battleState.getEngagementSelfStatus()
+        val monsterStatus = battleState.getEngagementOpponentStatus()
+
+        val playerCardList = battleState.engagementMonsterBattleStatus.playerCardList
+        val monsterCardList = battleState.engagementMonsterBattleStatus.monsterCardList
+
+        //순서대로 진행(카드개수가 안맞는 경우가 생길수있음)
+        val maxCardCnt = Math.max(playerCardList.size, monsterCardList.size)
+        for(i in 0 until maxCardCnt){
+
+            TODO("resolveInteraction")
+
+            if(i < playerCardList.size){
+                cardEffectFactory.get(playerCardList[i].cardType).applyEffect(playerCardList[i], playerStatus, monsterStatus)
+            }
+            if(i < monsterCardList.size){
+                cardEffectFactory.get(monsterCardList[i].cardType).applyEffect(monsterCardList[i], monsterStatus, playerStatus)
+            }
+            //HP 가 0이하인 경우 처리필요
+
+        }
 
 
 
 
         TODO("Not yet implemented")
     }
+
+
+    private fun applyDamage(playerBattleStatus: BattleStatus, monsterBattleStatus: BattleStatus){
+        val playerCard = playerBattleStatus.card
+        val monsterCard = monsterBattleStatus.card
+
+        val playerStatus = playerBattleStatus.status
+        val monsterStatus = monsterBattleStatus.status
+
+
+        //해당 케이스 이외에는 그냥 효과적용
+        if(playerCard.cardType == CardType.ATTACK && monsterCard.cardType == CardType.DEFENCE){
+            attackToDefence(playerBattleStatus, monsterBattleStatus)
+        }else if(playerCard.cardType == CardType.ATTACK && monsterCard.cardType == CardType.EVASION) {
+            //유저 공격 && 몬스터 회피
+        }else if(playerCard.cardType == CardType.ATTACK && monsterCard.cardType == CardType.ATTACK) {
+            //유저 공격 && 몬스터 공격
+        }else if(monsterCard.cardType == CardType.ATTACK && playerCard.cardType == CardType.DEFENCE) {
+            //몬스터 공격 && 유저 방어
+        }else if(monsterCard.cardType == CardType.ATTACK && playerCard.cardType == CardType.EVASION) {
+            //몬스터 공격 && 유저 회피
+        }
+
+        //
+
+    }
+
+    private fun interactionResolve(battleStatusOne: BattleStatus,battleStatusTwo: BattleStatus){
+        applyDamage(battleStatusOne, battleStatusTwo)
+    }
+
+    private fun selfToSelf(battleStatusOne: BattleStatus, battleStatusTwo: BattleStatus){
+        val cardOne = battleStatusOne.card
+        val cardTwo = battleStatusTwo.card
+
+        val statusOne = battleStatusOne.status
+        val statusTwo = battleStatusTwo.status
+
+        val effectedStatusOneNum = statusOne.get(cardOne.effectSelfStat) + cardOne.effectSelfNum
+        val effectedStatusTwoNum = statusTwo.get(cardTwo.effectSelfStat) + cardTwo.effectSelfNum
+
+        statusOne.set(cardOne.effectSelfStat, effectedStatusOneNum)
+        statusTwo.set(cardTwo.effectSelfStat, effectedStatusTwoNum)
+
+    }
+
+
+    //공격 방어 조합
+    private fun attackToDefence(attackerBattleStatus: BattleStatus, defencerBattleStatus: BattleStatus){
+        val attackerCard = attackerBattleStatus.card
+        val defencerCard = defencerBattleStatus.card
+
+        val attackerStatus = attackerBattleStatus.status
+        val defencerStatus = defencerBattleStatus.status
+
+        val damage = if(attackerCard.effectOpponentNum > defencerCard.effectSelfNum) {
+            attackerCard.effectOpponentNum - defencerCard.effectSelfNum
+        }else{
+            0.0
+        }
+
+        val effectedHp = defencerStatus.get(defencerCard.effectSelfStat) - damage
+
+        defencerStatus.set(attackerCard.effectOpponentStat, damage)
+    }
+
+
 
     /**
      * 몬스터와 BattleFinalization 단계
