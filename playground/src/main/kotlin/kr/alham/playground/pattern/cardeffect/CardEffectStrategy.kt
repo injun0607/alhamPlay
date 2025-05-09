@@ -55,8 +55,5 @@ abstract class TargetBasedCardEffect: CardEffectStrategy {
     protected open fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
     protected open fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
 
-    protected open fun calculateDamage(battleStatus: BattleStatus): Double{
-        return 0.0
-    }
 
 }

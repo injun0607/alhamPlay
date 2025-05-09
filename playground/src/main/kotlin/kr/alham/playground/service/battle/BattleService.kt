@@ -160,13 +160,13 @@ class BattleService(
         val monsterCardList = battleState.preparationMonsterBattleStatus.monsterCardList
 
         //플레이어 먼저 -> 몬스터 순서
-        playerCardList.forEach{ card ->
-            cardEffectFactory.get(card.cardType).applyEffect(card,playerStatus, monsterStatus)
-        }
-
-        monsterCardList.forEach { card ->
-            cardEffectFactory.get(card.cardType).applyEffect(card, monsterStatus, playerStatus)
-        }
+//        playerCardList.forEach{ card ->
+//            cardEffectFactory.get(card.cardType).applyEffect(card,playerStatus, monsterStatus)
+//        }
+//
+//        monsterCardList.forEach { card ->
+//            cardEffectFactory.get(card.cardType).applyEffect(card, monsterStatus, playerStatus)
+//        }
 
         return battleState
     }
@@ -187,12 +187,12 @@ class BattleService(
 
             TODO("resolveInteraction")
 
-            if(i < playerCardList.size){
-                cardEffectFactory.get(playerCardList[i].cardType).applyEffect(playerCardList[i], playerStatus, monsterStatus)
-            }
-            if(i < monsterCardList.size){
-                cardEffectFactory.get(monsterCardList[i].cardType).applyEffect(monsterCardList[i], monsterStatus, playerStatus)
-            }
+//            if(i < playerCardList.size){
+//                cardEffectFactory.get(playerCardList[i].cardType).applyEffect(playerCardList[i], playerStatus, monsterStatus)
+//            }
+//            if(i < monsterCardList.size){
+//                cardEffectFactory.get(monsterCardList[i].cardType).applyEffect(monsterCardList[i], monsterStatus, playerStatus)
+//            }
             //HP 가 0이하인 경우 처리필요
 
         }

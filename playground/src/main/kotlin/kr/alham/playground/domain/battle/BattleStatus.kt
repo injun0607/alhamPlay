@@ -10,8 +10,6 @@ class BattleStatus(
     val card: Card,
     val status: TargetElementStatusMap,
 
-    val damage: Double,
-    val shield: Double,
 ){}
 
 
