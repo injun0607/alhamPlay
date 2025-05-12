@@ -21,7 +21,7 @@ enum class TargetElementStatus(
     HP(10.0),
     MP(10.0),
     ATK(10.0),
-    DEF(10.0),
+    DEF(0.0),
     STR(1.0),
     DEX(1.0),
     INT(1.0),
