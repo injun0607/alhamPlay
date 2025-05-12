@@ -29,7 +29,7 @@ interface Card{
     /**
      * 카드의 속성에 따라 대미지를 계산하는 메소드
      */
-    fun calculateDamage(targetElementStatusMap: TargetElementStatusMap,damage: Double): Double
+    fun calculateValue(targetElementStatusMap: TargetElementStatusMap, damage: Double): Double
 }
 
 
@@ -58,7 +58,7 @@ class PlayerCard(
     override var effectSelfTurn: Int = 0,
 ): Card {
 
-    override fun calculateDamage(targetElementStatusMap: TargetElementStatusMap,damage: Double):Double {
+    override fun calculateValue(targetElementStatusMap: TargetElementStatusMap, damage: Double):Double {
         var resultDamage = damage
         this.cardAttribute.getAffectedStatus().entries.forEach{
             resultDamage += targetElementStatusMap.get(it.key) * it.value
@@ -66,6 +66,7 @@ class PlayerCard(
 
         return resultDamage
     }
+
 
 }
 
@@ -95,7 +96,7 @@ class MonsterCard(
     var battleOrder: Int = 0,
 
 ): Card{
-    override fun calculateDamage(targetElementStatusMap: TargetElementStatusMap,damage: Double):Double {
+    override fun calculateValue(targetElementStatusMap: TargetElementStatusMap, damage: Double):Double {
         var resultDamage = damage
         this.cardAttribute.getAffectedStatus().entries.forEach{
             resultDamage += targetElementStatusMap.get(it.key) * it.value
@@ -103,5 +104,6 @@ class MonsterCard(
 
         return resultDamage
     }
+
 
 }
