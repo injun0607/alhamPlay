@@ -70,5 +70,17 @@ abstract class TargetBasedCardEffect: CardEffectStrategy {
 
     }
 
+    protected open fun distinctTarget(cardType: CardType,targetOne: BattleStatus, targetTwo: BattleStatus): BattleStatus {
+        if(targetOne.card.cardType == cardType) {
+            return targetOne
+        }else{
+            return targetTwo
+        }
+    }
+
+    protected open fun checkTarget(cardType: CardType, target: BattleStatus): Boolean {
+        return target.card.cardType == cardType
+    }
+
 
 }

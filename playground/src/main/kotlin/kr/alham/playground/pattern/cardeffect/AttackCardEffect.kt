@@ -400,29 +400,42 @@ class AttackToDefenceCardEffect() :TargetBasedCardEffect() {
 
     }
 
-    private fun distinctTarget(cardType: CardType,targetOne: BattleStatus, targetTwo: BattleStatus): BattleStatus {
-        if(targetOne.card.cardType == cardType) {
-            return targetOne
-        }else{
-            return targetTwo
-        }
-    }
-
-    private fun checkTarget(cardType: CardType, target: BattleStatus): Boolean {
-        return target.card.cardType == cardType
-    }
-
 }
 
 @Component
 class AttackToEvasionCardEffect() :TargetBasedCardEffect() {
     override fun supportedType(): Pair<CardType, CardType> = Pair(CardType.ATTACK, CardType.EVASION)
-    override fun selfToSelf(targetOne: BattleStatus, targetTwo: BattleStatus){}
-    override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
-    override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
-    override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
-    override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
-    override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+    override fun selfToSelf(targetOne: BattleStatus, targetTwo: BattleStatus){
+        val attacker = distinctTarget(CardType.ATTACK,targetOne,targetTwo)
+
+        val attackCard = attacker.card
+
+        val attackStatus = attacker.status
+
+        val attackNum = attackCard.effectSelfNum
+        val attackStatusType = attackCard.effectSelfStat
+
+        val attackCardDamage = attackCard.calculateValue(attackStatus,attackNum)
+        val attackCardEffectStat = attackStatus.get(attackStatusType) - attackCardDamage
+
+        attackStatus.set(attackStatusType,attackCardEffectStat)
+
+    }
+    override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
+
+    }
+    override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
+
+    }
+    override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
+
+    }
+    override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
+
+    }
+    override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
+
+    }
 
 }
 
