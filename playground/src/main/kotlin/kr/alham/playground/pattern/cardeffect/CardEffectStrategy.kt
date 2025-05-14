@@ -1,6 +1,8 @@
 package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.BattleStatus
+import kr.alham.playground.domain.common.TargetElementStatus
+import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 
@@ -54,6 +56,19 @@ abstract class TargetBasedCardEffect: CardEffectStrategy {
     protected open fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
     protected open fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){}
     protected open fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){}
+
+    protected open fun calculateDamage(attackNum: Double, defenceNum: Double, defenderStatus: TargetElementStatusMap): Double {
+        var damage = attackNum
+        val calculateDefenceNum = defenceNum + defenderStatus.get(TargetElementStatus.DEF)
+
+        if(damage > calculateDefenceNum){
+            damage = attackNum - calculateDefenceNum
+        }else{
+            damage = 0.0
+        }
+        return damage
+
+    }
 
 
 }

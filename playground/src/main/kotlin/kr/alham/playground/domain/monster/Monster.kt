@@ -15,7 +15,7 @@ class Monster(
     override val hp: Double = 10.0,
     override val mp: Double = 10.0,
     override val atk: Double = 10.0,
-    override val def: Double = 10.0,
+    override val def: Double = 0.0,
     override val str: Double = 1.0,
     override val dex: Double = 1.0,
     override val int: Double = 1.0,

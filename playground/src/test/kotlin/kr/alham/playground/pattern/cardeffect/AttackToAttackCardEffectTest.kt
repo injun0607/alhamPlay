@@ -16,13 +16,20 @@ import org.junit.jupiter.api.Test
 class AttackToAttackCardEffectTest{
 
 
-    lateinit var cardEffect: AttackToAttackCardEffect
+    lateinit var attackToAttackCardEffect: AttackToAttackCardEffect
+    lateinit var attackToDefenceCardEffect: AttackToDefenceCardEffect
     lateinit var playerCardBashSelf: PlayerCard
     lateinit var playerCardBashOpponent: PlayerCard
     lateinit var monsterCardCutSelf: MonsterCard
     lateinit var monsterCardCutOpponent: MonsterCard
     lateinit var monsterCardCutMutual: MonsterCard
     lateinit var playerCardBashMutual: PlayerCard
+    lateinit var playerCardSelfShield: PlayerCard
+    lateinit var playerCardOpponentShield: PlayerCard
+    lateinit var playerCardMutualShield: PlayerCard
+    lateinit var monsterCardSelfShield: MonsterCard
+    lateinit var monsterCardOpponentShield: MonsterCard
+    lateinit var monsterCardMutualShield: MonsterCard
 
 
 
@@ -33,7 +40,8 @@ class AttackToAttackCardEffectTest{
 
     @BeforeEach
     fun setUp(){
-        cardEffect = AttackToAttackCardEffect()
+        attackToAttackCardEffect = AttackToAttackCardEffect()
+        attackToDefenceCardEffect = AttackToDefenceCardEffect()
         monsterCardCutSelf = MonsterCard(
             id=1L,
             name = "베기",
@@ -107,6 +115,77 @@ class AttackToAttackCardEffectTest{
             effectOpponentStat = TargetElementStatus.HP,
         )
 
+        playerCardSelfShield = PlayerCard(
+            id = 7L,
+            name = "방어",
+            battlePhase = BattlePhase.ENGAGEMENT,
+            description = "자신에게 4의 방어력을 줍니다",
+            cardTarget = CardTarget.SELF,
+            cardType = CardType.DEFENCE,
+            effectSelfNum = 4.0,
+            effectSelfStat = TargetElementStatus.HP,
+        )
+
+        playerCardOpponentShield = PlayerCard(
+            id = 8L,
+            name="상대방어",
+            battlePhase = BattlePhase.ENGAGEMENT,
+            description = "상대에게 3의 방어력을 줍니다",
+            cardTarget = CardTarget.OPPONENT,
+            cardType = CardType.DEFENCE,
+            effectOpponentNum = 3.0,
+            effectOpponentStat = TargetElementStatus.HP,
+        )
+
+        playerCardMutualShield = PlayerCard(
+            id = 9L,
+            name="상호작용 방어",
+            battlePhase = BattlePhase.ENGAGEMENT,
+            description = "나에게 방어5, 상대에게 방어5를 줍니다",
+            cardTarget = CardTarget.MUTUAL,
+            cardType = CardType.DEFENCE,
+            effectSelfNum = 5.0,
+            effectSelfStat = TargetElementStatus.HP,
+            effectOpponentNum = 5.0,
+            effectOpponentStat = TargetElementStatus.HP,
+        )
+
+        monsterCardSelfShield = MonsterCard(
+            id = 10L,
+            name = "몬스터 방어",
+            battlePhase = BattlePhase.ENGAGEMENT,
+            description = "자신에게 5의 방어력을 줍니다",
+            cardTarget = CardTarget.SELF,
+            cardType = CardType.DEFENCE,
+            effectSelfNum = 5.0,
+            effectSelfStat = TargetElementStatus.HP,
+        )
+
+        monsterCardOpponentShield = MonsterCard(
+            id = 11L,
+            name = "몬스터 상대방어",
+            battlePhase = BattlePhase.ENGAGEMENT,
+            description = "상대에게 4의 방어력을 줍니다",
+            cardTarget = CardTarget.OPPONENT,
+            cardType = CardType.DEFENCE,
+            effectOpponentNum = 4.0,
+            effectOpponentStat = TargetElementStatus.HP,
+        )
+
+        monsterCardOpponentShield = MonsterCard(
+            id = 12L,
+            name = "몬스터 상호작용 방어",
+            battlePhase = BattlePhase.ENGAGEMENT,
+            description = "나에게 방어3, 상대에게 방어3를 줍니다",
+            cardTarget = CardTarget.MUTUAL,
+            cardType = CardType.DEFENCE,
+            effectSelfNum = 3.0,
+            effectSelfStat = TargetElementStatus.HP,
+            effectOpponentNum = 3.0,
+            effectOpponentStat = TargetElementStatus.HP,
+        )
+
+
 
         player = Player()
         monster = Monster()
@@ -119,7 +198,7 @@ class AttackToAttackCardEffectTest{
         val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus())
         val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus())
 
-        cardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
+        attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(4.0,monsterBattleStatus.status.get(TargetElementStatus.HP))
         assertEquals(5.0,playerBattleStatus.status.get(TargetElementStatus.HP))
@@ -132,7 +211,7 @@ class AttackToAttackCardEffectTest{
         val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus())
         val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus())
 
-        cardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
+        attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(1.0,playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 1")
         assertEquals(10.0,monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터체력10")
@@ -145,7 +224,7 @@ class AttackToAttackCardEffectTest{
         val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus())
         val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus())
 
-        cardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
+        attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(2.0,playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 2")
         assertEquals(9.0,monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터체력9")
@@ -158,7 +237,7 @@ class AttackToAttackCardEffectTest{
         val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus())
         val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus())
 
-        cardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
+        attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(7.0,playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 7")
         assertEquals(1.0,monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터체력1")
@@ -171,7 +250,7 @@ class AttackToAttackCardEffectTest{
         val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus())
         val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus())
 
-        cardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
+        attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(6.0,playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 6")
         assertEquals(2.0,monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터체력2")
@@ -185,13 +264,14 @@ class AttackToAttackCardEffectTest{
         val playerBattleStatus = BattleStatus(playerCardBashMutual, player.getStatus())
         val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus())
 
-        cardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
+        attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(5.0,playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 5")
         assertEquals(2.0,monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터체력2")
 
-    }
 
+
+    }
 
 
 }
