@@ -9,6 +9,10 @@ import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.monster.Monster
 import kr.alham.playground.domain.player.Player
+import kr.alham.playground.pattern.calculator.CardValueCalculator
+import kr.alham.playground.pattern.calculator.DamageCalculator
+import kr.alham.playground.pattern.calculator.DamageCalculatorDefault
+import kr.alham.playground.pattern.calculator.DefaultCardValueCalculator
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -17,7 +21,8 @@ class AttackToAttackCardEffectTest{
 
 
     lateinit var attackToAttackCardEffect: AttackToAttackCardEffect
-    lateinit var attackToDefenceCardEffect: AttackToDefenceCardEffect
+    lateinit var damageCalculator: DamageCalculator
+    lateinit var cardValueCalculator: CardValueCalculator
     lateinit var playerCardBashSelf: PlayerCard
     lateinit var playerCardBashOpponent: PlayerCard
     lateinit var monsterCardCutSelf: MonsterCard
@@ -40,8 +45,9 @@ class AttackToAttackCardEffectTest{
 
     @BeforeEach
     fun setUp(){
-        attackToAttackCardEffect = AttackToAttackCardEffect()
-        attackToDefenceCardEffect = AttackToDefenceCardEffect()
+        cardValueCalculator = DefaultCardValueCalculator()
+        damageCalculator = DamageCalculatorDefault()
+        attackToAttackCardEffect = AttackToAttackCardEffect(cardValueCalculator,damageCalculator)
         monsterCardCutSelf = MonsterCard(
             id=1L,
             name = "베기",

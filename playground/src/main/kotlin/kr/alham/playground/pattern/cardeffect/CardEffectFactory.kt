@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component
 @Component
 class CardEffectFactory(
     private val strategies: List<TargetBasedCardEffect>,
+    private val defaultCardEffect: DefaultCardEffect
 ) {
 
-    private val defaultStrategy: CardEffectStrategy = DefaultCardEffect()
+    private val defaultStrategy = defaultCardEffect
 
     private val strategyMap: Map<Pair<CardType,CardType>, CardEffectStrategy> = strategies
         .filter{it.supportedType() != null}

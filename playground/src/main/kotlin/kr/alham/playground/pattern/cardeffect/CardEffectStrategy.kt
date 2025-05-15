@@ -5,6 +5,7 @@ import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
+import kr.alham.playground.pattern.calculator.CardValueCalculator
 
 interface CardEffectStrategy {
     fun supportedType(): Pair<CardType,CardType>?
@@ -12,7 +13,9 @@ interface CardEffectStrategy {
 
 }
 
-abstract class TargetBasedCardEffect: CardEffectStrategy {
+abstract class TargetBasedCardEffect(
+    protected val cardValueCalculator: CardValueCalculator
+): CardEffectStrategy {
     override fun supportedType(): Pair<CardType, CardType>? = null
 
     override fun applyEffect(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -68,6 +71,23 @@ abstract class TargetBasedCardEffect: CardEffectStrategy {
         }
         return damage
 
+    }
+
+    protected open fun calculateEvasionRate(attackNum: Double, evasionNum: Double): Double {
+
+        var damage = attackNum
+        val evasionRate = Math.random()
+        //회피판단
+        if(evasionRate < evasionNum) {
+            println("회피 성공")
+            damage = 0.0
+        }else{
+            println("회피 실패")
+        }
+
+        println("회피확률 : $evasionNum, 수치 : $evasionRate")
+
+        return damage
     }
 
     protected open fun distinctTarget(cardType: CardType,targetOne: BattleStatus, targetTwo: BattleStatus): BattleStatus {
