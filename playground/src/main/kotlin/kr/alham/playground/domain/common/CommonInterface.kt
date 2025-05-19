@@ -1,7 +1,5 @@
 package kr.alham.playground.domain.common
 
-import kr.alham.playground.domain.enums.CardType
-
 interface TargetElement{
     val name: String
     val hp: Double
@@ -17,15 +15,17 @@ interface TargetElement{
 }
 enum class TargetElementStatus(
     val defaultValue: Double,
+    val maxValue: Double,
+    val minValue: Double,
 ) {
-    HP(10.0),
-    MP(10.0),
-    ATK(10.0),
-    DEF(0.0),
-    STR(1.0),
-    DEX(1.0),
-    INT(1.0),
-    LCK(1.0)
+    HP(10.0, 1000.0,0.0),
+    MP(10.0, 1000.0,0.0),
+    ATK(10.0,1000.0,0.0),
+    DEF(0.0,1000.0,0.0),
+    STR(1.0,1000.0,0.0),
+    DEX(1.0,1000.0,0.0),
+    INT(1.0,1000.0,0.0),
+    LCK(1.0,1000.0,0.0)
 }
 
 class TargetElementStatusMap(
@@ -41,11 +41,27 @@ class TargetElementStatusMap(
     }
 
     fun set(status: TargetElementStatus, value: Double) {
-        statusMap[status] = value
+        statusMap[status] = if(value < status.minValue){
+            status.minValue
+        }else{
+            value
+        }
     }
 
     fun add(status: TargetElementStatus, value: Double) {
-        statusMap[status] = get(status) + value
+        statusMap[status] = if(get(status) + value > status.maxValue){
+            status.maxValue
+        }else{
+            get(status) + value
+        }
+    }
+
+    fun addMaxValueCheck(status: TargetElementStatus, value: Double , maxValue: Double) {
+        statusMap[status] = if(get(status) + value > maxValue){
+            maxValue
+        }else{
+            get(status) + value
+        }
     }
 
     fun clone(): TargetElementStatusMap {

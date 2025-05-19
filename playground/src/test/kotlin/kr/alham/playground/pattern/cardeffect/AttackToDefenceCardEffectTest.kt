@@ -197,16 +197,16 @@ class AttackToDefenceCardEffectTest{
 
     @Test
     fun `attackToDefence - SelfToSelf - 한명 자기공격, 한명 자기방어`(){
-        val playerBattleStatus = BattleStatus(playerCardSelfShield, player.getStatus()) //방어력 4
-        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus()) //자신에게 6의 피해
+        val playerBattleStatus = BattleStatus(playerCardSelfShield, player.getStatus(),player) //방어력 4
+        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus(),monster) //자신에게 6의 피해
 
         attackToDefenceCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(10.0,playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(4.0,monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 4")
 
-        val playerBattleStatus2 = BattleStatus(playerCardBashSelf, player.getStatus()) //자신에게 5의피해
-        val monsterBattleStatus2 = BattleStatus(monsterCardSelfShield, monster.getStatus()) //방어 5
+        val playerBattleStatus2 = BattleStatus(playerCardBashSelf, player.getStatus(),player) //자신에게 5의피해
+        val monsterBattleStatus2 = BattleStatus(monsterCardSelfShield, monster.getStatus(),monster) //방어 5
 
         attackToDefenceCardEffect.applyEffect(playerBattleStatus2, monsterBattleStatus2)
 
@@ -217,16 +217,16 @@ class AttackToDefenceCardEffectTest{
 
     @Test
     fun `attackToDefence - selfToOpponent - 한명 방어, 한명 공격`(){
-        val playerShieldBattleStatus = BattleStatus(playerCardSelfShield, player.getStatus()) //방어력 4
-        val mosnterAttackBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의 피해
+        val playerShieldBattleStatus = BattleStatus(playerCardSelfShield, player.getStatus(),player) //방어력 4
+        val mosnterAttackBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의 피해
 
         attackToDefenceCardEffect.applyEffect(mosnterAttackBattleStatus, playerShieldBattleStatus)
 
         assertEquals(10.0,playerShieldBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(10.0,mosnterAttackBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 10")
 
-        val playerAttackBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 피해
-        val monsterShieldBattleStatus = BattleStatus(monsterCardSelfShield, monster.getStatus()) //자신에게 5의 방어력
+        val playerAttackBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 피해
+        val monsterShieldBattleStatus = BattleStatus(monsterCardSelfShield, monster.getStatus(),monster) //자신에게 5의 방어력
 
         attackToDefenceCardEffect.applyEffect(monsterShieldBattleStatus,playerAttackBattleStatus)
 
@@ -237,40 +237,40 @@ class AttackToDefenceCardEffectTest{
 
     @Test
     fun `attackToDefence - selfToMutual`(){
-        val playerShieldBattleStatus = BattleStatus(playerCardSelfShield, player.getStatus()) //방어력 4
-        val monsterMutualBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3의 피해, 자신에게 1의 피해
+        val playerShieldBattleStatus = BattleStatus(playerCardSelfShield, player.getStatus(),player) //방어력 4
+        val monsterMutualBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3의 피해, 자신에게 1의 피해
 
         attackToDefenceCardEffect.applyEffect(playerShieldBattleStatus, monsterMutualBattleStatus)
 
         assertEquals(10.0,playerShieldBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(9.0,monsterMutualBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 9")
 
-        val playerShieldBattleStatus2 = BattleStatus(playerCardSelfShield, player.getStatus()) //방어력 4
-        val monsterMutualBattleStatus2 = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3의 피해, 자신에게 1의 피해
+        val playerShieldBattleStatus2 = BattleStatus(playerCardSelfShield, player.getStatus(),player) //방어력 4
+        val monsterMutualBattleStatus2 = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3의 피해, 자신에게 1의 피해
 
         attackToDefenceCardEffect.applyEffect(monsterMutualBattleStatus2, playerShieldBattleStatus2)
         assertEquals(10.0,playerShieldBattleStatus2.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(9.0,monsterMutualBattleStatus2.status.get(TargetElementStatus.HP),"몬스터 체력 9")
 
 
-        val playerMutualBattleStatus = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
-        val monsterShieldBattleStatus = BattleStatus(monsterCardSelfShield, monster.getStatus()) //자신에게 5의 방어력
+        val playerMutualBattleStatus = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterShieldBattleStatus = BattleStatus(monsterCardSelfShield, monster.getStatus(),monster) //자신에게 5의 방어력
 
         attackToDefenceCardEffect.applyEffect(playerMutualBattleStatus, monsterShieldBattleStatus)
 
         assertEquals(8.0,playerMutualBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 8")
         assertEquals(8.0,monsterShieldBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 8")
 
-        val playerMutualBattleStatus2 = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
-        val monsterShieldBattleStatus2 = BattleStatus(monsterCardSelfShield, monster.getStatus()) //자신에게 5의 방어력
+        val playerMutualBattleStatus2 = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterShieldBattleStatus2 = BattleStatus(monsterCardSelfShield, monster.getStatus(),monster) //자신에게 5의 방어력
 
         attackToDefenceCardEffect.applyEffect(monsterShieldBattleStatus2, playerMutualBattleStatus2)
 
         assertEquals(8.0,playerMutualBattleStatus2.status.get(TargetElementStatus.HP),"플레이어 체력 8")
         assertEquals(8.0,monsterShieldBattleStatus2.status.get(TargetElementStatus.HP),"몬스터 체력 8")
 
-        val playerShieldMutualBattleStatus = BattleStatus(playerCardMutualShield, player.getStatus()) //자신에게 방어 5, 상대에게 방어 5
-        val monsterAttackSelfBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus()) //자신에게 6의 피해
+        val playerShieldMutualBattleStatus = BattleStatus(playerCardMutualShield, player.getStatus(),player) //자신에게 방어 5, 상대에게 방어 5
+        val monsterAttackSelfBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus(),monster) //자신에게 6의 피해
 
         attackToDefenceCardEffect.applyEffect(playerShieldMutualBattleStatus, monsterAttackSelfBattleStatus)
 
@@ -283,16 +283,16 @@ class AttackToDefenceCardEffectTest{
     fun `attackToDefence - opponentToMutual(상대 VS 상호)`(){
 
         //플레이어가 상대방어, 몬스터가 상호작용 공격
-        val playerOpponentBattleStatus = BattleStatus(playerCardOpponentShield, player.getStatus()) //상대에게 3의 방어
-        val monsterMutualBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3의 피해, 자신에게 1의 피해
+        val playerOpponentBattleStatus = BattleStatus(playerCardOpponentShield, player.getStatus(),player) //상대에게 3의 방어
+        val monsterMutualBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3의 피해, 자신에게 1의 피해
 
         attackToDefenceCardEffect.applyEffect(playerOpponentBattleStatus, monsterMutualBattleStatus)
 
         assertEquals(7.0,playerOpponentBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 7")
         assertEquals(10.0,monsterMutualBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 10")
 
-        val playerOpponentBattleStatus2 = BattleStatus(playerCardOpponentShield, player.getStatus()) //상대에게 3의 방어
-        val monsterMutualBattleStatus2 = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3의 피해, 자신에게 1의 피해
+        val playerOpponentBattleStatus2 = BattleStatus(playerCardOpponentShield, player.getStatus(),player) //상대에게 3의 방어
+        val monsterMutualBattleStatus2 = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3의 피해, 자신에게 1의 피해
 
         attackToDefenceCardEffect.applyEffect(monsterMutualBattleStatus2,playerOpponentBattleStatus2)
 
@@ -300,16 +300,16 @@ class AttackToDefenceCardEffectTest{
         assertEquals(10.0,monsterMutualBattleStatus2.status.get(TargetElementStatus.HP),"몬스터 체력 10")
 
         //몬스터가 상대방어, 플레이어가 상호작용 공격
-        val monsterOpponentShield = BattleStatus(monsterCardOpponentShield, monster.getStatus()) //상대에게 4의 방어
-        val playerMutualBattleStatus = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterOpponentShield = BattleStatus(monsterCardOpponentShield, monster.getStatus(),monster) //상대에게 4의 방어
+        val playerMutualBattleStatus = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
 
         attackToDefenceCardEffect.applyEffect(monsterOpponentShield, playerMutualBattleStatus)
 
         assertEquals(10.0,playerMutualBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(3.0,monsterOpponentShield.status.get(TargetElementStatus.HP),"몬스터 체력 3")
 
-        val monsterOpponentShield2 = BattleStatus(monsterCardOpponentShield, monster.getStatus()) //상대에게 4의 방어
-        val playerMutualBattleStatus2 = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterOpponentShield2 = BattleStatus(monsterCardOpponentShield, monster.getStatus(),monster) //상대에게 4의 방어
+        val playerMutualBattleStatus2 = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
 
         attackToDefenceCardEffect.applyEffect(playerMutualBattleStatus2,monsterOpponentShield2)
 
@@ -317,16 +317,16 @@ class AttackToDefenceCardEffectTest{
         assertEquals(3.0,monsterOpponentShield2.status.get(TargetElementStatus.HP),"몬스터 체력 3")
 
         //플레이어가 상호방어, 몬스터가 공격
-        val playerMutualShield = BattleStatus(playerCardMutualShield, player.getStatus()) //자신에게 방어 5, 상대에게 방어 5
-        val monsterAttackBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의 피해
+        val playerMutualShield = BattleStatus(playerCardMutualShield, player.getStatus(),player) //자신에게 방어 5, 상대에게 방어 5
+        val monsterAttackBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의 피해
 
         attackToDefenceCardEffect.applyEffect(playerMutualShield, monsterAttackBattleStatus)
 
         assertEquals(10.0,playerMutualShield.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(10.0,monsterAttackBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 10")
 
-        val playerMutualShield2 = BattleStatus(playerCardMutualShield, player.getStatus()) //자신에게 방어 5, 상대에게 방어 5
-        val monsterAttackBattleStatus2 = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의 피해
+        val playerMutualShield2 = BattleStatus(playerCardMutualShield, player.getStatus(),player) //자신에게 방어 5, 상대에게 방어 5
+        val monsterAttackBattleStatus2 = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의 피해
 
         attackToDefenceCardEffect.applyEffect( monsterAttackBattleStatus2,playerMutualShield2)
 
@@ -334,16 +334,16 @@ class AttackToDefenceCardEffectTest{
         assertEquals(10.0,monsterAttackBattleStatus2.status.get(TargetElementStatus.HP),"몬스터 체력 10")
 
         //몬스터가 상호방어, 플레이어가 공격
-        val monsterMutualShield = BattleStatus(monsterCardMutualShield, monster.getStatus()) //자신에게 방어 3, 상대에게 방어 3
-        val playerAttackBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 피해
+        val monsterMutualShield = BattleStatus(monsterCardMutualShield, monster.getStatus(),monster) //자신에게 방어 3, 상대에게 방어 3
+        val playerAttackBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 피해
 
         attackToDefenceCardEffect.applyEffect(monsterMutualShield, playerAttackBattleStatus)
 
         assertEquals(10.0,playerAttackBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(5.0,monsterMutualShield.status.get(TargetElementStatus.HP),"몬스터 체력 5")
 
-        val monsterMutualShield2 = BattleStatus(monsterCardMutualShield, monster.getStatus()) //자신에게 방어 3, 상대에게 방어 3
-        val playerAttackBattleStatus2 = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 피해
+        val monsterMutualShield2 = BattleStatus(monsterCardMutualShield, monster.getStatus(),monster) //자신에게 방어 3, 상대에게 방어 3
+        val playerAttackBattleStatus2 = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 피해
 
         attackToDefenceCardEffect.applyEffect(playerAttackBattleStatus2,monsterMutualShield2)
 
@@ -354,16 +354,16 @@ class AttackToDefenceCardEffectTest{
 
     @Test
     fun `attackToDefence - opponentToOpponent`(){
-        val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 피해
-        val monsterBattleStatus = BattleStatus(monsterCardOpponentShield, monster.getStatus()) //상대에게 4의 방어
+        val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 피해
+        val monsterBattleStatus = BattleStatus(monsterCardOpponentShield, monster.getStatus(),monster) //상대에게 4의 방어
 
         attackToDefenceCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(10.0,playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(2.0,monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 2")
 
-        val playerBattleStatus2 = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 피해
-        val monsterBattleStatus2 = BattleStatus(monsterCardOpponentShield, monster.getStatus()) //상대에게 4의 방어
+        val playerBattleStatus2 = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 피해
+        val monsterBattleStatus2 = BattleStatus(monsterCardOpponentShield, monster.getStatus(),monster) //상대에게 4의 방어
 
         attackToDefenceCardEffect.applyEffect(monsterBattleStatus2,playerBattleStatus2)
 
@@ -376,16 +376,16 @@ class AttackToDefenceCardEffectTest{
     fun `attackToDefence - mutualToMutual `(){
 
         //플레이어 상호실드 - 몬스터 상호공격
-        val playerMutualShield = BattleStatus(playerCardMutualShield, player.getStatus()) //자신에게 방어 5, 상대에게 방어 5
-        val monsterMutualAttack = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3의 피해, 자신에게 1의 피해
+        val playerMutualShield = BattleStatus(playerCardMutualShield, player.getStatus(),player) //자신에게 방어 5, 상대에게 방어 5
+        val monsterMutualAttack = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3의 피해, 자신에게 1의 피해
 
         attackToDefenceCardEffect.applyEffect(playerMutualShield, monsterMutualAttack)
 
         assertEquals(10.0,playerMutualShield.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(10.0,monsterMutualAttack.status.get(TargetElementStatus.HP),"몬스터 체력 10")
 
-        val playerMutualShield2 = BattleStatus(playerCardMutualShield, player.getStatus()) //자신에게 방어 5, 상대에게 방어 5
-        val monsterMutualAttack2 = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3의 피해, 자신에게 1의 피해
+        val playerMutualShield2 = BattleStatus(playerCardMutualShield, player.getStatus(),player) //자신에게 방어 5, 상대에게 방어 5
+        val monsterMutualAttack2 = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3의 피해, 자신에게 1의 피해
 
         attackToDefenceCardEffect.applyEffect(monsterMutualAttack2,playerMutualShield2)
 
@@ -393,16 +393,16 @@ class AttackToDefenceCardEffectTest{
         assertEquals(10.0,monsterMutualAttack2.status.get(TargetElementStatus.HP),"몬스터 체력 10")
 
         //몬스터 상호실드 - 플레이어 상호공격
-        val monsterMutualShield = BattleStatus(monsterCardMutualShield, monster.getStatus()) //자신에게 방어 3, 상대에게 방어 3
-        val playerMutualAttack = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterMutualShield = BattleStatus(monsterCardMutualShield, monster.getStatus(),monster) //자신에게 방어 3, 상대에게 방어 3
+        val playerMutualAttack = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
 
         attackToDefenceCardEffect.applyEffect(monsterMutualShield, playerMutualAttack)
 
         assertEquals(10.0,playerMutualAttack.status.get(TargetElementStatus.HP),"플레이어 체력 10")
         assertEquals(6.0,monsterMutualShield.status.get(TargetElementStatus.HP),"몬스터 체력 6")
 
-        val monsterMutualShield2 = BattleStatus(monsterCardMutualShield, monster.getStatus()) //자신에게 방어 3, 상대에게 방어 3
-        val playerMutualAttack2 = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterMutualShield2 = BattleStatus(monsterCardMutualShield, monster.getStatus(),monster) //자신에게 방어 3, 상대에게 방어 3
+        val playerMutualAttack2 = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
 
         attackToDefenceCardEffect.applyEffect(playerMutualAttack2,monsterMutualShield2)
 

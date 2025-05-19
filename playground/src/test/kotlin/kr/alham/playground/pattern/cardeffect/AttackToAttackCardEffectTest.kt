@@ -201,8 +201,8 @@ class AttackToAttackCardEffectTest{
     @Test
     fun `attackToAttack-두카드 모두 self효과`(){
 
-        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus())
+        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus(),monster)
 
         attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
@@ -214,8 +214,8 @@ class AttackToAttackCardEffectTest{
     @Test
     fun `attackToAttack-self to opponent`(){
 
-        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus())
+        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster)
 
         attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
@@ -227,8 +227,8 @@ class AttackToAttackCardEffectTest{
     @Test
     fun `attackToAttack-self to mutual`(){
 
-        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus())
+        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster)
 
         attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
@@ -240,8 +240,8 @@ class AttackToAttackCardEffectTest{
     @Test
     fun `attackToAttack -opponent to mutual`(){
 
-        val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus())
+        val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster)
 
         attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
@@ -253,8 +253,8 @@ class AttackToAttackCardEffectTest{
     @Test
     fun `attackToAttack - opponentToopponent`(){
 
-        val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus())
+        val playerBattleStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster)
 
         attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
@@ -267,8 +267,8 @@ class AttackToAttackCardEffectTest{
     fun `attackToAttack - mutualToMutual`(){
 
 
-        val playerBattleStatus = BattleStatus(playerCardBashMutual, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus())
+        val playerBattleStatus = BattleStatus(playerCardBashMutual, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster)
 
         attackToAttackCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 

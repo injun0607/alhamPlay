@@ -4,12 +4,13 @@ import kr.alham.playground.domain.common.DurationStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.card.Card
+import kr.alham.playground.domain.common.TargetElement
 
 
 class BattleStatus(
     val card: Card,
     val status: TargetElementStatusMap,
-
+    val target: TargetElement
 ){}
 
 

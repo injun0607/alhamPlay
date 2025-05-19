@@ -197,16 +197,16 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToSelf`() {
 
-        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus())
+        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus(),monster)
 
         attackToEvasionCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
 
         assertEquals(5.0, playerBattleStatus.status.get(TargetElementStatus.HP), "자신에게 5의 피해를 줍니다")
         assertEquals(10.0, monsterBattleStatus.status.get(TargetElementStatus.HP), "상대에게 피해를 주지 않습니다")
 
-        val playerBattleStatus2 = BattleStatus(playerCardBashSelf, player.getStatus())
-        val monsterBattleStatus2 = BattleStatus(monsterCardSelfEvasion, monster.getStatus())
+        val playerBattleStatus2 = BattleStatus(playerCardBashSelf, player.getStatus(),player)
+        val monsterBattleStatus2 = BattleStatus(monsterCardSelfEvasion, monster.getStatus(),monster)
 
         attackToEvasionCardEffect.applyEffect(monsterBattleStatus2, playerBattleStatus2)
 
@@ -214,8 +214,8 @@ class AttackToEvasionCardEffectTest {
         assertEquals(10.0, monsterBattleStatus2.status.get(TargetElementStatus.HP), "상대에게 피해를 주지 않습니다")
 
 
-        val playerEvasionStatus = BattleStatus(playerCardSelfEvasion, player.getStatus())
-        val monsterSelfAttackStatus = BattleStatus(monsterCardCutSelf, monster.getStatus())
+        val playerEvasionStatus = BattleStatus(playerCardSelfEvasion, player.getStatus(),player)
+        val monsterSelfAttackStatus = BattleStatus(monsterCardCutSelf, monster.getStatus(),monster)
 
         attackToEvasionCardEffect.applyEffect(playerEvasionStatus, monsterSelfAttackStatus)
 
@@ -223,8 +223,8 @@ class AttackToEvasionCardEffectTest {
         assertEquals(10.0, playerEvasionStatus.status.get(TargetElementStatus.HP), "상대에게 피해를 주지 않습니다")
 
 
-        val playerEvasionStatus2 = BattleStatus(playerCardSelfEvasion, player.getStatus())
-        val monsterSelfAttackStatus2 = BattleStatus(monsterCardCutSelf, monster.getStatus())
+        val playerEvasionStatus2 = BattleStatus(playerCardSelfEvasion, player.getStatus(),player)
+        val monsterSelfAttackStatus2 = BattleStatus(monsterCardCutSelf, monster.getStatus(),monster)
 
         attackToEvasionCardEffect.applyEffect(monsterSelfAttackStatus2, playerEvasionStatus2)
 
@@ -238,8 +238,8 @@ class AttackToEvasionCardEffectTest {
     fun `attackToEvasion - selfToOpponent - 플레이어 셀프 공격 상대방이 나에게 회피 - 판정성공`() {
 
 
-        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus()) //자신에게 5의피해
-        val monsterBattleStatus = BattleStatus(monsterCardOpponentEvasion, monster.getStatus()) //상대에게 40%확률 회피
+        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus(),player) //자신에게 5의피해
+        val monsterBattleStatus = BattleStatus(monsterCardOpponentEvasion, monster.getStatus(),monster) //상대에게 40%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
         attackToEvasionCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
@@ -252,8 +252,8 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToOpponent - 플레이어 셀프 공격 상대방이 나에게 회피 - 판정실패`() {
 
-        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus()) //자신에게 5의피해
-        val monsterBattleStatus = BattleStatus(monsterCardOpponentEvasion, monster.getStatus()) //상대에게 40%확률 회피
+        val playerBattleStatus = BattleStatus(playerCardBashSelf, player.getStatus(),player) //자신에게 5의피해
+        val monsterBattleStatus = BattleStatus(monsterCardOpponentEvasion, monster.getStatus(),monster) //상대에게 40%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
         attackToEvasionCardEffect.applyEffect(playerBattleStatus, monsterBattleStatus)
@@ -266,8 +266,8 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToOpponent - 몬스터 셀프 공격 상대방이 나에게 회피 - 판정성공`() {
 
-        val playerBattleStatus = BattleStatus(playerCardOpponentEvasion, player.getStatus()) //70%회피
-        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus()) //자신에게 6의피해
+        val playerBattleStatus = BattleStatus(playerCardOpponentEvasion, player.getStatus(),player) //70%회피
+        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus(),monster) //자신에게 6의피해
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
         attackToEvasionCardEffect.applyEffect(monsterBattleStatus, playerBattleStatus)
@@ -280,8 +280,8 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToOpponent - 몬스터 셀프 공격 상대방이 나에게 회피 - 판정실패`() {
 
-        val playerBattleStatus = BattleStatus(playerCardOpponentEvasion, player.getStatus()) //70%회피
-        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus()) //자신에게 6의피해
+        val playerBattleStatus = BattleStatus(playerCardOpponentEvasion, player.getStatus(),player) //70%회피
+        val monsterBattleStatus = BattleStatus(monsterCardCutSelf, monster.getStatus(),monster) //자신에게 6의피해
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
         attackToEvasionCardEffect.applyEffect(monsterBattleStatus, playerBattleStatus)
@@ -295,8 +295,8 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToOpponent - 몬스터 상대 공격 상대방이 자신에게 회피 - 판정성공`() {
 
-        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus()) //70%회피
-        val monsterStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의피해
+        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus(),player) //70%회피
+        val monsterStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의피해
 
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
@@ -312,8 +312,8 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToOpponent - 몬스터 상대 공격 상대방이 자신에게 회피 - 판정실패`() {
 
-        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus()) //70%회피
-        val monsterStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의피해
+        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus(),player) //70%회피
+        val monsterStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의피해
 
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
@@ -328,8 +328,8 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToOpponent - 플레이어 상대 공격 몬스터 자신에게 회피 - 판정실패`() {
 
-        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 데미지
-        val monsterStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus()) //
+        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 데미지
+        val monsterStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus(),monster) //
 
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
@@ -344,8 +344,8 @@ class AttackToEvasionCardEffectTest {
     @Test
     fun `attackToEvasion - selfToOpponent -플레이어 상대 공격 몬스터 자신에게 회피 - 판정성공`() {
 
-        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus()) //8의피해
-        val monsterStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus())
+        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //8의피해
+        val monsterStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus(),monster)
 
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
@@ -359,8 +359,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - selfToMutual - 플레이어 공격카드 상호작용 , 몬스터 자신에게 회피(성공)`(){
-        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
-        val monsterBattleStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus())
+        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterBattleStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus(),monster)
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
 
@@ -372,8 +372,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - selfToMutual - 플레이어 공격카드 상호작용 , 몬스터 자신에게 회피(실패)`(){
-        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7의 피해, 자신에게 2의 피해
-        val monsterBattleStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus()) //상대에게 40%확률 회피
+        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7의 피해, 자신에게 2의 피해
+        val monsterBattleStatus = BattleStatus(monsterCardSelfEvasion, monster.getStatus(),monster) //상대에게 40%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
 
@@ -385,8 +385,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - selfToMutual - 몬스터 공격카드 상호작용 , 플레이어 자신에게 회피(성공)`(){
-        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3, 자신에게 1의 피해
+        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3, 자신에게 1의 피해
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
 
@@ -398,8 +398,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - selfToOpponent - 몬스터 공격카드 상호작용 ,  플레이어 자신에게 회피(실패)`(){
-        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus()) //
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 3, 자신에게 1의 피해
+        val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus(),player) //
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3, 자신에게 1의 피해
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
 
@@ -410,8 +410,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - opponentToMutual - 플레이어 상대 공격카드 , 몬스터 상호 회피(실패)`(){
-        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 피홰
-        val monsterBattleStatus = BattleStatus(monsterCardMutualEvasion, monster.getStatus()) //상대에게 30%확률 회피
+        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 피홰
+        val monsterBattleStatus = BattleStatus(monsterCardMutualEvasion, monster.getStatus(),monster) //상대에게 30%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
 
@@ -422,8 +422,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - opponentToMutual - 플레이어 상대 공격카드 , 몬스터 상호 회피(성공)`(){
-        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 8의 피홰
-        val monsterBattleStatus = BattleStatus(monsterCardMutualEvasion, monster.getStatus())
+        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 8의 피홰
+        val monsterBattleStatus = BattleStatus(monsterCardMutualEvasion, monster.getStatus(),monster)
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
 
@@ -434,8 +434,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - opponentToMutual - 플레이어 상호작용회피 , 몬스터 상대 공격(회피 실패)`(){
-        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus()) //
-        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의 피해
+        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus(),player) //
+        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의 피해
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
 
@@ -446,8 +446,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attattackToEvasion - opponentToMutual - 플레이어 상호작용회피 , 몬스터 상대 공격(회피 성공)`(){
-        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus()) //
-        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의 피해
+        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus(),player) //
+        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의 피해
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
 
@@ -458,8 +458,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attackToEvasion - opponentToOpponent - 플레이어 공격 , 몬스터 상대 회피`(){
-        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus()) //상대에게 8의 피해
-        val monsterBattleStatus = BattleStatus(monsterCardOpponentEvasion, monster.getStatus()) //상대에게 40%확률 회피
+        val playerStatus = BattleStatus(playerCardBashOpponent, player.getStatus(),player) //상대에게 8의 피해
+        val monsterBattleStatus = BattleStatus(monsterCardOpponentEvasion, monster.getStatus(),monster) //상대에게 40%확률 회피
 
         attackToEvasionCardEffect.applyEffect(playerStatus, monsterBattleStatus)
 
@@ -470,8 +470,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attackToEvasion - opponentToOpponent - 몬스터 공격 , 플레이어 상대 회피`(){
-        val playerStatus = BattleStatus(playerCardOpponentEvasion, player.getStatus())
-        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus()) //상대에게 4의 피해
+        val playerStatus = BattleStatus(playerCardOpponentEvasion, player.getStatus(),player)
+        val monsterBattleStatus = BattleStatus(monsterCardCutOpponent, monster.getStatus(),monster) //상대에게 4의 피해
 
         attackToEvasionCardEffect.applyEffect(playerStatus, monsterBattleStatus)
 
@@ -483,8 +483,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attackToEvasion - mutualToMutual - 몬스터 상호공격, 플레이어 상호 회피 - 모두 회피성공`(){
-        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus()) //상대에게 50%확률 회피
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 30%확률 회피
+        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus(),player) //상대에게 50%확률 회피
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 30%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
         attackToEvasionCardEffect.applyEffect(playerStatus, monsterBattleStatus)
@@ -495,8 +495,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attackToEvasion - mutualToMutual - 몬스터 상호공격, 플레이어 상호 회피 - 모두 회피실패`(){
-        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus()) //상대에게 50%확률 회피
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 30%확률 회피
+        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus(),player) //상대에게 50%확률 회피
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 30%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
         attackToEvasionCardEffect.applyEffect(playerStatus, monsterBattleStatus)
@@ -507,8 +507,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attackToEvasion - mutualToMutual - 몬스터 상호회피, 플레이어 상호 공격 - 모두 회피성공`(){
-        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus()) //상대에게 7 , 자신에게 2
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 30%확률 회피
+        val playerStatus = BattleStatus(playerCardBashMutual, player.getStatus(),player) //상대에게 7 , 자신에게 2
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 30%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns true
         attackToEvasionCardEffect.applyEffect(playerStatus, monsterBattleStatus)
@@ -519,8 +519,8 @@ class AttackToEvasionCardEffectTest {
 
     @Test
     fun `attackToEvasion - mutualToMutual - 몬스터 상호회피, 플레이어 상호 공격 - 모두 회피실패`(){
-        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus()) //상대에게 50%확률 회피
-        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus()) //상대에게 30%확률 회피
+        val playerStatus = BattleStatus(playerCardMutualEvasion, player.getStatus(),player) //상대에게 50%확률 회피
+        val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 30%확률 회피
 
         every { evasionRateCalculator.calculateEvasionSuccess(any()) } returns false
         attackToEvasionCardEffect.applyEffect(playerStatus, monsterBattleStatus)
