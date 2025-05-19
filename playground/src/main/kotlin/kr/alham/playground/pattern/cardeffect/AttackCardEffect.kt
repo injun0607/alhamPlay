@@ -473,15 +473,150 @@ class AttackToEvasionCardEffect(
 
     }
     override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
+        val cardOne = targetOne.card
+        val cardTwo = targetTwo.card
 
+        val targetOneStatus = targetOne.status
+        val targetTwoStatus = targetTwo.status
+
+        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfStatus = cardOne.effectSelfStat
+
+        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfStatus = cardTwo.effectSelfStat
+
+        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentStatus = cardTwo.effectOpponentStat
+
+        val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
+
+        val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoSelfNum)
+        val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
+
+        var targetOneEffectStatus = targetOneStatus.get(cardOneSelfStatus)
+        var targetTwoEffectStatus = targetTwoStatus.get(cardTwoSelfStatus)
+
+        if(checkTarget(CardType.ATTACK,targetOne)){
+            //self가 공격인경우
+            if(!evasionRateCalculator.calculateEvasionSuccess(cardTwoOpponentValue)){
+                //상대가 걸어준 회피가 실패했을경우
+                targetOneEffectStatus -= damageCalculator.calculateDamage(cardOneSelfValue,0.0,targetOneStatus)
+            }
+        }else{
+            //mutual이 공격인경우
+            if(!evasionRateCalculator.calculateEvasionSuccess(cardOneSelfValue)){
+                //내가 시전한 회피가 실패했을경우
+                targetOneEffectStatus -= damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
+            }
+
+            targetTwoEffectStatus -= cardTwoSelfValue
+        }
+
+        targetOneStatus.set(cardOneSelfStatus,targetOneEffectStatus)
+        targetTwoStatus.set(cardTwoSelfStatus,targetTwoEffectStatus)
     }
     override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
+        val cardOne = targetOne.card
+        val cardTwo = targetTwo.card
+
+        val targetOneStatus = targetOne.status
+        val targetTwoStatus = targetTwo.status
+
+        val cardOneOpponentNum = cardOne.effectOpponentNum
+        val cardOneOpponentStatus = cardOne.effectOpponentStat
+
+        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfStatus = cardTwo.effectSelfStat
+
+        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentStatus = cardTwo.effectOpponentStat
+
+        val cardOneOpponentValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneOpponentNum)
+        val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoSelfNum)
+        val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
+
+        var targetOneEffectStat = targetOneStatus.get(cardTwoOpponentStatus)
+        var targetTwoEffectStat = targetTwoStatus.get(cardOneOpponentStatus)
+
+        if(checkTarget(CardType.ATTACK,targetOne)) {
+            //공격이 상대방 타겟인경우 경우
+            if (!evasionRateCalculator.calculateEvasionSuccess(cardTwoSelfValue)) {
+                targetTwoEffectStat -= damageCalculator.calculateDamage(cardOneOpponentValue, 0.0, targetTwoStatus)
+            }
+        }else{
+            //공격이 상호작용인 경우 회피가 상대방 타겟
+            if(!evasionRateCalculator.calculateEvasionSuccess(cardTwoOpponentNum)){
+                targetTwoEffectStat -= cardTwoSelfValue
+            }
+            targetOneEffectStat -= damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
+        }
+
+        targetOneStatus.set(cardTwoOpponentStatus,targetOneEffectStat)
+        targetTwoStatus.set(cardOneOpponentStatus,targetTwoEffectStat)
 
     }
     override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
+        val attacker = distinctTarget(CardType.ATTACK,targetOne,targetTwo)
+        val evader = distinctTarget(CardType.EVASION,targetOne,targetTwo)
 
+        val attackerCard = attacker.card
+        val evaderCard = evader.card
+
+        val attackerStatus = attacker.status
+        val evaderStatus = evader.status
+
+        val attackNum = attackerCard.effectOpponentNum
+        val attackStatus = attackerCard.effectOpponentStat
+
+        val attackCardValue = cardValueCalculator.calculateCardValue(attackerCard,attackerStatus,attackNum)
+
+        val evaderEffectStatus = evaderStatus.get(attackStatus) - damageCalculator.calculateDamage(attackCardValue,0.0,evaderStatus)
+
+        evader.status.set(attackStatus,evaderEffectStatus)
     }
     override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
+        val attacker = distinctTarget(CardType.ATTACK,targetOne,targetTwo)
+        val evader = distinctTarget(CardType.EVASION,targetOne,targetTwo)
+
+        val attackerCard = attacker.card
+        val evaderCard = evader.card
+
+        val attackerStatus = attacker.status
+        val evaderStatus = evader.status
+
+        val attackSelfNum = attackerCard.effectSelfNum
+        val attackSelfStatus = attackerCard.effectSelfStat
+
+        val attackOpponentNum = attackerCard.effectOpponentNum
+        val attackOpponentStatus = attackerCard.effectOpponentStat
+
+        val evaderSelfNum = evaderCard.effectSelfNum
+        val evaderSelfStatus = evaderCard.effectSelfStat
+
+        val evaderOpponentNum = evaderCard.effectOpponentNum
+        val evaderOpponentStatus = evaderCard.effectOpponentStat
+
+        val attackSelfValue = cardValueCalculator.calculateCardValue(attackerCard,attackerStatus,attackSelfNum)
+        val attackOpponentValue = cardValueCalculator.calculateCardValue(attackerCard,attackerStatus,attackOpponentNum)
+
+        val evaderSelfValue = cardValueCalculator.calculateCardValue(evaderCard,evaderStatus,evaderSelfNum)
+        val evaderOpponentValue = cardValueCalculator.calculateCardValue(evaderCard,evaderStatus,evaderOpponentNum)
+
+        var attackerEffectStatus = attackerStatus.get(attackSelfStatus)
+        var evaderEffectStatus = evaderStatus.get(evaderSelfStatus)
+
+        if(!evasionRateCalculator.calculateEvasionSuccess(evaderSelfValue)){
+            //evader 회피 실패일시
+            evaderEffectStatus -= damageCalculator.calculateDamage(attackOpponentValue,0.0,evaderStatus)
+        }
+
+        if(!evasionRateCalculator.calculateEvasionSuccess(evaderOpponentValue)){
+            //상대방의 회피 버프 실패시
+            attackerEffectStatus -= attackSelfValue
+        }
+
+        attackerStatus.set(attackSelfStatus,attackerEffectStatus)
+        evaderStatus.set(evaderSelfStatus,evaderEffectStatus)
 
     }
 
