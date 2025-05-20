@@ -27,8 +27,8 @@ class DefaultCardEffect(
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneSelfNum)
         val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo, targetTwoStatus, cardTwoSelfNum)
 
-        val targetOneOrgStatus = targetOne.target.getStatusValue(cardOneSelfStatus)
-        val targetTwoOrgStatus = targetTwo.target.getStatusValue(cardTwoSelfStatus)
+        val targetOneOrgStatus = targetOne.target.getStatusMaxValue(cardOneSelfStatus)
+        val targetTwoOrgStatus = targetTwo.target.getStatusMaxValue(cardTwoSelfStatus)
 
 
         targetOneStatus.addMaxValueCheck(cardOneSelfStatus, cardOneSelfValue,targetOneOrgStatus)
@@ -52,8 +52,8 @@ class DefaultCardEffect(
 
 
 
-        targetOneStatus.addMaxValueCheck(cardOneSelfStatus, cardOneSelfValue,targetOne.target.getStatusValue(cardOneSelfStatus))
-        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusValue(cardTwoOpponentStatus))
+        targetOneStatus.addMaxValueCheck(cardOneSelfStatus, cardOneSelfValue,targetOne.target.getStatusMaxValue(cardOneSelfStatus))
+        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusMaxValue(cardTwoOpponentStatus))
 
     }
     override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -78,9 +78,9 @@ class DefaultCardEffect(
 
 
 
-        targetOneStatus.addMaxValueCheck(cardOneSelfStatus, cardOneSelfValue,targetOne.target.getStatusValue(cardOneSelfStatus))
-        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusValue(cardTwoOpponentStatus))
-        targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus, cardTwoSelfValue,targetTwo.target.getStatusValue(cardTwoSelfStatus))
+        targetOneStatus.addMaxValueCheck(cardOneSelfStatus, cardOneSelfValue,targetOne.target.getStatusMaxValue(cardOneSelfStatus))
+        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusMaxValue(cardTwoOpponentStatus))
+        targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus, cardTwoSelfValue,targetTwo.target.getStatusMaxValue(cardTwoSelfStatus))
     }
     override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
         val cardOne = targetOne.card
@@ -102,9 +102,9 @@ class DefaultCardEffect(
         val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo, targetTwoStatus, cardTwoSelfNum)
         val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo, targetTwoStatus, cardTwoOpponentNum)
 
-        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusValue(cardTwoOpponentStatus))
-        targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus, cardOneOpponentValue,targetTwo.target.getStatusValue(cardOneOpponentStatus))
-        targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus, cardTwoSelfValue,targetTwo.target.getStatusValue(cardTwoSelfStatus))
+        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusMaxValue(cardTwoOpponentStatus))
+        targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus, cardOneOpponentValue,targetTwo.target.getStatusMaxValue(cardOneOpponentStatus))
+        targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus, cardTwoSelfValue,targetTwo.target.getStatusMaxValue(cardTwoSelfStatus))
 
     }
     override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -123,8 +123,8 @@ class DefaultCardEffect(
         val cardOneOpponentValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneOpponentNum)
         val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo, targetTwoStatus, cardTwoOpponentNum)
 
-        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusValue(cardTwoOpponentStatus))
-        targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus, cardOneOpponentValue,targetTwo.target.getStatusValue(cardOneOpponentStatus))
+        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusMaxValue(cardTwoOpponentStatus))
+        targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus, cardOneOpponentValue,targetTwo.target.getStatusMaxValue(cardOneOpponentStatus))
 
     }
     override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -150,11 +150,11 @@ class DefaultCardEffect(
         val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo, targetTwoStatus, cardTwoSelfNum)
         val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo, targetTwoStatus, cardTwoOpponentNum)
 
-        targetOneStatus.addMaxValueCheck(cardOneSelfStatus, cardOneSelfValue,targetOne.target.getStatusValue(cardOneSelfStatus))
-        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusValue(cardTwoOpponentStatus))
+        targetOneStatus.addMaxValueCheck(cardOneSelfStatus, cardOneSelfValue,targetOne.target.getStatusMaxValue(cardOneSelfStatus))
+        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, cardTwoOpponentValue,targetOne.target.getStatusMaxValue(cardTwoOpponentStatus))
 
-        targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus, cardTwoSelfValue,targetTwo.target.getStatusValue(cardTwoSelfStatus))
-        targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus, cardOneOpponentValue,targetTwo.target.getStatusValue(cardOneOpponentStatus))
+        targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus, cardTwoSelfValue,targetTwo.target.getStatusMaxValue(cardTwoSelfStatus))
+        targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus, cardOneOpponentValue,targetTwo.target.getStatusMaxValue(cardOneOpponentStatus))
 
     }
 }

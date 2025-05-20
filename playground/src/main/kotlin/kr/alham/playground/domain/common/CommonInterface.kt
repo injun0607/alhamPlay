@@ -12,6 +12,7 @@ interface TargetElement{
     val lck: Double
     fun getStatus(): TargetElementStatusMap
     fun getStatusValue(targetElementStatus: TargetElementStatus): Double
+    fun getStatusMaxValue(targetElementStatus: TargetElementStatus): Double
 }
 enum class TargetElementStatus(
     val defaultValue: Double,

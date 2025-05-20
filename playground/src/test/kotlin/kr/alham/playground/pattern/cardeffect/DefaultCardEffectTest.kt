@@ -1,7 +1,6 @@
 package kr.alham.playground.pattern.cardeffect
 
 import kr.alham.playground.domain.battle.BattleStatus
-import kr.alham.playground.domain.card.Card
 import kr.alham.playground.domain.card.MonsterCard
 import kr.alham.playground.domain.card.PlayerCard
 import kr.alham.playground.domain.common.TargetElementStatus
@@ -11,10 +10,8 @@ import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.monster.Monster
 import kr.alham.playground.domain.player.Player
 import kr.alham.playground.pattern.calculator.CardValueCalculator
-import kr.alham.playground.pattern.calculator.DamageCalculator
 import kr.alham.playground.pattern.calculator.DefaultCardValueCalculator
-import kr.alham.playground.pattern.calculator.EvasionRateCalculator
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 
@@ -62,8 +59,8 @@ class DefaultCardEffectTest{
             cost = 2,
             cardTarget = CardTarget.OPPONENT,
             cardType = CardType.BUFF,
-            effectSelfNum = 1.0,
-            effectSelfStat = TargetElementStatus.DEX,
+            effectOpponentNum = 1.0,
+            effectOpponentStat = TargetElementStatus.DEX,
         )
 
         playerCardBuffMutual = PlayerCard(
@@ -139,8 +136,8 @@ class DefaultCardEffectTest{
             cost = 2,
             cardTarget = CardTarget.OPPONENT,
             cardType = CardType.DEBUFF,
-            effectSelfNum = -1.0,
-            effectSelfStat = TargetElementStatus.DEX,
+            effectOpponentNum = -1.0,
+            effectOpponentStat = TargetElementStatus.DEX,
         )
 
         playerCardDebuffMutual = PlayerCard(
@@ -177,8 +174,8 @@ class DefaultCardEffectTest{
             cost = 2,
             cardTarget = CardTarget.OPPONENT,
             cardType = CardType.BUFF,
-            effectSelfNum = 1.0,
-            effectSelfStat = TargetElementStatus.STR,
+            effectOpponentNum = 1.0,
+            effectOpponentStat = TargetElementStatus.STR,
         )
 
         monsterCardBuffMutual = MonsterCard(
@@ -222,6 +219,74 @@ class DefaultCardEffectTest{
 
         assertEquals(0.0, playerBattleStatus.status.get(TargetElementStatus.DEX))
         assertEquals(10.0, monsterBattleStatus.status.get(TargetElementStatus.HP))
+
+    }
+
+
+    @Test
+    fun `selfToOpponent - 플레이어 상대버프 , 몬스터 자신버프`(){
+        val playerBattleStatus = BattleStatus(playerCardBuffOpponent,player.getStatus(),player) // 상대방 덱스 1강화
+        val monsterBattleStatus = BattleStatus(monsterCardBuffSelf,monster.getStatus(),monster) // 힘 1강화
+
+        defaultCardEffect.applyEffect(monsterBattleStatus, playerBattleStatus)
+
+        assertEquals(1.0, playerBattleStatus.status.get(TargetElementStatus.DEX),"플레이어 스탯 변동없음" )
+        assertEquals(2.0, monsterBattleStatus.status.get(TargetElementStatus.STR), " 몬스터 힘 1")
+        assertEquals(2.0, monsterBattleStatus.status.get(TargetElementStatus.DEX), "몬스터 덱스 2")
+
+    }
+
+
+    @Test
+    fun `selfToOpponent - 플레이어 자신디버프 , 몬스터 상대버프`(){
+        val playerBattleStatus = BattleStatus(playerCardDebuffSelf,player.getStatus(),player) // 자신 덱스 -1강화
+        val monsterBattleStatus = BattleStatus(monsterCardBuffOpponent,monster.getStatus(),monster) // 힘 1강화
+
+        defaultCardEffect.applyEffect(playerBattleStatus,monsterBattleStatus)
+
+        assertEquals(0.0, playerBattleStatus.status.get(TargetElementStatus.DEX),"플레이어 덱스 0" )
+        assertEquals(2.0, playerBattleStatus.status.get(TargetElementStatus.STR), " 플레이어 힘 2")
+    }
+
+
+    @Test
+    fun `selfToMutual - 플레이어 자신디버프 , 몬스터 상호버프`(){
+        val playerBattleStatus = BattleStatus(playerCardDebuffSelf,player.getStatus(),player) // 상대방 덱스 -1강화
+        val monsterBattleStatus = BattleStatus(monsterCardBuffMutual,monster.getStatus(),monster) //자신 2 상대방 힘 1강화
+
+        defaultCardEffect.applyEffect(playerBattleStatus,monsterBattleStatus)
+
+        assertEquals(0.0, playerBattleStatus.status.get(TargetElementStatus.DEX),"플레이어 덱스 0" )
+        assertEquals(2.0, playerBattleStatus.status.get(TargetElementStatus.STR), " 플레이어 힘 2")
+        assertEquals(3.0, monsterBattleStatus.status.get(TargetElementStatus.STR), "몬스터 힘 3")
+
+    }
+
+    @Test
+    fun `selfToMutual - 플레이어 자신 버프, 몬스터 상호 힐`(){
+        val playerBattleStatus = BattleStatus(playerCardBuffSelf,player.getStatus(),player) // 상대방 덱스 1강화
+        val monsterBattleStatus = BattleStatus(monsterHealMutual,monster.getStatus(),monster) //자신 10 상대방 5 회복
+
+        defaultCardEffect.applyEffect(playerBattleStatus,monsterBattleStatus)
+
+
+        assertEquals(2.0, playerBattleStatus.status.get(TargetElementStatus.DEX),"플레이어 덱스 2" )
+        assertEquals(10.0, playerBattleStatus.status.get(TargetElementStatus.HP), "플레이어 체력 10")
+        assertEquals(10.0, monsterBattleStatus.status.get(TargetElementStatus.HP), "몬스터 체력 10")
+
+    }
+
+    @Test
+    fun `opponentToMutual - 플레이어 상대 디버프 , 몬스터 상호 버프`(){
+        val playerBattleStatus = BattleStatus(playerCardDebuffOpponent,player.getStatus(),player) // 상대방 덱스 -1강화
+        val monsterBattleStatus = BattleStatus(monsterCardBuffMutual,monster.getStatus(),monster) //자신 2 상대방 힘 1강화
+
+        defaultCardEffect.applyEffect(playerBattleStatus,monsterBattleStatus)
+
+        assertEquals(0.0, monsterBattleStatus.status.get(TargetElementStatus.DEX),"몬스터 덱스 0" )
+        assertEquals(2.0, playerBattleStatus.status.get(TargetElementStatus.STR),"플레이어 힘 2" )
+        assertEquals(3.0, monsterBattleStatus.status.get(TargetElementStatus.STR), "몬스터 힘 3")
+
 
 
     }

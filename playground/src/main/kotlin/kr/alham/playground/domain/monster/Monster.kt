@@ -41,5 +41,13 @@ class Monster(
         return getStatus().get(targetElementStatus)
     }
 
+    override fun getStatusMaxValue(targetElementStatus: TargetElementStatus): Double {
+        return when(targetElementStatus) {
+            TargetElementStatus.HP -> hp
+            TargetElementStatus.MP -> mp
+            else -> targetElementStatus.maxValue
+        }
+    }
+
 
 }
