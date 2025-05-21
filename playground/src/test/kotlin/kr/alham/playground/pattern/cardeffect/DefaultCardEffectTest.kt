@@ -287,8 +287,61 @@ class DefaultCardEffectTest{
         assertEquals(2.0, playerBattleStatus.status.get(TargetElementStatus.STR),"플레이어 힘 2" )
         assertEquals(3.0, monsterBattleStatus.status.get(TargetElementStatus.STR), "몬스터 힘 3")
 
+    }
+
+    @Test
+    fun `opponentToOpponent - 플레이어 상대 디버프, 몬스터 상대 힐`(){
+
+        val playerBattleStatus = BattleStatus(playerCardDebuffOpponent,player.getStatus(),player) // 상대방 덱스 -1강화
+        val monsterBattleStatus = BattleStatus(monsterHealOpponent,monster.getStatus(),monster) //상대방 힐
+
+        defaultCardEffect.applyEffect(playerBattleStatus,monsterBattleStatus)
+
+        assertEquals(1.0, playerBattleStatus.status.get(TargetElementStatus.DEX),"플레이어 덱스 1" )
+        assertEquals(10.0, playerBattleStatus.status.get(TargetElementStatus.HP),"플레이어 체력 10" )
+        assertEquals(0.0, monsterBattleStatus.status.get(TargetElementStatus.DEX),"몬스터 덱스 0" )
+        assertEquals(10.0, monsterBattleStatus.status.get(TargetElementStatus.HP),"몬스터 체력 10" )
 
 
+    }
+    @Test
+    fun `opponentToOpponent - 플레이어 상대 버프, 몬스터 상대 버프`(){
+
+        val playerBattleStatus = BattleStatus(playerCardBuffOpponent,player.getStatus(),player) // 상대방 덱스 1강화
+        val monsterBattleStatus = BattleStatus(monsterCardBuffOpponent,monster.getStatus(),monster) //상대방 힘 1강화
+
+        defaultCardEffect.applyEffect(monsterBattleStatus,playerBattleStatus)
+
+        assertEquals(2.0, playerBattleStatus.status.get(TargetElementStatus.STR), "플레이어 힘 2")
+        assertEquals(2.0, monsterBattleStatus.status.get(TargetElementStatus.DEX),"몬스터 덱스 2" )
+
+    }
+
+
+    @Test
+    fun `mutualToMutual - 플레이어 상호 디버프 , 몬스터 상호 힐`(){
+        val playerBattleStatus = BattleStatus(playerCardDebuffMutual,player.getStatus(),player) // 자신 덱스 -1 ,상대방 덱스 -2
+        val monsterBattleStatus = BattleStatus(monsterHealMutual,monster.getStatus(),monster) //자신 10 상대방 5 회복
+
+        defaultCardEffect.applyEffect(playerBattleStatus,monsterBattleStatus)
+
+        assertEquals(0.0, playerBattleStatus.status.get(TargetElementStatus.DEX),"플레이어 덱스 0" )
+        assertEquals(0.0, monsterBattleStatus.status.get(TargetElementStatus.DEX),"몬스터 덱스 0" )
+        assertEquals(10.0, playerBattleStatus.status.get(TargetElementStatus.HP), "플레이어 체력 10")
+        assertEquals(10.0, monsterBattleStatus.status.get(TargetElementStatus.HP), "몬스터 체력 10")
+    }
+
+    @Test
+    fun `mutualToMutual - 플레이어 상호 버프 , 몬스터 상호 버프`(){
+        val playerBattleStatus = BattleStatus(playerCardBuffMutual,player.getStatus(),player) // 자신 덱스2 ,상대방 덱스 1
+        val monsterBattleStatus = BattleStatus(monsterCardBuffMutual,monster.getStatus(),monster) //자신 힘 2 상대방 힘1
+
+        defaultCardEffect.applyEffect(monsterBattleStatus,playerBattleStatus)
+
+        assertEquals(3.0, playerBattleStatus.status.get(TargetElementStatus.DEX),"플레이어 덱스 3" )
+        assertEquals(2.0, monsterBattleStatus.status.get(TargetElementStatus.DEX),"몬스터 덱스 2" )
+        assertEquals(2.0, playerBattleStatus.status.get(TargetElementStatus.STR), "플레이어 힘 2")
+        assertEquals(3.0, monsterBattleStatus.status.get(TargetElementStatus.STR), "몬스터 힘 3")
     }
 
 

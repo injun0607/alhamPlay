@@ -52,6 +52,8 @@ class TargetElementStatusMap(
     fun add(status: TargetElementStatus, value: Double) {
         statusMap[status] = if(get(status) + value > status.maxValue){
             status.maxValue
+        }else if(get(status) + value < status.minValue){
+            status.minValue
         }else{
             get(status) + value
         }
@@ -60,6 +62,8 @@ class TargetElementStatusMap(
     fun addMaxValueCheck(status: TargetElementStatus, value: Double , maxValue: Double) {
         statusMap[status] = if(get(status) + value > maxValue){
             maxValue
+        }else if(get(status) + value < status.minValue){
+            status.minValue
         }else{
             get(status) + value
         }
