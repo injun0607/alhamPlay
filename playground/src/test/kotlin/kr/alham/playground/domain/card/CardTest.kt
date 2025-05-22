@@ -13,7 +13,7 @@ class CardTest{
 
         val num = 2;
 
-        assertEquals(num + cardDTO.effectSelfNum, 10)
+        assertEquals(num + cardDTO.effectSelfNum, 10.0)
 //        assertEquals(num - card.getEffectSelfNum(),10 )
 
 
