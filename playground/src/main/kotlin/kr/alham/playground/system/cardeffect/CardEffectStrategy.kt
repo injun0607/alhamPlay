@@ -1,11 +1,11 @@
-package kr.alham.playground.pattern.cardeffect
+package kr.alham.playground.system.cardeffect
 
 import kr.alham.playground.domain.battle.BattleStatus
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
-import kr.alham.playground.pattern.calculator.CardValueCalculator
+import kr.alham.playground.system.calculator.CardValueCalculator
 
 interface CardEffectStrategy {
     fun supportedType(): Pair<CardType,CardType>?

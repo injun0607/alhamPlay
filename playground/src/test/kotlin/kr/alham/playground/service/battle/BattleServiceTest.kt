@@ -1,42 +1,7 @@
 package kr.alham.playground.service.battle
 
-import io.mockk.Runs
-import io.mockk.every
-import io.mockk.just
-import io.mockk.mockk
-import kr.alham.playground.domain.battle.BattleState
-import kr.alham.playground.domain.battle.MonsterBattleState
-import kr.alham.playground.domain.battle.PreparationMonsterBattleStatus
-import kr.alham.playground.domain.card.Card
-import kr.alham.playground.domain.card.MonsterCard
-import kr.alham.playground.domain.card.PlayerCard
-import kr.alham.playground.domain.common.TargetElementStatus
-import kr.alham.playground.domain.enums.BattlePhase
-import kr.alham.playground.domain.enums.CardTarget
-import kr.alham.playground.domain.enums.CardType
-import kr.alham.playground.domain.monster.Monster
-import kr.alham.playground.domain.monster.MonsterCardInfo
-import kr.alham.playground.domain.player.Player
-import kr.alham.playground.domain.player.PlayerCardInfo
-import kr.alham.playground.dto.battle.MonsterBattleDTO
-import kr.alham.playground.dto.card.CardIdDTO
-import kr.alham.playground.dto.monster.MonsterDTO
-import kr.alham.playground.dto.player.PlayerDTO
-import kr.alham.playground.pattern.cardeffect.*
-import kr.alham.playground.repository.card.MonsterCardRepository
-import kr.alham.playground.repository.card.PlayerCardRepository
-import kr.alham.playground.repository.monster.MonsterRepository
-import kr.alham.playground.repository.player.PlayerRepository
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.bean.override.mockito.MockitoBean
-import java.util.*
-import kotlin.test.assertEquals
 
 
 @SpringBootTest

@@ -9,12 +9,12 @@ class Equipment(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    override val id: Long? = null,
-    override val name: String = "",
-    override val description: String = "",
-    override val type: ItemType = ItemType.EQUIPMENT,
-    override val itemRarity: ItemRarity = ItemRarity.COMMON,
-    val equipmentType: EquipmentType = EquipmentType.WEAPON,
+    override var id: Long? = null,
+    override var name: String = "",
+    override var description: String = "",
+    override var type: ItemType = ItemType.EQUIPMENT,
+    override var itemRarity: ItemRarity = ItemRarity.COMMON,
+    var equipmentType: EquipmentType = EquipmentType.WEAPON,
 ) : Item {
 
 

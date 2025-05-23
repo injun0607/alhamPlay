@@ -1,10 +1,10 @@
-package kr.alham.playground.pattern.cardeffect
+package kr.alham.playground.system.cardeffect
 
 import kr.alham.playground.domain.battle.BattleStatus
 import kr.alham.playground.domain.enums.CardType
-import kr.alham.playground.pattern.calculator.CardValueCalculator
-import kr.alham.playground.pattern.calculator.DamageCalculator
-import kr.alham.playground.pattern.calculator.EvasionRateCalculator
+import kr.alham.playground.system.calculator.CardValueCalculator
+import kr.alham.playground.system.calculator.DamageCalculator
+import kr.alham.playground.system.calculator.EvasionRateCalculator
 import org.springframework.stereotype.Component
 
 /**

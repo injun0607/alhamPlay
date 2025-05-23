@@ -1,0 +1,44 @@
+{
+  "FOREST": [
+    { "item": "HerbLeaf", "dropRate": 0.4 },
+    { "item": "MossStone", "dropRate": 0.25 },
+    { "item": "OakBranch", "dropRate": 0.2 },
+    { "item": "ForestCrystal", "dropRate": 0.1 },
+    { "item": "MysticMushroom", "dropRate": 0.05 }
+  ],
+  "DESERT": [
+    { "item": "CactusSap", "dropRate": 0.35 },
+    { "item": "SandOre", "dropRate": 0.3 },
+    { "item": "ScorpionClaw", "dropRate": 0.2 },
+    { "item": "AncientRelic", "dropRate": 0.1 },
+    { "item": "Sunstone", "dropRate": 0.05 }
+  ],
+  "GLACIER": [
+    { "item": "IceShard", "dropRate": 0.4 },
+    { "item": "FrozenBerry", "dropRate": 0.3 },
+    { "item": "GlacierFur", "dropRate": 0.15 },
+    { "item": "SnowCrystal", "dropRate": 0.1 },
+    { "item": "AuroraFeather", "dropRate": 0.05 }
+  ],
+  "VOLCANO": [
+    { "item": "LavaRock", "dropRate": 0.4 },
+    { "item": "FireAsh", "dropRate": 0.25 },
+    { "item": "MagmaCore", "dropRate": 0.2 },
+    { "item": "InfernoHorn", "dropRate": 0.1 },
+    { "item": "BlazingGem", "dropRate": 0.05 }
+  ],
+  "COAST": [
+    { "item": "Seashell", "dropRate": 0.35 },
+    { "item": "CoralPiece", "dropRate": 0.3 },
+    { "item": "Driftwood", "dropRate": 0.2 },
+    { "item": "MermaidTear", "dropRate": 0.1 },
+    { "item": "Pearl", "dropRate": 0.05 }
+  ],
+  "CHAOS": [
+    { "item": "DarkEssence", "dropRate": 0.3 },
+    { "item": "VoidFragment", "dropRate": 0.25 },
+    { "item": "TwistedRoot", "dropRate": 0.2 },
+    { "item": "ChaoticOre", "dropRate": 0.15 },
+    { "item": "EchoOfMadness", "dropRate": 0.1 }
+  ]
+}

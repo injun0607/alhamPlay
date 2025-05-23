@@ -1,7 +1,7 @@
-package kr.alham.playground.pattern.cardeffect
+package kr.alham.playground.system.cardeffect
 
 import kr.alham.playground.domain.battle.BattleStatus
-import kr.alham.playground.pattern.calculator.CardValueCalculator
+import kr.alham.playground.system.calculator.CardValueCalculator
 import org.springframework.stereotype.Component
 
 @Component

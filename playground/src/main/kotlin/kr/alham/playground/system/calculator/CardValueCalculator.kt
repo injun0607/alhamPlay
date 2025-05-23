@@ -1,4 +1,4 @@
-package kr.alham.playground.pattern.calculator
+package kr.alham.playground.system.calculator
 
 import kr.alham.playground.domain.card.Card
 import kr.alham.playground.domain.common.TargetElementStatusMap

@@ -1,4 +1,4 @@
-package kr.alham.playground.pattern.cardeffect
+package kr.alham.playground.system.cardeffect
 
 import kr.alham.playground.domain.enums.CardType
 import org.springframework.stereotype.Component

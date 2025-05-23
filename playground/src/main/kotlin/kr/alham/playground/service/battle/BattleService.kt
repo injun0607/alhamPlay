@@ -4,13 +4,11 @@ import kr.alham.playground.domain.battle.BattleState
 import kr.alham.playground.domain.battle.BattleStatus
 import kr.alham.playground.domain.battle.MonsterBattleState
 import kr.alham.playground.domain.battle.PreparationMonsterBattleStatus
-import kr.alham.playground.domain.card.Card
-import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.player.PlayerCardInfo
 import kr.alham.playground.dto.battle.MonsterBattleDTO
-import kr.alham.playground.pattern.cardeffect.CardEffectFactory
+import kr.alham.playground.system.cardeffect.CardEffectFactory
 import kr.alham.playground.repository.card.MonsterCardRepository
 import kr.alham.playground.repository.monster.MonsterRepository
 import kr.alham.playground.repository.card.PlayerCardRepository

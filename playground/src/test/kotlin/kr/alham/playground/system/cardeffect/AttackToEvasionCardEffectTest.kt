@@ -1,4 +1,4 @@
-package kr.alham.playground.pattern.cardeffect
+package kr.alham.playground.system.cardeffect
 
 import io.mockk.every
 import io.mockk.mockk
@@ -11,7 +11,7 @@ import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.monster.Monster
 import kr.alham.playground.domain.player.Player
-import kr.alham.playground.pattern.calculator.*
+import kr.alham.playground.system.calculator.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

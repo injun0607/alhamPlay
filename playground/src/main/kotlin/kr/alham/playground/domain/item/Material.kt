@@ -7,11 +7,11 @@ import jakarta.persistence.*
 class Material(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    override val id: Long? = null,
-    override val name: String = "",
-    override val description: String = "",
-    override val type: ItemType = ItemType.MATERIAL,
-    override val itemRarity: ItemRarity = ItemRarity.COMMON,
+    override var id: Long? = null,
+    override var name: String = "",
+    override var description: String = "",
+    override var type: ItemType = ItemType.MATERIAL,
+    override var itemRarity: ItemRarity = ItemRarity.COMMON,
 ) : Item {
 
 }

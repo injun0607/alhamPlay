@@ -1,11 +1,11 @@
 package kr.alham.playground.domain.item
 
 interface Item {
-    val id: Long?
-    val name: String
-    val description: String
-    val type: ItemType
-    val itemRarity: ItemRarity
+    var id: Long?
+    var name: String
+    var description: String
+    var type: ItemType
+    var itemRarity: ItemRarity
 }
 
 

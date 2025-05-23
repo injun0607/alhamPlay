@@ -1,4 +1,4 @@
-package kr.alham.playground.pattern.cardeffect
+package kr.alham.playground.system.cardeffect
 
 import kr.alham.playground.domain.battle.BattleStatus
 import kr.alham.playground.domain.card.MonsterCard
@@ -9,8 +9,8 @@ import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.monster.Monster
 import kr.alham.playground.domain.player.Player
-import kr.alham.playground.pattern.calculator.CardValueCalculator
-import kr.alham.playground.pattern.calculator.DefaultCardValueCalculator
+import kr.alham.playground.system.calculator.CardValueCalculator
+import kr.alham.playground.system.calculator.DefaultCardValueCalculator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test

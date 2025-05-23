@@ -1,8 +1,6 @@
-package kr.alham.playground.pattern.cardeffect
+package kr.alham.playground.system.cardeffect
 
-import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
-import org.junit.jupiter.api.Assertions.*
 import kotlin.test.Test
 
 
