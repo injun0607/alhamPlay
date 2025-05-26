@@ -1,0 +1,35 @@
+{
+  "COMMON": [
+    "Seashell",
+    "CoralPiece",
+    "Driftwood",
+    "BeachSand",
+    "KelpFiber",
+    "CrabClaw"
+  ],
+  "UNCOMMON": [
+    "MermaidTear",
+    "OceanFeather",
+    "WetGem",
+    "SaltPearl",
+    "TideShell"
+  ],
+  "RARE": [
+    "Pearl",
+    "DeepCoral",
+    "SeaCrystal",
+    "WhaleBone"
+  ],
+  "EPIC": [
+    "TsunamiGem",
+    "SirensVoice",
+    "StormFin"
+  ],
+  "UNIQUE": [
+    "OceanHeart",
+    "AbyssScale"
+  ],
+  "LEGENDARY": [
+    "TridentShard"
+  ]
+}

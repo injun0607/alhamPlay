@@ -1,0 +1,35 @@
+{
+  "COMMON": [
+    "HerbLeaf",
+    "Twig",
+    "MossStone",
+    "ForestGrass",
+    "BarkChip",
+    "BugCarapace"
+  ],
+  "UNCOMMON": [
+    "OakBranch",
+    "MushroomSpore",
+    "StickySap",
+    "WildBerry",
+    "AntlerHorn"
+  ],
+  "RARE": [
+    "ForestCrystal",
+    "EmeraldMoss",
+    "Moonroot",
+    "SilverLeaf"
+  ],
+  "EPIC": [
+    "AncientTreeHeart",
+    "DruidStone",
+    "MysticMushroom"
+  ],
+  "UNIQUE": [
+    "VerdantSpiritCore",
+    "Nature's Embrace"
+  ],
+  "LEGENDARY": [
+    "WhisperingSeed"
+  ]
+}

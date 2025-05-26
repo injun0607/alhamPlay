@@ -6,6 +6,9 @@ class CityArea(
     override var description: String = "",
     override var type: AreaType = AreaType.CITY,
     override var tiles: List<Tile> = mutableListOf(),
-) : Area{
 
+) : Area{
+    override fun getTile(x: Int, y: Int): Tile {
+        TODO("Not yet implemented")
+    }
 }

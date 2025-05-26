@@ -8,7 +8,9 @@ class FieldArea(
     override var tiles: List<Tile> = mutableListOf(),
     var fieldType: FieldType = FieldType.CHAOS
 ):Area {
-
+    override fun getTile(x: Int, y: Int): Tile {
+        TODO("Not yet implemented")
+    }
 }
 
 

@@ -1,0 +1,35 @@
+{
+  "COMMON": [
+    "IceShard",
+    "FrozenBerry",
+    "SnowFiber",
+    "ChillRoot",
+    "ColdScale",
+    "IceMoss"
+  ],
+  "UNCOMMON": [
+    "GlacierFur",
+    "FrostBone",
+    "SnowCrystal",
+    "IceFeather",
+    "ShiveringLeaf"
+  ],
+  "RARE": [
+    "FrozenGem",
+    "YetiTooth",
+    "WinterBloom",
+    "IceNail"
+  ],
+  "EPIC": [
+    "AuroraFeather",
+    "FrozenCore",
+    "FrostHeart"
+  ],
+  "UNIQUE": [
+    "BlizzardEssence",
+    "WyrmIceScale"
+  ],
+  "LEGENDARY": [
+    "TearOfWinter"
+  ]
+}

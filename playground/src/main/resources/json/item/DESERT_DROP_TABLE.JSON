@@ -1,0 +1,35 @@
+{
+  "COMMON": [
+    "CactusSap",
+    "SandOre",
+    "DryTwig",
+    "ScorpionShell",
+    "DustRock",
+    "DesertInsect"
+  ],
+  "UNCOMMON": [
+    "BoneFragment",
+    "ClayLump",
+    "RoughJewel",
+    "CactusNeedle",
+    "SnakeSkin"
+  ],
+  "RARE": [
+    "AncientRelic",
+    "AmberPiece",
+    "GoldenSand",
+    "DuneFlower"
+  ],
+  "EPIC": [
+    "Sunstone",
+    "ScarabJewel",
+    "BurningFang"
+  ],
+  "UNIQUE": [
+    "DesertPhantomDust",
+    "QueenScarabShell"
+  ],
+  "LEGENDARY": [
+    "EyeOfTheSun"
+  ]
+}

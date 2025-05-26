@@ -1,0 +1,35 @@
+{
+  "COMMON": [
+    "LavaRock",
+    "FireAsh",
+    "CharcoalChunk",
+    "AshenSoil",
+    "BurntRoot",
+    "MagmaDust"
+  ],
+  "UNCOMMON": [
+    "MagmaCore",
+    "FlameScale",
+    "HotStone",
+    "FireGemShard",
+    "SootFeather"
+  ],
+  "RARE": [
+    "InfernoHorn",
+    "SulfurCrystal",
+    "MoltenOre",
+    "IgniteShell"
+  ],
+  "EPIC": [
+    "BlazingGem",
+    "FlameHeart",
+    "VolcanicTear"
+  ],
+  "UNIQUE": [
+    "FireElementCore",
+    "HellflameSoul"
+  ],
+  "LEGENDARY": [
+    "CrownOfFlames"
+  ]
+}
