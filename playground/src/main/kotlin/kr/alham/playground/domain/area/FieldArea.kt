@@ -9,7 +9,8 @@ class FieldArea(
     var fieldType: FieldType = FieldType.CHAOS
 ):Area {
     override fun getTile(x: Int, y: Int): Tile {
-        TODO("Not yet implemented")
+        return tiles.firstOrNull { it.x == x && it.y == y }
+            ?: throw IllegalArgumentException("Tile not found at coordinates ($x, $y)")
     }
 }
 
