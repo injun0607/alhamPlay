@@ -1,0 +1,302 @@
+[
+  {
+    "name": "BeachsandCrabFang",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this fang carries the faint aura of BeachSand, WetGem.",
+    "ingredients": {
+      "WetGem": 1,
+      "BeachSand": 1,
+      "CrabClaw": 1,
+      "DeepCoral": 1
+    }
+  },
+  {
+    "name": "BeachsandCrabTotem",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this totem carries the faint aura of BeachSand, SeaCrystal.",
+    "ingredients": {
+      "BeachSand": 1,
+      "CrabClaw": 2,
+      "SeaCrystal": 1
+    }
+  },
+  {
+    "name": "CoralpieceCrabBlade",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this blade carries the faint aura of CrabClaw, WhaleBone.",
+    "ingredients": {
+      "WhaleBone": 1,
+      "CrabClaw": 1,
+      "CoralPiece": 2
+    }
+  },
+  {
+    "name": "CrabSeaTotem",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this totem carries the faint aura of SeaCrystal, CrabClaw.",
+    "ingredients": {
+      "CrabClaw": 2,
+      "SeaCrystal": 2
+    }
+  },
+  {
+    "name": "BeachsandKelpfiberCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of BeachSand, KelpFiber.",
+    "ingredients": {
+      "KelpFiber": 2,
+      "BeachSand": 2
+    }
+  },
+  {
+    "name": "DeepcoralMermaidTalisman",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this talisman carries the faint aura of MermaidTear, DeepCoral.",
+    "ingredients": {
+      "MermaidTear": 1,
+      "DeepCoral": 3
+    }
+  },
+  {
+    "name": "MermaidSeashellTotem",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this totem carries the faint aura of Seashell, MermaidTear.",
+    "ingredients": {
+      "Seashell": 2,
+      "MermaidTear": 2
+    }
+  },
+  {
+    "name": "BeachsandSeaElixir",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this elixir carries the faint aura of Driftwood, SeaCrystal.",
+    "ingredients": {
+      "BeachSand": 1,
+      "Driftwood": 1,
+      "SeaCrystal": 1,
+      "TideShell": 1
+    }
+  },
+  {
+    "name": "BeachsandIdol",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this idol carries the faint aura of BeachSand.",
+    "ingredients": {
+      "BeachSand": 4
+    }
+  },
+  {
+    "name": "SaltWetCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of WetGem, SaltPearl.",
+    "ingredients": {
+      "WetGem": 2,
+      "SaltPearl": 2
+    }
+  },
+  {
+    "name": "KelpfiberSeaIdol",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the idol hums with echoes of KelpFiber, SeaCrystal.",
+    "ingredients": {
+      "Driftwood": 1,
+      "Pearl": 1,
+      "SeaCrystal": 1,
+      "KelpFiber": 1
+    }
+  },
+  {
+    "name": "CoralpieceOceanAmulet",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the amulet hums with echoes of CoralPiece, WetGem.",
+    "ingredients": {
+      "CoralPiece": 1,
+      "TideShell": 1,
+      "WetGem": 1,
+      "OceanFeather": 1
+    }
+  },
+  {
+    "name": "SaltSeaTalisman",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the talisman hums with echoes of SaltPearl, SeaCrystal.",
+    "ingredients": {
+      "SeaCrystal": 1,
+      "SaltPearl": 3
+    }
+  },
+  {
+    "name": "DeepcoralOceanAmulet",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the amulet hums with echoes of DeepCoral, Seashell.",
+    "ingredients": {
+      "DeepCoral": 2,
+      "OceanFeather": 1,
+      "Seashell": 1
+    }
+  },
+  {
+    "name": "BeachsandSeashellTalisman",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the talisman hums with echoes of Seashell, BeachSand.",
+    "ingredients": {
+      "Seashell": 1,
+      "TideShell": 2,
+      "BeachSand": 1
+    }
+  },
+  {
+    "name": "DeepcoralWetTotem",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the totem hums with echoes of WetGem, Driftwood.",
+    "ingredients": {
+      "WetGem": 1,
+      "DeepCoral": 1,
+      "Pearl": 1,
+      "Driftwood": 1
+    }
+  },
+  {
+    "name": "BeachsandMermaidTotem",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the totem hums with echoes of MermaidTear, BeachSand.",
+    "ingredients": {
+      "MermaidTear": 1,
+      "BeachSand": 1,
+      "WhaleBone": 2
+    }
+  },
+  {
+    "name": "CoralpieceFang",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the fang hums with echoes of CoralPiece.",
+    "ingredients": {
+      "CoralPiece": 4
+    }
+  },
+  {
+    "name": "TideTsunamiFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of TideShell, TsunamiGem.",
+    "ingredients": {
+      "TsunamiGem": 2,
+      "TideShell": 2
+    }
+  },
+  {
+    "name": "DeepcoralMermaidTalisman",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this talisman channels the mystic forces of SaltPearl, MermaidTear.",
+    "ingredients": {
+      "MermaidTear": 2,
+      "DeepCoral": 1,
+      "SaltPearl": 1
+    }
+  },
+  {
+    "name": "SirensAmulet",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this amulet channels the mystic forces of SirensVoice.",
+    "ingredients": {
+      "SirensVoice": 4
+    }
+  },
+  {
+    "name": "SirensTideTotem",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this totem channels the mystic forces of TideShell, TsunamiGem.",
+    "ingredients": {
+      "SirensVoice": 1,
+      "TsunamiGem": 2,
+      "TideShell": 1
+    }
+  },
+  {
+    "name": "SirensStormFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of SirensVoice, StormFin.",
+    "ingredients": {
+      "SirensVoice": 2,
+      "StormFin": 2
+    }
+  },
+  {
+    "name": "DeepcoralSeaIdol",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this idol channels the mystic forces of DeepCoral, SeaCrystal.",
+    "ingredients": {
+      "SeaCrystal": 3,
+      "DeepCoral": 1
+    }
+  },
+  {
+    "name": "SeaStormTotem",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this totem brims with power drawn from SeaCrystal, StormFin.",
+    "ingredients": {
+      "SeaCrystal": 2,
+      "StormFin": 2
+    }
+  },
+  {
+    "name": "DeepcoralSeaTotem",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this totem brims with power drawn from DeepCoral, StormFin.",
+    "ingredients": {
+      "TsunamiGem": 1,
+      "SeaCrystal": 1,
+      "DeepCoral": 1,
+      "StormFin": 1
+    }
+  },
+  {
+    "name": "AbyssSirensAmulet",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this amulet brims with power drawn from StormFin, WhaleBone.",
+    "ingredients": {
+      "SirensVoice": 1,
+      "WhaleBone": 1,
+      "AbyssScale": 1,
+      "StormFin": 1
+    }
+  },
+  {
+    "name": "AbyssDeepcoralBlade",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this blade brims with power drawn from Pearl, WhaleBone.",
+    "ingredients": {
+      "Pearl": 1,
+      "WhaleBone": 1,
+      "AbyssScale": 1,
+      "DeepCoral": 1
+    }
+  },
+  {
+    "name": "AbyssOceanElixir",
+    "rarity": "UNIQUE",
+    "description": "Legends say this elixir was once wielded by a forgotten sea sage, infused with OceanHeart, AbyssScale.",
+    "ingredients": {
+      "TsunamiGem": 1,
+      "AbyssScale": 1,
+      "OceanHeart": 1,
+      "TridentShard": 1
+    }
+  },
+  {
+    "name": "TsunamiElixir",
+    "rarity": "UNIQUE",
+    "description": "Legends say this elixir was once wielded by a forgotten sea sage, infused with TsunamiGem.",
+    "ingredients": {
+      "TsunamiGem": 4
+    }
+  },
+  {
+    "name": "AbyssOceanBlade",
+    "rarity": "LEGENDARY",
+    "description": "Crafted by the abyss itself, this blade pulses with the essence of AbyssScale, OceanHeart.",
+    "ingredients": {
+      "AbyssScale": 2,
+      "OceanHeart": 2
+    }
+  }
+]

@@ -1,0 +1,304 @@
+[
+  {
+    "name": "GlacierfurSnowfiberFang",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this fang carries the faint aura of GlacierFur, SnowFiber.",
+    "ingredients": {
+      "SnowFiber": 2,
+      "GlacierFur": 2
+    }
+  },
+  {
+    "name": "IcemossShiveringleafTotem",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this totem carries the faint aura of IceMoss, ShiveringLeaf.",
+    "ingredients": {
+      "ShiveringLeaf": 2,
+      "IceMoss": 2
+    }
+  },
+  {
+    "name": "FrostFrozenTalisman",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this talisman carries the faint aura of SnowCrystal, FrostBone.",
+    "ingredients": {
+      "SnowCrystal": 1,
+      "GlacierFur": 1,
+      "FrostBone": 1,
+      "FrozenGem": 1
+    }
+  },
+  {
+    "name": "FrozenSnowfiberElixir",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this elixir carries the faint aura of FrozenGem, SnowFiber.",
+    "ingredients": {
+      "SnowFiber": 3,
+      "FrozenGem": 1
+    }
+  },
+  {
+    "name": "FrostIcenailFang",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this fang carries the faint aura of SnowFiber, FrostBone.",
+    "ingredients": {
+      "IceNail": 1,
+      "SnowFiber": 1,
+      "FrostBone": 2
+    }
+  },
+  {
+    "name": "ChillrootColdTalisman",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this talisman carries the faint aura of FrostBone, ChillRoot.",
+    "ingredients": {
+      "SnowFiber": 1,
+      "FrostBone": 1,
+      "ChillRoot": 1,
+      "ColdScale": 1
+    }
+  },
+  {
+    "name": "FrostFrozenberryElixir",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this elixir carries the faint aura of FrozenBerry, IceNail.",
+    "ingredients": {
+      "FrozenBerry": 1,
+      "IceNail": 1,
+      "FrostBone": 1,
+      "FrozenGem": 1
+    }
+  },
+  {
+    "name": "ChillrootFrostBand",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this band carries the faint aura of FrostBone, SnowFiber.",
+    "ingredients": {
+      "IceNail": 1,
+      "FrostBone": 1,
+      "SnowFiber": 1,
+      "ChillRoot": 1
+    }
+  },
+  {
+    "name": "ChillrootGlacierfurTotem",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this totem carries the faint aura of ChillRoot, IceShard.",
+    "ingredients": {
+      "GlacierFur": 2,
+      "IceShard": 1,
+      "ChillRoot": 1
+    }
+  },
+  {
+    "name": "ChillrootIcenailTalisman",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this talisman carries the faint aura of ShiveringLeaf, IceNail.",
+    "ingredients": {
+      "IceNail": 1,
+      "ShiveringLeaf": 2,
+      "ChillRoot": 1
+    }
+  },
+  {
+    "name": "IceSnowBand",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the band hums with echoes of IceShard, SnowCrystal.",
+    "ingredients": {
+      "IceShard": 2,
+      "YetiTooth": 1,
+      "SnowCrystal": 1
+    }
+  },
+  {
+    "name": "ColdShiveringleafElixir",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the elixir hums with echoes of ShiveringLeaf, ColdScale.",
+    "ingredients": {
+      "ShiveringLeaf": 2,
+      "ColdScale": 2
+    }
+  },
+  {
+    "name": "SnowfiberWinterbloomElixir",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the elixir hums with echoes of SnowFiber, WinterBloom.",
+    "ingredients": {
+      "WinterBloom": 3,
+      "SnowFiber": 1
+    }
+  },
+  {
+    "name": "ChillrootSnowfiberFang",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the fang hums with echoes of ChillRoot, SnowFiber.",
+    "ingredients": {
+      "ChillRoot": 1,
+      "SnowFiber": 1,
+      "WinterBloom": 2
+    }
+  },
+  {
+    "name": "SnowfiberTotem",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the totem hums with echoes of SnowFiber.",
+    "ingredients": {
+      "SnowFiber": 4
+    }
+  },
+  {
+    "name": "ChillrootFrozenberryCharm",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the charm hums with echoes of ChillRoot, IceFeather.",
+    "ingredients": {
+      "FrozenBerry": 2,
+      "IceFeather": 1,
+      "ChillRoot": 1
+    }
+  },
+  {
+    "name": "ChillrootFrostFang",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the fang hums with echoes of ChillRoot, FrostBone.",
+    "ingredients": {
+      "ChillRoot": 1,
+      "FrostBone": 1,
+      "SnowFiber": 2
+    }
+  },
+  {
+    "name": "ColdFrozenberryCore",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the core hums with echoes of WinterBloom, FrozenBerry.",
+    "ingredients": {
+      "ColdScale": 1,
+      "FrozenBerry": 1,
+      "WinterBloom": 1,
+      "FrozenGem": 1
+    }
+  },
+  {
+    "name": "IceIcenailElixir",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this elixir channels the mystic forces of IceNail, IceFeather.",
+    "ingredients": {
+      "IceFeather": 2,
+      "IceNail": 1,
+      "SnowCrystal": 1
+    }
+  },
+  {
+    "name": "FrozencoreIceBlade",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this blade channels the mystic forces of IceFeather, FrozenCore.",
+    "ingredients": {
+      "FrozenCore": 1,
+      "IceFeather": 3
+    }
+  },
+  {
+    "name": "IcenailTalisman",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this talisman channels the mystic forces of IceNail.",
+    "ingredients": {
+      "IceNail": 4
+    }
+  },
+  {
+    "name": "FrostFrostFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of ShiveringLeaf, FrostBone.",
+    "ingredients": {
+      "ShiveringLeaf": 2,
+      "FrostHeart": 1,
+      "FrostBone": 1
+    }
+  },
+  {
+    "name": "FrozencoreIceBand",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this band channels the mystic forces of FrozenCore, IceFeather.",
+    "ingredients": {
+      "FrozenCore": 2,
+      "IceFeather": 2
+    }
+  },
+  {
+    "name": "FrozenFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of FrozenGem.",
+    "ingredients": {
+      "FrozenGem": 4
+    }
+  },
+  {
+    "name": "FrostFrozencoreTotem",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this totem brims with power drawn from FrozenGem, FrostHeart.",
+    "ingredients": {
+      "FrozenGem": 1,
+      "FrostHeart": 1,
+      "FrozenCore": 1,
+      "WinterBloom": 1
+    }
+  },
+  {
+    "name": "FrostIcenailBand",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this band brims with power drawn from IceNail, FrostHeart.",
+    "ingredients": {
+      "IceNail": 2,
+      "FrostHeart": 2
+    }
+  },
+  {
+    "name": "AuroraFrozenIdol",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this idol brims with power drawn from FrozenGem, AuroraFeather.",
+    "ingredients": {
+      "AuroraFeather": 1,
+      "FrozenGem": 3
+    }
+  },
+  {
+    "name": "AuroraFrostAmulet",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this amulet brims with power drawn from FrozenGem, FrostHeart.",
+    "ingredients": {
+      "FrostHeart": 1,
+      "FrozenGem": 1,
+      "WinterBloom": 1,
+      "AuroraFeather": 1
+    }
+  },
+  {
+    "name": "BlizzardessenceFrostBlade",
+    "rarity": "UNIQUE",
+    "description": "Legends say this blade was once wielded by a forgotten sea sage, infused with BlizzardEssence, FrozenCore.",
+    "ingredients": {
+      "TearOfWinter": 1,
+      "FrozenCore": 1,
+      "BlizzardEssence": 1,
+      "FrostHeart": 1
+    }
+  },
+  {
+    "name": "AuroraFrozencoreAmulet",
+    "rarity": "UNIQUE",
+    "description": "Legends say this amulet was once wielded by a forgotten sea sage, infused with AuroraFeather, FrozenCore.",
+    "ingredients": {
+      "FrozenCore": 1,
+      "TearOfWinter": 1,
+      "AuroraFeather": 1,
+      "WyrmIceScale": 1
+    }
+  },
+  {
+    "name": "WyrmiceTalisman",
+    "rarity": "LEGENDARY",
+    "description": "Crafted by the abyss itself, this talisman pulses with the essence of WyrmIceScale.",
+    "ingredients": {
+      "WyrmIceScale": 4
+    }
+  }
+]

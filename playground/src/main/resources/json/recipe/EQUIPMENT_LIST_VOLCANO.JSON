@@ -1,0 +1,298 @@
+[
+  {
+    "name": "BurntrootAmulet",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this amulet carries the faint aura of BurntRoot.",
+    "ingredients": {
+      "BurntRoot": 4
+    }
+  },
+  {
+    "name": "CharcoalchunkIgniteCore",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this core carries the faint aura of IgniteShell, CharcoalChunk.",
+    "ingredients": {
+      "IgniteShell": 1,
+      "CharcoalChunk": 3
+    }
+  },
+  {
+    "name": "InfernohornCore",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this core carries the faint aura of InfernoHorn.",
+    "ingredients": {
+      "InfernoHorn": 4
+    }
+  },
+  {
+    "name": "CharcoalchunkFireashCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of HotStone, CharcoalChunk.",
+    "ingredients": {
+      "HotStone": 2,
+      "FireAsh": 1,
+      "CharcoalChunk": 1
+    }
+  },
+  {
+    "name": "CharcoalchunkFireCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of FireGemShard, CharcoalChunk.",
+    "ingredients": {
+      "InfernoHorn": 1,
+      "FireGemShard": 2,
+      "CharcoalChunk": 1
+    }
+  },
+  {
+    "name": "FlameBlade",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this blade carries the faint aura of FlameScale.",
+    "ingredients": {
+      "FlameScale": 4
+    }
+  },
+  {
+    "name": "CharcoalchunkHotstoneBand",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this band carries the faint aura of InfernoHorn, CharcoalChunk.",
+    "ingredients": {
+      "SootFeather": 1,
+      "CharcoalChunk": 1,
+      "InfernoHorn": 1,
+      "HotStone": 1
+    }
+  },
+  {
+    "name": "HotstoneFang",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this fang carries the faint aura of HotStone.",
+    "ingredients": {
+      "HotStone": 4
+    }
+  },
+  {
+    "name": "IgniteMagmadustCore",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this core carries the faint aura of IgniteShell, SulfurCrystal.",
+    "ingredients": {
+      "SulfurCrystal": 2,
+      "IgniteShell": 1,
+      "MagmaDust": 1
+    }
+  },
+  {
+    "name": "AshensoilBurntrootBand",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this band carries the faint aura of AshenSoil, BurntRoot.",
+    "ingredients": {
+      "AshenSoil": 3,
+      "BurntRoot": 1
+    }
+  },
+  {
+    "name": "AshensoilFireashAmulet",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the amulet hums with echoes of MoltenOre, AshenSoil.",
+    "ingredients": {
+      "MoltenOre": 1,
+      "AshenSoil": 1,
+      "FireAsh": 1,
+      "SulfurCrystal": 1
+    }
+  },
+  {
+    "name": "AshensoilIgniteElixir",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the elixir hums with echoes of IgniteShell, AshenSoil.",
+    "ingredients": {
+      "IgniteShell": 1,
+      "MoltenOre": 1,
+      "SootFeather": 1,
+      "AshenSoil": 1
+    }
+  },
+  {
+    "name": "IgniteAmulet",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the amulet hums with echoes of IgniteShell.",
+    "ingredients": {
+      "IgniteShell": 4
+    }
+  },
+  {
+    "name": "AshensoilCharcoalchunkIdol",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the idol hums with echoes of CharcoalChunk, LavaRock.",
+    "ingredients": {
+      "CharcoalChunk": 1,
+      "AshenSoil": 1,
+      "LavaRock": 2
+    }
+  },
+  {
+    "name": "BurntrootFireFang",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the fang hums with echoes of FireGemShard, BurntRoot.",
+    "ingredients": {
+      "BurntRoot": 1,
+      "FireGemShard": 1,
+      "HotStone": 1,
+      "MagmaCore": 1
+    }
+  },
+  {
+    "name": "HotstoneInfernohornCore",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the core hums with echoes of MagmaCore, HotStone.",
+    "ingredients": {
+      "HotStone": 1,
+      "MagmaCore": 1,
+      "InfernoHorn": 2
+    }
+  },
+  {
+    "name": "LavarockMagmadustElixir",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the elixir hums with echoes of MagmaDust, LavaRock.",
+    "ingredients": {
+      "LavaRock": 1,
+      "MagmaDust": 3
+    }
+  },
+  {
+    "name": "CharcoalchunkFireashBlade",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the blade hums with echoes of FireAsh, IgniteShell.",
+    "ingredients": {
+      "IgniteShell": 1,
+      "CharcoalChunk": 2,
+      "FireAsh": 1
+    }
+  },
+  {
+    "name": "FlameHotstoneBlade",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this blade channels the mystic forces of SulfurCrystal, HotStone.",
+    "ingredients": {
+      "HotStone": 1,
+      "FlameHeart": 1,
+      "IgniteShell": 1,
+      "SulfurCrystal": 1
+    }
+  },
+  {
+    "name": "FlameHotstoneIdol",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this idol channels the mystic forces of HotStone, InfernoHorn.",
+    "ingredients": {
+      "FlameHeart": 1,
+      "HotStone": 1,
+      "InfernoHorn": 2
+    }
+  },
+  {
+    "name": "FlameElixir",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this elixir channels the mystic forces of FlameHeart.",
+    "ingredients": {
+      "FlameHeart": 4
+    }
+  },
+  {
+    "name": "BlazingFireFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of FireGemShard, BlazingGem.",
+    "ingredients": {
+      "FireGemShard": 2,
+      "BlazingGem": 2
+    }
+  },
+  {
+    "name": "FlameInfernohornCharm",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this charm channels the mystic forces of MagmaCore, InfernoHorn.",
+    "ingredients": {
+      "FlameHeart": 1,
+      "VolcanicTear": 1,
+      "MagmaCore": 1,
+      "InfernoHorn": 1
+    }
+  },
+  {
+    "name": "FlameMagmacoreBand",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this band channels the mystic forces of MagmaCore, FlameScale.",
+    "ingredients": {
+      "FlameScale": 3,
+      "MagmaCore": 1
+    }
+  },
+  {
+    "name": "MoltenoreCharm",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this charm brims with power drawn from MoltenOre.",
+    "ingredients": {
+      "MoltenOre": 4
+    }
+  },
+  {
+    "name": "IgniteVolcanicBlade",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this blade brims with power drawn from IgniteShell, VolcanicTear.",
+    "ingredients": {
+      "VolcanicTear": 3,
+      "IgniteShell": 1
+    }
+  },
+  {
+    "name": "BlazingFlameBlade",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this blade brims with power drawn from HellflameSoul, VolcanicTear.",
+    "ingredients": {
+      "VolcanicTear": 1,
+      "HellflameSoul": 1,
+      "FlameHeart": 1,
+      "BlazingGem": 1
+    }
+  },
+  {
+    "name": "FireelementcoreInfernohornIdol",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this idol brims with power drawn from FireElementCore, MoltenOre.",
+    "ingredients": {
+      "MoltenOre": 1,
+      "InfernoHorn": 2,
+      "FireElementCore": 1
+    }
+  },
+  {
+    "name": "BlazingFireelementcoreCharm",
+    "rarity": "UNIQUE",
+    "description": "Legends say this charm was once wielded by a forgotten sea sage, infused with HellflameSoul, FireElementCore.",
+    "ingredients": {
+      "HellflameSoul": 1,
+      "FireElementCore": 1,
+      "BlazingGem": 2
+    }
+  },
+  {
+    "name": "CrownofflamesFireelementcoreBand",
+    "rarity": "UNIQUE",
+    "description": "Legends say this band was once wielded by a forgotten sea sage, infused with FlameHeart, HellflameSoul.",
+    "ingredients": {
+      "CrownOfFlames": 1,
+      "FlameHeart": 1,
+      "FireElementCore": 1,
+      "HellflameSoul": 1
+    }
+  },
+  {
+    "name": "HellflamesoulTotem",
+    "rarity": "LEGENDARY",
+    "description": "Crafted by the abyss itself, this totem pulses with the essence of HellflameSoul.",
+    "ingredients": {
+      "HellflameSoul": 4
+    }
+  }
+]

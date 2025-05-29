@@ -4,6 +4,7 @@ import kr.alham.playground.common.utils.tileTypeMatcherWithItemRarity
 import kr.alham.playground.domain.area.FieldArea
 import kr.alham.playground.domain.area.FieldType
 import kr.alham.playground.domain.item.ItemRarity
+import kr.alham.playground.dto.craft.MaterialDTO
 import kr.alham.playground.loader.DropTableLoader
 import kr.alham.playground.system.area.AreaSystem
 import org.junit.jupiter.api.Assertions.*
@@ -146,7 +147,7 @@ class GatherSystemTest{
         return ItemRarity.COMMON
     }
 
-    private fun filedGather(area:FieldArea,x: Int, y: Int): String {
+    private fun filedGather(area:FieldArea,x: Int, y: Int): MaterialDTO {
 
         val tile = area.getTile(x,y)
         val itemRarity = tileTypeMatcherWithItemRarity(tile.type)
@@ -159,7 +160,7 @@ class GatherSystemTest{
         val dropItems = dropTable[pickedItemRarity]
             ?: throw IllegalArgumentException("No items found for rarity: $pickedItemRarity")
 
-        return dropItems.random()
+        return MaterialDTO(itemRarity,dropItems.random())
     }
 
     @Test
@@ -183,7 +184,7 @@ class GatherSystemTest{
         repeat(trials){
             val result = filedGather(filedArea, 2, 3)
 
-            val rarity = loadDropTable.entries.firstOrNull { it.value.contains(result) }?.key
+            val rarity = loadDropTable.entries.firstOrNull { it.value.contains(result.name) }?.key
                 ?: throw IllegalArgumentException("No item found for result: $result")
             counts[rarity] = counts.getValue(rarity) + 1
         }

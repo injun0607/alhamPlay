@@ -1,0 +1,301 @@
+[
+  {
+    "name": "AmberpieceCore",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this core carries the faint aura of AmberPiece.",
+    "ingredients": {
+      "AmberPiece": 4
+    }
+  },
+  {
+    "name": "DustrockCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of DustRock.",
+    "ingredients": {
+      "DustRock": 4
+    }
+  },
+  {
+    "name": "RoughjewelSandoreCore",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this core carries the faint aura of SandOre, RoughJewel.",
+    "ingredients": {
+      "SandOre": 2,
+      "RoughJewel": 2
+    }
+  },
+  {
+    "name": "ClaylumpDustrockTotem",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this totem carries the faint aura of GoldenSand, DustRock.",
+    "ingredients": {
+      "GoldenSand": 1,
+      "ClayLump": 1,
+      "DustRock": 2
+    }
+  },
+  {
+    "name": "RoughjewelTalisman",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this talisman carries the faint aura of RoughJewel.",
+    "ingredients": {
+      "RoughJewel": 4
+    }
+  },
+  {
+    "name": "AmberpieceClaylumpTalisman",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this talisman carries the faint aura of ClayLump, AmberPiece.",
+    "ingredients": {
+      "SandOre": 1,
+      "ScorpionShell": 1,
+      "ClayLump": 1,
+      "AmberPiece": 1
+    }
+  },
+  {
+    "name": "FragmentDuneflowerCore",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this core carries the faint aura of DuneFlower, BoneFragment.",
+    "ingredients": {
+      "BoneFragment": 3,
+      "DuneFlower": 1
+    }
+  },
+  {
+    "name": "FragmentDrytwigCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of SnakeSkin, DryTwig.",
+    "ingredients": {
+      "SnakeSkin": 2,
+      "DryTwig": 1,
+      "BoneFragment": 1
+    }
+  },
+  {
+    "name": "CactusneedleClaylumpBlade",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this blade carries the faint aura of CactusNeedle, ClayLump.",
+    "ingredients": {
+      "DesertInsect": 1,
+      "CactusNeedle": 1,
+      "ClayLump": 2
+    }
+  },
+  {
+    "name": "FragmentClaylumpCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of BoneFragment, DuneFlower.",
+    "ingredients": {
+      "DuneFlower": 1,
+      "ScorpionShell": 1,
+      "BoneFragment": 1,
+      "ClayLump": 1
+    }
+  },
+  {
+    "name": "CactussapDrytwigTalisman",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the talisman hums with echoes of DryTwig, CactusSap.",
+    "ingredients": {
+      "DustRock": 1,
+      "DryTwig": 2,
+      "CactusSap": 1
+    }
+  },
+  {
+    "name": "DrytwigCharm",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the charm hums with echoes of DryTwig.",
+    "ingredients": {
+      "DryTwig": 4
+    }
+  },
+  {
+    "name": "CactusneedleDesertinsectIdol",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the idol hums with echoes of DesertInsect, CactusNeedle.",
+    "ingredients": {
+      "DuneFlower": 2,
+      "CactusNeedle": 1,
+      "DesertInsect": 1
+    }
+  },
+  {
+    "name": "AncientrelicDesertinsectFang",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the fang hums with echoes of AncientRelic, RoughJewel.",
+    "ingredients": {
+      "AncientRelic": 2,
+      "DesertInsect": 1,
+      "RoughJewel": 1
+    }
+  },
+  {
+    "name": "CactussapGoldensandAmulet",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the amulet hums with echoes of GoldenSand, SnakeSkin.",
+    "ingredients": {
+      "CactusSap": 2,
+      "GoldenSand": 1,
+      "SnakeSkin": 1
+    }
+  },
+  {
+    "name": "ClaylumpDesertinsectCharm",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the charm hums with echoes of SnakeSkin, ClayLump.",
+    "ingredients": {
+      "SnakeSkin": 1,
+      "DesertInsect": 1,
+      "RoughJewel": 1,
+      "ClayLump": 1
+    }
+  },
+  {
+    "name": "AmberpieceClaylumpBand",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the band hums with echoes of AmberPiece, ClayLump.",
+    "ingredients": {
+      "DryTwig": 2,
+      "ClayLump": 1,
+      "AmberPiece": 1
+    }
+  },
+  {
+    "name": "ClaylumpDrytwigFang",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the fang hums with echoes of ClayLump, DryTwig.",
+    "ingredients": {
+      "ScorpionShell": 1,
+      "DryTwig": 1,
+      "ClayLump": 1,
+      "SandOre": 1
+    }
+  },
+  {
+    "name": "DuneflowerRoughjewelTalisman",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this talisman channels the mystic forces of SnakeSkin, DuneFlower.",
+    "ingredients": {
+      "RoughJewel": 2,
+      "DuneFlower": 1,
+      "SnakeSkin": 1
+    }
+  },
+  {
+    "name": "AmberpieceAncientrelicAmulet",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this amulet channels the mystic forces of ScarabJewel, AmberPiece.",
+    "ingredients": {
+      "AncientRelic": 1,
+      "Sunstone": 1,
+      "ScarabJewel": 1,
+      "AmberPiece": 1
+    }
+  },
+  {
+    "name": "FragmentTotem",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this totem channels the mystic forces of BoneFragment.",
+    "ingredients": {
+      "BoneFragment": 4
+    }
+  },
+  {
+    "name": "FragmentSnakeskinFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of BoneFragment, SnakeSkin.",
+    "ingredients": {
+      "BoneFragment": 2,
+      "SnakeSkin": 2
+    }
+  },
+  {
+    "name": "FragmentCactusneedleBlade",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this blade channels the mystic forces of CactusNeedle, ClayLump.",
+    "ingredients": {
+      "BoneFragment": 1,
+      "ClayLump": 1,
+      "CactusNeedle": 2
+    }
+  },
+  {
+    "name": "BurningfangGoldensandTalisman",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this talisman channels the mystic forces of GoldenSand, ScarabJewel.",
+    "ingredients": {
+      "ScarabJewel": 1,
+      "SnakeSkin": 1,
+      "GoldenSand": 1,
+      "BurningFang": 1
+    }
+  },
+  {
+    "name": "ScarabjewelSunstoneAmulet",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this amulet brims with power drawn from ScarabJewel, Sunstone.",
+    "ingredients": {
+      "ScarabJewel": 3,
+      "Sunstone": 1
+    }
+  },
+  {
+    "name": "AmberpieceBurningfangTotem",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this totem brims with power drawn from DuneFlower, DesertPhantomDust.",
+    "ingredients": {
+      "AmberPiece": 1,
+      "DuneFlower": 1,
+      "DesertPhantomDust": 1,
+      "BurningFang": 1
+    }
+  },
+  {
+    "name": "DuneflowerBlade",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this blade brims with power drawn from DuneFlower.",
+    "ingredients": {
+      "DuneFlower": 4
+    }
+  },
+  {
+    "name": "AncientrelicBurningfangTalisman",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this talisman brims with power drawn from BurningFang, AncientRelic.",
+    "ingredients": {
+      "AncientRelic": 1,
+      "BurningFang": 1,
+      "ScarabJewel": 1,
+      "DuneFlower": 1
+    }
+  },
+  {
+    "name": "BurningfangQueenscarabCore",
+    "rarity": "UNIQUE",
+    "description": "Legends say this core was once wielded by a forgotten sea sage, infused with QueenScarabShell, Sunstone.",
+    "ingredients": {
+      "QueenScarabShell": 2,
+      "Sunstone": 1,
+      "BurningFang": 1
+    }
+  },
+  {
+    "name": "BurningfangBlade",
+    "rarity": "UNIQUE",
+    "description": "Legends say this blade was once wielded by a forgotten sea sage, infused with BurningFang.",
+    "ingredients": {
+      "BurningFang": 4
+    }
+  },
+  {
+    "name": "EyeofthesunQueenscarabTalisman",
+    "rarity": "LEGENDARY",
+    "description": "Crafted by the abyss itself, this talisman pulses with the essence of QueenScarabShell, EyeOfTheSun.",
+    "ingredients": {
+      "QueenScarabShell": 2,
+      "EyeOfTheSun": 2
+    }
+  }
+]

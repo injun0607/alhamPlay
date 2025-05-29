@@ -1,0 +1,1192 @@
+{
+  "COMMON": [
+    {
+      "name": "BeachsandCrabFang",
+      "ingredients": {
+        "WetGem": 1,
+        "BeachSand": 1,
+        "CrabClaw": 1,
+        "DeepCoral": 1
+      }
+    },
+    {
+      "name": "BeachsandCrabTotem",
+      "ingredients": {
+        "BeachSand": 1,
+        "CrabClaw": 2,
+        "SeaCrystal": 1
+      }
+    },
+    {
+      "name": "CoralpieceCrabBlade",
+      "ingredients": {
+        "WhaleBone": 1,
+        "CrabClaw": 1,
+        "CoralPiece": 2
+      }
+    },
+    {
+      "name": "CrabSeaTotem",
+      "ingredients": {
+        "CrabClaw": 2,
+        "SeaCrystal": 2
+      }
+    },
+    {
+      "name": "BeachsandKelpfiberCharm",
+      "ingredients": {
+        "KelpFiber": 2,
+        "BeachSand": 2
+      }
+    },
+    {
+      "name": "DeepcoralMermaidTalisman",
+      "ingredients": {
+        "MermaidTear": 1,
+        "DeepCoral": 3
+      }
+    },
+    {
+      "name": "MermaidSeashellTotem",
+      "ingredients": {
+        "Seashell": 2,
+        "MermaidTear": 2
+      }
+    },
+    {
+      "name": "BeachsandSeaElixir",
+      "ingredients": {
+        "BeachSand": 1,
+        "Driftwood": 1,
+        "SeaCrystal": 1,
+        "TideShell": 1
+      }
+    },
+    {
+      "name": "BeachsandIdol",
+      "ingredients": {
+        "BeachSand": 4
+      }
+    },
+    {
+      "name": "SaltWetCharm",
+      "ingredients": {
+        "WetGem": 2,
+        "SaltPearl": 2
+      }
+    },
+    {
+      "name": "AmberpieceCore",
+      "ingredients": {
+        "AmberPiece": 4
+      }
+    },
+    {
+      "name": "DustrockCharm",
+      "ingredients": {
+        "DustRock": 4
+      }
+    },
+    {
+      "name": "RoughjewelSandoreCore",
+      "ingredients": {
+        "SandOre": 2,
+        "RoughJewel": 2
+      }
+    },
+    {
+      "name": "ClaylumpDustrockTotem",
+      "ingredients": {
+        "GoldenSand": 1,
+        "ClayLump": 1,
+        "DustRock": 2
+      }
+    },
+    {
+      "name": "RoughjewelTalisman",
+      "ingredients": {
+        "RoughJewel": 4
+      }
+    },
+    {
+      "name": "AmberpieceClaylumpTalisman",
+      "ingredients": {
+        "SandOre": 1,
+        "ScorpionShell": 1,
+        "ClayLump": 1,
+        "AmberPiece": 1
+      }
+    },
+    {
+      "name": "FragmentDuneflowerCore",
+      "ingredients": {
+        "BoneFragment": 3,
+        "DuneFlower": 1
+      }
+    },
+    {
+      "name": "FragmentDrytwigCharm",
+      "ingredients": {
+        "SnakeSkin": 2,
+        "DryTwig": 1,
+        "BoneFragment": 1
+      }
+    },
+    {
+      "name": "CactusneedleClaylumpBlade",
+      "ingredients": {
+        "DesertInsect": 1,
+        "CactusNeedle": 1,
+        "ClayLump": 2
+      }
+    },
+    {
+      "name": "FragmentClaylumpCharm",
+      "ingredients": {
+        "DuneFlower": 1,
+        "ScorpionShell": 1,
+        "BoneFragment": 1,
+        "ClayLump": 1
+      }
+    },
+    {
+      "name": "EmeraldmossForestgrassElixir",
+      "ingredients": {
+        "ForestGrass": 1,
+        "EmeraldMoss": 1,
+        "MossStone": 2
+      }
+    },
+    {
+      "name": "ForestStickysapBlade",
+      "ingredients": {
+        "StickySap": 1,
+        "Twig": 2,
+        "ForestCrystal": 1
+      }
+    },
+    {
+      "name": "BarkchipTwigCharm",
+      "ingredients": {
+        "BarkChip": 2,
+        "Twig": 2
+      }
+    },
+    {
+      "name": "BarkchipEmeraldmossIdol",
+      "ingredients": {
+        "BarkChip": 1,
+        "EmeraldMoss": 3
+      }
+    },
+    {
+      "name": "BugcarapaceStickysapBlade",
+      "ingredients": {
+        "StickySap": 1,
+        "BugCarapace": 3
+      }
+    },
+    {
+      "name": "EmeraldmossForestgrassCore",
+      "ingredients": {
+        "Moonroot": 1,
+        "EmeraldMoss": 1,
+        "SilverLeaf": 1,
+        "ForestGrass": 1
+      }
+    },
+    {
+      "name": "ForestMoonrootFang",
+      "ingredients": {
+        "ForestCrystal": 2,
+        "Moonroot": 1,
+        "StickySap": 1
+      }
+    },
+    {
+      "name": "BarkchipForestTotem",
+      "ingredients": {
+        "ForestCrystal": 1,
+        "BarkChip": 2,
+        "ForestGrass": 1
+      }
+    },
+    {
+      "name": "MushroomsporeAmulet",
+      "ingredients": {
+        "MushroomSpore": 4
+      }
+    },
+    {
+      "name": "EmeraldmossFang",
+      "ingredients": {
+        "EmeraldMoss": 4
+      }
+    },
+    {
+      "name": "GlacierfurSnowfiberFang",
+      "ingredients": {
+        "SnowFiber": 2,
+        "GlacierFur": 2
+      }
+    },
+    {
+      "name": "IcemossShiveringleafTotem",
+      "ingredients": {
+        "ShiveringLeaf": 2,
+        "IceMoss": 2
+      }
+    },
+    {
+      "name": "FrostFrozenTalisman",
+      "ingredients": {
+        "SnowCrystal": 1,
+        "GlacierFur": 1,
+        "FrostBone": 1,
+        "FrozenGem": 1
+      }
+    },
+    {
+      "name": "FrozenSnowfiberElixir",
+      "ingredients": {
+        "SnowFiber": 3,
+        "FrozenGem": 1
+      }
+    },
+    {
+      "name": "FrostIcenailFang",
+      "ingredients": {
+        "IceNail": 1,
+        "SnowFiber": 1,
+        "FrostBone": 2
+      }
+    },
+    {
+      "name": "ChillrootColdTalisman",
+      "ingredients": {
+        "SnowFiber": 1,
+        "FrostBone": 1,
+        "ChillRoot": 1,
+        "ColdScale": 1
+      }
+    },
+    {
+      "name": "FrostFrozenberryElixir",
+      "ingredients": {
+        "FrozenBerry": 1,
+        "IceNail": 1,
+        "FrostBone": 1,
+        "FrozenGem": 1
+      }
+    },
+    {
+      "name": "ChillrootFrostBand",
+      "ingredients": {
+        "IceNail": 1,
+        "FrostBone": 1,
+        "SnowFiber": 1,
+        "ChillRoot": 1
+      }
+    },
+    {
+      "name": "ChillrootGlacierfurTotem",
+      "ingredients": {
+        "GlacierFur": 2,
+        "IceShard": 1,
+        "ChillRoot": 1
+      }
+    },
+    {
+      "name": "ChillrootIcenailTalisman",
+      "ingredients": {
+        "IceNail": 1,
+        "ShiveringLeaf": 2,
+        "ChillRoot": 1
+      }
+    },
+    {
+      "name": "BurntrootAmulet",
+      "ingredients": {
+        "BurntRoot": 4
+      }
+    },
+    {
+      "name": "CharcoalchunkIgniteCore",
+      "ingredients": {
+        "IgniteShell": 1,
+        "CharcoalChunk": 3
+      }
+    },
+    {
+      "name": "InfernohornCore",
+      "ingredients": {
+        "InfernoHorn": 4
+      }
+    },
+    {
+      "name": "CharcoalchunkFireashCharm",
+      "ingredients": {
+        "HotStone": 2,
+        "FireAsh": 1,
+        "CharcoalChunk": 1
+      }
+    },
+    {
+      "name": "CharcoalchunkFireCharm",
+      "ingredients": {
+        "InfernoHorn": 1,
+        "FireGemShard": 2,
+        "CharcoalChunk": 1
+      }
+    },
+    {
+      "name": "FlameBlade",
+      "ingredients": {
+        "FlameScale": 4
+      }
+    },
+    {
+      "name": "CharcoalchunkHotstoneBand",
+      "ingredients": {
+        "SootFeather": 1,
+        "CharcoalChunk": 1,
+        "InfernoHorn": 1,
+        "HotStone": 1
+      }
+    },
+    {
+      "name": "HotstoneFang",
+      "ingredients": {
+        "HotStone": 4
+      }
+    },
+    {
+      "name": "IgniteMagmadustCore",
+      "ingredients": {
+        "SulfurCrystal": 2,
+        "IgniteShell": 1,
+        "MagmaDust": 1
+      }
+    },
+    {
+      "name": "AshensoilBurntrootBand",
+      "ingredients": {
+        "AshenSoil": 3,
+        "BurntRoot": 1
+      }
+    }
+  ],
+  "UNCOMMON": [
+    {
+      "name": "KelpfiberSeaIdol",
+      "ingredients": {
+        "Driftwood": 1,
+        "Pearl": 1,
+        "SeaCrystal": 1,
+        "KelpFiber": 1
+      }
+    },
+    {
+      "name": "CoralpieceOceanAmulet",
+      "ingredients": {
+        "CoralPiece": 1,
+        "TideShell": 1,
+        "WetGem": 1,
+        "OceanFeather": 1
+      }
+    },
+    {
+      "name": "SaltSeaTalisman",
+      "ingredients": {
+        "SeaCrystal": 1,
+        "SaltPearl": 3
+      }
+    },
+    {
+      "name": "DeepcoralOceanAmulet",
+      "ingredients": {
+        "DeepCoral": 2,
+        "OceanFeather": 1,
+        "Seashell": 1
+      }
+    },
+    {
+      "name": "BeachsandSeashellTalisman",
+      "ingredients": {
+        "Seashell": 1,
+        "TideShell": 2,
+        "BeachSand": 1
+      }
+    },
+    {
+      "name": "DeepcoralWetTotem",
+      "ingredients": {
+        "WetGem": 1,
+        "DeepCoral": 1,
+        "Pearl": 1,
+        "Driftwood": 1
+      }
+    },
+    {
+      "name": "BeachsandMermaidTotem",
+      "ingredients": {
+        "MermaidTear": 1,
+        "BeachSand": 1,
+        "WhaleBone": 2
+      }
+    },
+    {
+      "name": "CoralpieceFang",
+      "ingredients": {
+        "CoralPiece": 4
+      }
+    },
+    {
+      "name": "CactussapDrytwigTalisman",
+      "ingredients": {
+        "DustRock": 1,
+        "DryTwig": 2,
+        "CactusSap": 1
+      }
+    },
+    {
+      "name": "DrytwigCharm",
+      "ingredients": {
+        "DryTwig": 4
+      }
+    },
+    {
+      "name": "CactusneedleDesertinsectIdol",
+      "ingredients": {
+        "DuneFlower": 2,
+        "CactusNeedle": 1,
+        "DesertInsect": 1
+      }
+    },
+    {
+      "name": "AncientrelicDesertinsectFang",
+      "ingredients": {
+        "AncientRelic": 2,
+        "DesertInsect": 1,
+        "RoughJewel": 1
+      }
+    },
+    {
+      "name": "CactussapGoldensandAmulet",
+      "ingredients": {
+        "CactusSap": 2,
+        "GoldenSand": 1,
+        "SnakeSkin": 1
+      }
+    },
+    {
+      "name": "ClaylumpDesertinsectCharm",
+      "ingredients": {
+        "SnakeSkin": 1,
+        "DesertInsect": 1,
+        "RoughJewel": 1,
+        "ClayLump": 1
+      }
+    },
+    {
+      "name": "AmberpieceClaylumpBand",
+      "ingredients": {
+        "DryTwig": 2,
+        "ClayLump": 1,
+        "AmberPiece": 1
+      }
+    },
+    {
+      "name": "ClaylumpDrytwigFang",
+      "ingredients": {
+        "ScorpionShell": 1,
+        "DryTwig": 1,
+        "ClayLump": 1,
+        "SandOre": 1
+      }
+    },
+    {
+      "name": "TwigWildberryAmulet",
+      "ingredients": {
+        "Twig": 2,
+        "WildBerry": 2
+      }
+    },
+    {
+      "name": "ForestMushroomsporeCore",
+      "ingredients": {
+        "MushroomSpore": 2,
+        "ForestCrystal": 1,
+        "StickySap": 1
+      }
+    },
+    {
+      "name": "OakbranchSilverleafBlade",
+      "ingredients": {
+        "SilverLeaf": 1,
+        "OakBranch": 2,
+        "WildBerry": 1
+      }
+    },
+    {
+      "name": "ForestCharm",
+      "ingredients": {
+        "ForestCrystal": 4
+      }
+    },
+    {
+      "name": "ForestMushroomsporeBlade",
+      "ingredients": {
+        "ForestCrystal": 2,
+        "MushroomSpore": 2
+      }
+    },
+    {
+      "name": "BarkchipMushroomsporeCore",
+      "ingredients": {
+        "MushroomSpore": 2,
+        "BarkChip": 2
+      }
+    },
+    {
+      "name": "EmeraldmossTwigElixir",
+      "ingredients": {
+        "Twig": 2,
+        "EmeraldMoss": 2
+      }
+    },
+    {
+      "name": "HerbleafBlade",
+      "ingredients": {
+        "HerbLeaf": 4
+      }
+    },
+    {
+      "name": "IceSnowBand",
+      "ingredients": {
+        "IceShard": 2,
+        "YetiTooth": 1,
+        "SnowCrystal": 1
+      }
+    },
+    {
+      "name": "ColdShiveringleafElixir",
+      "ingredients": {
+        "ShiveringLeaf": 2,
+        "ColdScale": 2
+      }
+    },
+    {
+      "name": "SnowfiberWinterbloomElixir",
+      "ingredients": {
+        "WinterBloom": 3,
+        "SnowFiber": 1
+      }
+    },
+    {
+      "name": "ChillrootSnowfiberFang",
+      "ingredients": {
+        "ChillRoot": 1,
+        "SnowFiber": 1,
+        "WinterBloom": 2
+      }
+    },
+    {
+      "name": "SnowfiberTotem",
+      "ingredients": {
+        "SnowFiber": 4
+      }
+    },
+    {
+      "name": "ChillrootFrozenberryCharm",
+      "ingredients": {
+        "FrozenBerry": 2,
+        "IceFeather": 1,
+        "ChillRoot": 1
+      }
+    },
+    {
+      "name": "ChillrootFrostFang",
+      "ingredients": {
+        "ChillRoot": 1,
+        "FrostBone": 1,
+        "SnowFiber": 2
+      }
+    },
+    {
+      "name": "ColdFrozenberryCore",
+      "ingredients": {
+        "ColdScale": 1,
+        "FrozenBerry": 1,
+        "WinterBloom": 1,
+        "FrozenGem": 1
+      }
+    },
+    {
+      "name": "AshensoilFireashAmulet",
+      "ingredients": {
+        "MoltenOre": 1,
+        "AshenSoil": 1,
+        "FireAsh": 1,
+        "SulfurCrystal": 1
+      }
+    },
+    {
+      "name": "AshensoilIgniteElixir",
+      "ingredients": {
+        "IgniteShell": 1,
+        "MoltenOre": 1,
+        "SootFeather": 1,
+        "AshenSoil": 1
+      }
+    },
+    {
+      "name": "IgniteAmulet",
+      "ingredients": {
+        "IgniteShell": 4
+      }
+    },
+    {
+      "name": "AshensoilCharcoalchunkIdol",
+      "ingredients": {
+        "CharcoalChunk": 1,
+        "AshenSoil": 1,
+        "LavaRock": 2
+      }
+    },
+    {
+      "name": "BurntrootFireFang",
+      "ingredients": {
+        "BurntRoot": 1,
+        "FireGemShard": 1,
+        "HotStone": 1,
+        "MagmaCore": 1
+      }
+    },
+    {
+      "name": "HotstoneInfernohornCore",
+      "ingredients": {
+        "HotStone": 1,
+        "MagmaCore": 1,
+        "InfernoHorn": 2
+      }
+    },
+    {
+      "name": "LavarockMagmadustElixir",
+      "ingredients": {
+        "LavaRock": 1,
+        "MagmaDust": 3
+      }
+    },
+    {
+      "name": "CharcoalchunkFireashBlade",
+      "ingredients": {
+        "IgniteShell": 1,
+        "CharcoalChunk": 2,
+        "FireAsh": 1
+      }
+    }
+  ],
+  "RARE": [
+    {
+      "name": "TideTsunamiFang",
+      "ingredients": {
+        "TsunamiGem": 2,
+        "TideShell": 2
+      }
+    },
+    {
+      "name": "DeepcoralMermaidTalisman",
+      "ingredients": {
+        "MermaidTear": 2,
+        "DeepCoral": 1,
+        "SaltPearl": 1
+      }
+    },
+    {
+      "name": "SirensAmulet",
+      "ingredients": {
+        "SirensVoice": 4
+      }
+    },
+    {
+      "name": "SirensTideTotem",
+      "ingredients": {
+        "SirensVoice": 1,
+        "TsunamiGem": 2,
+        "TideShell": 1
+      }
+    },
+    {
+      "name": "SirensStormFang",
+      "ingredients": {
+        "SirensVoice": 2,
+        "StormFin": 2
+      }
+    },
+    {
+      "name": "DeepcoralSeaIdol",
+      "ingredients": {
+        "SeaCrystal": 3,
+        "DeepCoral": 1
+      }
+    },
+    {
+      "name": "DuneflowerRoughjewelTalisman",
+      "ingredients": {
+        "RoughJewel": 2,
+        "DuneFlower": 1,
+        "SnakeSkin": 1
+      }
+    },
+    {
+      "name": "AmberpieceAncientrelicAmulet",
+      "ingredients": {
+        "AncientRelic": 1,
+        "Sunstone": 1,
+        "ScarabJewel": 1,
+        "AmberPiece": 1
+      }
+    },
+    {
+      "name": "FragmentTotem",
+      "ingredients": {
+        "BoneFragment": 4
+      }
+    },
+    {
+      "name": "FragmentSnakeskinFang",
+      "ingredients": {
+        "BoneFragment": 2,
+        "SnakeSkin": 2
+      }
+    },
+    {
+      "name": "FragmentCactusneedleBlade",
+      "ingredients": {
+        "BoneFragment": 1,
+        "ClayLump": 1,
+        "CactusNeedle": 2
+      }
+    },
+    {
+      "name": "BurningfangGoldensandTalisman",
+      "ingredients": {
+        "ScarabJewel": 1,
+        "SnakeSkin": 1,
+        "GoldenSand": 1,
+        "BurningFang": 1
+      }
+    },
+    {
+      "name": "MoonrootOakbranchAmulet",
+      "ingredients": {
+        "Moonroot": 1,
+        "OakBranch": 3
+      }
+    },
+    {
+      "name": "MushroomsporeOakbranchFang",
+      "ingredients": {
+        "WildBerry": 1,
+        "OakBranch": 1,
+        "MushroomSpore": 2
+      }
+    },
+    {
+      "name": "OakbranchCharm",
+      "ingredients": {
+        "OakBranch": 4
+      }
+    },
+    {
+      "name": "MoonrootOakbranchFang",
+      "ingredients": {
+        "OakBranch": 2,
+        "Moonroot": 2
+      }
+    },
+    {
+      "name": "EmeraldmossForestCore",
+      "ingredients": {
+        "EmeraldMoss": 1,
+        "MushroomSpore": 1,
+        "ForestCrystal": 1,
+        "MysticMushroom": 1
+      }
+    },
+    {
+      "name": "SilverleafBand",
+      "ingredients": {
+        "SilverLeaf": 4
+      }
+    },
+    {
+      "name": "IceIcenailElixir",
+      "ingredients": {
+        "IceFeather": 2,
+        "IceNail": 1,
+        "SnowCrystal": 1
+      }
+    },
+    {
+      "name": "FrozencoreIceBlade",
+      "ingredients": {
+        "FrozenCore": 1,
+        "IceFeather": 3
+      }
+    },
+    {
+      "name": "IcenailTalisman",
+      "ingredients": {
+        "IceNail": 4
+      }
+    },
+    {
+      "name": "FrostFrostFang",
+      "ingredients": {
+        "ShiveringLeaf": 2,
+        "FrostHeart": 1,
+        "FrostBone": 1
+      }
+    },
+    {
+      "name": "FrozencoreIceBand",
+      "ingredients": {
+        "FrozenCore": 2,
+        "IceFeather": 2
+      }
+    },
+    {
+      "name": "FrozenFang",
+      "ingredients": {
+        "FrozenGem": 4
+      }
+    },
+    {
+      "name": "FlameHotstoneBlade",
+      "ingredients": {
+        "HotStone": 1,
+        "FlameHeart": 1,
+        "IgniteShell": 1,
+        "SulfurCrystal": 1
+      }
+    },
+    {
+      "name": "FlameHotstoneIdol",
+      "ingredients": {
+        "FlameHeart": 1,
+        "HotStone": 1,
+        "InfernoHorn": 2
+      }
+    },
+    {
+      "name": "FlameElixir",
+      "ingredients": {
+        "FlameHeart": 4
+      }
+    },
+    {
+      "name": "BlazingFireFang",
+      "ingredients": {
+        "FireGemShard": 2,
+        "BlazingGem": 2
+      }
+    },
+    {
+      "name": "FlameInfernohornCharm",
+      "ingredients": {
+        "FlameHeart": 1,
+        "VolcanicTear": 1,
+        "MagmaCore": 1,
+        "InfernoHorn": 1
+      }
+    },
+    {
+      "name": "FlameMagmacoreBand",
+      "ingredients": {
+        "FlameScale": 3,
+        "MagmaCore": 1
+      }
+    }
+  ],
+  "EPIC": [
+    {
+      "name": "SeaStormTotem",
+      "ingredients": {
+        "SeaCrystal": 2,
+        "StormFin": 2
+      }
+    },
+    {
+      "name": "DeepcoralSeaTotem",
+      "ingredients": {
+        "TsunamiGem": 1,
+        "SeaCrystal": 1,
+        "DeepCoral": 1,
+        "StormFin": 1
+      }
+    },
+    {
+      "name": "AbyssSirensAmulet",
+      "ingredients": {
+        "SirensVoice": 1,
+        "WhaleBone": 1,
+        "AbyssScale": 1,
+        "StormFin": 1
+      }
+    },
+    {
+      "name": "AbyssDeepcoralBlade",
+      "ingredients": {
+        "Pearl": 1,
+        "WhaleBone": 1,
+        "AbyssScale": 1,
+        "DeepCoral": 1
+      }
+    },
+    {
+      "name": "ScarabjewelSunstoneAmulet",
+      "ingredients": {
+        "ScarabJewel": 3,
+        "Sunstone": 1
+      }
+    },
+    {
+      "name": "AmberpieceBurningfangTotem",
+      "ingredients": {
+        "AmberPiece": 1,
+        "DuneFlower": 1,
+        "DesertPhantomDust": 1,
+        "BurningFang": 1
+      }
+    },
+    {
+      "name": "DuneflowerBlade",
+      "ingredients": {
+        "DuneFlower": 4
+      }
+    },
+    {
+      "name": "AncientrelicBurningfangTalisman",
+      "ingredients": {
+        "AncientRelic": 1,
+        "BurningFang": 1,
+        "ScarabJewel": 1,
+        "DuneFlower": 1
+      }
+    },
+    {
+      "name": "DruidstoneEmeraldmossBlade",
+      "ingredients": {
+        "DruidStone": 1,
+        "ForestCrystal": 1,
+        "EmeraldMoss": 1,
+        "VerdantSpiritCore": 1
+      }
+    },
+    {
+      "name": "EmeraldmossMysticmushroomTotem",
+      "ingredients": {
+        "SilverLeaf": 1,
+        "MysticMushroom": 1,
+        "EmeraldMoss": 1,
+        "Nature's Embrace": 1
+      }
+    },
+    {
+      "name": "MysticmushroomVerdantspiritcoreBand",
+      "ingredients": {
+        "VerdantSpiritCore": 2,
+        "MysticMushroom": 2
+      }
+    },
+    {
+      "name": "EmeraldmossMysticmushroomIdol",
+      "ingredients": {
+        "MysticMushroom": 1,
+        "EmeraldMoss": 2,
+        "VerdantSpiritCore": 1
+      }
+    },
+    {
+      "name": "FrostFrozencoreTotem",
+      "ingredients": {
+        "FrozenGem": 1,
+        "FrostHeart": 1,
+        "FrozenCore": 1,
+        "WinterBloom": 1
+      }
+    },
+    {
+      "name": "FrostIcenailBand",
+      "ingredients": {
+        "IceNail": 2,
+        "FrostHeart": 2
+      }
+    },
+    {
+      "name": "AuroraFrozenIdol",
+      "ingredients": {
+        "AuroraFeather": 1,
+        "FrozenGem": 3
+      }
+    },
+    {
+      "name": "AuroraFrostAmulet",
+      "ingredients": {
+        "FrostHeart": 1,
+        "FrozenGem": 1,
+        "WinterBloom": 1,
+        "AuroraFeather": 1
+      }
+    },
+    {
+      "name": "MoltenoreCharm",
+      "ingredients": {
+        "MoltenOre": 4
+      }
+    },
+    {
+      "name": "IgniteVolcanicBlade",
+      "ingredients": {
+        "VolcanicTear": 3,
+        "IgniteShell": 1
+      }
+    },
+    {
+      "name": "BlazingFlameBlade",
+      "ingredients": {
+        "VolcanicTear": 1,
+        "HellflameSoul": 1,
+        "FlameHeart": 1,
+        "BlazingGem": 1
+      }
+    },
+    {
+      "name": "FireelementcoreInfernohornIdol",
+      "ingredients": {
+        "MoltenOre": 1,
+        "InfernoHorn": 2,
+        "FireElementCore": 1
+      }
+    }
+  ],
+  "UNIQUE": [
+    {
+      "name": "AbyssOceanElixir",
+      "ingredients": {
+        "TsunamiGem": 1,
+        "AbyssScale": 1,
+        "OceanHeart": 1,
+        "TridentShard": 1
+      }
+    },
+    {
+      "name": "TsunamiElixir",
+      "ingredients": {
+        "TsunamiGem": 4
+      }
+    },
+    {
+      "name": "BurningfangQueenscarabCore",
+      "ingredients": {
+        "QueenScarabShell": 2,
+        "Sunstone": 1,
+        "BurningFang": 1
+      }
+    },
+    {
+      "name": "BurningfangBlade",
+      "ingredients": {
+        "BurningFang": 4
+      }
+    },
+    {
+      "name": "MysticmushroomNature's embraceBlade",
+      "ingredients": {
+        "Nature's Embrace": 2,
+        "WhisperingSeed": 1,
+        "MysticMushroom": 1
+      }
+    },
+    {
+      "name": "AncienttreeNature's embraceBand",
+      "ingredients": {
+        "AncientTreeHeart": 2,
+        "VerdantSpiritCore": 1,
+        "Nature's Embrace": 1
+      }
+    },
+    {
+      "name": "BlizzardessenceFrostBlade",
+      "ingredients": {
+        "TearOfWinter": 1,
+        "FrozenCore": 1,
+        "BlizzardEssence": 1,
+        "FrostHeart": 1
+      }
+    },
+    {
+      "name": "AuroraFrozencoreAmulet",
+      "ingredients": {
+        "FrozenCore": 1,
+        "TearOfWinter": 1,
+        "AuroraFeather": 1,
+        "WyrmIceScale": 1
+      }
+    },
+    {
+      "name": "BlazingFireelementcoreCharm",
+      "ingredients": {
+        "HellflameSoul": 1,
+        "FireElementCore": 1,
+        "BlazingGem": 2
+      }
+    },
+    {
+      "name": "CrownofflamesFireelementcoreBand",
+      "ingredients": {
+        "CrownOfFlames": 1,
+        "FlameHeart": 1,
+        "FireElementCore": 1,
+        "HellflameSoul": 1
+      }
+    }
+  ],
+  "LEGENDARY": [
+    {
+      "name": "AbyssOceanBlade",
+      "ingredients": {
+        "AbyssScale": 2,
+        "OceanHeart": 2
+      }
+    },
+    {
+      "name": "EyeofthesunQueenscarabTalisman",
+      "ingredients": {
+        "QueenScarabShell": 2,
+        "EyeOfTheSun": 2
+      }
+    },
+    {
+      "name": "Nature's embraceBlade",
+      "ingredients": {
+        "Nature's Embrace": 3,
+        "WhisperingSeed": 1
+      }
+    },
+    {
+      "name": "WyrmiceTalisman",
+      "ingredients": {
+        "WyrmIceScale": 4
+      }
+    },
+    {
+      "name": "HellflamesoulTotem",
+      "ingredients": {
+        "HellflameSoul": 4
+      }
+    }
+  ]
+}

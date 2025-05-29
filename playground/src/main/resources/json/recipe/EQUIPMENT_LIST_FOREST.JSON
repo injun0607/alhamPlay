@@ -1,0 +1,293 @@
+[
+  {
+    "name": "EmeraldmossForestgrassElixir",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this elixir carries the faint aura of EmeraldMoss, ForestGrass.",
+    "ingredients": {
+      "ForestGrass": 1,
+      "EmeraldMoss": 1,
+      "MossStone": 2
+    }
+  },
+  {
+    "name": "ForestStickysapBlade",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this blade carries the faint aura of Twig, ForestCrystal.",
+    "ingredients": {
+      "StickySap": 1,
+      "Twig": 2,
+      "ForestCrystal": 1
+    }
+  },
+  {
+    "name": "BarkchipTwigCharm",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this charm carries the faint aura of BarkChip, Twig.",
+    "ingredients": {
+      "BarkChip": 2,
+      "Twig": 2
+    }
+  },
+  {
+    "name": "BarkchipEmeraldmossIdol",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this idol carries the faint aura of BarkChip, EmeraldMoss.",
+    "ingredients": {
+      "BarkChip": 1,
+      "EmeraldMoss": 3
+    }
+  },
+  {
+    "name": "BugcarapaceStickysapBlade",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this blade carries the faint aura of StickySap, BugCarapace.",
+    "ingredients": {
+      "StickySap": 1,
+      "BugCarapace": 3
+    }
+  },
+  {
+    "name": "EmeraldmossForestgrassCore",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this core carries the faint aura of EmeraldMoss, SilverLeaf.",
+    "ingredients": {
+      "Moonroot": 1,
+      "EmeraldMoss": 1,
+      "SilverLeaf": 1,
+      "ForestGrass": 1
+    }
+  },
+  {
+    "name": "ForestMoonrootFang",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this fang carries the faint aura of ForestCrystal, StickySap.",
+    "ingredients": {
+      "ForestCrystal": 2,
+      "Moonroot": 1,
+      "StickySap": 1
+    }
+  },
+  {
+    "name": "BarkchipForestTotem",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this totem carries the faint aura of BarkChip, ForestGrass.",
+    "ingredients": {
+      "ForestCrystal": 1,
+      "BarkChip": 2,
+      "ForestGrass": 1
+    }
+  },
+  {
+    "name": "MushroomsporeAmulet",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this amulet carries the faint aura of MushroomSpore.",
+    "ingredients": {
+      "MushroomSpore": 4
+    }
+  },
+  {
+    "name": "EmeraldmossFang",
+    "rarity": "COMMON",
+    "description": "Once cherished by seaside wanderers, this fang carries the faint aura of EmeraldMoss.",
+    "ingredients": {
+      "EmeraldMoss": 4
+    }
+  },
+  {
+    "name": "TwigWildberryAmulet",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the amulet hums with echoes of Twig, WildBerry.",
+    "ingredients": {
+      "Twig": 2,
+      "WildBerry": 2
+    }
+  },
+  {
+    "name": "ForestMushroomsporeCore",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the core hums with echoes of StickySap, MushroomSpore.",
+    "ingredients": {
+      "MushroomSpore": 2,
+      "ForestCrystal": 1,
+      "StickySap": 1
+    }
+  },
+  {
+    "name": "OakbranchSilverleafBlade",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the blade hums with echoes of WildBerry, OakBranch.",
+    "ingredients": {
+      "SilverLeaf": 1,
+      "OakBranch": 2,
+      "WildBerry": 1
+    }
+  },
+  {
+    "name": "ForestCharm",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the charm hums with echoes of ForestCrystal.",
+    "ingredients": {
+      "ForestCrystal": 4
+    }
+  },
+  {
+    "name": "ForestMushroomsporeBlade",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the blade hums with echoes of MushroomSpore, ForestCrystal.",
+    "ingredients": {
+      "ForestCrystal": 2,
+      "MushroomSpore": 2
+    }
+  },
+  {
+    "name": "BarkchipMushroomsporeCore",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the core hums with echoes of BarkChip, MushroomSpore.",
+    "ingredients": {
+      "MushroomSpore": 2,
+      "BarkChip": 2
+    }
+  },
+  {
+    "name": "EmeraldmossTwigElixir",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the elixir hums with echoes of EmeraldMoss, Twig.",
+    "ingredients": {
+      "Twig": 2,
+      "EmeraldMoss": 2
+    }
+  },
+  {
+    "name": "HerbleafBlade",
+    "rarity": "UNCOMMON",
+    "description": "Used by coastal scouts, the blade hums with echoes of HerbLeaf.",
+    "ingredients": {
+      "HerbLeaf": 4
+    }
+  },
+  {
+    "name": "MoonrootOakbranchAmulet",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this amulet channels the mystic forces of OakBranch, Moonroot.",
+    "ingredients": {
+      "Moonroot": 1,
+      "OakBranch": 3
+    }
+  },
+  {
+    "name": "MushroomsporeOakbranchFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of WildBerry, OakBranch.",
+    "ingredients": {
+      "WildBerry": 1,
+      "OakBranch": 1,
+      "MushroomSpore": 2
+    }
+  },
+  {
+    "name": "OakbranchCharm",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this charm channels the mystic forces of OakBranch.",
+    "ingredients": {
+      "OakBranch": 4
+    }
+  },
+  {
+    "name": "MoonrootOakbranchFang",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this fang channels the mystic forces of OakBranch, Moonroot.",
+    "ingredients": {
+      "OakBranch": 2,
+      "Moonroot": 2
+    }
+  },
+  {
+    "name": "EmeraldmossForestCore",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this core channels the mystic forces of ForestCrystal, MysticMushroom.",
+    "ingredients": {
+      "EmeraldMoss": 1,
+      "MushroomSpore": 1,
+      "ForestCrystal": 1,
+      "MysticMushroom": 1
+    }
+  },
+  {
+    "name": "SilverleafBand",
+    "rarity": "RARE",
+    "description": "Forged in hidden tides, this band channels the mystic forces of SilverLeaf.",
+    "ingredients": {
+      "SilverLeaf": 4
+    }
+  },
+  {
+    "name": "DruidstoneEmeraldmossBlade",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this blade brims with power drawn from EmeraldMoss, VerdantSpiritCore.",
+    "ingredients": {
+      "DruidStone": 1,
+      "ForestCrystal": 1,
+      "EmeraldMoss": 1,
+      "VerdantSpiritCore": 1
+    }
+  },
+  {
+    "name": "EmeraldmossMysticmushroomTotem",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this totem brims with power drawn from MysticMushroom, Nature's Embrace.",
+    "ingredients": {
+      "SilverLeaf": 1,
+      "MysticMushroom": 1,
+      "EmeraldMoss": 1,
+      "Nature's Embrace": 1
+    }
+  },
+  {
+    "name": "MysticmushroomVerdantspiritcoreBand",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this band brims with power drawn from MysticMushroom, VerdantSpiritCore.",
+    "ingredients": {
+      "VerdantSpiritCore": 2,
+      "MysticMushroom": 2
+    }
+  },
+  {
+    "name": "EmeraldmossMysticmushroomIdol",
+    "rarity": "EPIC",
+    "description": "A relic born of ancient storms, this idol brims with power drawn from MysticMushroom, VerdantSpiritCore.",
+    "ingredients": {
+      "MysticMushroom": 1,
+      "EmeraldMoss": 2,
+      "VerdantSpiritCore": 1
+    }
+  },
+  {
+    "name": "MysticmushroomNature's embraceBlade",
+    "rarity": "UNIQUE",
+    "description": "Legends say this blade was once wielded by a forgotten sea sage, infused with WhisperingSeed, Nature's Embrace.",
+    "ingredients": {
+      "Nature's Embrace": 2,
+      "WhisperingSeed": 1,
+      "MysticMushroom": 1
+    }
+  },
+  {
+    "name": "AncienttreeNature's embraceBand",
+    "rarity": "UNIQUE",
+    "description": "Legends say this band was once wielded by a forgotten sea sage, infused with VerdantSpiritCore, AncientTreeHeart.",
+    "ingredients": {
+      "AncientTreeHeart": 2,
+      "VerdantSpiritCore": 1,
+      "Nature's Embrace": 1
+    }
+  },
+  {
+    "name": "Nature's embraceBlade",
+    "rarity": "LEGENDARY",
+    "description": "Crafted by the abyss itself, this blade pulses with the essence of Nature's Embrace.",
+    "ingredients": {
+      "Nature's Embrace": 3,
+      "WhisperingSeed": 1
+    }
+  }
+]
