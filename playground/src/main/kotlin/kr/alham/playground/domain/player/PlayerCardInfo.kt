@@ -25,7 +25,7 @@ class PlayerCardInfo(
     val player: Player = Player(),
 
     @ManyToOne
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "player_card_id")
     val card: PlayerCard = PlayerCard(),
 
     val createDate: LocalDate? = null,

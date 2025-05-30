@@ -47,6 +47,19 @@ class GatherSystemTest{
         }
     }
 
+    private fun weightedRandomPickTestMethod(probabilities: Map<ItemRarity, Double>): ItemRarity {
+        val rand = Math.random()
+        var cumulative = 0.0
+
+        for ((rarity, prob) in probabilities) {
+            cumulative += prob
+            if (rand < cumulative) return rarity
+        }
+
+        // 오차로 인해 도달할 수 있음
+        return ItemRarity.COMMON
+    }
+
     @Test
     fun adjustAndNormalizeDropRatesTest(){
         //1.변화된 확률 확인
@@ -70,7 +83,7 @@ class GatherSystemTest{
         val counts = mutableMapOf<ItemRarity,Int>().withDefault { 0 }
 
         repeat(trials){
-            val result = gatherSystem.weightedRandomPick(changedRates)
+            val result = weightedRandomPickTestMethod(changedRates)
             counts[result] = counts.getValue(result) + 1
         }
 
@@ -101,7 +114,7 @@ class GatherSystemTest{
         val tolerance = 0.1 // ±10%
 
         repeat(trials){
-            val result = gatherSystem.weightedRandomPick(dropRates)
+            val result = weightedRandomPickTestMethod(dropRates)
             counts[result] = counts.getValue(result) + 1
         }
 

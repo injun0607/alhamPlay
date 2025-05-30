@@ -19,6 +19,7 @@ class Player(
     override val def: Double = 0.0,
     override val str: Double = 1.0,
     override val dex: Double = 1.0,
+    @Column(name = "intellect")
     override val int: Double = 1.0,
     override val lck: Double = 1.0,
 ): TargetElement {

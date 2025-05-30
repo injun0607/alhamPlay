@@ -16,25 +16,6 @@ class GatherSystem(
 ) {
 
     private val log = logger()
-    private fun adjustAndNormalizeDropRates(itemRarity: ItemRarity): Map<ItemRarity, Double> {
-
-        val baseRates= dropTableLoader.loadDropRate()
-
-        // 1. 등급별 조정 (가중치 적용)
-        val adjustedRates = baseRates.mapValues { (rarity, rate) ->
-            if (rarity == itemRarity) rate * 1.2 else rate * 0.8
-        }
-
-        // 2. 총합 계산
-        val total = adjustedRates.values.sum()
-
-        // 3. 정규화
-        return adjustedRates.mapValues { (_, adjusted) ->
-            adjusted / total
-        }
-    }
-
-
     fun fieldGather(area: FieldArea, x: Int, y: Int): MaterialDTO {
         //area와 tile을 받아서 리턴
         //tileType을 확인한다음 -> 해당 타입에 맞는 가중치 ->
@@ -58,8 +39,26 @@ class GatherSystem(
         val dropItems = dropTable[pickedItemRarity]
             ?: throw IllegalArgumentException("No items found for rarity: $pickedItemRarity")
 
-
         return MaterialDTO(itemRarity, dropItems.random())
+    }
+
+
+    private fun adjustAndNormalizeDropRates(itemRarity: ItemRarity): Map<ItemRarity, Double> {
+
+        val baseRates= dropTableLoader.loadDropRate()
+
+        // 1. 등급별 조정 (가중치 적용)
+        val adjustedRates = baseRates.mapValues { (rarity, rate) ->
+            if (rarity == itemRarity) rate * 1.2 else rate * 0.8
+        }
+
+        // 2. 총합 계산
+        val total = adjustedRates.values.sum()
+
+        // 3. 정규화
+        return adjustedRates.mapValues { (_, adjusted) ->
+            adjusted / total
+        }
     }
 
 
@@ -71,7 +70,7 @@ class GatherSystem(
      * @param probabilities 아이템 등급과 해당 확률의 맵
      * @return 선택된 아이템 등급
      */
-    fun weightedRandomPick(
+    private fun weightedRandomPick(
         probabilities: Map<ItemRarity, Double>,
     ): ItemRarity {
         val rand = Math.random()
