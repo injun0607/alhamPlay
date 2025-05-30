@@ -14,11 +14,11 @@ enum class ItemType {
     MATERIAL,
 }
 
-enum class ItemRarity {
-    COMMON,
-    UNCOMMON,
-    RARE,
-    EPIC,
-    UNIQUE,
-    LEGENDARY
+enum class ItemRarity(val value: Int) {
+    COMMON(1),
+    UNCOMMON(2),
+    RARE(4),
+    EPIC(8),
+    UNIQUE(16),
+    LEGENDARY(32)
 }
