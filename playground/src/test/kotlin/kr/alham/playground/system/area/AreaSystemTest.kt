@@ -19,6 +19,7 @@ class AreaSystemTest{
     fun initFiledAreaTest(){
 
         val forestArea =  areaSystem.initFieldArea(FieldType.FOREST)
+        val tiles = areaSystem.initTiles()
         assertEquals(FieldType.FOREST, forestArea.fieldType, "포레스트 에리어 확인")
         assertEquals(25, forestArea.tiles.size, "포레스트 에리어 타일 개수 확인")
     }
@@ -26,9 +27,9 @@ class AreaSystemTest{
     @Test
     fun generateTileTest(){
 
-        val fieldArea = areaSystem.initFieldArea(FieldType.FOREST)
+        val tiles = areaSystem.initTiles()
         val generatedArea = areaSystem.generateTile(
-            area = fieldArea,
+            tiles = tiles,
             commonCnt = 10,
             unCommonCnt = 5,
             rareCnt = 5,
@@ -38,12 +39,12 @@ class AreaSystemTest{
         )
 
 
-        val commonCnt = generatedArea.tiles.count { it.type == TileType.COMMON }
-        val unCommonCnt = generatedArea.tiles.count { it.type == TileType.UNCOMMON }
-        val rareCnt = generatedArea.tiles.count { it.type == TileType.RARE }
-        val epicCnt = generatedArea.tiles.count { it.type == TileType.EPIC }
-        val uniqueCnt = generatedArea.tiles.count { it.type == TileType.UNIQUE }
-        val legendaryCnt = generatedArea.tiles.count { it.type == TileType.LEGENDARY }
+        val commonCnt = tiles.count { it.type == TileType.COMMON }
+        val unCommonCnt = tiles.count { it.type == TileType.UNCOMMON }
+        val rareCnt = tiles.count { it.type == TileType.RARE }
+        val epicCnt = tiles.count { it.type == TileType.EPIC }
+        val uniqueCnt = tiles.count { it.type == TileType.UNIQUE }
+        val legendaryCnt = tiles.count { it.type == TileType.LEGENDARY }
 
         assertEquals(10, commonCnt, "Common 타일 개수 확인")
         assertEquals(5, unCommonCnt, "Uncommon 타일 개수 확인")
@@ -52,7 +53,7 @@ class AreaSystemTest{
         assertEquals(1, uniqueCnt, "Unique 타일 개수 확인")
         assertEquals(1, legendaryCnt, "Legendary 타일 개수 확인")
 
-        for (tile in generatedArea.tiles) {
+        for (tile in tiles) {
             println("Tile at (${tile.x}, ${tile.y}) is of type ${tile.type}")
         }
     }
@@ -61,9 +62,9 @@ class AreaSystemTest{
     @Test
     fun generateTileTest2(){
 
-        val fieldArea = areaSystem.initFieldArea(FieldType.FOREST)
+        val tiles = areaSystem.initTiles()
         val generatedArea = areaSystem.generateTile(
-            area = fieldArea,
+            tiles = tiles,
             commonCnt = 20,
             unCommonCnt = 5,
             rareCnt = 0,
@@ -73,12 +74,12 @@ class AreaSystemTest{
         )
 
 
-        val commonCnt = generatedArea.tiles.count { it.type == TileType.COMMON }
-        val unCommonCnt = generatedArea.tiles.count { it.type == TileType.UNCOMMON }
-        val rareCnt = generatedArea.tiles.count { it.type == TileType.RARE }
-        val epicCnt = generatedArea.tiles.count { it.type == TileType.EPIC }
-        val uniqueCnt = generatedArea.tiles.count { it.type == TileType.UNIQUE }
-        val legendaryCnt = generatedArea.tiles.count { it.type == TileType.LEGENDARY }
+        val commonCnt = tiles.count { it.type == TileType.COMMON }
+        val unCommonCnt = tiles.count { it.type == TileType.UNCOMMON }
+        val rareCnt = tiles.count { it.type == TileType.RARE }
+        val epicCnt = tiles.count { it.type == TileType.EPIC }
+        val uniqueCnt = tiles.count { it.type == TileType.UNIQUE }
+        val legendaryCnt = tiles.count { it.type == TileType.LEGENDARY }
 
         assertEquals(20, commonCnt, "Common 타일 개수 확인")
         assertEquals(5, unCommonCnt, "Uncommon 타일 개수 확인")
@@ -87,9 +88,18 @@ class AreaSystemTest{
         assertEquals(0, uniqueCnt, "Unique 타일 개수 확인")
         assertEquals(0, legendaryCnt, "Legendary 타일 개수 확인")
 
-        for (tile in generatedArea.tiles) {
+        for (tile in tiles) {
             println("Tile at (${tile.x}, ${tile.y}) is of type ${tile.type}")
         }
+    }
+
+
+    @Test
+    fun initTileTest(){
+        val tiles = areaSystem.initTiles()
+        kotlin.test.assertEquals(25, tiles.size, "타일 개수 확인")
+
+
     }
 
 }

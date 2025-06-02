@@ -9,15 +9,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 @Configuration
 class RedisConfig {
 
-//    @Bean
-//    fun redisTemplate(redisConnectionFactory: RedisConnectionFactory): RedisTemplate<String, String> {
-//        val template = RedisTemplate<String, String>()
-//        template.setConnectionFactory(redisConnectionFactory)
-//        template.keySerializer = StringRedisSerializer()
-//        template.valueSerializer = StringRedisSerializer()
-//        return template
-//    }
-
     @Bean
     fun redisTemplate(redisConnectionFactory: RedisConnectionFactory): RedisTemplate<String,String>{
         val template = RedisTemplate<String,String>()
