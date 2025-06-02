@@ -4,6 +4,8 @@ import jakarta.persistence.*
 import kr.alham.playground.domain.common.TargetElement
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
+import kr.alham.playground.domain.inventory.Inventory
+import kr.alham.playground.domain.member.Member
 
 @Entity
 @Table(name = "al_player")

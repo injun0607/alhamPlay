@@ -55,7 +55,7 @@ class AreaServiceTest {
 
         every {
             redisTileCacheRepository.getTilesByFieldAreaId(1L)
-        } returns (areaSystem.generateTile(
+        } returns (areaSystem.changeRandomTypeTiles(
             tiles = filedArea.tiles,
             commonCnt = 10,
             unCommonCnt = 5,

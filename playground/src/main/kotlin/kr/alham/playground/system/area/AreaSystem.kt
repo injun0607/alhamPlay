@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 @Component
 class AreaSystem {
 
-    fun generateTile(
+    fun changeRandomTypeTiles(
         tiles: List<Tile>,
         commonCnt: Int,
         unCommonCnt: Int,

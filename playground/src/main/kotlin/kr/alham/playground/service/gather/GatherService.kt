@@ -15,11 +15,7 @@ class GatherService(
     //해야하는건 -> GatherService ->
     fun gatherMaterial(gatherMaterialDTO: GatherMaterialDTO):MaterialDTO{
         val area = areaService.findAreaById(gatherMaterialDTO.areaId)
-        val areaTiles =
         return gatherSystem.fieldGather(area, gatherMaterialDTO.x, gatherMaterialDTO.y)
     }
-
-
-
 
 }

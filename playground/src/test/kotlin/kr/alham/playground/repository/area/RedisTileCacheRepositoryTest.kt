@@ -1,6 +1,7 @@
 package kr.alham.playground.repository.area
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import kr.alham.playground.domain.area.TileType
 import kr.alham.playground.system.area.AreaSystem
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -39,6 +40,28 @@ class RedisTileCacheRepositoryTest{
         val savedTiles = redisTileCacheRepository.saveTiles(fieldAreId, tiles)
         val retrievedTiles = redisTileCacheRepository.getTilesByFieldAreaId(fieldAreId)
         assertEquals(25, retrievedTiles?.size)
+
+    }
+
+
+    @Test
+    fun changeTileTypeTest(){
+
+        val retrievedTiles = redisTileCacheRepository.getTilesByFieldAreaId(1L)
+
+        val changedTile = areaSystem.changeRandomTypeTiles(retrievedTiles!!, 10, 8, 3, 2, 1, 1)
+
+        redisTileCacheRepository.saveTiles(1L, changedTile)
+
+        val afterTiles = redisTileCacheRepository.getTilesByFieldAreaId(1L)
+
+        assertEquals(25, afterTiles?.size)
+        assertEquals(10, afterTiles?.count { it.type == TileType.COMMON })
+        assertEquals(8, afterTiles?.count { it.type == TileType.UNCOMMON })
+        assertEquals(3, afterTiles?.count { it.type == TileType.RARE })
+        assertEquals(2, afterTiles?.count { it.type == TileType.EPIC })
+        assertEquals(1, afterTiles?.count { it.type == TileType.UNIQUE })
+        assertEquals(1, afterTiles?.count { it.type == TileType.LEGENDARY })
 
     }
 

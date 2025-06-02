@@ -28,7 +28,7 @@ class AreaSystemTest{
     fun generateTileTest(){
 
         val tiles = areaSystem.initTiles()
-        val generatedArea = areaSystem.generateTile(
+        val generatedArea = areaSystem.changeRandomTypeTiles(
             tiles = tiles,
             commonCnt = 10,
             unCommonCnt = 5,
@@ -63,7 +63,7 @@ class AreaSystemTest{
     fun generateTileTest2(){
 
         val tiles = areaSystem.initTiles()
-        val generatedArea = areaSystem.generateTile(
+        val generatedArea = areaSystem.changeRandomTypeTiles(
             tiles = tiles,
             commonCnt = 20,
             unCommonCnt = 5,
