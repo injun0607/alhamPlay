@@ -1,0 +1,27 @@
+package kr.alham.playground.domain.inventory
+
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
+import jakarta.persistence.OneToOne
+import kr.alham.playground.domain.player.Player
+
+@Entity
+class MaterialInventory(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "equipment_inventory_id")
+    val id: Long? = null,
+
+    @OneToOne
+    @JoinColumn(name = "player_id")
+    val player: Player = Player(),
+
+    @OneToMany(mappedBy = "materialInventory")
+    val materialItemList: MutableList<MaterialInventoryItem> = mutableListOf()
+
+){}

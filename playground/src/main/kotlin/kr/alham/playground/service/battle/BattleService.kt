@@ -26,8 +26,6 @@ class BattleService(
 
     fun monsterBattle(monsterBattleDTO: MonsterBattleDTO){
 
-
-
         /*
         1. 유저 정보 가져오기
         2. 몬스터 정보 가져오기

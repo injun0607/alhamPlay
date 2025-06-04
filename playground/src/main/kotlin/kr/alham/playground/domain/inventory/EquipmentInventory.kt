@@ -11,15 +11,16 @@ import jakarta.persistence.OneToOne
 import kr.alham.playground.domain.player.Player
 
 @Entity
-class Inventory {
+class EquipmentInventory(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inventory_id")
-    val id: Long? = null
+    @Column(name = "equipment_inventory_id")
+    val id: Long? = null,
+
     @OneToOne
     @JoinColumn(name = "player_id")
-    val player:Player = Player()
+    val player: Player = Player(),
 
-    @OneToMany(mappedBy = "inventory")
-    val inventoryItemList = mutableListOf<InventoryItem>()
-}
+    @OneToMany(mappedBy = "equipmentInventory")
+    val equipmentItemList: MutableList<EquipmentInventoryItem> = mutableListOf()
+){}
