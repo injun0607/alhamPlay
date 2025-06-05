@@ -21,6 +21,8 @@ class Monster(
     @Column(name = "intellect")
     override val int: Double = 1.0,
     override val lck: Double = 1.0,
+    @Enumerated(EnumType.STRING)
+    val monsterType: MonsterType = MonsterType.NORMAL,
 ): TargetElement {
 
     override fun getStatus(): TargetElementStatusMap {

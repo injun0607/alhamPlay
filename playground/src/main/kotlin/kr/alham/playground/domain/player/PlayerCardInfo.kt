@@ -1,12 +1,6 @@
 package kr.alham.playground.domain.player
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import kr.alham.playground.domain.card.Card
 import kr.alham.playground.domain.card.PlayerCard
 import java.time.LocalDate
@@ -20,11 +14,11 @@ class PlayerCardInfo(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_id")
     val player: Player = Player(),
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_card_id")
     val card: PlayerCard = PlayerCard(),
 

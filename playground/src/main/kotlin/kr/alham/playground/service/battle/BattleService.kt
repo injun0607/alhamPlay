@@ -13,15 +13,15 @@ import kr.alham.playground.repository.card.MonsterCardRepository
 import kr.alham.playground.repository.monster.MonsterRepository
 import kr.alham.playground.repository.card.PlayerCardRepository
 import kr.alham.playground.repository.player.PlayerRepository
+import kr.alham.playground.service.monster.MonsterService
+import kr.alham.playground.service.player.PlayerService
 import org.springframework.stereotype.Service
 
 @Service
 class BattleService(
     private val cardEffectFactory: CardEffectFactory,
-    private val playerCardRepository: PlayerCardRepository,
-    private val monsterCardRepository: MonsterCardRepository,
-    private val playerRepository: PlayerRepository,
-    private val monsterRepository: MonsterRepository
+    private val playerService: PlayerService,
+    private val monsterService: MonsterService
 ) {
 
     fun monsterBattle(monsterBattleDTO: MonsterBattleDTO){
@@ -51,9 +51,10 @@ class BattleService(
      * 몬스터와 BattlePreparation 단계
      */
 
+    /*
     public fun initMonsterBattleState(monsterBattleDTO: MonsterBattleDTO): BattleState{
         //TODO - DB조회하기
-        val player = playerRepository.findById(monsterBattleDTO.playerId).orElseThrow {
+        val player = playerService.findById(monsterBattleDTO.playerId).orElseThrow {
             IllegalArgumentException("Player not found")
         }
         val playerId = requireNotNull(player.id) { "Player ID is null" }
@@ -198,87 +199,9 @@ class BattleService(
 
         TODO("Not yet implemented")
     }
+    */
 
 
-    private fun applyDamage(playerBattleStatus: BattleStatus, monsterBattleStatus: BattleStatus){
-        val playerCard = playerBattleStatus.card
-        val monsterCard = monsterBattleStatus.card
-
-        val playerStatus = playerBattleStatus.status
-        val monsterStatus = monsterBattleStatus.status
-
-
-        //해당 케이스 이외에는 그냥 효과적용
-        if(playerCard.cardType == CardType.ATTACK && monsterCard.cardType == CardType.DEFENCE){
-            attackToDefence(playerBattleStatus, monsterBattleStatus)
-        }else if(playerCard.cardType == CardType.ATTACK && monsterCard.cardType == CardType.EVASION) {
-            //유저 공격 && 몬스터 회피
-        }else if(playerCard.cardType == CardType.ATTACK && monsterCard.cardType == CardType.ATTACK) {
-            //유저 공격 && 몬스터 공격
-        }else if(monsterCard.cardType == CardType.ATTACK && playerCard.cardType == CardType.DEFENCE) {
-            //몬스터 공격 && 유저 방어
-        }else if(monsterCard.cardType == CardType.ATTACK && playerCard.cardType == CardType.EVASION) {
-            //몬스터 공격 && 유저 회피
-        }
-
-        //
-
-    }
-
-    private fun interactionResolve(battleStatusOne: BattleStatus,battleStatusTwo: BattleStatus){
-        applyDamage(battleStatusOne, battleStatusTwo)
-    }
-
-    private fun selfToSelf(battleStatusOne: BattleStatus, battleStatusTwo: BattleStatus){
-        val cardOne = battleStatusOne.card
-        val cardTwo = battleStatusTwo.card
-
-        val statusOne = battleStatusOne.status
-        val statusTwo = battleStatusTwo.status
-
-        val effectedStatusOneNum = statusOne.get(cardOne.effectSelfStat) + cardOne.effectSelfNum
-        val effectedStatusTwoNum = statusTwo.get(cardTwo.effectSelfStat) + cardTwo.effectSelfNum
-
-        statusOne.set(cardOne.effectSelfStat, effectedStatusOneNum)
-        statusTwo.set(cardTwo.effectSelfStat, effectedStatusTwoNum)
-
-    }
-
-
-    //공격 방어 조합
-    private fun attackToDefence(attackerBattleStatus: BattleStatus, defencerBattleStatus: BattleStatus){
-        val attackerCard = attackerBattleStatus.card
-        val defencerCard = defencerBattleStatus.card
-
-        val attackerStatus = attackerBattleStatus.status
-        val defencerStatus = defencerBattleStatus.status
-
-        val damage = if(attackerCard.effectOpponentNum > defencerCard.effectSelfNum) {
-            attackerCard.effectOpponentNum - defencerCard.effectSelfNum
-        }else{
-            0.0
-        }
-
-        val effectedHp = defencerStatus.get(defencerCard.effectSelfStat) - damage
-
-        defencerStatus.set(attackerCard.effectOpponentStat, damage)
-    }
-
-
-
-    /**
-     * 몬스터와 BattleFinalization 단계
-     */
-    private fun monsterBattleFinalization(monsterBattleState: MonsterBattleState){
-        TODO("Not yet implemented")
-    }
-
-    private fun preparationAction(battleState: BattleState): BattleState{
-
-
-
-        return battleState
-    }
 
 
 }

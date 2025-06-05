@@ -14,13 +14,13 @@ class RedisTileCacheRepository(
     private val objectMapper: ObjectMapper
 ) {
     fun saveTiles(fieldAreaId: Long,tiles: List<Tile>) {
-        val key = RedisKeys.filedAreaTiles(fieldAreaId)
+        val key = RedisKeys.fieldAreaTiles(fieldAreaId)
         val json = objectMapper.writeValueAsString(tiles)
         redisTemplate.opsForValue().set(key,json, Duration.ofHours(24))
     }
 
     fun getTilesByFieldAreaId(fieldAreaId: Long): List<Tile>? {
-        val key = RedisKeys.filedAreaTiles(fieldAreaId)
+        val key = RedisKeys.fieldAreaTiles(fieldAreaId)
         val json = redisTemplate.opsForValue().get(key) ?: return null
         return objectMapper.readValue(json, object : TypeReference<List<Tile>>() {})
     }
