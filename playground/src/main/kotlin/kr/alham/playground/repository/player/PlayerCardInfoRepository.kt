@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 interface PlayerCardInfoRepository: JpaRepository<PlayerCardInfo, Long> {
 
     @Query(""" SELECT pci FROM PlayerCardInfo pci JOIN FETCH pci.card JOIN FETCH pci.player WHERE pci.player.id = :playerId """)
-    fun findPlayerCardByPlayerId(playerId: Long): List<PlayerCardInfo>
+    fun findAllPlayerCardInfoByPlayerId(playerId: Long): List<PlayerCardInfo>
 
     @Query(""" 
             SELECT pci FROM PlayerCardInfo pci 

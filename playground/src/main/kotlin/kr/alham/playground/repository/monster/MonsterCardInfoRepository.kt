@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository
 interface MonsterCardInfoRepository: JpaRepository<MonsterCardInfo, Long> {
 
     @Query("SELECT mci FROM MonsterCardInfo mci JOIN FETCH mci.card JOIN FETCH mci.monster WHERE mci.monster.id = :monsterId")
-    fun findMonsterCardByMonsterId(monsterId: Long): List<MonsterCardInfo>
+    fun findAllMonsterCardByMonsterId(monsterId: Long): List<MonsterCardInfo>
 }

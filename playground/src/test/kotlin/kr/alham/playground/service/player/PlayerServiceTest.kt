@@ -185,7 +185,7 @@ class PlayerServiceTest{
         val saveCardThree = cardService.savePlayerCard(playerMutualCardSelf5op15)
         val saveCardFour = cardService.savePlayerCard(playerBuffAtk3)
 
-        val emptyCardInfoList = playerService.findPlayerInfoByPlayerId(playerId)
+        val emptyCardInfoList = playerService.findAllPlayerCardInfoByPlayerId(playerId)
 
         assertEquals(0, emptyCardInfoList.size, "Initially, there should be no card info for the player.")
 
@@ -195,7 +195,7 @@ class PlayerServiceTest{
         playerService.savePlayerCardInfo(foundPlayer, saveCardFour)
 
 
-        val cardInfoList = playerService.findPlayerInfoByPlayerId(playerId)
+        val cardInfoList = playerService.findAllPlayerCardInfoByPlayerId(playerId)
 
         assertEquals(4,cardInfoList.size)
 

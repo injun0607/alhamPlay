@@ -1,30 +1,30 @@
 package kr.alham.playground.service.battle
 
-import kr.alham.playground.domain.battle.BattleState
-import kr.alham.playground.domain.battle.BattleStatus
-import kr.alham.playground.domain.battle.MonsterBattleState
-import kr.alham.playground.domain.battle.PreparationMonsterBattleStatus
+import kr.alham.playground.domain.battle.*
+import kr.alham.playground.domain.card.Card
+import kr.alham.playground.domain.card.MonsterCard
+import kr.alham.playground.domain.card.PlayerCard
+import kr.alham.playground.domain.common.TargetElementStatus
+import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.enums.CardType
-import kr.alham.playground.domain.player.PlayerCardInfo
 import kr.alham.playground.dto.battle.MonsterBattleDTO
+import kr.alham.playground.dto.card.CardIdDTO
 import kr.alham.playground.system.cardeffect.CardEffectFactory
-import kr.alham.playground.repository.card.MonsterCardRepository
-import kr.alham.playground.repository.monster.MonsterRepository
-import kr.alham.playground.repository.card.PlayerCardRepository
-import kr.alham.playground.repository.player.PlayerRepository
 import kr.alham.playground.service.monster.MonsterService
 import kr.alham.playground.service.player.PlayerService
+import kr.alham.playground.system.battle.monster.MonsterCardProvider
 import org.springframework.stereotype.Service
 
 @Service
 class BattleService(
     private val cardEffectFactory: CardEffectFactory,
     private val playerService: PlayerService,
-    private val monsterService: MonsterService
+    private val monsterService: MonsterService,
+    private val monsterCardProvider: MonsterCardProvider
 ) {
 
-    fun monsterBattle(monsterBattleDTO: MonsterBattleDTO){
+    fun monsterBattle(monsterBattleDTO: MonsterBattleDTO) {
 
         /*
         1. 유저 정보 가져오기
@@ -34,136 +34,160 @@ class BattleService(
         몬스터와 전투에선 유저 카드에 대한 처리만 진행?
          */
 
+        val battleState = initMonsterBattleState(monsterBattleDTO)
 
-        TODO("BattleState를 받아서 사용하는 방식")
+
 
 //        monsterBattlePreparation();
 //        monsterBattleEngagement()
 //        monsterBattleFinalization()
     }
 
-    fun playerBattle(){
+    fun playerBattle() {
         TODO("Not yet implemented")
     }
 
 
     /**
-     * 몬스터와 BattlePreparation 단계
+     * 배틀을 위한 상태 초기화 단계
+     * 1. 유저 조회
+     * 2. 몬스터 조회
+     * 3. 유저 카드 정보 유효성 체크
+     * 4. 몬스터 카드 정보 조회
      */
 
-    /*
-    public fun initMonsterBattleState(monsterBattleDTO: MonsterBattleDTO): BattleState{
-        //TODO - DB조회하기
-        val player = playerService.findById(monsterBattleDTO.playerId).orElseThrow {
-            IllegalArgumentException("Player not found")
+    fun initMonsterBattleState(monsterBattleDTO: MonsterBattleDTO): MonsterBattleState {
+
+        val player = playerService.findPlayerById(monsterBattleDTO.playerId)
+        val monster = monsterService.findMonsterById(monsterBattleDTO.monsterId)
+
+        val playerId = requireNotNull(player.id)
+        val monsterId = requireNotNull(monster.id)
+
+        val playerPreparationCardIdList = monsterBattleDTO.preparationCard
+
+        //플레이어 준비단계 카드 확인
+        if (!playerService.hasPlayerCard(playerId, playerPreparationCardIdList)) {
+            throw IllegalArgumentException("Player does not have the required cards for battle. Preparation Card List: $playerPreparationCardIdList")
         }
-        val playerId = requireNotNull(player.id) { "Player ID is null" }
 
-        val monster = monsterRepository.findById(monsterBattleDTO.monsterId).orElseThrow {
-            IllegalArgumentException("Monster not found")
+        //플레이어 진행단계 카드 확인
+        val playerEngagementCardIdList = monsterBattleDTO.engagementCardList
+        if (!playerService.hasPlayerCard(playerId, playerEngagementCardIdList)) {
+            throw IllegalArgumentException("Player does not have the required cards for engagement. Engagement Card List: $playerEngagementCardIdList")
         }
 
-        val monsterId = requireNotNull(monster.id) { "Monster ID is null" }
+        //플레이어 최종단계 카드 확인
+        val playerFinalizationCardIdList = monsterBattleDTO.finalizationCard
+        if (!playerService.hasPlayerCard(playerId, playerFinalizationCardIdList)) {
+            throw IllegalArgumentException("Player does not have the required cards for finalization. Finalization Card List: $playerFinalizationCardIdList")
+        }
 
-        val battleState = MonsterBattleState(
-            preparationMonsterBattleStatus = PreparationMonsterBattleStatus(
-                playerStatus = player.getStatus(),
-                monsterStatus = monster.getStatus()
-            )
+        val playerAllCardIdDTO = playerPreparationCardIdList + playerEngagementCardIdList + playerFinalizationCardIdList
+
+        val playerCardList = playerService.findPlayerCardInfoListByPlayerIdAndCardIdList(playerId,playerAllCardIdDTO.map{it.id})
+
+        if(playerCardList.isEmpty()){
+            throw IllegalArgumentException("Player does not have any valid cards for battle. Player Card List: $playerCardList")
+        }
+
+        val filteredPreparationCardList = playerCardList
+            .filter { it.card.battlePhase ==  BattlePhase.PREPARATION }
+            .map{ it.card }
+
+        val playerPreparationCardList = orderCardList(playerPreparationCardIdList, filteredPreparationCardList)
+
+        val filteredEngagementCardList = playerCardList
+            .filter { it.card.battlePhase == BattlePhase.ENGAGEMENT }
+            .map{ it.card }
+
+        val playerEngagementCardList = orderCardList(playerEngagementCardIdList, filteredEngagementCardList)
+
+        val filteredFinalizationCardList = playerCardList
+            .filter { it.card.battlePhase == BattlePhase.FINALIZATION }
+            .map{ it.card }
+
+        val playerFinalizationCardList = orderCardList(playerFinalizationCardIdList, filteredFinalizationCardList)
+
+        //monsterCard 확인
+        val monsterCardList = monsterService.findAllMonsterCardInfoByMonsterId(monsterId)
+
+        val monsterPreparationCardList = monsterCardList
+            .filter { it.card.battlePhase == BattlePhase.PREPARATION }
+            .map { it.card }
+            .sortedBy { it.battleOrder }
+
+        val monsterEngagementCardList = monsterCardList
+            .filter { it.card.battlePhase == BattlePhase.ENGAGEMENT }
+            .map { it.card }
+            .sortedBy { it.battleOrder }
+
+        val monsterFinalizationCardList = monsterCardList
+            .filter { it.card.battlePhase == BattlePhase.FINALIZATION }
+            .map { it.card }
+            .sortedBy { it.battleOrder }
+
+
+        val preparationMonsterBattleStatus = PreparationMonsterBattleStatus(
+            playerStatus = player.getStatus(),
+            monsterStatus = monster.getStatus(),
+            playerCardList = playerPreparationCardList,
+            monsterCardList = monsterPreparationCardList
         )
 
-        val monsterCardList = monsterCardRepository.findCardListByMonsterIdAndCardIdIn(monsterId)
+        val engagementMonsterBattleStatus = EngagementMonsterBattleStatus(
+            playerStatus = player.getStatus(),
+            monsterStatus = monster.getStatus(),
+            playerCardList = playerEngagementCardList,
+            monsterCardList = monsterEngagementCardList
+        )
 
+        val finalizationMonsterBattleStatus = FinalizationBattleStatus(
+            playerStatus = player.getStatus(),
+            monsterStatus = monster.getStatus(),
+            playerCardList = playerFinalizationCardList,
+            monsterCardList = monsterFinalizationCardList
+        )
 
-        /*
-        1. preparationStatus 세팅
-         */
-
-        //preparationCard정보 가져오기
-        val preparationCardIdList = monsterBattleDTO.preparationCard.stream().map { it.id }.toList()
-        if(!playerCardRepository.validPlayerCardInfo(preparationCardIdList, preparationCardIdList.size, playerId)){
-            throw IllegalArgumentException("유효하지 않은 카드입니다." )
-        }
-        val preparationPlayerCardInfoList: List<PlayerCardInfo> = playerCardRepository.findCardListByPlayerIdAndCardIdIn(playerId, preparationCardIdList)
-
-        preparationPlayerCardInfoList.map{it.card}
-
-        //순서정렬해야하는데 -> 이거 preparationCardIdlist에 있는 순서로 정렬해야함
-        battleState.preparationMonsterBattleStatus.playerCardList = preparationCardIdList.map { cardId ->
-            preparationPlayerCardInfoList.first { it.card.id == cardId }.card
-        }
-
-        battleState.preparationMonsterBattleStatus.monsterCardList = monsterCardList
-            .filter{it.card.battlePhase == BattlePhase.PREPARATION}
-            .map{ it.card }
-            .sortedBy { it.battleOrder }
-
-
-
-
-        /*
-        2. engagementStatus 세팅
-         */
-        //engagementCardList정보 가져오기
-        val engagementCardIdList = monsterBattleDTO.engagementCardList.stream().map { it.id }.toList()
-        if(!playerCardRepository.validPlayerCardInfo(engagementCardIdList,engagementCardIdList.size, playerId)){
-            throw IllegalArgumentException("유효하지 않은 카드입니다." )
-        }
-        val engagementPlayerCardList: List<PlayerCardInfo> = playerCardRepository.findCardListByPlayerIdAndCardIdIn(playerId,engagementCardIdList)
-
-        //순서대로 정룔
-        battleState.engagementMonsterBattleStatus.playerCardList = engagementCardIdList.map{ cardId ->
-            engagementPlayerCardList.first { it.card.id == cardId }.card
-        }
-
-        battleState.engagementMonsterBattleStatus.monsterCardList = monsterCardList
-            .filter{it.card.battlePhase == BattlePhase.ENGAGEMENT}
-            .map{ it.card }
-            .sortedBy { it.battleOrder }
-
-
-        /*
-        3. finalizationStatus 세팅
-         */
-        //finalizationCard정보 가져오기
-        val finalizationCardIdList =  monsterBattleDTO.finalizationCard.stream().map { it.id }.toList()
-        if(!playerCardRepository.validPlayerCardInfo(finalizationCardIdList, finalizationCardIdList.size, playerId)){
-            throw IllegalArgumentException("유효하지 않은 카드입니다." )
-        }
-
-        val finalizationPlayerCardList: List<PlayerCardInfo> = playerCardRepository.findCardListByPlayerIdAndCardIdIn(playerId,finalizationCardIdList)
-
-        //순서대로 정렬
-        battleState.finalizationMonsterBattleStatus.playerCardList = finalizationCardIdList.map{ cardId ->
-            finalizationPlayerCardList.first { it.card.id == cardId }.card
-        }
-
-        battleState.finalizationMonsterBattleStatus.monsterCardList = monsterCardList
-            .filter{it.card.battlePhase == BattlePhase.FINALIZATION}
-            .map{ it.card }
-            .sortedBy { it.battleOrder }
-
-        return battleState
+        return MonsterBattleState(
+            preparationMonsterBattleStatus = preparationMonsterBattleStatus,
+            engagementMonsterBattleStatus = engagementMonsterBattleStatus,
+            finalizationMonsterBattleStatus = finalizationMonsterBattleStatus,
+            monsterCardStrategy = monsterCardProvider.getMonsterProvider(monster.monsterType),
+            player = player,
+            monster = monster
+        )
     }
+
 
     /**
      * 몬스터와 BattlePreparation 단계
      */
-    fun monsterBattlePreparation(battleState: BattleState): BattleState{
+    fun monsterBattlePreparation(battleState: MonsterBattleState): MonsterBattleState {
+        val player = battleState.player
+        val monster = battleState.monster
+
         val playerStatus = battleState.getPreparationSelfStatus()
         val monsterStatus = battleState.getPreparationOpponentStatus()
 
         val playerCardList = battleState.preparationMonsterBattleStatus.playerCardList
         val monsterCardList = battleState.preparationMonsterBattleStatus.monsterCardList
 
-        //플레이어 먼저 -> 몬스터 순서
-//        playerCardList.forEach{ card ->
-//            cardEffectFactory.get(card.cardType).applyEffect(card,playerStatus, monsterStatus)
-//        }
-//
-//        monsterCardList.forEach { card ->
-//            cardEffectFactory.get(card.cardType).applyEffect(card, monsterStatus, playerStatus)
-//        }
+        val monsterStrategy = battleState.monsterCardStrategy
+
+        for(i in 0 until 1){
+            val playerCard = selectPlayerCard(i, playerCardList)
+            val monsterCard = monsterStrategy.getMonsterCard(i, monsterStatus, monsterCardList)
+
+            val cardStrategy =  cardEffectFactory.get(Pair(playerCard.cardType, monsterCard.cardType))
+            val playerBattleStatus = BattleStatus(playerCard, playerStatus, player)
+            val monsterBattleStatus = BattleStatus(monsterCard, monsterStatus, monster)
+
+            cardStrategy.applyEffect(playerBattleStatus, monsterBattleStatus)
+        }
+
+        battleState.engagementMonsterBattleStatus.playerStatus = playerStatus
+        battleState.engagementMonsterBattleStatus.monsterStatus = monsterStatus
 
         return battleState
     }
@@ -171,7 +195,11 @@ class BattleService(
     /**
      * 몬스터와 BattleEngagement 단계
      */
-    private fun monsterBattleEngagement(battleState: BattleState): BattleState{
+    private fun monsterBattleEngagement(battleState: MonsterBattleState): MonsterBattleState {
+
+        val player = battleState.player
+        val monster = battleState.monster
+
         val playerStatus = battleState.getEngagementSelfStatus()
         val monsterStatus = battleState.getEngagementOpponentStatus()
 
@@ -179,29 +207,40 @@ class BattleService(
         val monsterCardList = battleState.engagementMonsterBattleStatus.monsterCardList
 
         //순서대로 진행(카드개수가 안맞는 경우가 생길수있음)
-        val maxCardCnt = Math.max(playerCardList.size, monsterCardList.size)
-        for(i in 0 until maxCardCnt){
+        val monsterStrategy = battleState.monsterCardStrategy
+        for (i in 0 until 5) {
 
-            TODO("resolveInteraction")
+            val playerCard = selectPlayerCard(i, playerCardList)
+            val monsterCard = monsterStrategy.getMonsterCard(i, monsterStatus, monsterCardList)
 
-//            if(i < playerCardList.size){
-//                cardEffectFactory.get(playerCardList[i].cardType).applyEffect(playerCardList[i], playerStatus, monsterStatus)
-//            }
-//            if(i < monsterCardList.size){
-//                cardEffectFactory.get(monsterCardList[i].cardType).applyEffect(monsterCardList[i], monsterStatus, playerStatus)
-//            }
-            //HP 가 0이하인 경우 처리필요
-
+            val cardStrategy = cardEffectFactory.get(Pair(playerCard.cardType, monsterCard.cardType))
+            val playerBattleStatus = BattleStatus(playerCard, playerStatus, player)
+            val monsterBattleStatus = BattleStatus(monsterCard, monsterStatus, monster)
+            cardStrategy.applyEffect(playerBattleStatus, monsterBattleStatus)
+            if(checkFinalizationPhase(playerBattleStatus,monsterBattleStatus)){
+                break
+            }
         }
 
-
-
-
-        TODO("Not yet implemented")
+        return battleState
     }
-    */
 
+    private fun orderCardList(orderIdList: List<CardIdDTO>, orderCardList: List<Card>): List<Card>{
+         return orderIdList.map { cardIdInfo ->
+                 orderCardList.first { it.id == cardIdInfo.id }
+         }
+    }
 
+    private fun selectPlayerCard(idx: Int,cardList: List<Card>): Card{
+        if( idx < 0 || idx >= cardList.size) {
+            throw IllegalArgumentException("Invalid card index: $idx. Card list size: ${cardList.size}")
+        }
+        return cardList[idx]
+    }
 
+    private fun checkFinalizationPhase(targetOneBattleStatus : BattleStatus, targetTwoBattleStatus: BattleStatus): Boolean{
+        return targetOneBattleStatus.status.get(TargetElementStatus.HP) <= 0.0 ||
+            targetTwoBattleStatus.status.get(TargetElementStatus.HP) <= 0.0
+    }
 
 }

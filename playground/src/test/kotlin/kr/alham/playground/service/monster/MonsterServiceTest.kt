@@ -6,8 +6,6 @@ import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.enums.CardTarget
 import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.monster.Monster
-import kr.alham.playground.domain.monster.MonsterCardInfo
-import kr.alham.playground.repository.card.MonsterCardRepository
 import kr.alham.playground.repository.monster.MonsterCardInfoRepository
 import kr.alham.playground.repository.monster.MonsterRepository
 import kr.alham.playground.service.card.CardService
@@ -116,14 +114,14 @@ class MonsterServiceTest{
         cardService.saveMonsterCard(monsterCardOpponent)
         cardService.saveMonsterCard(monsterCardMutual)
 
-        val emptyMonsterInfo = monsterService.findMonsterCardInfoByMonsterId(monsterId)
+        val emptyMonsterInfo = monsterService.findAllMonsterCardInfoByMonsterId(monsterId)
         assertEquals(0,emptyMonsterInfo.size)
 
         monsterService.saveMonsterCardInfo(foundMonster, monsterCardSelf)
         monsterService.saveMonsterCardInfo(foundMonster, monsterCardOpponent)
         monsterService.saveMonsterCardInfo(foundMonster, monsterCardMutual)
 
-        val monsterCardInfoList = monsterService.findMonsterCardInfoByMonsterId(monsterId)
+        val monsterCardInfoList = monsterService.findAllMonsterCardInfoByMonsterId(monsterId)
         assertEquals(3,monsterCardInfoList.size)
 
     }

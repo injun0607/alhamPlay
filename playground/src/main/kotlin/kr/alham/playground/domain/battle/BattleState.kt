@@ -6,6 +6,9 @@ import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusEmptyMap
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
+import kr.alham.playground.domain.player.Player
+import kr.alham.playground.system.battle.monster.MonsterCardProvider
+import kr.alham.playground.system.battle.monster.MonsterCardProviderStrategy
 
 interface BattleState {
     var preparationMonsterBattleStatus: PreparationMonsterBattleStatus
@@ -27,6 +30,9 @@ class MonsterBattleState(
     override var preparationMonsterBattleStatus: PreparationMonsterBattleStatus = PreparationMonsterBattleStatus(),
     override var engagementMonsterBattleStatus: EngagementMonsterBattleStatus = EngagementMonsterBattleStatus(),
     override var finalizationMonsterBattleStatus: FinalizationBattleStatus = FinalizationBattleStatus(),
+    val monsterCardStrategy: MonsterCardProviderStrategy,
+    val player: TargetElement,
+    val monster: TargetElement
 ) : BattleState {
 
     override fun getSelfStatus(battlePhase: BattlePhase): TargetElementStatusMap {

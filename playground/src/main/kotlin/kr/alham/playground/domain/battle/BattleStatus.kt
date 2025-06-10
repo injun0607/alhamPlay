@@ -28,8 +28,8 @@ class PreparationMonsterBattleStatus(
 
 class EngagementMonsterBattleStatus(
     val battlePhase: BattlePhase = BattlePhase.ENGAGEMENT,
-    val playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
-    val monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    var playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    var monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
     val playerDurationStatus: List<DurationStatus> = listOf(),
     val monsterDurationStatus: List<DurationStatus> = listOf(),
     var playerCardList: List<Card> = listOf(),
@@ -48,8 +48,8 @@ class EngagementMonsterBattleStatus(
 
 class FinalizationBattleStatus(
     val battlePhase: BattlePhase = BattlePhase.FINALIZATION,
-    val playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
-    val monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    var playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    var monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
     val playerDurationStatus: List<DurationStatus> = listOf(),
     val monsterDurationStatus: List<DurationStatus> = listOf(),
     var playerCardList: List<Card> = listOf(),

@@ -19,10 +19,10 @@ class MonsterService(
         }
     }
 
-    fun findMonsterCardInfoByMonsterId(
+    fun findAllMonsterCardInfoByMonsterId(
         monsterId: Long
     ): List<MonsterCardInfo> {
-        return monsterCardInfoRepository.findMonsterCardByMonsterId(monsterId)
+        return monsterCardInfoRepository.findAllMonsterCardByMonsterId(monsterId)
     }
 
     @Transactional

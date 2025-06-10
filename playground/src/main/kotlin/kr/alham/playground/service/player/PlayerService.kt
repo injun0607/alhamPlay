@@ -20,10 +20,17 @@ class PlayerService(
         }
     }
 
-    fun findPlayerInfoByPlayerId(
+    fun findAllPlayerCardInfoByPlayerId(
         playerId: Long
     ): List<PlayerCardInfo> {
-        return playerCardInfoRepository.findPlayerCardByPlayerId(playerId)
+        return playerCardInfoRepository.findAllPlayerCardInfoByPlayerId(playerId)
+    }
+
+    fun findPlayerCardInfoListByPlayerIdAndCardIdList(
+        playerId: Long,
+        cardIdList: List<Long>
+    ): List<PlayerCardInfo> {
+        return playerCardInfoRepository.findPlayerCardListByCardIdList(playerId,cardIdList)
     }
 
     @Transactional

@@ -11,6 +11,7 @@ enum class CardTarget{
 
 
 enum class CardType{
+    NONE,
     BUFF,
     ATTACK,
     HEAL,

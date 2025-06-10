@@ -6,17 +6,21 @@ import org.springframework.stereotype.Component
 @Component
 class CardEffectFactory(
     private val strategies: List<TargetBasedCardEffect>,
-    private val defaultCardEffect: DefaultCardEffect
+    private val defaultCardEffect: DefaultCardEffect,
 ) {
 
     private val defaultStrategy = defaultCardEffect
 
-    private val strategyMap: Map<Pair<CardType,CardType>, CardEffectStrategy> = strategies
-        .filter{it.supportedType() != null}
-        .associateBy { it.supportedType()!!}
+    private val strategyMap: Map<Set<CardType>, CardEffectStrategy> = strategies
+        .filter{
+            it.supportedType() != null
+        }
+        .associateBy { setOf(it.supportedType()!!.first, it.supportedType()!!.second) }
 
     fun get(key: Pair<CardType,CardType>): CardEffectStrategy {
-        return strategyMap[key] ?: defaultStrategy
+        val strategyKey = setOf(key.first, key.second)
+        return strategyMap[strategyKey] ?: defaultStrategy
     }
+
 
 }
