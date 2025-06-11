@@ -18,10 +18,10 @@ class DefaultCardEffect(
         val targetTwoStatus = targetTwo.status
 
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneSelfNum)
@@ -41,10 +41,10 @@ class DefaultCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneSelfNum)
@@ -63,13 +63,13 @@ class DefaultCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneSelfNum)
@@ -89,13 +89,13 @@ class DefaultCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneOpponentNum = cardOne.effectOpponentNum
+        val cardOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val cardOneOpponentStatus = cardOne.effectOpponentStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneOpponentValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneOpponentNum)
@@ -114,10 +114,10 @@ class DefaultCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneOpponentNum = cardOne.effectOpponentNum
+        val cardOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val cardOneOpponentStatus = cardOne.effectOpponentStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneOpponentValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneOpponentNum)
@@ -134,14 +134,14 @@ class DefaultCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
-        val cardOneOpponentNum = cardOne.effectOpponentNum
+        val cardOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val cardOneOpponentStatus = cardOne.effectOpponentStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne, targetOneStatus, cardOneSelfNum)

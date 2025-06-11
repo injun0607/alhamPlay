@@ -75,9 +75,18 @@ class AreaServiceTest {
             )
         ))
 
+        val tiles = areaSystem.initTiles()
+        areaSystem.changeRandomTypeTiles(tiles,10,8,3,2,1,1)
+
         every {
             redisTileCacheRepository.getTilesByFieldAreaId(2L)
         } returns (null)
+
+        every{
+            redisTileCacheRepository.saveTiles(2L,
+                any()
+            )
+        } returns Unit
 
 
         val areaInfo = areaService.findAreaById(1L)
@@ -100,18 +109,18 @@ class AreaServiceTest {
         assertEquals(25, nonAreaTiles.size)
         assertEquals(10, nonAreaTiles.count { it.type == TileType.COMMON })
         assertEquals(8, nonAreaTiles.count { it.type == TileType.UNCOMMON })
-        assertEquals(4, nonAreaTiles.count { it.type == TileType.RARE })
-        assertEquals(3, nonAreaTiles.count { it.type == TileType.EPIC })
-        assertEquals(0, nonAreaTiles.count { it.type == TileType.UNIQUE })
-        assertEquals(0, nonAreaTiles.count { it.type == TileType.LEGENDARY })
+        assertEquals(3, nonAreaTiles.count { it.type == TileType.RARE })
+        assertEquals(2, nonAreaTiles.count { it.type == TileType.EPIC })
+        assertEquals(1, nonAreaTiles.count { it.type == TileType.UNIQUE })
+        assertEquals(1, nonAreaTiles.count { it.type == TileType.LEGENDARY })
 
         assertEquals(25, nonAreaTiles.size)
         assertEquals(10, nonAreaTiles.count { it.type == TileType.COMMON })
         assertNotEquals(5, nonAreaTiles.count { it.type == TileType.UNCOMMON })
         assertNotEquals(5, nonAreaTiles.count { it.type == TileType.RARE })
-        assertEquals(3, nonAreaTiles.count { it.type == TileType.EPIC })
-        assertNotEquals(1, nonAreaTiles.count { it.type == TileType.UNIQUE })
-        assertNotEquals(1, nonAreaTiles.count { it.type == TileType.LEGENDARY })
+        assertEquals(2, nonAreaTiles.count { it.type == TileType.EPIC })
+        assertNotEquals(0, nonAreaTiles.count { it.type == TileType.UNIQUE })
+        assertNotEquals(0, nonAreaTiles.count { it.type == TileType.LEGENDARY })
 
 
     }

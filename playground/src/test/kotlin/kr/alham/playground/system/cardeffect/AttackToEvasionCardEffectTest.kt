@@ -397,7 +397,7 @@ class AttackToEvasionCardEffectTest {
     }
 
     @Test
-    fun `attattackToEvasion - selfToOpponent - 몬스터 공격카드 상호작용 ,  플레이어 자신에게 회피(실패)`(){
+    fun `attattackToEvasion - selfToMutual - 몬스터 공격카드 상호작용 ,  플레이어 자신에게 회피(실패)`(){
         val playerStatus = BattleStatus(playerCardSelfEvasion, player.getStatus(),player) //
         val monsterBattleStatus = BattleStatus(monsterCardCutMutual, monster.getStatus(),monster) //상대에게 3, 자신에게 1의 피해
 
@@ -529,9 +529,6 @@ class AttackToEvasionCardEffectTest {
         assertEquals(9.0, monsterBattleStatus.status.get(TargetElementStatus.HP), "몬스터 체력 9")
     }
 
-    @Test
-    fun `attackToEvasion - mutualToMutual - 몬스터 상호 공ㄱ겨`(){
 
-    }
 
 }

@@ -30,6 +30,22 @@ interface Card{
      * 카드의 속성에 따라 대미지를 계산하는 메소드
      */
     fun calculateValue(targetElementStatusMap: TargetElementStatusMap, value: Double): Double
+    fun getEffectOpponentNumValue(): Double {
+        if(cardType == CardType.ATTACK) {
+            return -effectOpponentNum
+        }else{
+            return effectOpponentNum
+        }
+
+    }
+
+    fun getEffectSelfNumValue(): Double {
+        if(cardType == CardType.ATTACK) {
+            return -effectSelfNum
+        }else{
+            return effectSelfNum
+        }
+    }
 }
 
 

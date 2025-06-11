@@ -24,7 +24,7 @@ class BattleService(
     private val monsterCardProvider: MonsterCardProvider
 ) {
 
-    fun monsterBattle(monsterBattleDTO: MonsterBattleDTO) {
+    fun monsterBattle(monsterBattleDTO: MonsterBattleDTO): MonsterBattleState {
 
         /*
         1. 유저 정보 가져오기
@@ -35,12 +35,11 @@ class BattleService(
          */
 
         val battleState = initMonsterBattleState(monsterBattleDTO)
+        monsterBattlePreparation(battleState)
+        monsterBattleEngagement(battleState)
+        monsterBattleFinalization(battleState)
 
-
-
-//        monsterBattlePreparation();
-//        monsterBattleEngagement()
-//        monsterBattleFinalization()
+        return battleState
     }
 
     fun playerBattle() {
@@ -129,22 +128,22 @@ class BattleService(
 
 
         val preparationMonsterBattleStatus = PreparationMonsterBattleStatus(
-            playerStatus = player.getStatus(),
-            monsterStatus = monster.getStatus(),
+            playerStatus = player.getStatus().clone(),
+            monsterStatus = monster.getStatus().clone(),
             playerCardList = playerPreparationCardList,
             monsterCardList = monsterPreparationCardList
         )
 
         val engagementMonsterBattleStatus = EngagementMonsterBattleStatus(
-            playerStatus = player.getStatus(),
-            monsterStatus = monster.getStatus(),
+            playerStatus = player.getStatus().clone(),
+            monsterStatus = monster.getStatus().clone(),
             playerCardList = playerEngagementCardList,
             monsterCardList = monsterEngagementCardList
         )
 
         val finalizationMonsterBattleStatus = FinalizationBattleStatus(
-            playerStatus = player.getStatus(),
-            monsterStatus = monster.getStatus(),
+            playerStatus = player.getStatus().clone(),
+            monsterStatus = monster.getStatus().clone(),
             playerCardList = playerFinalizationCardList,
             monsterCardList = monsterFinalizationCardList
         )
@@ -163,7 +162,7 @@ class BattleService(
     /**
      * 몬스터와 BattlePreparation 단계
      */
-    fun monsterBattlePreparation(battleState: MonsterBattleState): MonsterBattleState {
+    private fun monsterBattlePreparation(battleState: MonsterBattleState): MonsterBattleState {
         val player = battleState.player
         val monster = battleState.monster
 
@@ -186,8 +185,8 @@ class BattleService(
             cardStrategy.applyEffect(playerBattleStatus, monsterBattleStatus)
         }
 
-        battleState.engagementMonsterBattleStatus.playerStatus = playerStatus
-        battleState.engagementMonsterBattleStatus.monsterStatus = monsterStatus
+        battleState.engagementMonsterBattleStatus.playerStatus = playerStatus.clone()
+        battleState.engagementMonsterBattleStatus.monsterStatus = monsterStatus.clone()
 
         return battleState
     }
@@ -217,9 +216,40 @@ class BattleService(
             val playerBattleStatus = BattleStatus(playerCard, playerStatus, player)
             val monsterBattleStatus = BattleStatus(monsterCard, monsterStatus, monster)
             cardStrategy.applyEffect(playerBattleStatus, monsterBattleStatus)
+            //둘중 하나라도 hp가 0이 되었으면 마지막 페이지 진입
             if(checkFinalizationPhase(playerBattleStatus,monsterBattleStatus)){
                 break
             }
+        }
+
+        battleState.finalizationMonsterBattleStatus.playerStatus = playerStatus.clone()
+        battleState.finalizationMonsterBattleStatus.monsterStatus = monsterStatus.clone()
+
+        return battleState
+    }
+
+    private fun monsterBattleFinalization(battleState: MonsterBattleState): MonsterBattleState {
+
+        val player = battleState.player
+        val monster = battleState.monster
+
+        val playerStatus = battleState.getFinalizationSelfStatus()
+        val monsterStatus = battleState.getFinalizationOpponentStatus()
+
+        val playerCardList = battleState.finalizationMonsterBattleStatus.playerCardList
+        val monsterCardList = battleState.finalizationMonsterBattleStatus.monsterCardList
+
+        //순서대로 진행(카드개수가 안맞는 경우가 생길수있음)
+        val monsterStrategy = battleState.monsterCardStrategy
+        for (i in 0 until 1) {
+
+            val playerCard = selectPlayerCard(i, playerCardList)
+            val monsterCard = monsterStrategy.getMonsterCard(i, monsterStatus, monsterCardList)
+
+            val cardStrategy = cardEffectFactory.get(Pair(playerCard.cardType, monsterCard.cardType))
+            val playerBattleStatus = BattleStatus(playerCard, playerStatus, player)
+            val monsterBattleStatus = BattleStatus(monsterCard, monsterStatus, monster)
+            cardStrategy.applyEffect(playerBattleStatus, monsterBattleStatus)
         }
 
         return battleState

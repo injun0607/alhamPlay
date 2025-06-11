@@ -3,6 +3,7 @@ package kr.alham.playground.system.calculator
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.common.TargetElementStatusMap
 import org.springframework.stereotype.Component
+import kotlin.math.abs
 
 interface DamageCalculator {
     fun calculateDamage(attackNum: Double, defenceNum: Double, defenderStatus: TargetElementStatusMap): Double
@@ -16,14 +17,15 @@ class DamageCalculatorDefault: DamageCalculator {
      * defenderStatus - 방어 대상의 스탯
      */
     override fun calculateDamage(attackNum: Double, defenceNum: Double, defenderStatus: TargetElementStatusMap): Double {
-        var damage = attackNum
+        var damage = abs(attackNum)
+
         val calculateDefenceNum = defenceNum + defenderStatus.get(TargetElementStatus.DEF)
 
         if(damage > calculateDefenceNum){
-            damage = attackNum - calculateDefenceNum
+            damage -= calculateDefenceNum
         }else{
             damage = 0.0
         }
-        return damage
+        return -damage
     }
 }

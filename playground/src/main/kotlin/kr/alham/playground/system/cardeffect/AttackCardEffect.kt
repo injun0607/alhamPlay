@@ -6,6 +6,7 @@ import kr.alham.playground.system.calculator.CardValueCalculator
 import kr.alham.playground.system.calculator.DamageCalculator
 import kr.alham.playground.system.calculator.EvasionRateCalculator
 import org.springframework.stereotype.Component
+import kotlin.math.abs
 
 /**
  * 공격 vs 공격 카드 효과
@@ -27,20 +28,18 @@ class AttackToAttackCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
         val cardOneSelfDamage = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
         val cardTwoSelfDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoSelfNum)
 
-        val targetOneAfterEffectStat = targetOneStatus.get(cardOneSelfStatus) - cardOneSelfDamage
-        targetOneStatus.set(cardOneSelfStatus,targetOneAfterEffectStat)
+        targetOneStatus.addMaxValueCheck(cardOneSelfStatus,cardOneSelfDamage,null)
+        targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus,cardTwoSelfDamage,null)
 
-        val targetTwoAfterEffectStat = targetTwoStatus.get(cardTwoSelfStatus) - cardTwoSelfDamage
-        targetTwoStatus.set(cardTwoSelfStatus,targetTwoAfterEffectStat)
     }
 
     override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -50,20 +49,19 @@ class AttackToAttackCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfDamage = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
         val cardTwoOpponentDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
 
-        var targetOneAfterEffectStat = targetOneStatus.get(cardOneSelfStatus) - cardOneSelfDamage
-        targetOneStatus.set(cardOneSelfStatus,targetOneAfterEffectStat)
+        val targetTwoOpponentDamage = damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
 
-        targetOneAfterEffectStat = targetOneStatus.get(cardTwoOpponentStatus) - damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
-        targetOneStatus.set(cardTwoOpponentStatus,targetOneAfterEffectStat)
+        targetOneStatus.addMaxValueCheck(cardOneSelfStatus,cardOneSelfDamage,null)
+        targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus,targetTwoOpponentDamage,null)
 
     }
     override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -73,26 +71,23 @@ class AttackToAttackCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val targetOneSelfNum = cardOne.effectSelfNum
+        val targetOneSelfNum = cardOne.getEffectSelfNumValue()
         val targetOneSelfStatus = cardOne.effectSelfStat
 
-        val targetTwoSelfNum = cardTwo.effectSelfNum
+        val targetTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val targetTwoSelfStatus = cardTwo.effectSelfStat
-        val targetTwoOpponentNum = cardTwo.effectOpponentNum
+        val targetTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val targetTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfDamage = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,targetOneSelfNum)
         val cardTwoSelfDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,targetTwoSelfNum)
         val cardTwoOpponentDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,targetTwoOpponentNum)
 
-        var targetOneAfterEffectStat = targetOneStatus.get(targetOneSelfStatus) - cardOneSelfDamage
-        targetOneStatus.set(targetOneSelfStatus,targetOneAfterEffectStat)
 
-        targetOneAfterEffectStat = targetOneStatus.get(targetTwoOpponentStatus) - damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
-        targetOneStatus.set(targetTwoOpponentStatus,targetOneAfterEffectStat)
-
-        val targetTwoAfterEffectStat = targetTwoStatus.get(targetTwoSelfStatus) - cardTwoSelfDamage
-        targetTwoStatus.set(targetTwoSelfStatus,targetTwoAfterEffectStat)
+        val targetTwoOpponentDamage =  damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
+        targetOneStatus.addMaxValueCheck(targetOneSelfStatus,cardOneSelfDamage,null)
+        targetOneStatus.addMaxValueCheck(targetOneSelfStatus,targetTwoOpponentDamage,null)
+        targetTwoStatus.addMaxValueCheck(targetTwoSelfStatus,cardTwoSelfDamage,null)
 
     }
     override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -102,12 +97,12 @@ class AttackToAttackCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val targetOneOpponentNum = cardOne.effectOpponentNum
+        val targetOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val targetOneOpponentStatus = cardOne.effectOpponentStat
 
-        val targetTwoSelfNum = cardTwo.effectSelfNum
+        val targetTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val targetTwoSelfStatus = cardTwo.effectSelfStat
-        val targetTwoOpponentNum = cardTwo.effectOpponentNum
+        val targetTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val targetTwoOpponentStatus = cardTwo.effectOpponentStat
 
         //TODO - 각 카드의 속성을 확인해서 데미지 계산로직 추가필요
@@ -115,14 +110,14 @@ class AttackToAttackCardEffect(
         val cardTwoSelfDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,targetTwoSelfNum)
         val cardTwoOpponentDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,targetTwoOpponentNum)
 
-        val targetOneEffectStat = targetOneStatus.get(targetTwoOpponentStatus) - damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
-        targetOneStatus.set(targetTwoOpponentStatus,targetOneEffectStat)
+        val targetOneOpponentDamage = damageCalculator.calculateDamage(cardOneOpponentDamage,0.0,targetTwoStatus)
+        val targetTwoOpponentDamage = damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
 
-        var targetTwoEffectStat = targetTwoStatus.get(targetOneOpponentStatus) - damageCalculator.calculateDamage(cardOneOpponentDamage,0.0,targetTwoStatus)
-        targetTwoStatus.set(targetOneOpponentStatus,targetTwoEffectStat)
+        targetOneStatus.addMaxValueCheck(targetTwoOpponentStatus,targetTwoOpponentDamage,null)
 
-        targetTwoEffectStat = targetTwoStatus.get(targetTwoSelfStatus) - cardTwoSelfDamage
-        targetTwoStatus.set(targetTwoSelfStatus,targetTwoEffectStat)
+
+        targetTwoStatus.addMaxValueCheck(targetTwoSelfStatus,cardTwoSelfDamage,null)
+        targetTwoStatus.addMaxValueCheck(targetOneOpponentStatus,targetOneOpponentDamage,null)
 
     }
     override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -133,21 +128,21 @@ class AttackToAttackCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val targetOneOpponentNum = cardOne.effectOpponentNum
+        val targetOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val targetOneOpponentStatus = cardOne.effectOpponentStat
 
-        val targetTwoOpponentNum = cardTwo.effectOpponentNum
+        val targetTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val targetTwoOpponentStatus = cardTwo.effectOpponentStat
 
         //TODO - 각 카드의 속성을 확인해서 데미지 계산로직 추가필요
         val cardOneOpponentDamage = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,targetOneOpponentNum)
         val cardTwoOpponentDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,targetTwoOpponentNum)
 
-        val targetOneEffectStat = targetOneStatus.get(targetOneOpponentStatus) - damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
-        targetOneStatus.set(targetTwoOpponentStatus,targetOneEffectStat)
+        val targetOneOpponentDamage = damageCalculator.calculateDamage(cardOneOpponentDamage,0.0,targetTwoStatus)
+        val targetTwoOpponentDamage = damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
 
-        val targetTwoEffectStat = targetTwoStatus.get(targetTwoOpponentStatus) - damageCalculator.calculateDamage(cardOneOpponentDamage,0.0,targetTwoStatus)
-        targetTwoStatus.set(targetOneOpponentStatus,targetTwoEffectStat)
+        targetOneStatus.addMaxValueCheck(targetTwoOpponentStatus,targetTwoOpponentDamage,null)
+        targetTwoStatus.addMaxValueCheck(targetOneOpponentStatus,targetOneOpponentDamage,null)
 
     }
     override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -157,14 +152,14 @@ class AttackToAttackCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val targetOneSelfNum = cardOne.effectSelfNum
+        val targetOneSelfNum = cardOne.getEffectSelfNumValue()
         val targetOneSelfStatus = cardOne.effectSelfStat
-        val targetOneOpponentNum = cardOne.effectOpponentNum
+        val targetOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val targetOneOpponentStatus = cardOne.effectOpponentStat
 
-        val targetTwoSelfNum = cardTwo.effectSelfNum
+        val targetTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val targetTwoSelfStatus = cardTwo.effectSelfStat
-        val targetTwoOpponentNum = cardTwo.effectOpponentNum
+        val targetTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val targetTwoOpponentStatus = cardTwo.effectOpponentStat
 
         //TODO - 각 카드의 속성을 확인해서 데미지 계산로직 추가필요
@@ -174,15 +169,15 @@ class AttackToAttackCardEffect(
         val cardTwoSelfDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,targetTwoSelfNum)
         val cardTwoOpponentDamage = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,targetTwoOpponentNum)
 
-        var targetOneEffectStat = targetOneStatus.get(targetOneSelfStatus) - cardOneSelfDamage
-        targetOneStatus.set(targetOneSelfStatus,targetOneEffectStat)
-        targetOneEffectStat = targetOneStatus.get(targetTwoOpponentStatus) - damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
-        targetOneStatus.set(targetTwoOpponentStatus,targetOneEffectStat)
+        val targetOneOpponentDamage = damageCalculator.calculateDamage(cardOneOpponentDamage,0.0,targetTwoStatus)
+        val targetTwoOpponentDamage = damageCalculator.calculateDamage(cardTwoOpponentDamage,0.0,targetOneStatus)
 
-        var targetTwoEffectStat = targetTwoStatus.get(targetTwoSelfStatus) - cardTwoSelfDamage
-        targetTwoStatus.set(targetTwoSelfStatus,targetTwoEffectStat)
-        targetTwoEffectStat = targetTwoStatus.get(targetOneOpponentStatus) - damageCalculator.calculateDamage(cardOneOpponentDamage,0.0,targetTwoStatus)
-        targetTwoStatus.set(targetOneOpponentStatus,targetTwoEffectStat)
+
+        targetOneStatus.addMaxValueCheck(targetOneSelfStatus,cardOneSelfDamage,null)
+        targetOneStatus.addMaxValueCheck(targetTwoOpponentStatus,targetTwoOpponentDamage,null)
+
+        targetTwoStatus.addMaxValueCheck(targetTwoSelfStatus,cardTwoSelfDamage,null)
+        targetTwoStatus.addMaxValueCheck(targetOneOpponentStatus,targetOneOpponentDamage,null)
 
     }
 }
@@ -203,14 +198,12 @@ class AttackToDefenceCardEffect(
 
         val attackerStatus = attacker.status
 
-        val attackCardSelfNum = attackCard.effectSelfNum
+        val attackCardSelfNum = attackCard.getEffectSelfNumValue()
         val attackCardSelfStatus = attackCard.effectSelfStat
 
         val attackCardDamage = cardValueCalculator.calculateCardValue(attackCard,attackerStatus,attackCardSelfNum)
 
-        val attackerEffectStat = attackerStatus.get(attackCardSelfStatus) - attackCardDamage
-        attackerStatus.set(attackCardSelfStatus,attackerEffectStat)
-
+        attackerStatus.addMaxValueCheck(attackCardSelfStatus,attackCardDamage,null)
     }
     override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
         val cardOne = targetOne.card
@@ -219,33 +212,30 @@ class AttackToDefenceCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
         val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
 
         var damage = 0.0
-        var effectedStat = 0.0
 
         //self가 공격인경우
         if(checkTarget(CardType.ATTACK,targetOne)){
             //방어 계산
-            if(cardOneSelfValue > cardTwoOpponentValue) {
-                damage = cardOneSelfValue - cardTwoOpponentValue
+            if(abs(cardOneSelfValue) > cardTwoOpponentValue) {
+                damage = -(abs(cardOneSelfValue) - cardTwoOpponentValue)
             }
-
-            effectedStat = targetOneStatus.get(cardOneSelfStatus) - damage
+            targetOneStatus.addMaxValueCheck(cardOneSelfStatus,damage,null)
         }else{
             //self가 방어인 경우
             damage = damageCalculator.calculateDamage(cardTwoOpponentValue,cardOneSelfValue,targetOneStatus)
-            effectedStat = targetOneStatus.get(cardTwoOpponentStatus) - damage
+            targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus,damage,null)
         }
 
-        targetOneStatus.set(cardOneSelfStatus,effectedStat)
 
     }
     override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -255,12 +245,12 @@ class AttackToDefenceCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
@@ -270,25 +260,20 @@ class AttackToDefenceCardEffect(
 
         var damage = 0.0
 
-        var targetOneEffectStat = targetOneStatus.get(cardOneSelfStatus)
-        var targetTwoEffectStat = targetTwoStatus.get(cardTwoSelfStatus)
-
-
         //self가 공격 mutual이 방어인경우
         if(checkTarget(CardType.ATTACK,targetOne)){
-            if(cardOneSelfValue > cardTwoOpponentValue){
-                damage = cardOneSelfValue - cardTwoOpponentValue
+            if(abs(cardOneSelfValue) > cardTwoOpponentValue){
+                damage = -(abs(cardOneSelfValue) - cardTwoOpponentValue)
             }
-            targetOneEffectStat -= damage
+            targetOneStatus.addMaxValueCheck(cardOneSelfStatus,damage,null)
         }else{
             //self가 방어 mutual이 공격인 경우
             damage = damageCalculator.calculateDamage(cardTwoOpponentValue,cardOneSelfValue,targetOneStatus)
-            targetOneEffectStat = targetOneStatus.get(cardTwoOpponentStatus) - damage
-            targetTwoEffectStat = targetTwoStatus.get(cardTwoSelfStatus) - cardTwoSelfValue
-        }
 
-        targetOneStatus.set(cardOneSelfStatus,targetOneEffectStat)
-        targetTwoStatus.set(cardTwoSelfStatus,targetTwoEffectStat)
+            targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus,damage,null)
+            targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus,cardTwoSelfValue,null)
+
+        }
 
     }
     override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -298,13 +283,13 @@ class AttackToDefenceCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneOpponentNum = cardOne.effectOpponentNum
+        val cardOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val cardOneOpponentStatus = cardOne.effectOpponentStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneOpponentValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneOpponentNum)
@@ -314,24 +299,21 @@ class AttackToDefenceCardEffect(
 
         var damage = 0.0
 
-        var targetOneEffectStat = targetOneStatus.get(cardTwoOpponentStatus)
-        var targetTwoEffectStat = targetTwoStatus.get(cardOneOpponentStatus)
-
         if(checkTarget(CardType.ATTACK,targetOne)) {
             //공격이 상대방 타겟인경우 경우
             damage = damageCalculator.calculateDamage(cardOneOpponentValue,cardTwoSelfValue,targetTwoStatus)
-            targetTwoEffectStat -= damage
+            targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus,damage,null)
         }else{
-            //방어가 상대방 타겟인경우
-            if(cardTwoSelfValue > cardOneOpponentValue){
-                damage = cardTwoSelfValue - cardOneOpponentValue
-                targetOneEffectStat -= damage
-            }
-            targetOneEffectStat -= damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
-        }
 
-        targetOneStatus.set(cardTwoOpponentStatus,targetOneEffectStat)
-        targetTwoStatus.set(cardOneOpponentStatus,targetTwoEffectStat)
+            //방어가 상대방 타겟 공격이 상호인경우
+            if(abs(cardTwoSelfValue) > cardOneOpponentValue){
+                damage = -(abs(cardTwoSelfValue) - cardOneOpponentValue)
+                targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus,damage,null)
+            }
+
+            val targetTwoOpponentDamage = damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
+            targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus,targetTwoOpponentDamage,null)
+        }
 
     }
     override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -340,19 +322,15 @@ class AttackToDefenceCardEffect(
         val defender = distinctTarget(CardType.DEFENCE,targetOne,targetTwo)
 
         val attackerCard = attacker.card
-        val defenderCard = defender.card
 
         val attackerStatus = attacker.status
         val defenderStatus = defender.status
 
-        val attackNum = attackerCard.effectOpponentNum
+        val attackNum = attackerCard.getEffectOpponentNumValue()
         val attackStatus = attackerCard.effectOpponentStat
 
         val attackCardValue = cardValueCalculator.calculateCardValue(attackerCard,attackerStatus,attackNum)
-
-        val defenderEffectStatus = defenderStatus.get(attackStatus) - damageCalculator.calculateDamage(attackCardValue,0.0,defenderStatus)
-
-        defenderStatus.set(attackStatus,defenderEffectStatus)
+        defenderStatus.addMaxValueCheck(attackStatus,attackCardValue,null)
 
     }
     override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -363,16 +341,16 @@ class AttackToDefenceCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardOneOpponentNum = cardOne.effectOpponentNum
+        val cardOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val cardOneOpponentStatus = cardOne.effectOpponentStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
@@ -381,31 +359,26 @@ class AttackToDefenceCardEffect(
         val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoSelfNum)
         val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
 
-        var targetOneEffectStatus = targetOneStatus.get(cardOneSelfStatus)
-        var targetTwoEffectStatus = targetTwoStatus.get(cardTwoSelfStatus)
-
         if(checkTarget(CardType.ATTACK,targetOne)) {
             //targetOne이 attackCard인것
-            if(cardOneSelfValue > cardTwoOpponentValue){
+            if(abs(cardOneSelfValue) > cardTwoOpponentValue){
                 //cardTwo가 cardOne데미지를 방어
-                val damage = cardOneSelfValue - cardTwoOpponentValue
-                targetOneEffectStatus -= damage
+                val damage = -(abs(cardOneSelfValue) - cardTwoOpponentValue)
+                targetOneStatus.addMaxValueCheck(cardOneSelfStatus,damage,null)
             }
             val effectedTargetTwoDamage = damageCalculator.calculateDamage(cardOneOpponentValue,cardTwoSelfValue,targetTwoStatus)
-            targetTwoEffectStatus -= effectedTargetTwoDamage
+            targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus, effectedTargetTwoDamage,null)
         }else{
             //targetOne이 defenceCard인것
             val effectedTargetOneDamage = damageCalculator.calculateDamage(cardTwoOpponentNum,cardOneSelfValue,targetOneStatus)
-            targetOneEffectStatus -= effectedTargetOneDamage
-            if(cardTwoSelfValue > cardOneOpponentValue){
+            targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus, effectedTargetOneDamage,null)
+            if(abs(cardTwoSelfValue) > cardOneOpponentValue){
                 //cardOne가 cardTwo데미지를 방어
-                val damage = cardTwoSelfValue - cardOneOpponentValue
-                targetTwoEffectStatus -= damage
+                val damage = -(abs(cardTwoSelfValue) - cardOneOpponentValue)
+                targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus,damage,null)
             }
         }
 
-        targetOneStatus.set(cardOneSelfStatus,targetOneEffectStatus)
-        targetTwoStatus.set(cardOneOpponentStatus,targetTwoEffectStatus)
 
     }
 
@@ -425,13 +398,12 @@ class AttackToEvasionCardEffect(
 
         val attackStatus = attacker.status
 
-        val attackNum = attackCard.effectSelfNum
+        val attackNum = attackCard.getEffectSelfNumValue()
         val attackStatusType = attackCard.effectSelfStat
 
         val attackCardDamage = cardValueCalculator.calculateCardValue(attackCard,attackStatus,attackNum)
-        val attackCardEffectStat = attackStatus.get(attackStatusType) - attackCardDamage
 
-        attackStatus.set(attackStatusType,attackCardEffectStat)
+        attackStatus.addMaxValueCheck(attackStatusType, attackCardDamage, null)
 
     }
     override fun selfToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -441,16 +413,15 @@ class AttackToEvasionCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         var cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
         var cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
 
-        var targetOneEffectStatus = targetOneStatus.get(cardOneSelfStatus)
 
         var damage = 0.0
 
@@ -460,16 +431,15 @@ class AttackToEvasionCardEffect(
                 //회피 실패
                 damage = cardOneSelfValue
             }
-            targetOneEffectStatus -= damage
+            targetOneStatus.addMaxValueCheck(cardOneSelfStatus,damage,null)
         }else{
             if(!evasionRateCalculator.calculateEvasionSuccess(cardOneSelfValue)) {
                 //회피 실패
                 damage = cardTwoOpponentValue
             }
-            targetOneEffectStatus -= damageCalculator.calculateDamage(damage,0.0,targetOneStatus)
+            val targetTwoOpponentDamage = damageCalculator.calculateDamage(damage,0.0,targetOneStatus)
+            targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus,targetTwoOpponentDamage,null)
         }
-
-        targetOneStatus.set(cardOneSelfStatus,targetOneEffectStatus)
 
     }
     override fun selfToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
@@ -479,13 +449,13 @@ class AttackToEvasionCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneSelfNum = cardOne.effectSelfNum
+        val cardOneSelfNum = cardOne.getEffectSelfNumValue()
         val cardOneSelfStatus = cardOne.effectSelfStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneSelfValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneSelfNum)
@@ -493,27 +463,24 @@ class AttackToEvasionCardEffect(
         val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoSelfNum)
         val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
 
-        var targetOneEffectStatus = targetOneStatus.get(cardOneSelfStatus)
-        var targetTwoEffectStatus = targetTwoStatus.get(cardTwoSelfStatus)
 
         if(checkTarget(CardType.ATTACK,targetOne)){
             //self가 공격인경우
             if(!evasionRateCalculator.calculateEvasionSuccess(cardTwoOpponentValue)){
                 //상대가 걸어준 회피가 실패했을경우
-                targetOneEffectStatus -= damageCalculator.calculateDamage(cardOneSelfValue,0.0,targetOneStatus)
+                targetOneStatus.addMaxValueCheck(cardOneSelfStatus,cardOneSelfValue,null)
             }
         }else{
             //mutual이 공격인경우
             if(!evasionRateCalculator.calculateEvasionSuccess(cardOneSelfValue)){
                 //내가 시전한 회피가 실패했을경우
-                targetOneEffectStatus -= damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
+                val targetTwoOpponentDamage = damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
+                targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus,targetTwoOpponentDamage,null)
             }
 
-            targetTwoEffectStatus -= cardTwoSelfValue
+            targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus,cardTwoSelfValue,null)
         }
 
-        targetOneStatus.set(cardOneSelfStatus,targetOneEffectStatus)
-        targetTwoStatus.set(cardTwoSelfStatus,targetTwoEffectStatus)
     }
     override fun opponentToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
         val cardOne = targetOne.card
@@ -522,39 +489,36 @@ class AttackToEvasionCardEffect(
         val targetOneStatus = targetOne.status
         val targetTwoStatus = targetTwo.status
 
-        val cardOneOpponentNum = cardOne.effectOpponentNum
+        val cardOneOpponentNum = cardOne.getEffectOpponentNumValue()
         val cardOneOpponentStatus = cardOne.effectOpponentStat
 
-        val cardTwoSelfNum = cardTwo.effectSelfNum
+        val cardTwoSelfNum = cardTwo.getEffectSelfNumValue()
         val cardTwoSelfStatus = cardTwo.effectSelfStat
 
-        val cardTwoOpponentNum = cardTwo.effectOpponentNum
+        val cardTwoOpponentNum = cardTwo.getEffectOpponentNumValue()
         val cardTwoOpponentStatus = cardTwo.effectOpponentStat
 
         val cardOneOpponentValue = cardValueCalculator.calculateCardValue(cardOne,targetOneStatus,cardOneOpponentNum)
         val cardTwoSelfValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoSelfNum)
         val cardTwoOpponentValue = cardValueCalculator.calculateCardValue(cardTwo,targetTwoStatus,cardTwoOpponentNum)
 
-        var targetOneEffectStat = targetOneStatus.get(cardTwoOpponentStatus)
-        var targetTwoEffectStat = targetTwoStatus.get(cardOneOpponentStatus)
-
         if(checkTarget(CardType.ATTACK,targetOne)) {
             //공격이 상대방 타겟인경우 경우
             if (!evasionRateCalculator.calculateEvasionSuccess(cardTwoSelfValue)) {
-                targetTwoEffectStat -= damageCalculator.calculateDamage(cardOneOpponentValue, 0.0, targetTwoStatus)
+                val targetOneOpponentDamage = damageCalculator.calculateDamage(cardOneOpponentValue, 0.0, targetTwoStatus)
+                targetTwoStatus.addMaxValueCheck(cardOneOpponentStatus,targetOneOpponentDamage,null)
             }
         }else{
             //공격이 상호작용인 경우 회피가 상대방 타겟
             if(!evasionRateCalculator.calculateEvasionSuccess(cardTwoOpponentNum)){
-                targetTwoEffectStat -= cardTwoSelfValue
+                targetTwoStatus.addMaxValueCheck(cardTwoSelfStatus,cardTwoSelfValue,null)
             }
-            targetOneEffectStat -= damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
+            val targetTwoOpponentDamage = damageCalculator.calculateDamage(cardTwoOpponentValue,0.0,targetOneStatus)
+            targetOneStatus.addMaxValueCheck(cardTwoOpponentStatus,targetTwoOpponentDamage,null)
         }
 
-        targetOneStatus.set(cardTwoOpponentStatus,targetOneEffectStat)
-        targetTwoStatus.set(cardOneOpponentStatus,targetTwoEffectStat)
-
     }
+
     override fun opponentToOpponent(targetOne: BattleStatus, targetTwo: BattleStatus){
         val attacker = distinctTarget(CardType.ATTACK,targetOne,targetTwo)
         val evader = distinctTarget(CardType.EVASION,targetOne,targetTwo)
@@ -565,14 +529,15 @@ class AttackToEvasionCardEffect(
         val attackerStatus = attacker.status
         val evaderStatus = evader.status
 
-        val attackNum = attackerCard.effectOpponentNum
+        val attackNum = attackerCard.getEffectOpponentNumValue()
         val attackStatus = attackerCard.effectOpponentStat
 
         val attackCardValue = cardValueCalculator.calculateCardValue(attackerCard,attackerStatus,attackNum)
 
-        val evaderEffectStatus = evaderStatus.get(attackStatus) - damageCalculator.calculateDamage(attackCardValue,0.0,evaderStatus)
+        val attackerOpponentDamage = damageCalculator.calculateDamage(attackCardValue,0.0,evaderStatus)
 
-        evader.status.set(attackStatus,evaderEffectStatus)
+        evaderStatus.addMaxValueCheck(attackStatus,attackerOpponentDamage,null)
+
     }
     override fun mutualToMutual(targetOne: BattleStatus, targetTwo: BattleStatus){
         val attacker = distinctTarget(CardType.ATTACK,targetOne,targetTwo)
@@ -584,16 +549,16 @@ class AttackToEvasionCardEffect(
         val attackerStatus = attacker.status
         val evaderStatus = evader.status
 
-        val attackSelfNum = attackerCard.effectSelfNum
+        val attackSelfNum = attackerCard.getEffectSelfNumValue()
         val attackSelfStatus = attackerCard.effectSelfStat
 
-        val attackOpponentNum = attackerCard.effectOpponentNum
+        val attackOpponentNum = attackerCard.getEffectOpponentNumValue()
         val attackOpponentStatus = attackerCard.effectOpponentStat
 
-        val evaderSelfNum = evaderCard.effectSelfNum
+        val evaderSelfNum = evaderCard.getEffectSelfNumValue()
         val evaderSelfStatus = evaderCard.effectSelfStat
 
-        val evaderOpponentNum = evaderCard.effectOpponentNum
+        val evaderOpponentNum = evaderCard.getEffectOpponentNumValue()
         val evaderOpponentStatus = evaderCard.effectOpponentStat
 
         val attackSelfValue = cardValueCalculator.calculateCardValue(attackerCard,attackerStatus,attackSelfNum)
@@ -607,16 +572,14 @@ class AttackToEvasionCardEffect(
 
         if(!evasionRateCalculator.calculateEvasionSuccess(evaderSelfValue)){
             //evader 회피 실패일시
-            evaderEffectStatus -= damageCalculator.calculateDamage(attackOpponentValue,0.0,evaderStatus)
+            val attackerOpponentDamage = damageCalculator.calculateDamage(attackOpponentValue,0.0,evaderStatus)
+            evaderStatus.addMaxValueCheck(attackOpponentStatus, attackerOpponentDamage, null)
         }
 
         if(!evasionRateCalculator.calculateEvasionSuccess(evaderOpponentValue)){
             //상대방의 회피 버프 실패시
-            attackerEffectStatus -= attackSelfValue
+            attackerStatus.addMaxValueCheck(attackSelfStatus, attackSelfValue, null)
         }
-
-        attackerStatus.set(attackSelfStatus,attackerEffectStatus)
-        evaderStatus.set(evaderSelfStatus,evaderEffectStatus)
 
     }
 

@@ -18,8 +18,8 @@ class BattleStatus(
 
 class PreparationMonsterBattleStatus(
     val battlePhase: BattlePhase = BattlePhase.PREPARATION,
-    val playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
-    val monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    var playerStatus: TargetElementStatusMap = TargetElementStatusMap(),
+    var monsterStatus: TargetElementStatusMap = TargetElementStatusMap(),
     var playerCardList: List<Card> = listOf(),
     var monsterCardList: List<Card> = listOf(),
 ){

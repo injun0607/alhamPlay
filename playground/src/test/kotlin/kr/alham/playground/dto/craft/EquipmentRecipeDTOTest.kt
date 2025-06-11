@@ -33,8 +33,8 @@ class EquipmentRecipeDTOTest{
         val recipe2 = EquipmentRecipeDTO(ingredients2)
 
         // 평균 계산: (1 + 2 + 3) / 3 = 2.0
-        assertEquals(3.0, recipe.getIngredientsSumPoint(), "Average of item rarities should be 3.0")
-        assertEquals(10.0, recipe2.getIngredientsSumPoint(), "Average of item rarities should be 8.0")
+        assertEquals(24.0, recipe.getIngredientsSumPoint(), "sum of item rarities should be 24.0")
+        assertEquals(40.0, recipe2.getIngredientsSumPoint(), "sum of item rarities should be 40.0")
     }
 
 }
