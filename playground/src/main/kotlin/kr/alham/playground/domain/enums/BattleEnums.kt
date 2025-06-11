@@ -5,3 +5,9 @@ enum class BattlePhase{
     ENGAGEMENT,
     FINALIZATION
 }
+
+enum class BattleResult{
+    WIN,
+    LOSE,
+    DRAW
+}

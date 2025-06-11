@@ -2,18 +2,15 @@ package kr.alham.playground.service.battle
 
 import kr.alham.playground.domain.battle.*
 import kr.alham.playground.domain.card.Card
-import kr.alham.playground.domain.card.MonsterCard
-import kr.alham.playground.domain.card.PlayerCard
 import kr.alham.playground.domain.common.TargetElementStatus
-import kr.alham.playground.domain.common.TargetElementStatusMap
 import kr.alham.playground.domain.enums.BattlePhase
-import kr.alham.playground.domain.enums.CardType
+import kr.alham.playground.domain.enums.BattleResult
 import kr.alham.playground.dto.battle.MonsterBattleDTO
 import kr.alham.playground.dto.card.CardIdDTO
-import kr.alham.playground.system.cardeffect.CardEffectFactory
 import kr.alham.playground.service.monster.MonsterService
 import kr.alham.playground.service.player.PlayerService
 import kr.alham.playground.system.battle.monster.MonsterCardProvider
+import kr.alham.playground.system.cardeffect.CardEffectFactory
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,7 +21,7 @@ class BattleService(
     private val monsterCardProvider: MonsterCardProvider
 ) {
 
-    fun monsterBattle(monsterBattleDTO: MonsterBattleDTO): MonsterBattleState {
+    fun monsterBattle(monsterBattleDTO: MonsterBattleDTO): BattleResult {
 
         /*
         1. 유저 정보 가져오기
@@ -32,6 +29,7 @@ class BattleService(
         3. 유저 카드정보 유효성체크
         몬스터 정보는 DB에서 직접 전달해주기
         몬스터와 전투에선 유저 카드에 대한 처리만 진행?
+        드랍은 다른곳에서 처리해야하는데,
          */
 
         val battleState = initMonsterBattleState(monsterBattleDTO)
@@ -39,10 +37,11 @@ class BattleService(
         monsterBattleEngagement(battleState)
         monsterBattleFinalization(battleState)
 
-        return battleState
+        return checkPlayerWin(battleState)
     }
 
-    fun playerBattle() {
+    fun playerBattle(monsterBattleDTO: MonsterBattleDTO):Boolean {
+
         TODO("Not yet implemented")
     }
 
@@ -55,7 +54,7 @@ class BattleService(
      * 4. 몬스터 카드 정보 조회
      */
 
-    fun initMonsterBattleState(monsterBattleDTO: MonsterBattleDTO): MonsterBattleState {
+    private fun initMonsterBattleState(monsterBattleDTO: MonsterBattleDTO): MonsterBattleState {
 
         val player = playerService.findPlayerById(monsterBattleDTO.playerId)
         val monster = monsterService.findMonsterById(monsterBattleDTO.monsterId)
@@ -271,6 +270,19 @@ class BattleService(
     private fun checkFinalizationPhase(targetOneBattleStatus : BattleStatus, targetTwoBattleStatus: BattleStatus): Boolean{
         return targetOneBattleStatus.status.get(TargetElementStatus.HP) <= 0.0 ||
             targetTwoBattleStatus.status.get(TargetElementStatus.HP) <= 0.0
+    }
+
+    private fun checkPlayerWin(battleState: MonsterBattleState): BattleResult {
+        val playerHP = battleState.finalizationMonsterBattleStatus.playerStatus.get(TargetElementStatus.HP)
+        val monsterHP = battleState.finalizationMonsterBattleStatus.monsterStatus.get(TargetElementStatus.HP) ?: 0.0
+
+        if(playerHP > monsterHP){
+            return BattleResult.WIN
+        } else if(playerHP < monsterHP){
+            return BattleResult.LOSE
+        } else {
+            return BattleResult.DRAW
+        }
     }
 
 }
