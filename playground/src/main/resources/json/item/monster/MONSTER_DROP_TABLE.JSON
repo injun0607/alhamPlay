@@ -1,0 +1,54 @@
+[
+  {
+    "monsterId": 1,
+    "drops": {
+      "COMMON": {
+        "EQUIPMENT": [
+          "worn_sword",
+          "rusty_helmet"
+        ],
+        "MATERIAL": [
+          "crab_claw",
+          "beach_sand",
+          "kelp_fiber"
+        ]
+      },
+      "UNCOMMON": {
+        "EQUIPMENT": [
+          "barnacle_blade"
+        ],
+        "MATERIAL": [
+          "ocean_feather",
+          "wet_gem"
+        ]
+      },
+      "RARE": {
+        "EQUIPMENT": [
+          "coral_wand"
+        ],
+        "MATERIAL": [
+          "deep_coral",
+          "sea_crystal"
+        ]
+      },
+      "EPIC": {
+        "EQUIPMENT": [
+          "tsunami_staff"
+        ],
+        "MATERIAL": [
+          "storm_fin"
+        ]
+      },
+      "UNIQUE": {
+        "EQUIPMENT": ["FireElementCore"],
+        "MATERIAL": ["DesertPhantomDust"]
+      },
+      "LEGENDARY": {
+        "EQUIPMENT": [
+          "trident_of_the_deep"
+        ],
+        "MATERIAL": ["EyeOfTheSun"]
+      }
+    }
+  }
+]

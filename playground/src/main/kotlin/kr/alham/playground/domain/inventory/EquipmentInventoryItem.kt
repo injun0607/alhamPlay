@@ -19,9 +19,10 @@ class EquipmentInventoryItem(
 
     @ManyToOne
     @JoinColumn(name = "equipment_inventory_id")
-    val equipmentInventory: EquipmentInventory = EquipmentInventory(),
+    var equipmentInventory: EquipmentInventory = EquipmentInventory(),
 
     @ManyToOne
     @JoinColumn(name = "equipment_id")
-    val equipment: Equipment = Equipment()
+    var equipment: Equipment = Equipment(),
+
 ){}

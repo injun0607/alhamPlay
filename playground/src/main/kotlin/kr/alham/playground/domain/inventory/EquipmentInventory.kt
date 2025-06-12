@@ -23,4 +23,10 @@ class EquipmentInventory(
 
     @OneToMany(mappedBy = "equipmentInventory")
     val equipmentItemList: MutableList<EquipmentInventoryItem> = mutableListOf()
-){}
+){
+    fun addEquipmentItem(equipmentItem: EquipmentInventoryItem) {
+        equipmentItemList.add(equipmentItem)
+        equipmentItem.equipmentInventory = this // 양방향 연관관계 설정
+    }
+
+}

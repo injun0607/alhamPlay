@@ -1,0 +1,8 @@
+{
+  "COMMON": 0.6,
+  "UNCOMMON": 0.15,
+  "RARE": 0.15,
+  "EPIC": 0.08,
+  "UNIQUE": 0.015,
+  "LEGENDARY": 0.005
+}
