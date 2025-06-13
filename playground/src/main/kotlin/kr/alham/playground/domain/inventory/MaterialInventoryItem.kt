@@ -18,9 +18,22 @@ class MaterialInventoryItem(
 
     @ManyToOne
     @JoinColumn(name = "material_inventory_id")
-    val materialInventory: MaterialInventory = MaterialInventory(),
+    var materialInventory: MaterialInventory = MaterialInventory(),
 
     @ManyToOne
     @JoinColumn(name = "material_id")
-    val material: Material = Material()
-) {}
+    var material: Material = Material(),
+
+    var itemOrder: Int = 0,
+) {
+    companion object {
+        fun create(materialInventory: MaterialInventory, material: Material): MaterialInventoryItem {
+            return MaterialInventoryItem(
+                materialInventory = materialInventory,
+                material = material
+            ).also {
+                materialInventory.addMaterialItem(it)
+            }
+        }
+    }
+}

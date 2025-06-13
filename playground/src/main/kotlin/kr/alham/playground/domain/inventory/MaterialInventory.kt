@@ -1,13 +1,6 @@
 package kr.alham.playground.domain.inventory
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToMany
-import jakarta.persistence.OneToOne
+import jakarta.persistence.*
 import kr.alham.playground.domain.player.Player
 
 @Entity
@@ -21,7 +14,14 @@ class MaterialInventory(
     @JoinColumn(name = "player_id")
     val player: Player = Player(),
 
-    @OneToMany(mappedBy = "materialInventory")
+    @OneToMany(mappedBy = "materialInventory", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
     val materialItemList: MutableList<MaterialInventoryItem> = mutableListOf()
 
-){}
+){
+    fun addMaterialItem(materialInventoryItem: MaterialInventoryItem) {
+        materialItemList.add(materialInventoryItem)
+        materialInventoryItem.materialInventory = this
+    }
+
+
+}

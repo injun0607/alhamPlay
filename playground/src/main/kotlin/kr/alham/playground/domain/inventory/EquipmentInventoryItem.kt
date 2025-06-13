@@ -25,4 +25,17 @@ class EquipmentInventoryItem(
     @JoinColumn(name = "equipment_id")
     var equipment: Equipment = Equipment(),
 
-){}
+    var itemOrder: Int = 0
+
+){
+    companion object {
+        fun create(equipmentInventory: EquipmentInventory, equipment: Equipment): EquipmentInventoryItem {
+            return EquipmentInventoryItem(
+                equipmentInventory = equipmentInventory,
+                equipment = equipment
+            ).also {
+                equipmentInventory.addEquipmentItem(it)
+            }
+        }
+    }
+}
