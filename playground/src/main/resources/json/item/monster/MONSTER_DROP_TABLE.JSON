@@ -4,50 +4,50 @@
     "drops": {
       "COMMON": {
         "EQUIPMENT": [
-          "worn_sword",
-          "rusty_helmet"
+          4,
+          2
         ],
         "MATERIAL": [
-          "crab_claw",
-          "beach_sand",
-          "kelp_fiber"
+          1,
+          2,
+          3
         ]
       },
       "UNCOMMON": {
         "EQUIPMENT": [
-          "barnacle_blade"
+          4
         ],
         "MATERIAL": [
-          "ocean_feather",
-          "wet_gem"
+          4,
+          2
         ]
       },
       "RARE": {
         "EQUIPMENT": [
-          "coral_wand"
+          1
         ],
         "MATERIAL": [
-          "deep_coral",
-          "sea_crystal"
+          1,
+          4
         ]
       },
       "EPIC": {
         "EQUIPMENT": [
-          "tsunami_staff"
+          5
         ],
         "MATERIAL": [
-          "storm_fin"
+          6
         ]
       },
       "UNIQUE": {
-        "EQUIPMENT": ["FireElementCore"],
-        "MATERIAL": ["DesertPhantomDust"]
+        "EQUIPMENT": [7],
+        "MATERIAL": [8]
       },
       "LEGENDARY": {
         "EQUIPMENT": [
-          "trident_of_the_deep"
+          1
         ],
-        "MATERIAL": ["EyeOfTheSun"]
+        "MATERIAL": [2]
       }
     }
   }

@@ -11,7 +11,6 @@ data class PlayerInventoryDTO(
     //equipmentInventory
 ) {}
 
-
 data class PlayerMaterialInventoryDTO(
     val materialItemList: List<PlayerMaterialInventoryItemDTO> = emptyList()
 ){

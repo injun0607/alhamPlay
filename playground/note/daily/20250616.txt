@@ -1,0 +1,9 @@
+오늘 작업할 것
+ - 인벤토리 시스템 완료 하기
+ - 몬스터 드랍시스템 확인하기
+
+지금 하는것
+ - 몬스터 드랍시스템 완료하기
+
+새로 배운것
+ - kotlin에서 data class를 사용하면 equals, hashCode, toString 메서드가 자동으로 생성된다. jpa entity의 lazy loading이 소용없음

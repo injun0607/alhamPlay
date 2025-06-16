@@ -2,6 +2,7 @@ package kr.alham.playground.system.drop
 
 import kr.alham.playground.domain.item.ItemRarity
 import kr.alham.playground.domain.item.ItemType
+import kr.alham.playground.dto.drop.MonsterDropItemDTO
 import kr.alham.playground.loader.MonsterDropTableLoader
 import org.springframework.stereotype.Component
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component
 class DropSystem(
     private val monsterDropTableLoader: MonsterDropTableLoader
 ) {
-    fun dropItem(monsterId: Long): String {
+    fun dropItem(monsterId: Long): MonsterDropItemDTO {
 
         val monsterDropTable = monsterDropTableLoader.loadMonsterDropItemTable(monsterId)
         //rarity 결정
@@ -26,7 +27,11 @@ class DropSystem(
             "No items found for type: $itemType in monster drop table for monsterId: $monsterId"
         }
 
-        return itemListWithType.random()
+
+        return MonsterDropItemDTO(
+            itemType = itemType,
+            itemId = itemListWithType.random()
+        )
 
     }
 
