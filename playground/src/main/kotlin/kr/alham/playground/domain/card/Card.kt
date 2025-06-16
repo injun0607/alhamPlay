@@ -58,18 +58,25 @@ class PlayerCard(
     @Column(name = "player_card_id")
     override var id: Long? = null,
     override var uuid: String? = null,
+    @Enumerated(EnumType.STRING)
     override var battlePhase: BattlePhase = BattlePhase.PREPARATION,
     override var name: String = "",
     override var description: String = "",
+    @Enumerated(EnumType.STRING)
     override var cardTarget: CardTarget = CardTarget.SELF,
+    @Enumerated(EnumType.STRING)
     override var cardType: CardType = CardType.ATTACK,
+    @Enumerated(EnumType.STRING)
     override var cardAttribute: CardAttribute = CardAttribute.NONE,
+    @Enumerated(EnumType.STRING)
     override var counterCardAttribute: CardAttribute = CardAttribute.NONE,
     override var cost: Int = 0,
     override var effectOpponentNum: Double = 0.0,
+    @Enumerated(EnumType.STRING)
     override var effectOpponentStat: TargetElementStatus = TargetElementStatus.HP,
     override var effectOpponentTurn: Int = 0,
     override var effectSelfNum: Double = 0.0,
+    @Enumerated(EnumType.STRING)
     override var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
     override var effectSelfTurn: Int = 0,
 ): Card {
@@ -95,18 +102,25 @@ class MonsterCard(
     @Column(name = "monster_card_id")
     override var id: Long? = null,
     override var uuid: String? = null,
+    @Enumerated(EnumType.STRING)
     override var battlePhase: BattlePhase = BattlePhase.PREPARATION,
     override var name: String = "",
     override var description: String = "",
+    @Enumerated(EnumType.STRING)
     override var cardTarget: CardTarget = CardTarget.SELF,
+    @Enumerated(EnumType.STRING)
     override var cardType: CardType = CardType.ATTACK,
+    @Enumerated(EnumType.STRING)
     override var cardAttribute: CardAttribute = CardAttribute.NONE,
+    @Enumerated(EnumType.STRING)
     override var counterCardAttribute: CardAttribute = CardAttribute.NONE,
     override var cost: Int = 0,
     override var effectOpponentNum: Double = 0.0,
+    @Enumerated(EnumType.STRING)
     override var effectOpponentStat: TargetElementStatus = TargetElementStatus.HP,
     override var effectOpponentTurn: Int = 0,
     override var effectSelfNum: Double = 0.0,
+    @Enumerated(EnumType.STRING)
     override var effectSelfStat: TargetElementStatus = TargetElementStatus.HP,
     override var effectSelfTurn: Int = 0,
     var battleOrder: Int = 0,

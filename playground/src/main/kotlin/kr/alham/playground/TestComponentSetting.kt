@@ -1,18 +1,28 @@
 package kr.alham.playground
 
 import jakarta.annotation.PostConstruct
+import kr.alham.playground.domain.card.MonsterCard
+import kr.alham.playground.domain.card.PlayerCard
+import kr.alham.playground.domain.common.TargetElementStatus
+import kr.alham.playground.domain.enums.BattlePhase
+import kr.alham.playground.domain.enums.CardAttribute
+import kr.alham.playground.domain.enums.CardTarget
+import kr.alham.playground.domain.enums.CardType
 import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.EquipmentType
 import kr.alham.playground.domain.item.ItemRarity
 import kr.alham.playground.domain.item.Material
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
+import kr.alham.playground.service.card.CardService
 import org.springframework.stereotype.Component
 
 @Component
 class TestComponentSetting(
     private val equipmentRepository: EquipmentRepository,
-    private val materialRepository: MaterialRepository
+    private val materialRepository: MaterialRepository,
+    private val cardService: CardService
+
 ) {
     @PostConstruct
     fun init() {
@@ -2806,4 +2816,1399 @@ class TestComponentSetting(
         )
 
     }
+
+    @PostConstruct
+    fun cardInit(){
+        val playerCards: List<PlayerCard> = listOf(
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Mental Focus",
+                description = "Increase your INT by 2.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.0,
+                effectSelfStat = TargetElementStatus.INT
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Steady Footing",
+                description = "30% chance to evade attacks.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.3,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Quick Slash",
+                description = "Deal 8 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 8.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Heavy Blow",
+                description = "Deal 12 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 12.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Guard Stance",
+                description = "Brace yourself and gain 6 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "First Aid",
+                description = "Heal yourself for 10 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Sacrificial Strike",
+                description = "Deal 15 damage while taking 5 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 5.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 15.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Adrenaline Rush",
+                description = "Boost STR by 4 for a short time.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 4.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Distracting Shout",
+                description = "Lower opponent DEX by 2.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 2.0,
+                effectOpponentStat = TargetElementStatus.DEX
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Feint Step",
+                description = "50% chance to evade the next attack.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.5,
+                effectSelfStat = TargetElementStatus.HP
+            )
+        )
+
+        val monsterCards: List<MonsterCard> = listOf(
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Roar",
+                description = "The monster boosts its ATK by 2.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.0,
+                effectSelfStat = TargetElementStatus.ATK
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Skulk",
+                description = "25% chance to evade an attack.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.25,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Claw Swipe",
+                description = "Inflict 7 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 7.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Bite",
+                description = "Inflict 9 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 9.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Tail Whip",
+                description = "Inflict 5 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 5.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Thick Hide",
+                description = "Gain 6 HP as protection.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Drain",
+                description = "Heal 8 HP by siphoning energy.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Savage Charge",
+                description = "Deal 20 damage but suffer 10 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 20.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Enrage",
+                description = "Increase STR by 4 as the battle ends.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 4.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Intimidate",
+                description = "Reduce opponent STR by 3.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 3.0,
+                effectOpponentStat = TargetElementStatus.STR
+            )
+        )
+
+        playerCards.forEach{
+            cardService.savePlayerCard(it)
+        }
+
+        monsterCards.forEach{
+            cardService.saveMonsterCard(it)
+        }
+
+
+        val playerCardsTwo: List<PlayerCard> = listOf(
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Mental Focus",
+                description = "Increase your INT by 2.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.0,
+                effectSelfStat = TargetElementStatus.INT
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Steady Footing",
+                description = "30% chance to evade attacks.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.3,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Quick Slash",
+                description = "Deal 8 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 8.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Heavy Blow",
+                description = "Deal 12 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 12.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Guard Stance",
+                description = "Brace yourself and gain 6 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "First Aid",
+                description = "Heal yourself for 10 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Sacrificial Strike",
+                description = "Deal 15 damage while taking 5 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 5.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 15.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Adrenaline Rush",
+                description = "Boost STR by 4 for a short time.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 4.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Distracting Shout",
+                description = "Lower opponent DEX by 2.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 2.0,
+                effectOpponentStat = TargetElementStatus.DEX
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Feint Step",
+                description = "50% chance to evade the next attack.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.5,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Arcane Insight",
+                description = "Sharpen your mind to gain 3 INT.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 3.0,
+                effectSelfStat = TargetElementStatus.INT
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Tactical Retreat",
+                description = "25% chance to slip away unharmed.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.25,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Piercing Strike",
+                description = "Deal 11 damage with a precise blow.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 11.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Shield Bash",
+                description = "Stun the foe for 6 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 6.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Fortify Armor",
+                description = "Bolster your defenses, gaining 8 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Recovery Chant",
+                description = "Restore 12 HP with a quick hymn.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 12.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Defiant Roar",
+                description = "Weaken the foe's DEX by 2.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 2.0,
+                effectOpponentStat = TargetElementStatus.DEX
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Smoke Bomb",
+                description = "60% chance to evade as you disengage.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.6,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Last Stand",
+                description = "Deal 18 damage but suffer 8 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 18.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Battle Cry",
+                description = "Rally yourself, gaining 5 STR.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 5.0,
+                effectSelfStat = TargetElementStatus.STR
+            )
+        )
+
+        val monsterCardsTwo: List<MonsterCard> = listOf(
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Roar",
+                description = "The monster boosts its ATK by 2.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.0,
+                effectSelfStat = TargetElementStatus.ATK
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Skulk",
+                description = "25% chance to evade an attack.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.25,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Claw Swipe",
+                description = "Inflict 7 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 7.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Bite",
+                description = "Inflict 9 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 9.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Tail Whip",
+                description = "Inflict 5 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 5.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Thick Hide",
+                description = "Gain 6 HP as protection.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Drain",
+                description = "Heal 8 HP by siphoning energy.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Savage Charge",
+                description = "Deal 20 damage but suffer 10 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 20.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Enrage",
+                description = "Increase STR by 4 as the battle ends.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 4.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Intimidate",
+                description = "Reduce opponent STR by 3.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 3.0,
+                effectOpponentStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Ferocious Howl",
+                description = "Raise ATK by 3 with a terrifying cry.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 3.0,
+                effectSelfStat = TargetElementStatus.ATK
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Sneaky Approach",
+                description = "35% chance to avoid detection.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.35,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Venom Spit",
+                description = "Spray venom to deal 10 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 10.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Rending Claws",
+                description = "Rip into the foe for 9 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 9.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Bone Shield",
+                description = "Harden your hide to gain 7 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 7.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Regenerate",
+                description = "Recover 9 HP rapidly.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 9.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Frenzy",
+                description = "Deal 16 damage but take 6 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 16.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Dark Empowerment",
+                description = "Surge with power, gaining 5 STR.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 5.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Terrifying Screech",
+                description = "Drop opponent DEX by 3.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 3.0,
+                effectOpponentStat = TargetElementStatus.DEX
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Slippery Escape",
+                description = "50% chance to dodge retaliation.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.5,
+                effectSelfStat = TargetElementStatus.HP
+            )
+        )
+
+        playerCardsTwo.forEach{
+            cardService.savePlayerCard(it)
+        }
+
+        monsterCardsTwo.forEach{
+            cardService.saveMonsterCard(it)
+        }
+
+
+        val playerCardsThree: List<PlayerCard> = listOf(
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Mental Focus",
+                description = "Increase your INT by 2.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.0,
+                effectSelfStat = TargetElementStatus.INT
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Steady Footing",
+                description = "30% chance to evade attacks.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.3,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Quick Slash",
+                description = "Deal 8 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 8.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Heavy Blow",
+                description = "Deal 12 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 12.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Guard Stance",
+                description = "Brace yourself and gain 6 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "First Aid",
+                description = "Heal yourself for 10 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Sacrificial Strike",
+                description = "Deal 15 damage while taking 5 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 5.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 15.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Adrenaline Rush",
+                description = "Boost STR by 4 for a short time.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 4.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Distracting Shout",
+                description = "Lower opponent DEX by 2.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 2.0,
+                effectOpponentStat = TargetElementStatus.DEX
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Feint Step",
+                description = "50% chance to evade the next attack.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.5,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Arcane Insight",
+                description = "Sharpen your mind to gain 3 INT.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 3.0,
+                effectSelfStat = TargetElementStatus.INT
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Tactical Retreat",
+                description = "25% chance to slip away unharmed.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.25,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Piercing Strike",
+                description = "Deal 11 damage with a precise blow.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 11.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Shield Bash",
+                description = "Stun the foe for 6 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 6.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Fortify Armor",
+                description = "Bolster your defenses, gaining 8 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Recovery Chant",
+                description = "Restore 12 HP with a quick hymn.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 12.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Defiant Roar",
+                description = "Weaken the foe's DEX by 2.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 2.0,
+                effectOpponentStat = TargetElementStatus.DEX
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Smoke Bomb",
+                description = "60% chance to evade as you disengage.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.6,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Last Stand",
+                description = "Deal 18 damage but suffer 8 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 18.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Battle Cry",
+                description = "Rally yourself, gaining 5 STR.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 5.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Meditative Calm",
+                description = "Focus your mind to gain 2 INT.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.0,
+                effectSelfStat = TargetElementStatus.INT
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Side Step",
+                description = "40% chance to dodge an attack.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.4,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Twin Strike",
+                description = "Deliver two quick hits for 13 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 13.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Reinforce Shield",
+                description = "Bolster defenses, gaining 9 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 9.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Healing Surge",
+                description = "Restore 14 HP in a burst of energy.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 14.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Poisoned Edge",
+                description = "Lower opponent DEF by 3.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 3.0,
+                effectOpponentStat = TargetElementStatus.DEF
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Flanking Maneuver",
+                description = "Strike from the side for 17 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 17.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Enduring Spirit",
+                description = "Bolster DEX by 3 to press on.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 3.0,
+                effectSelfStat = TargetElementStatus.DEX
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Backflip Escape",
+                description = "55% chance to evade a counter.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.55,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            PlayerCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Devastating Blow",
+                description = "Deal 22 damage but take 10 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 22.0,
+                effectOpponentStat = TargetElementStatus.HP
+            )
+        )
+
+        val monsterCardsThree: List<MonsterCard> = listOf(
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Roar",
+                description = "The monster boosts its ATK by 2.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.0,
+                effectSelfStat = TargetElementStatus.ATK
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Skulk",
+                description = "25% chance to evade an attack.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.25,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Claw Swipe",
+                description = "Inflict 7 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 7.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Bite",
+                description = "Inflict 9 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 9.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Tail Whip",
+                description = "Inflict 5 damage to the opponent.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 5.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Thick Hide",
+                description = "Gain 6 HP as protection.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Drain",
+                description = "Heal 8 HP by siphoning energy.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Savage Charge",
+                description = "Deal 20 damage but suffer 10 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 20.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Enrage",
+                description = "Increase STR by 4 as the battle ends.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 4.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Intimidate",
+                description = "Reduce opponent STR by 3.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 3.0,
+                effectOpponentStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Ferocious Howl",
+                description = "Raise ATK by 3 with a terrifying cry.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 3.0,
+                effectSelfStat = TargetElementStatus.ATK
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Sneaky Approach",
+                description = "35% chance to avoid detection.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.35,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Venom Spit",
+                description = "Spray venom to deal 10 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 10.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Rending Claws",
+                description = "Rip into the foe for 9 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 9.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Bone Shield",
+                description = "Harden your hide to gain 7 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 7.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Regenerate",
+                description = "Recover 9 HP rapidly.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 9.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Frenzy",
+                description = "Deal 16 damage but take 6 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 6.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 16.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Dark Empowerment",
+                description = "Surge with power, gaining 5 STR.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 5.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Terrifying Screech",
+                description = "Drop opponent DEX by 3.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 3.0,
+                effectOpponentStat = TargetElementStatus.DEX
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Slippery Escape",
+                description = "50% chance to dodge retaliation.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.5,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Rising Fury",
+                description = "Increase ATK by 2.5 before battle.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 2.5,
+                effectSelfStat = TargetElementStatus.ATK
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.PREPARATION,
+                name = "Hidden Movement",
+                description = "30% chance to avoid detection.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.3,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Maul",
+                description = "Crush the foe for 11 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 11.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Crushing Bite",
+                description = "Chomp down for 13 damage.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 13.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Stone Carapace",
+                description = "Harden defenses to gain 8 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.DEFENCE,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Life Siphon",
+                description = "Drain energy to heal 10 HP.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.HEAL,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 10.0,
+                effectSelfStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Brutal Rampage",
+                description = "Deal 18 damage and take 8 yourself.",
+                cardTarget = CardTarget.MUTUAL,
+                cardType = CardType.ATTACK,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 8.0,
+                effectSelfStat = TargetElementStatus.HP,
+                effectOpponentNum = 18.0,
+                effectOpponentStat = TargetElementStatus.HP
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Savage Strength",
+                description = "Gain 4 STR in a final burst.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.BUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 4.0,
+                effectSelfStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.ENGAGEMENT,
+                name = "Curse of Weakness",
+                description = "Lower opponent STR by 3.",
+                cardTarget = CardTarget.OPPONENT,
+                cardType = CardType.DEBUFF,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectOpponentNum = 3.0,
+                effectOpponentStat = TargetElementStatus.STR
+            ),
+            MonsterCard(
+                battlePhase = BattlePhase.FINALIZATION,
+                name = "Moonlit Escape",
+                description = "55% chance to flee unharmed.",
+                cardTarget = CardTarget.SELF,
+                cardType = CardType.EVASION,
+                cardAttribute = CardAttribute.NONE,
+                cost = 0,
+                effectSelfNum = 0.55,
+                effectSelfStat = TargetElementStatus.HP
+            )
+        )
+
+        playerCardsThree.forEach {
+            cardService.savePlayerCard(it)
+        }
+
+        monsterCardsThree.forEach {
+            cardService.saveMonsterCard(it)
+        }
+
+
+    }
+
+
 }

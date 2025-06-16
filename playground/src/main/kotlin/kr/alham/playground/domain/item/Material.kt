@@ -10,7 +10,9 @@ class Material(
     override var id: Long? = null,
     override var name: String = "",
     override var description: String = "",
+    @Enumerated(EnumType.STRING)
     override var type: ItemType = ItemType.MATERIAL,
+    @Enumerated(EnumType.STRING)
     override var itemRarity: ItemRarity = ItemRarity.COMMON,
 ) : Item {
 
