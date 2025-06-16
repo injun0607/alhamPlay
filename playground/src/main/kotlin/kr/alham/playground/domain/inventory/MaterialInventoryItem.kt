@@ -1,12 +1,6 @@
 package kr.alham.playground.domain.inventory
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 import kr.alham.playground.domain.item.Material
 
 @Entity
@@ -20,7 +14,7 @@ class MaterialInventoryItem(
     @JoinColumn(name = "material_inventory_id")
     var materialInventory: MaterialInventory = MaterialInventory(),
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "material_id")
     var material: Material = Material(),
 

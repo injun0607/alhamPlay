@@ -10,7 +10,7 @@ class EquipmentInventory(
     @Column(name = "equipment_inventory_id")
     val id: Long? = null,
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_id")
     val player: Player = Player(),
 

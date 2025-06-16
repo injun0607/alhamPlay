@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MaterialItemInventoryRepository:JpaRepository<MaterialInventory, Long> {
+interface MaterialInventoryRepository:JpaRepository<MaterialInventory, Long> {
 
     @Query("SELECT mi FROM MaterialInventory mi JOIN FETCH mi.player LEFT JOIN FETCH mi.materialItemList WHERE mi.player.id = :playerId")
     fun findMaterialInventoryByPlayerId(playerId: Long): MaterialInventory?

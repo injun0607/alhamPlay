@@ -3,17 +3,17 @@ package kr.alham.playground.controller
 import jakarta.annotation.PostConstruct
 import kr.alham.playground.domain.inventory.EquipmentInventory
 import kr.alham.playground.domain.inventory.MaterialInventory
-import kr.alham.playground.domain.inventory.MaterialInventoryItem
 import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.Material
 import kr.alham.playground.domain.player.Player
-import kr.alham.playground.repository.inventory.EquipmentItemInventoryRepository
-import kr.alham.playground.repository.inventory.MaterialItemInventoryRepository
+import kr.alham.playground.repository.inventory.EquipmentInventoryItemRepository
+import kr.alham.playground.repository.inventory.EquipmentInventoryRepository
+import kr.alham.playground.repository.inventory.MaterialInventoryItemRepository
+import kr.alham.playground.repository.inventory.MaterialInventoryRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import kr.alham.playground.service.inventory.InventoryService
 import kr.alham.playground.service.player.PlayerService
-import org.springframework.stereotype.Controller
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RestController
 class TestController(
     private val inventoryService: InventoryService,
     private val playerService: PlayerService,
-    private val equipmentItemInventoryRepository: EquipmentItemInventoryRepository,
-    private val materialItemInventoryRepository: MaterialItemInventoryRepository,
+    private val equipmentInventoryRepository: EquipmentInventoryRepository,
+    private val materialInventoryRepository: MaterialInventoryRepository,
+    private val materialInventoryItemRepository: MaterialInventoryItemRepository,
+    private val equipmentInventoryItemRepository: EquipmentInventoryItemRepository,
     private val equipmentRepository: EquipmentRepository,
     private val materialRepository: MaterialRepository
 ) {
@@ -68,13 +70,13 @@ class TestController(
             )
         )
 
-        equipmentItemInventoryRepository.save(
+        equipmentInventoryRepository.save(
             EquipmentInventory(
                 player = player
             )
         )
 
-        materialItemInventoryRepository.save(
+        materialInventoryRepository.save(
             MaterialInventory(
                 player = player
             )
@@ -118,6 +120,23 @@ class TestController(
     @GetMapping("/test/material")
     fun materialTest(): Material {
         return inventoryService.getMaterialInventoryByPlayerId(1L).materialItemList[0].material
+    }
+
+
+    @GetMapping("/test/inven")
+    fun invenTest() {
+
+        val material = equipmentRepository.findById(1L).orElseThrow()
+        val material2 = equipmentRepository.findById(2L).orElseThrow()
+        val material3 = equipmentRepository.findById(3L).orElseThrow()
+
+        inventoryService.saveItemToPlayerInventory(1L,material)
+        inventoryService.saveItemToPlayerInventory(1L,material2)
+        inventoryService.saveItemToPlayerInventory(1L,material3)
+
+        println("인벤토리 시작")
+        inventoryService.getPlayerInventory(1L)
+        println("인벤토리 끝")
     }
 
 }

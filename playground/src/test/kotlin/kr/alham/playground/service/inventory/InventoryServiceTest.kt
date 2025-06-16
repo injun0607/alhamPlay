@@ -1,26 +1,24 @@
 package kr.alham.playground.service.inventory
 
-import jakarta.persistence.EntityManager
 import kr.alham.playground.domain.inventory.EquipmentInventory
 import kr.alham.playground.domain.inventory.EquipmentInventoryItem
 import kr.alham.playground.domain.inventory.MaterialInventory
 import kr.alham.playground.domain.inventory.MaterialInventoryItem
 import kr.alham.playground.domain.item.Equipment
-import kr.alham.playground.domain.item.Item
 import kr.alham.playground.domain.item.Material
 import kr.alham.playground.domain.player.Player
-import kr.alham.playground.repository.inventory.EquipmentItemInventoryRepository
-import kr.alham.playground.repository.inventory.MaterialItemInventoryRepository
+import kr.alham.playground.repository.inventory.EquipmentInventoryItemRepository
+import kr.alham.playground.repository.inventory.EquipmentInventoryRepository
+import kr.alham.playground.repository.inventory.MaterialInventoryItemRepository
+import kr.alham.playground.repository.inventory.MaterialInventoryRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import kr.alham.playground.service.player.PlayerService
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.DirtiesContext
-import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -31,10 +29,10 @@ class InventoryServiceTest {
     lateinit var inventoryService: InventoryService
 
     @Autowired
-    lateinit var equipmentItemInventoryRepository: EquipmentItemInventoryRepository
+    lateinit var equipmentInventoryRepository: EquipmentInventoryRepository
 
     @Autowired
-    lateinit var materialItemInventoryRepository: MaterialItemInventoryRepository
+    lateinit var materialInventoryRepository: MaterialInventoryRepository
 
     @Autowired
     lateinit var playerService: PlayerService
@@ -46,7 +44,10 @@ class InventoryServiceTest {
     lateinit var materialRepository: MaterialRepository
 
     @Autowired
-    lateinit var entityManager: EntityManager
+    lateinit var materialInventoryItemRepository: MaterialInventoryItemRepository
+
+    @Autowired
+    lateinit var equipmentInventoryItemRepository: EquipmentInventoryItemRepository
 
     var equipmentOne : Equipment = Equipment(
         name = "TestEquipment",
@@ -85,7 +86,22 @@ class InventoryServiceTest {
     @Test
     fun getPlayerInventoryTest(){
         //player가 인벤토리 아이템을 가져와야함
+        initPlayerAndInventory()
 
+        inventoryService.saveItemToPlayerInventory(1L, equipmentOne)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentTwo)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentThree)
+
+        inventoryService.saveItemToPlayerInventory(1L, materialOne)
+        inventoryService.saveItemToPlayerInventory(1L, materialTwo)
+        inventoryService.saveItemToPlayerInventory(1L, materialThree)
+
+        println("인벤토리확인")
+        val inventory = inventoryService.getPlayerInventory(1L)
+        println("인벤토리확인 끝")
+
+        assertEquals(3,inventory.playerMaterialInventory.materialItemList.size)
+        assertEquals(3,inventory.playerEquipmentInventory.equipmentItemList.size)
 
     }
 
@@ -99,7 +115,7 @@ class InventoryServiceTest {
     @Test
     fun `saveAndFindEquipmentInventoryTest - 장비아이템 리스트 잘불러오는지 확인`() {
         initPlayerAndInventory()
-        val inventory = equipmentItemInventoryRepository.findEquipmentInventoryByPlayerId(1L)
+        val inventory = equipmentInventoryRepository.findEquipmentInventoryByPlayerId(1L)
         assertNotNull(inventory)
         assertEquals(1L, inventory?.player?.id)
         assertEquals(0, inventory?.equipmentItemList?.size)
@@ -110,11 +126,11 @@ class InventoryServiceTest {
         )
 
         //저장후에 inventory에 아이템이 잘 들어갔는지 확인
-        equipmentItemInventoryRepository.save(inventory)
+        equipmentInventoryRepository.save(inventory)
 
         //잘불러와지나 확인
         println("인벤토리확인")
-        equipmentItemInventoryRepository.findEquipmentInventoryByPlayerId(1L)
+        equipmentInventoryRepository.findEquipmentInventoryByPlayerId(1L)
         assertEquals(1, inventory.equipmentItemList.size)
         assertEquals("TestEquipment", inventory.equipmentItemList[0].equipment.name)
 
@@ -123,7 +139,7 @@ class InventoryServiceTest {
             equipmentTwo
         )
 
-        equipmentItemInventoryRepository.save(inventory)
+        equipmentInventoryRepository.save(inventory)
 
         assertEquals(2, inventory.equipmentItemList.size)
         assertEquals("TestEquipment2", inventory.equipmentItemList[1].equipment.name)
@@ -133,7 +149,7 @@ class InventoryServiceTest {
     @Test
     fun saveAndFindMaterialInventoryTest() {
         initPlayerAndInventory()
-        val materialInventory = materialItemInventoryRepository.findMaterialInventoryByPlayerId(1L)
+        val materialInventory = materialInventoryRepository.findMaterialInventoryByPlayerId(1L)
 
         assertNotNull(materialInventory)
         assertEquals(1L, materialInventory?.player?.id)
@@ -146,11 +162,11 @@ class InventoryServiceTest {
         )
 
         //저장후에 inventory에 아이템이 잘 들어갔는지 확인
-        materialItemInventoryRepository.save(materialInventory)
+        materialInventoryRepository.save(materialInventory)
 
         //잘불러와지나 확인
         println("인벤토리확인")
-        materialItemInventoryRepository.findMaterialInventoryByPlayerId(1L)
+        materialInventoryRepository.findMaterialInventoryByPlayerId(1L)
         assertEquals(1, materialInventory.materialItemList.size)
         assertEquals("TestMaterial", materialInventory.materialItemList[0].material.name)
 
@@ -159,7 +175,7 @@ class InventoryServiceTest {
             materialTwo
         )
 
-        materialItemInventoryRepository.save(materialInventory)
+        materialInventoryRepository.save(materialInventory)
 
         assertEquals(2, materialInventory.materialItemList.size)
         assertEquals("TestMaterial2", materialInventory.materialItemList[1].material.name)
@@ -191,6 +207,24 @@ class InventoryServiceTest {
 
     }
 
+    @Test
+    fun getMaterialInventoryItemListByInventoryIdTest(){
+        initPlayerAndInventory()
+
+        inventoryService.saveItemToPlayerInventory(1L, equipmentOne)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentTwo)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentThree)
+
+        val inventoryItemList =  equipmentInventoryItemRepository.getEquipmentInventoryItemListByInventoryId(1L)
+
+        assertNotNull(inventoryItemList)
+        assertEquals(3, inventoryItemList.size)
+
+        assertEquals("TestEquipment", inventoryItemList[0].equipment.name)
+        assertEquals("TestEquipment2", inventoryItemList[1].equipment.name)
+        assertEquals("TestEquipment3", inventoryItemList[2].equipment.name)
+    }
+
 
 
     private fun initPlayerAndInventory() {
@@ -200,13 +234,13 @@ class InventoryServiceTest {
             )
         )
 
-        equipmentItemInventoryRepository.save(
+        equipmentInventoryRepository.save(
             EquipmentInventory(
                 player = player
             )
         )
 
-        materialItemInventoryRepository.save(
+        materialInventoryRepository.save(
             MaterialInventory(
                 player = player
             )
