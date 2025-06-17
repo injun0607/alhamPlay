@@ -14,6 +14,12 @@ class AreaService(
 ) {
 
 
+    fun findFieldArea(fieldId: Long): FieldArea{
+        return fieldAreaRepository.findById(fieldId).orElseThrow {
+            IllegalArgumentException("Field area with id $fieldId not found")
+        }
+    }
+
     fun findAreaById(id: Long): FieldArea{
         val filedArea = fieldAreaRepository.findById(id).orElseThrow{
             IllegalArgumentException("Area with id $id not found")

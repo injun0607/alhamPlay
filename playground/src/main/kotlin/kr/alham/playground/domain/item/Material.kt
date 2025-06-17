@@ -4,7 +4,12 @@ import jakarta.persistence.*
 import kr.alham.playground.domain.area.FieldType
 
 @Entity
-@Table(name = "al_material")
+@Table(
+    name = "al_material",
+    indexes = [
+        Index(name = "idx_material_name", columnList = "name", unique = true),
+    ]
+)
 class Material(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
