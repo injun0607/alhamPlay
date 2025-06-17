@@ -2,11 +2,11 @@ package kr.alham.playground.loader
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import kr.alham.playground.common.ITEM_JSON_PATH
 import kr.alham.playground.domain.area.FieldType
 import kr.alham.playground.domain.item.ItemRarity
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Component
-
-import kr.alham.playground.common.ITEM_JSON_PATH
 
 
 @Component
@@ -16,6 +16,7 @@ class DropTableLoader {
 
     private val itemPath = ITEM_JSON_PATH
 
+    @Cacheable("dropTable")
     fun loadDropTable(filedType:FieldType): Map<ItemRarity, List<String>> {
         val fileName = itemPath + "${filedType.name}_DROP_TABLE.json"
         val inputStream = javaClass.getResourceAsStream(fileName)
@@ -25,6 +26,7 @@ class DropTableLoader {
         return stringMap.mapKeys { ItemRarity.valueOf(it.key) }
     }
 
+    @Cacheable("dropRate")
     fun loadDropRate(): Map<ItemRarity, Double> {
         val fileName = itemPath + "DROP_RATE.json"
         val inputStream = javaClass.getResourceAsStream(fileName)

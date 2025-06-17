@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import kr.alham.playground.common.RECIPE_JSON_PATH
 import kr.alham.playground.domain.item.EquipmentRecipe
 import kr.alham.playground.domain.item.ItemRarity
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Component
 
 @Component
@@ -15,6 +16,7 @@ class ItemRecipeLoader {
 
     private val recipePath = RECIPE_JSON_PATH
 
+    @Cacheable("equipmentRecipe")
     fun loadEquipmentRecipe(): Map<ItemRarity,List<EquipmentRecipe>> {
         val fileName = recipePath + "EQUIPMENT_RECIPE.JSON"
         val inputStream = javaClass.getResourceAsStream(fileName)

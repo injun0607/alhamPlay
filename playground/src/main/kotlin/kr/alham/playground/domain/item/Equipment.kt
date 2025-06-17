@@ -10,6 +10,7 @@ class Equipment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     override var id: Long? = null,
+    @Column(nullable = false, unique = true)
     override var name: String = "",
     override var description: String = "",
     @Enumerated(EnumType.STRING)

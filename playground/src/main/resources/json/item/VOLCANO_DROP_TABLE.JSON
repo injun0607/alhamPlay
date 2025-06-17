@@ -1,35 +1,85 @@
 {
   "COMMON": [
-    "LavaRock",
-    "FireAsh",
-    "CharcoalChunk",
-    "AshenSoil",
-    "BurntRoot",
-    "MagmaDust"
+    "Charstone Ore",
+    "Coalcrack Pebble",
+    "Charred Husk Fragment",
+    "Smokestone Dust",
+    "Ashen Horn Chip",
+    "Lavasoot Lump",
+    "Crackstone Flake",
+    "Cindered Root Fragment",
+    "Molten Glass Shard",
+    "Magmaberry Husk",
+    "Scorchcore Pellet",
+    "Lavafern Tendril",
+    "Emberbur Spore",
+    "Magmaflow Thread",
+    "Fireglow Husk",
+    "Searstone Fragment",
+    "Ashroot Bark",
+    "Flameglass Sliver",
+    "Blazeleaf Strip",
+    "Charflare Ember",
+    "Pyroclast Dust"
   ],
   "UNCOMMON": [
-    "MagmaCore",
-    "FlameScale",
-    "HotStone",
-    "FireGemShard",
-    "SootFeather"
+    "Obsidian Flake",
+    "Firebeast Horn Chip",
+    "Ironblaze Scale",
+    "Fumehide Scrap",
+    "Emberworm Scale",
+    "Firefang Residue",
+    "Sulfurhide Strip",
+    "Infernoheart Ember",
+    "Pyroclast Vein",
+    "Magmaheart Core",
+    "Ashenflame Spores",
+    "Blazebloom Nectar",
+    "Searshock Residue",
+    "Cinderbark Essence",
+    "Sulfurspike Cord"
   ],
   "RARE": [
-    "InfernoHorn",
-    "SulfurCrystal",
-    "MoltenOre",
-    "IgniteShell"
+    "Smoldering Ashdust",
+    "Smeltcore Oil",
+    "Flametail Whipcord",
+    "Pyrocrystal Core",
+    "Blazecore Fragment",
+    "Flare Beetle Shell",
+    "Molten Vein Fiber",
+    "Pyrestone Shard",
+    "Scoriaheart Fragment",
+    "Caldera Embergem",
+    "Obsidianheart Core",
+    "Infernalsteel Fragment",
+    "Volcanic Embergem"
   ],
   "EPIC": [
-    "BlazingGem",
-    "FlameHeart",
-    "VolcanicTear"
+    "Flamebeast Tendon",
+    "Volcanic Emberheart",
+    "Inferno Chimera Fang",
+    "Eruption Stone Scale",
+    "Inferno Drake Claw",
+    "Obsidian Core Chunk",
+    "Volcanite Thread",
+    "Eternalflame Essence",
+    "Pyrofury Shard",
+    "Magmaforged Ember"
   ],
   "UNIQUE": [
-    "FireElementCore",
-    "HellflameSoul"
+    "Cinderhide",
+    "Ashen Phoenix Feather",
+    "Blazing Crown Shard",
+    "Molten Titan Core",
+    "Embermaw Scale",
+    "Inferno Serpent Eye",
+    "Pyroclast Heartstone"
   ],
   "LEGENDARY": [
-    "CrownOfFlames"
+    "Infernal Spine Segment",
+    "Molten Crown Fragment",
+    "Hellfire Sigil",
+    "Core of Eruption",
+    "Core of the Primordial Volcano"
   ]
 }

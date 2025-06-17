@@ -1,35 +1,85 @@
 {
   "COMMON": [
-    "Seashell",
-    "CoralPiece",
-    "Driftwood",
-    "BeachSand",
-    "KelpFiber",
-    "CrabClaw"
+    "Nautilus Shell Chip",
+    "Seagrass Thread",
+    "Kelpwrap Fiber",
+    "Crustacean Fang",
+    "Sandstone Coral Chip",
+    "Bubblestone Pebble",
+    "Salted Shell Dust",
+    "Saltcrystal Sliver",
+    "Tide-lashed Kelp Strip",
+    "Saltpetal Husk",
+    "Tidefoam Droplet",
+    "Brinepearl Chip",
+    "Wavevine Thread",
+    "Stormshell Fragment",
+    "Seafoam Dust",
+    "Coralmoss Strand",
+    "Deepcurrent Crystal",
+    "Tidereed Husk",
+    "Nautiflare Pellet",
+    "Barnacle Paste",
+    "Seaglint Sand"
   ],
   "UNCOMMON": [
-    "MermaidTear",
-    "OceanFeather",
-    "WetGem",
-    "SaltPearl",
-    "TideShell"
+    "Coral Thread",
+    "Shellscale Flake",
+    "Tideglass Shard",
+    "Brinebeast Hide",
+    "Eelskin Strap",
+    "Kelpink Blob",
+    "Coralbone Fragment",
+    "Tidalwreath Shell",
+    "Saltglimmer Pearl",
+    "Brineheart Essence",
+    "Marid's Tear",
+    "Surgeleaf Frond",
+    "Abyssal Sand",
+    "Corallight Spore",
+    "Driftwood Resin"
   ],
   "RARE": [
-    "Pearl",
-    "DeepCoral",
-    "SeaCrystal",
-    "WhaleBone"
+    "Krakkin Ink Resin",
+    "Echo Pearl Dust",
+    "Octovoid Ink Sack",
+    "Pearled Claw Tip",
+    "Tide Elemental Core",
+    "Pearlglass Lens",
+    "Sailfish Fin Blade",
+    "Maelstrom Pearl",
+    "Coralshadow Spire",
+    "Tsunami Shard",
+    "Tidebound Coral",
+    "Seastorm Essence",
+    "Moonlit Nautilus"
   ],
   "EPIC": [
-    "TsunamiGem",
-    "SirensVoice",
-    "StormFin"
+    "Salted Sharkskin",
+    "Tidebeast Tendon",
+    "Sea Spirit Fragment",
+    "Abyssal Nerve Cord",
+    "Stormwhale Blubber",
+    "Abyss Ink Crystal",
+    "Siren Scale Flake",
+    "Stormtide Essence",
+    "Aegir's Breath",
+    "Seastar Prism"
   ],
   "UNIQUE": [
-    "OceanHeart",
-    "AbyssScale"
+    "Deepwater Gem",
+    "Trenchwhale Spine",
+    "Trench Leviathan Bone",
+    "Soul of the Leviathan",
+    "Abyssal Pearlheart",
+    "Tidalwyrm Scale",
+    "Tempestborn Shell"
   ],
   "LEGENDARY": [
-    "TridentShard"
+    "Kraken's Breath Core",
+    "Stormcore Pearl",
+    "Crest of the Deep King",
+    "Heart of the Maelstrom",
+    "Abyssal Monolith Crystal"
   ]
 }

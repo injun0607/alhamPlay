@@ -1,1191 +1,1381 @@
 {
   "COMMON": [
     {
-      "name": "BeachsandCrabFang",
+      "name": "BarkskinVest",
       "ingredients": {
-        "WetGem": 1,
-        "BeachSand": 1,
-        "CrabClaw": 1,
-        "DeepCoral": 1
+        "Twisted Vine Fiber": 1,
+        "Fernscale Bark": 1,
+        "Dryleaf Bundle": 1,
+        "Twigknit Cord": 1
       }
     },
     {
-      "name": "BeachsandCrabTotem",
+      "name": "MossthreadHood",
       "ingredients": {
-        "BeachSand": 1,
-        "CrabClaw": 2,
-        "SeaCrystal": 1
+        "Barkcloth Strip": 1,
+        "Dewdrop Pearl": 1,
+        "Mushcap Sponge": 1,
+        "Frostscale Plate": 1
       }
     },
     {
-      "name": "CoralpieceCrabBlade",
+      "name": "SapwoodBlade",
       "ingredients": {
-        "WhaleBone": 1,
-        "CrabClaw": 1,
-        "CoralPiece": 2
+        "Frostbirch Leaf": 1,
+        "Cracked Iceflake": 1,
+        "Snowsilt Cloth": 1,
+        "Snowhare Fur": 1
       }
     },
     {
-      "name": "CrabSeaTotem",
+      "name": "LeafboundBracers",
       "ingredients": {
-        "CrabClaw": 2,
-        "SeaCrystal": 2
+        "Icicle Fragment": 1,
+        "Frostnut Husk": 1,
+        "Charstone Ore": 1,
+        "Coalcrack Pebble": 1
       }
     },
     {
-      "name": "BeachsandKelpfiberCharm",
+      "name": "TwigsnapperBoots",
       "ingredients": {
-        "KelpFiber": 2,
-        "BeachSand": 2
+        "Charred Husk Fragment": 1,
+        "Smokestone Dust": 1,
+        "Ashen Horn Chip": 1,
+        "Lavasoot Lump": 1
       }
     },
     {
-      "name": "DeepcoralMermaidTalisman",
+      "name": "SunclothHood",
       "ingredients": {
-        "MermaidTear": 1,
-        "DeepCoral": 3
+        "Crackstone Flake": 1,
+        "Nautilus Shell Chip": 1,
+        "Seagrass Thread": 1,
+        "Kelpwrap Fiber": 1
       }
     },
     {
-      "name": "MermaidSeashellTotem",
+      "name": "DustveilMantle",
       "ingredients": {
-        "Seashell": 2,
-        "MermaidTear": 2
+        "Crustacean Fang": 1,
+        "Sandstone Coral Chip": 1,
+        "Bubblestone Pebble": 1,
+        "Salted Shell Dust": 1
       }
     },
     {
-      "name": "BeachsandSeaElixir",
+      "name": "SunstoneBand",
       "ingredients": {
-        "BeachSand": 1,
-        "Driftwood": 1,
-        "SeaCrystal": 1,
-        "TideShell": 1
+        "Whispering Vine Tip": 1,
+        "Mossglisten Pebble": 1,
+        "Scorched Cactus Pulp": 1,
+        "Dustworn Quartz Chip": 1
       }
     },
     {
-      "name": "BeachsandIdol",
+      "name": "WindsweptHood",
       "ingredients": {
-        "BeachSand": 4
+        "Frostwoven Thread": 1,
+        "Snowmelt Lily Petal": 1,
+        "Cindered Root Fragment": 1,
+        "Molten Glass Shard": 1
       }
     },
     {
-      "name": "SaltWetCharm",
+      "name": "GrainwalkerSandals",
       "ingredients": {
-        "WetGem": 2,
-        "SaltPearl": 2
+        "Saltcrystal Sliver": 1,
+        "Tide-lashed Kelp Strip": 1,
+        "Dewspun Moss": 1,
+        "Shadowleaf Pod": 1
       }
     },
     {
-      "name": "AmberpieceCore",
+      "name": "SnowhideBoots",
       "ingredients": {
-        "AmberPiece": 4
+        "Quietmoss Cloth": 1,
+        "Blightthorn Sprig": 1,
+        "Starpetal Dust": 1,
+        "Moonshroud Bark": 1
       }
     },
     {
-      "name": "DustrockCharm",
+      "name": "SnowweaveScarf",
       "ingredients": {
-        "DustRock": 4
+        "Glimmerfern Frond": 1,
+        "Emberroot Shard": 1,
+        "Faefoam Pellet": 1,
+        "Fairydew Droplet": 1
       }
     },
     {
-      "name": "RoughjewelSandoreCore",
+      "name": "IcetipDagger",
       "ingredients": {
-        "SandOre": 2,
-        "RoughJewel": 2
+        "Scorchsand Granule": 1,
+        "Dunevine Husk": 1,
+        "Sunscourge Pebble": 1,
+        "Mirage Bloom Petal": 1
       }
     },
     {
-      "name": "ClaylumpDustrockTotem",
+      "name": "ColdhideBracers",
       "ingredients": {
-        "GoldenSand": 1,
-        "ClayLump": 1,
-        "DustRock": 2
+        "Sandshell Fragment": 1,
+        "Scorpionspine Chip": 1,
+        "Sunburnt Gourd Husk": 1,
+        "Zephyring Dust": 1
       }
     },
     {
-      "name": "RoughjewelTalisman",
+      "name": "FrostTreadBoots",
       "ingredients": {
-        "RoughJewel": 4
+        "Aridroot Tendril": 1,
+        "Goldenflare Grain": 1,
+        "Permafrost Pellet": 1,
+        "Iceveil Fiber": 1
       }
     },
     {
-      "name": "AmberpieceClaylumpTalisman",
+      "name": "AshwrapSandals",
       "ingredients": {
-        "SandOre": 1,
-        "ScorpionShell": 1,
-        "ClayLump": 1,
-        "AmberPiece": 1
+        "Stormicicle Chip": 1,
+        "Breachice Crystal": 1,
+        "Glintsnow Dust": 1,
+        "Frostbloom Fragment": 1
       }
     },
     {
-      "name": "FragmentDuneflowerCore",
+      "name": "CindershadeGloves",
       "ingredients": {
-        "BoneFragment": 3,
-        "DuneFlower": 1
+        "Winterflare Bark": 1,
+        "Coldheart Pebble": 1,
+        "Snowdrift Strand": 1,
+        "Boreal Shard": 1
       }
     },
     {
-      "name": "FragmentDrytwigCharm",
+      "name": "CoalspineBuckler",
       "ingredients": {
-        "SnakeSkin": 2,
-        "DryTwig": 1,
-        "BoneFragment": 1
+        "Magmaberry Husk": 1,
+        "Scorchcore Pellet": 1,
+        "Lavafern Tendril": 1,
+        "Emberbur Spore": 1
       }
     },
     {
-      "name": "CactusneedleClaylumpBlade",
+      "name": "EmberhideBelt",
       "ingredients": {
-        "DesertInsect": 1,
-        "CactusNeedle": 1,
-        "ClayLump": 2
+        "Magmaflow Thread": 1,
+        "Fireglow Husk": 1,
+        "Searstone Fragment": 1,
+        "Ashroot Bark": 1
       }
     },
     {
-      "name": "FragmentClaylumpCharm",
+      "name": "AshFleckedHelm",
       "ingredients": {
-        "DuneFlower": 1,
-        "ScorpionShell": 1,
-        "BoneFragment": 1,
-        "ClayLump": 1
+        "Flameglass Sliver": 1,
+        "Blazeleaf Strip": 1,
+        "Saltpetal Husk": 1,
+        "Tidefoam Droplet": 1
       }
     },
     {
-      "name": "EmeraldmossForestgrassElixir",
+      "name": "TideleatherGloves",
       "ingredients": {
-        "ForestGrass": 1,
-        "EmeraldMoss": 1,
-        "MossStone": 2
+        "Brinepearl Chip": 1,
+        "Wavevine Thread": 1,
+        "Stormshell Fragment": 1,
+        "Seafoam Dust": 1
       }
     },
     {
-      "name": "ForestStickysapBlade",
+      "name": "SeabreezeTunic",
       "ingredients": {
-        "StickySap": 1,
-        "Twig": 2,
-        "ForestCrystal": 1
+        "Coralmoss Strand": 1,
+        "Deepcurrent Crystal": 1,
+        "Tidereed Husk": 1,
+        "Nautiflare Pellet": 1
       }
     },
     {
-      "name": "BarkchipTwigCharm",
+      "name": "CrabshellBuckler",
       "ingredients": {
-        "BarkChip": 2,
-        "Twig": 2
+        "Morningsong Mushroom": 1,
+        "Bramblekin Thistle": 1,
+        "Dustveil Bloom": 1,
+        "Thornwhisper Spine": 1
       }
     },
     {
-      "name": "BarkchipEmeraldmossIdol",
+      "name": "SaltguardVest",
       "ingredients": {
-        "BarkChip": 1,
-        "EmeraldMoss": 3
+        "Hoarfrost Lichen": 1,
+        "Glacial Melt Droplet": 1,
+        "Charflare Ember": 1,
+        "Pyroclast Dust": 1
       }
     },
     {
-      "name": "BugcarapaceStickysapBlade",
+      "name": "ShellwovenMitts",
       "ingredients": {
-        "StickySap": 1,
-        "BugCarapace": 3
-      }
-    },
-    {
-      "name": "EmeraldmossForestgrassCore",
-      "ingredients": {
-        "Moonroot": 1,
-        "EmeraldMoss": 1,
-        "SilverLeaf": 1,
-        "ForestGrass": 1
-      }
-    },
-    {
-      "name": "ForestMoonrootFang",
-      "ingredients": {
-        "ForestCrystal": 2,
-        "Moonroot": 1,
-        "StickySap": 1
-      }
-    },
-    {
-      "name": "BarkchipForestTotem",
-      "ingredients": {
-        "ForestCrystal": 1,
-        "BarkChip": 2,
-        "ForestGrass": 1
-      }
-    },
-    {
-      "name": "MushroomsporeAmulet",
-      "ingredients": {
-        "MushroomSpore": 4
-      }
-    },
-    {
-      "name": "EmeraldmossFang",
-      "ingredients": {
-        "EmeraldMoss": 4
-      }
-    },
-    {
-      "name": "GlacierfurSnowfiberFang",
-      "ingredients": {
-        "SnowFiber": 2,
-        "GlacierFur": 2
-      }
-    },
-    {
-      "name": "IcemossShiveringleafTotem",
-      "ingredients": {
-        "ShiveringLeaf": 2,
-        "IceMoss": 2
-      }
-    },
-    {
-      "name": "FrostFrozenTalisman",
-      "ingredients": {
-        "SnowCrystal": 1,
-        "GlacierFur": 1,
-        "FrostBone": 1,
-        "FrozenGem": 1
-      }
-    },
-    {
-      "name": "FrozenSnowfiberElixir",
-      "ingredients": {
-        "SnowFiber": 3,
-        "FrozenGem": 1
-      }
-    },
-    {
-      "name": "FrostIcenailFang",
-      "ingredients": {
-        "IceNail": 1,
-        "SnowFiber": 1,
-        "FrostBone": 2
-      }
-    },
-    {
-      "name": "ChillrootColdTalisman",
-      "ingredients": {
-        "SnowFiber": 1,
-        "FrostBone": 1,
-        "ChillRoot": 1,
-        "ColdScale": 1
-      }
-    },
-    {
-      "name": "FrostFrozenberryElixir",
-      "ingredients": {
-        "FrozenBerry": 1,
-        "IceNail": 1,
-        "FrostBone": 1,
-        "FrozenGem": 1
-      }
-    },
-    {
-      "name": "ChillrootFrostBand",
-      "ingredients": {
-        "IceNail": 1,
-        "FrostBone": 1,
-        "SnowFiber": 1,
-        "ChillRoot": 1
-      }
-    },
-    {
-      "name": "ChillrootGlacierfurTotem",
-      "ingredients": {
-        "GlacierFur": 2,
-        "IceShard": 1,
-        "ChillRoot": 1
-      }
-    },
-    {
-      "name": "ChillrootIcenailTalisman",
-      "ingredients": {
-        "IceNail": 1,
-        "ShiveringLeaf": 2,
-        "ChillRoot": 1
-      }
-    },
-    {
-      "name": "BurntrootAmulet",
-      "ingredients": {
-        "BurntRoot": 4
-      }
-    },
-    {
-      "name": "CharcoalchunkIgniteCore",
-      "ingredients": {
-        "IgniteShell": 1,
-        "CharcoalChunk": 3
-      }
-    },
-    {
-      "name": "InfernohornCore",
-      "ingredients": {
-        "InfernoHorn": 4
-      }
-    },
-    {
-      "name": "CharcoalchunkFireashCharm",
-      "ingredients": {
-        "HotStone": 2,
-        "FireAsh": 1,
-        "CharcoalChunk": 1
-      }
-    },
-    {
-      "name": "CharcoalchunkFireCharm",
-      "ingredients": {
-        "InfernoHorn": 1,
-        "FireGemShard": 2,
-        "CharcoalChunk": 1
-      }
-    },
-    {
-      "name": "FlameBlade",
-      "ingredients": {
-        "FlameScale": 4
-      }
-    },
-    {
-      "name": "CharcoalchunkHotstoneBand",
-      "ingredients": {
-        "SootFeather": 1,
-        "CharcoalChunk": 1,
-        "InfernoHorn": 1,
-        "HotStone": 1
-      }
-    },
-    {
-      "name": "HotstoneFang",
-      "ingredients": {
-        "HotStone": 4
-      }
-    },
-    {
-      "name": "IgniteMagmadustCore",
-      "ingredients": {
-        "SulfurCrystal": 2,
-        "IgniteShell": 1,
-        "MagmaDust": 1
-      }
-    },
-    {
-      "name": "AshensoilBurntrootBand",
-      "ingredients": {
-        "AshenSoil": 3,
-        "BurntRoot": 1
+        "Barnacle Paste": 1,
+        "Seaglint Sand": 1,
+        "Twisted Vine Fiber": 1,
+        "Fernscale Bark": 1
       }
     }
   ],
-  "UNCOMMON": [
+  "UNCOMMON":[
     {
-      "name": "KelpfiberSeaIdol",
+      "name": "DirefangDagger",
       "ingredients": {
-        "Driftwood": 1,
-        "Pearl": 1,
-        "SeaCrystal": 1,
-        "KelpFiber": 1
+        "Twisted Vine Fiber": 1,
+        "Fernscale Bark": 1,
+        "Amber Sap": 1,
+        "Wolfroot Tendon": 1
       }
     },
     {
-      "name": "CoralpieceOceanAmulet",
+      "name": "VerdantRing",
       "ingredients": {
-        "CoralPiece": 1,
-        "TideShell": 1,
-        "WetGem": 1,
-        "OceanFeather": 1
+        "Dryleaf Bundle": 1,
+        "Twigknit Cord": 1,
+        "Sporecap Dust": 1,
+        "Thornvine Stem": 1
       }
     },
     {
-      "name": "SaltSeaTalisman",
+      "name": "ForestWarden'sBoots",
       "ingredients": {
-        "SeaCrystal": 1,
-        "SaltPearl": 3
+        "Barkcloth Strip": 1,
+        "Dewdrop Pearl": 1,
+        "Vinesilk Thread": 1,
+        "Thistle Dust": 1
       }
     },
     {
-      "name": "DeepcoralOceanAmulet",
+      "name": "BriarthornBelt",
       "ingredients": {
-        "DeepCoral": 2,
-        "OceanFeather": 1,
-        "Seashell": 1
+        "Mushcap Sponge": 1,
+        "Frostscale Plate": 1,
+        "Barkling Jawbone": 1,
+        "Icicle Thread": 1
       }
     },
     {
-      "name": "BeachsandSeashellTalisman",
+      "name": "GreeneyeCirclet",
       "ingredients": {
-        "Seashell": 1,
-        "TideShell": 2,
-        "BeachSand": 1
+        "Frostbirch Leaf": 1,
+        "Cracked Iceflake": 1,
+        "Icetooth Fragment": 1,
+        "Woolly Beast Fur": 1
       }
     },
     {
-      "name": "DeepcoralWetTotem",
+      "name": "GlassfangSpear",
       "ingredients": {
-        "WetGem": 1,
-        "DeepCoral": 1,
-        "Pearl": 1,
-        "Driftwood": 1
+        "Snowsilt Cloth": 1,
+        "Snowhare Fur": 1,
+        "Chillglass Bead": 1,
+        "Chillhide Strip": 1
       }
     },
     {
-      "name": "BeachsandMermaidTotem",
+      "name": "ScorchfangKukri",
       "ingredients": {
-        "MermaidTear": 1,
-        "BeachSand": 1,
-        "WhaleBone": 2
+        "Icicle Fragment": 1,
+        "Frostnut Husk": 1,
+        "Permafrost Thread": 1,
+        "Frostshard Dust": 1
       }
     },
     {
-      "name": "CoralpieceFang",
+      "name": "MirageWalker'sWraps",
       "ingredients": {
-        "CoralPiece": 4
+        "Charstone Ore": 1,
+        "Coalcrack Pebble": 1,
+        "Obsidian Flake": 1,
+        "Firebeast Horn Chip": 1
       }
     },
     {
-      "name": "CactussapDrytwigTalisman",
+      "name": "SandglassAmulet",
       "ingredients": {
-        "DustRock": 1,
-        "DryTwig": 2,
-        "CactusSap": 1
+        "Charred Husk Fragment": 1,
+        "Smokestone Dust": 1,
+        "Ironblaze Scale": 1,
+        "Fumehide Scrap": 1
       }
     },
     {
-      "name": "DrytwigCharm",
+      "name": "CopperfangClaws",
       "ingredients": {
-        "DryTwig": 4
+        "Ashen Horn Chip": 1,
+        "Lavasoot Lump": 1,
+        "Emberworm Scale": 1,
+        "Firefang Residue": 1
       }
     },
     {
-      "name": "CactusneedleDesertinsectIdol",
+      "name": "FrostfangAxe",
       "ingredients": {
-        "DuneFlower": 2,
-        "CactusNeedle": 1,
-        "DesertInsect": 1
+        "Crackstone Flake": 1,
+        "Nautilus Shell Chip": 1,
+        "Sulfurhide Strip": 1,
+        "Coral Thread": 1
       }
     },
     {
-      "name": "AncientrelicDesertinsectFang",
+      "name": "ChillbornPauldrons",
       "ingredients": {
-        "AncientRelic": 2,
-        "DesertInsect": 1,
-        "RoughJewel": 1
+        "Seagrass Thread": 1,
+        "Kelpwrap Fiber": 1,
+        "Shellscale Flake": 1,
+        "Tideglass Shard": 1
       }
     },
     {
-      "name": "CactussapGoldensandAmulet",
+      "name": "SnowstriderGreaves",
       "ingredients": {
-        "CactusSap": 2,
-        "GoldenSand": 1,
-        "SnakeSkin": 1
+        "Crustacean Fang": 1,
+        "Sandstone Coral Chip": 1,
+        "Brinebeast Hide": 1,
+        "Eelskin Strap": 1
       }
     },
     {
-      "name": "ClaylumpDesertinsectCharm",
+      "name": "SnowveilHood",
       "ingredients": {
-        "SnakeSkin": 1,
-        "DesertInsect": 1,
-        "RoughJewel": 1,
-        "ClayLump": 1
+        "Bubblestone Pebble": 1,
+        "Salted Shell Dust": 1,
+        "Kelpink Blob": 1,
+        "Coralbone Fragment": 1
       }
     },
     {
-      "name": "AmberpieceClaylumpBand",
+      "name": "IcecorePendant",
       "ingredients": {
-        "DryTwig": 2,
-        "ClayLump": 1,
-        "AmberPiece": 1
+        "Whispering Vine Tip": 1,
+        "Mossglisten Pebble": 1,
+        "Echoflora Bloom": 1,
+        "Sylphwing Petal": 1
       }
     },
     {
-      "name": "ClaylumpDrytwigFang",
+      "name": "CharclawBlades",
       "ingredients": {
-        "ScorpionShell": 1,
-        "DryTwig": 1,
-        "ClayLump": 1,
-        "SandOre": 1
+        "Scorched Cactus Pulp": 1,
+        "Dustworn Quartz Chip": 1,
+        "Gloomshroud Spore": 1,
+        "Verdantstem Shoot": 1
       }
     },
     {
-      "name": "TwigWildberryAmulet",
+      "name": "LavaLinkedChain",
       "ingredients": {
-        "Twig": 2,
-        "WildBerry": 2
+        "Frostwoven Thread": 1,
+        "Snowmelt Lily Petal": 1,
+        "Gladeheart Sap": 1,
+        "Thornvale Spike": 1
       }
     },
     {
-      "name": "ForestMushroomsporeCore",
+      "name": "SmeltguardHelm",
       "ingredients": {
-        "MushroomSpore": 2,
-        "ForestCrystal": 1,
-        "StickySap": 1
+        "Cindered Root Fragment": 1,
+        "Molten Glass Shard": 1,
+        "Wilderwood Essence": 1,
+        "Spiritbloom Pollen": 1
       }
     },
     {
-      "name": "OakbranchSilverleafBlade",
+      "name": "IgnisGauntlets",
       "ingredients": {
-        "SilverLeaf": 1,
-        "OakBranch": 2,
-        "WildBerry": 1
+        "Saltcrystal Sliver": 1,
+        "Tide-lashed Kelp Strip": 1,
+        "Mirageglass Shard": 1,
+        "Dunewhisper Resin": 1
       }
     },
     {
-      "name": "ForestCharm",
+      "name": "CharburnTunic",
       "ingredients": {
-        "ForestCrystal": 4
+        "Dewspun Moss": 1,
+        "Shadowleaf Pod": 1,
+        "Sunscourge Carapace": 1,
+        "Siroccobloom Nectar": 1
       }
     },
     {
-      "name": "ForestMushroomsporeBlade",
+      "name": "CoralRapier",
       "ingredients": {
-        "ForestCrystal": 2,
-        "MushroomSpore": 2
+        "Quietmoss Cloth": 1,
+        "Blightthorn Sprig": 1,
+        "Cinderwell Sand": 1,
+        "Gilded Cactus Spine": 1
       }
     },
     {
-      "name": "BarkchipMushroomsporeCore",
+      "name": "TidewornChainmail",
       "ingredients": {
-        "MushroomSpore": 2,
-        "BarkChip": 2
+        "Starpetal Dust": 1,
+        "Moonshroud Bark": 1,
+        "Aridshroud Petal": 1,
+        "Emberwoven Fibers": 1
       }
     },
     {
-      "name": "EmeraldmossTwigElixir",
+      "name": "BubblecharmNecklace",
       "ingredients": {
-        "Twig": 2,
-        "EmeraldMoss": 2
+        "Glimmerfern Frond": 1,
+        "Emberroot Shard": 1,
+        "Frostveil Petal": 1,
+        "Stormfrost Essence": 1
       }
     },
     {
-      "name": "HerbleafBlade",
+      "name": "CoralcrestHelm",
       "ingredients": {
-        "HerbLeaf": 4
+        "Faefoam Pellet": 1,
+        "Fairydew Droplet": 1,
+        "Icetide Pearl": 1,
+        "Snowsong Sap": 1
       }
     },
     {
-      "name": "IceSnowBand",
+      "name": "TidalstepGreaves",
       "ingredients": {
-        "IceShard": 2,
-        "YetiTooth": 1,
-        "SnowCrystal": 1
-      }
-    },
-    {
-      "name": "ColdShiveringleafElixir",
-      "ingredients": {
-        "ShiveringLeaf": 2,
-        "ColdScale": 2
-      }
-    },
-    {
-      "name": "SnowfiberWinterbloomElixir",
-      "ingredients": {
-        "WinterBloom": 3,
-        "SnowFiber": 1
-      }
-    },
-    {
-      "name": "ChillrootSnowfiberFang",
-      "ingredients": {
-        "ChillRoot": 1,
-        "SnowFiber": 1,
-        "WinterBloom": 2
-      }
-    },
-    {
-      "name": "SnowfiberTotem",
-      "ingredients": {
-        "SnowFiber": 4
-      }
-    },
-    {
-      "name": "ChillrootFrozenberryCharm",
-      "ingredients": {
-        "FrozenBerry": 2,
-        "IceFeather": 1,
-        "ChillRoot": 1
-      }
-    },
-    {
-      "name": "ChillrootFrostFang",
-      "ingredients": {
-        "ChillRoot": 1,
-        "FrostBone": 1,
-        "SnowFiber": 2
-      }
-    },
-    {
-      "name": "ColdFrozenberryCore",
-      "ingredients": {
-        "ColdScale": 1,
-        "FrozenBerry": 1,
-        "WinterBloom": 1,
-        "FrozenGem": 1
-      }
-    },
-    {
-      "name": "AshensoilFireashAmulet",
-      "ingredients": {
-        "MoltenOre": 1,
-        "AshenSoil": 1,
-        "FireAsh": 1,
-        "SulfurCrystal": 1
-      }
-    },
-    {
-      "name": "AshensoilIgniteElixir",
-      "ingredients": {
-        "IgniteShell": 1,
-        "MoltenOre": 1,
-        "SootFeather": 1,
-        "AshenSoil": 1
-      }
-    },
-    {
-      "name": "IgniteAmulet",
-      "ingredients": {
-        "IgniteShell": 4
-      }
-    },
-    {
-      "name": "AshensoilCharcoalchunkIdol",
-      "ingredients": {
-        "CharcoalChunk": 1,
-        "AshenSoil": 1,
-        "LavaRock": 2
-      }
-    },
-    {
-      "name": "BurntrootFireFang",
-      "ingredients": {
-        "BurntRoot": 1,
-        "FireGemShard": 1,
-        "HotStone": 1,
-        "MagmaCore": 1
-      }
-    },
-    {
-      "name": "HotstoneInfernohornCore",
-      "ingredients": {
-        "HotStone": 1,
-        "MagmaCore": 1,
-        "InfernoHorn": 2
-      }
-    },
-    {
-      "name": "LavarockMagmadustElixir",
-      "ingredients": {
-        "LavaRock": 1,
-        "MagmaDust": 3
-      }
-    },
-    {
-      "name": "CharcoalchunkFireashBlade",
-      "ingredients": {
-        "IgniteShell": 1,
-        "CharcoalChunk": 2,
-        "FireAsh": 1
+        "Scorchsand Granule": 1,
+        "Dunevine Husk": 1,
+        "Hailsteel Chip": 1,
+        "Glimmerfrost Vine": 1
       }
     }
   ],
   "RARE": [
     {
-      "name": "TideTsunamiFang",
+      "name": "SylvanBow",
       "ingredients": {
-        "TsunamiGem": 2,
-        "TideShell": 2
+        "Amber Sap": 1,
+        "Wolfroot Tendon": 1,
+        "Direwolf Hide": 1,
+        "Oakheart Shard": 1
       }
     },
     {
-      "name": "DeepcoralMermaidTalisman",
+      "name": "ThornmailVest",
       "ingredients": {
-        "MermaidTear": 2,
-        "DeepCoral": 1,
-        "SaltPearl": 1
+        "Sporecap Dust": 1,
+        "Thornvine Stem": 1,
+        "Elderseed Resin": 1,
+        "Timberwolf Fang": 1
       }
     },
     {
-      "name": "SirensAmulet",
+      "name": "OakenAntlerHelm",
       "ingredients": {
-        "SirensVoice": 4
+        "Vinesilk Thread": 1,
+        "Thistle Dust": 1,
+        "Glowlily Petal": 1,
+        "Lifebloom Nectar": 1
       }
     },
     {
-      "name": "SirensTideTotem",
+      "name": "SpiritbranchWand",
       "ingredients": {
-        "SirensVoice": 1,
-        "TsunamiGem": 2,
-        "TideShell": 1
+        "Barkling Jawbone": 1,
+        "Icicle Thread": 1,
+        "Willowfang Chip": 1,
+        "Dryad's Whisper Leaf": 1
       }
     },
     {
-      "name": "SirensStormFang",
+      "name": "MossbeardShield",
       "ingredients": {
-        "SirensVoice": 2,
-        "StormFin": 2
+        "Icetooth Fragment": 1,
+        "Woolly Beast Fur": 1,
+        "Glacier Core Dust": 1,
+        "Snow Leopard Pelt": 1
       }
     },
     {
-      "name": "DeepcoralSeaIdol",
+      "name": "ScarabScaleMail",
       "ingredients": {
-        "SeaCrystal": 3,
-        "DeepCoral": 1
+        "Chillglass Bead": 1,
+        "Chillhide Strip": 1,
+        "Frozen Marrow": 1,
+        "Frozen Spine Shard": 1
       }
     },
     {
-      "name": "DuneflowerRoughjewelTalisman",
+      "name": "SandskullMask",
       "ingredients": {
-        "RoughJewel": 2,
-        "DuneFlower": 1,
-        "SnakeSkin": 1
+        "Permafrost Thread": 1,
+        "Frostshard Dust": 1,
+        "Icewrought Resin": 1,
+        "Snowwraith Eye": 1
       }
     },
     {
-      "name": "AmberpieceAncientrelicAmulet",
+      "name": "BurnishedBronzeBracers",
       "ingredients": {
-        "AncientRelic": 1,
-        "Sunstone": 1,
-        "ScarabJewel": 1,
-        "AmberPiece": 1
+        "Obsidian Flake": 1,
+        "Firebeast Horn Chip": 1,
+        "Chillfang Chip": 1,
+        "Cryogenic Oil": 1
       }
     },
     {
-      "name": "FragmentTotem",
+      "name": "DuneKing'sMantle",
       "ingredients": {
-        "BoneFragment": 4
+        "Ironblaze Scale": 1,
+        "Fumehide Scrap": 1,
+        "Smoldering Ashdust": 1,
+        "Smeltcore Oil": 1
       }
     },
     {
-      "name": "FragmentSnakeskinFang",
+      "name": "EmberglassRod",
       "ingredients": {
-        "BoneFragment": 2,
-        "SnakeSkin": 2
+        "Emberworm Scale": 1,
+        "Firefang Residue": 1,
+        "Flametail Whipcord": 1,
+        "Pyrocrystal Core": 1
       }
     },
     {
-      "name": "FragmentCactusneedleBlade",
+      "name": "IcereaverCloak",
       "ingredients": {
-        "BoneFragment": 1,
-        "ClayLump": 1,
-        "CactusNeedle": 2
+        "Sulfurhide Strip": 1,
+        "Coral Thread": 1,
+        "Blazecore Fragment": 1,
+        "Flare Beetle Shell": 1
       }
     },
     {
-      "name": "BurningfangGoldensandTalisman",
+      "name": "FrozenlightPendant",
       "ingredients": {
-        "ScarabJewel": 1,
-        "SnakeSkin": 1,
-        "GoldenSand": 1,
-        "BurningFang": 1
+        "Shellscale Flake": 1,
+        "Tideglass Shard": 1,
+        "Molten Vein Fiber": 1,
+        "Krakkin Ink Resin": 1
       }
     },
     {
-      "name": "MoonrootOakbranchAmulet",
+      "name": "FrostmarkCloak",
       "ingredients": {
-        "Moonroot": 1,
-        "OakBranch": 3
+        "Brinebeast Hide": 1,
+        "Eelskin Strap": 1,
+        "Echo Pearl Dust": 1,
+        "Octovoid Ink Sack": 1
       }
     },
     {
-      "name": "MushroomsporeOakbranchFang",
+      "name": "CryoshardDaggers",
       "ingredients": {
-        "WildBerry": 1,
-        "OakBranch": 1,
-        "MushroomSpore": 2
+        "Kelpink Blob": 1,
+        "Coralbone Fragment": 1,
+        "Pearled Claw Tip": 1,
+        "Tide Elemental Core": 1
       }
     },
     {
-      "name": "OakbranchCharm",
+      "name": "GlacierwalkerCloak",
       "ingredients": {
-        "OakBranch": 4
+        "Echoflora Bloom": 1,
+        "Sylphwing Petal": 1,
+        "Pearlglass Lens": 1,
+        "Sailfish Fin Blade": 1
       }
     },
     {
-      "name": "MoonrootOakbranchFang",
+      "name": "MoltenIronChestplate",
       "ingredients": {
-        "OakBranch": 2,
-        "Moonroot": 2
+        "Gloomshroud Spore": 1,
+        "Verdantstem Shoot": 1,
+        "Spiritroot Bloom": 1,
+        "Mysticfern Frond": 1
       }
     },
     {
-      "name": "EmeraldmossForestCore",
+      "name": "PyroclastLance",
       "ingredients": {
-        "EmeraldMoss": 1,
-        "MushroomSpore": 1,
-        "ForestCrystal": 1,
-        "MysticMushroom": 1
+        "Gladeheart Sap": 1,
+        "Thornvale Spike": 1,
+        "Whisperbark Fragment": 1,
+        "Shifting Sandstone": 1
       }
     },
     {
-      "name": "SilverleafBand",
+      "name": "MagmawalkerBoots",
       "ingredients": {
-        "SilverLeaf": 4
+        "Wilderwood Essence": 1,
+        "Spiritbloom Pollen": 1,
+        "Mirage Orchid Petal": 1,
+        "Solarflare Prism": 1
       }
     },
     {
-      "name": "IceIcenailElixir",
+      "name": "MoltensteelMace",
       "ingredients": {
-        "IceFeather": 2,
-        "IceNail": 1,
-        "SnowCrystal": 1
+        "Mirageglass Shard": 1,
+        "Dunewhisper Resin": 1,
+        "Frostshard Prism": 1,
+        "Icebound Spine": 1
       }
     },
     {
-      "name": "FrozencoreIceBlade",
+      "name": "LavaMantle",
       "ingredients": {
-        "FrozenCore": 1,
-        "IceFeather": 3
+        "Sunscourge Carapace": 1,
+        "Siroccobloom Nectar": 1,
+        "Silentsnow Pearl": 1,
+        "Pyrestone Shard": 1
       }
     },
     {
-      "name": "IcenailTalisman",
+      "name": "DeepcurrentHelm",
       "ingredients": {
-        "IceNail": 4
+        "Cinderwell Sand": 1,
+        "Gilded Cactus Spine": 1,
+        "Scoriaheart Fragment": 1,
+        "Caldera Embergem": 1
       }
     },
     {
-      "name": "FrostFrostFang",
+      "name": "DeepseaDiver’sHelm",
       "ingredients": {
-        "ShiveringLeaf": 2,
-        "FrostHeart": 1,
-        "FrostBone": 1
+        "Aridshroud Petal": 1,
+        "Emberwoven Fibers": 1,
+        "Maelstrom Pearl": 1,
+        "Coralshadow Spire": 1
       }
     },
     {
-      "name": "FrozencoreIceBand",
+      "name": "EelhideGauntlets",
       "ingredients": {
-        "FrozenCore": 2,
-        "IceFeather": 2
+        "Frostveil Petal": 1,
+        "Stormfrost Essence": 1,
+        "Tsunami Shard": 1,
+        "Eldergrove Sap": 1
       }
     },
     {
-      "name": "FrozenFang",
+      "name": "SeawatchTowerShield",
       "ingredients": {
-        "FrozenGem": 4
+        "Icetide Pearl": 1,
+        "Snowsong Sap": 1,
+        "Moonpetal Nectar": 1,
+        "Radiantwood Core": 1
       }
     },
     {
-      "name": "FlameHotstoneBlade",
+      "name": "FoamveilCloak",
       "ingredients": {
-        "HotStone": 1,
-        "FlameHeart": 1,
-        "IgniteShell": 1,
-        "SulfurCrystal": 1
-      }
-    },
-    {
-      "name": "FlameHotstoneIdol",
-      "ingredients": {
-        "FlameHeart": 1,
-        "HotStone": 1,
-        "InfernoHorn": 2
-      }
-    },
-    {
-      "name": "FlameElixir",
-      "ingredients": {
-        "FlameHeart": 4
-      }
-    },
-    {
-      "name": "BlazingFireFang",
-      "ingredients": {
-        "FireGemShard": 2,
-        "BlazingGem": 2
-      }
-    },
-    {
-      "name": "FlameInfernohornCharm",
-      "ingredients": {
-        "FlameHeart": 1,
-        "VolcanicTear": 1,
-        "MagmaCore": 1,
-        "InfernoHorn": 1
-      }
-    },
-    {
-      "name": "FlameMagmacoreBand",
-      "ingredients": {
-        "FlameScale": 3,
-        "MagmaCore": 1
+        "Hailsteel Chip": 1,
+        "Glimmerfrost Vine": 1,
+        "Sunforged Amber": 1,
+        "Duneblood Pearl": 1
       }
     }
   ],
   "EPIC": [
     {
-      "name": "SeaStormTotem",
+      "name": "LuminousSpores",
       "ingredients": {
-        "SeaCrystal": 2,
-        "StormFin": 2
+        "Direwolf Hide": 1,
+        "Oakheart Shard": 1,
+        "Luminous Spores": 1,
+        "Barkwyrm Spine": 1
       }
     },
     {
-      "name": "DeepcoralSeaTotem",
+      "name": "BarkwyrmSpine",
       "ingredients": {
-        "TsunamiGem": 1,
-        "SeaCrystal": 1,
-        "DeepCoral": 1,
-        "StormFin": 1
+        "Elderseed Resin": 1,
+        "Timberwolf Fang": 1,
+        "Sylvan Boneplate": 1,
+        "Echoing Bark": 1
       }
     },
     {
-      "name": "AbyssSirensAmulet",
+      "name": "SylvanBoneplate",
       "ingredients": {
-        "SirensVoice": 1,
-        "WhaleBone": 1,
-        "AbyssScale": 1,
-        "StormFin": 1
+        "Glowlily Petal": 1,
+        "Lifebloom Nectar": 1,
+        "Spiritbark Resin": 1,
+        "Moonroot Shard": 1
       }
     },
     {
-      "name": "AbyssDeepcoralBlade",
+      "name": "EchoingBark",
       "ingredients": {
-        "Pearl": 1,
-        "WhaleBone": 1,
-        "AbyssScale": 1,
-        "DeepCoral": 1
+        "Willowfang Chip": 1,
+        "Dryad's Whisper Leaf": 1,
+        "Shiverroot Bark": 1,
+        "Glacier Soul Dust": 1
       }
     },
     {
-      "name": "ScarabjewelSunstoneAmulet",
+      "name": "SpiritbarkResin",
       "ingredients": {
-        "ScarabJewel": 3,
-        "Sunstone": 1
+        "Glacier Core Dust": 1,
+        "Snow Leopard Pelt": 1,
+        "Glacial Wind Core": 1,
+        "Cryo Sigil Dust": 1
       }
     },
     {
-      "name": "AmberpieceBurningfangTotem",
+      "name": "MoonrootShard",
       "ingredients": {
-        "AmberPiece": 1,
-        "DuneFlower": 1,
-        "DesertPhantomDust": 1,
-        "BurningFang": 1
+        "Frozen Marrow": 1,
+        "Frozen Spine Shard": 1,
+        "Wendigo Spine Shard": 1,
+        "Frozen Time Echo": 1
       }
     },
     {
-      "name": "DuneflowerBlade",
+      "name": "ShiverrootBark",
       "ingredients": {
-        "DuneFlower": 4
+        "Icewrought Resin": 1,
+        "Snowwraith Eye": 1,
+        "Moonice Crystal": 1,
+        "Flamebeast Tendon": 1
       }
     },
     {
-      "name": "AncientrelicBurningfangTalisman",
+      "name": "GlacierSoulDust",
       "ingredients": {
-        "AncientRelic": 1,
-        "BurningFang": 1,
-        "ScarabJewel": 1,
-        "DuneFlower": 1
+        "Chillfang Chip": 1,
+        "Cryogenic Oil": 1,
+        "Volcanic Emberheart": 1,
+        "Inferno Chimera Fang": 1
       }
     },
     {
-      "name": "DruidstoneEmeraldmossBlade",
+      "name": "GlacialWindCore",
       "ingredients": {
-        "DruidStone": 1,
-        "ForestCrystal": 1,
-        "EmeraldMoss": 1,
-        "VerdantSpiritCore": 1
+        "Smoldering Ashdust": 1,
+        "Smeltcore Oil": 1,
+        "Eruption Stone Scale": 1,
+        "Inferno Drake Claw": 1
       }
     },
     {
-      "name": "EmeraldmossMysticmushroomTotem",
+      "name": "CryoSigilDust",
       "ingredients": {
-        "SilverLeaf": 1,
-        "MysticMushroom": 1,
-        "EmeraldMoss": 1,
-        "Nature's Embrace": 1
+        "Flametail Whipcord": 1,
+        "Pyrocrystal Core": 1,
+        "Obsidian Core Chunk": 1,
+        "Volcanite Thread": 1
       }
     },
     {
-      "name": "MysticmushroomVerdantspiritcoreBand",
+      "name": "WendigoSpineShard",
       "ingredients": {
-        "VerdantSpiritCore": 2,
-        "MysticMushroom": 2
+        "Blazecore Fragment": 1,
+        "Flare Beetle Shell": 1,
+        "Salted Sharkskin": 1,
+        "Tidebeast Tendon": 1
       }
     },
     {
-      "name": "EmeraldmossMysticmushroomIdol",
+      "name": "FrozenTimeEcho",
       "ingredients": {
-        "MysticMushroom": 1,
-        "EmeraldMoss": 2,
-        "VerdantSpiritCore": 1
+        "Molten Vein Fiber": 1,
+        "Krakkin Ink Resin": 1,
+        "Sea Spirit Fragment": 1,
+        "Abyssal Nerve Cord": 1
       }
     },
     {
-      "name": "FrostFrozencoreTotem",
+      "name": "MooniceCrystal",
       "ingredients": {
-        "FrozenGem": 1,
-        "FrostHeart": 1,
-        "FrozenCore": 1,
-        "WinterBloom": 1
+        "Echo Pearl Dust": 1,
+        "Octovoid Ink Sack": 1,
+        "Stormwhale Blubber": 1,
+        "Abyss Ink Crystal": 1
       }
     },
     {
-      "name": "FrostIcenailBand",
+      "name": "FlamebeastTendon",
       "ingredients": {
-        "IceNail": 2,
-        "FrostHeart": 2
+        "Pearled Claw Tip": 1,
+        "Tide Elemental Core": 1,
+        "Siren Scale Flake": 1,
+        "Arcaneleaf Petal": 1
       }
     },
     {
-      "name": "AuroraFrozenIdol",
+      "name": "VolcanicEmberheart",
       "ingredients": {
-        "AuroraFeather": 1,
-        "FrozenGem": 3
+        "Pearlglass Lens": 1,
+        "Sailfish Fin Blade": 1,
+        "Eldershade Bud": 1,
+        "Sylvanmoon Nectar": 1
       }
     },
     {
-      "name": "AuroraFrostAmulet",
+      "name": "InfernoChimeraFang",
       "ingredients": {
-        "FrostHeart": 1,
-        "FrozenGem": 1,
-        "WinterBloom": 1,
-        "AuroraFeather": 1
+        "Spiritroot Bloom": 1,
+        "Mysticfern Frond": 1,
+        "Sunsorrow Catalyst": 1,
+        "Duneburst Essence": 1
       }
     },
     {
-      "name": "MoltenoreCharm",
+      "name": "EruptionStoneScale",
       "ingredients": {
-        "MoltenOre": 4
+        "Whisperbark Fragment": 1,
+        "Shifting Sandstone": 1,
+        "Mirageflame Heart": 1,
+        "Cryostone Shard": 1
       }
     },
     {
-      "name": "IgniteVolcanicBlade",
+      "name": "InfernoDrakeClaw",
       "ingredients": {
-        "VolcanicTear": 3,
-        "IgniteShell": 1
+        "Mirage Orchid Petal": 1,
+        "Solarflare Prism": 1,
+        "Winterborn Echo": 1,
+        "Glacialweave Thread": 1
       }
     },
     {
-      "name": "BlazingFlameBlade",
+      "name": "ObsidianCoreChunk",
       "ingredients": {
-        "VolcanicTear": 1,
-        "HellflameSoul": 1,
-        "FlameHeart": 1,
-        "BlazingGem": 1
+        "Frostshard Prism": 1,
+        "Icebound Spine": 1,
+        "Eternalflame Essence": 1,
+        "Pyrofury Shard": 1
       }
     },
     {
-      "name": "FireelementcoreInfernohornIdol",
+      "name": "VolcaniteThread",
       "ingredients": {
-        "MoltenOre": 1,
-        "InfernoHorn": 2,
-        "FireElementCore": 1
+        "Silentsnow Pearl": 1,
+        "Pyrestone Shard": 1,
+        "Magmaforged Ember": 1,
+        "Stormtide Essence": 1
+      }
+    },
+    {
+      "name": "SaltedSharkskin",
+      "ingredients": {
+        "Scoriaheart Fragment": 1,
+        "Caldera Embergem": 1,
+        "Aegir's Breath": 1,
+        "Seastar Prism": 1
+      }
+    },
+    {
+      "name": "TidebeastTendon",
+      "ingredients": {
+        "Maelstrom Pearl": 1,
+        "Coralshadow Spire": 1,
+        "Luminous Spores": 1,
+        "Barkwyrm Spine": 1
+      }
+    },
+    {
+      "name": "SeaSpiritFragment",
+      "ingredients": {
+        "Tsunami Shard": 1,
+        "Eldergrove Sap": 1,
+        "Sylvan Boneplate": 1,
+        "Echoing Bark": 1
+      }
+    },
+    {
+      "name": "AbyssalNerveCord",
+      "ingredients": {
+        "Moonpetal Nectar": 1,
+        "Radiantwood Core": 1,
+        "Spiritbark Resin": 1,
+        "Moonroot Shard": 1
+      }
+    },
+    {
+      "name": "StormwhaleBlubber",
+      "ingredients": {
+        "Sunforged Amber": 1,
+        "Duneblood Pearl": 1,
+        "Shiverroot Bark": 1,
+        "Glacier Soul Dust": 1
+      }
+    },
+    {
+      "name": "AbyssInkCrystal",
+      "ingredients": {
+        "Scorchfire Essence": 1,
+        "Everfrost Heart": 1,
+        "Glacial Wind Core": 1,
+        "Cryo Sigil Dust": 1
+      }
+    },
+    {
+      "name": "SirenScaleFlake",
+      "ingredients": {
+        "Hailstone Core": 1,
+        "Aurorafrost Crystal": 1,
+        "Wendigo Spine Shard": 1,
+        "Frozen Time Echo": 1
+      }
+    },
+    {
+      "name": "ArcaneleafPetal",
+      "ingredients": {
+        "Obsidianheart Core": 1,
+        "Infernalsteel Fragment": 1,
+        "Moonice Crystal": 1,
+        "Flamebeast Tendon": 1
+      }
+    },
+    {
+      "name": "EldershadeBud",
+      "ingredients": {
+        "Volcanic Embergem": 1,
+        "Tidebound Coral": 1,
+        "Volcanic Emberheart": 1,
+        "Inferno Chimera Fang": 1
+      }
+    },
+    {
+      "name": "SylvanmoonNectar",
+      "ingredients": {
+        "Seastorm Essence": 1,
+        "Moonlit Nautilus": 1,
+        "Eruption Stone Scale": 1,
+        "Inferno Drake Claw": 1
+      }
+    },
+    {
+      "name": "SunsorrowCatalyst",
+      "ingredients": {
+        "Direwolf Hide": 1,
+        "Oakheart Shard": 1,
+        "Obsidian Core Chunk": 1,
+        "Volcanite Thread": 1
+      }
+    },
+    {
+      "name": "DuneburstEssence",
+      "ingredients": {
+        "Elderseed Resin": 1,
+        "Timberwolf Fang": 1,
+        "Salted Sharkskin": 1,
+        "Tidebeast Tendon": 1
+      }
+    },
+    {
+      "name": "MirageflameHeart",
+      "ingredients": {
+        "Glowlily Petal": 1,
+        "Lifebloom Nectar": 1,
+        "Sea Spirit Fragment": 1,
+        "Abyssal Nerve Cord": 1
+      }
+    },
+    {
+      "name": "CryostoneShard",
+      "ingredients": {
+        "Willowfang Chip": 1,
+        "Dryad's Whisper Leaf": 1,
+        "Stormwhale Blubber": 1,
+        "Abyss Ink Crystal": 1
+      }
+    },
+    {
+      "name": "WinterbornEcho",
+      "ingredients": {
+        "Glacier Core Dust": 1,
+        "Snow Leopard Pelt": 1,
+        "Siren Scale Flake": 1,
+        "Arcaneleaf Petal": 1
+      }
+    },
+    {
+      "name": "GlacialweaveThread",
+      "ingredients": {
+        "Frozen Marrow": 1,
+        "Frozen Spine Shard": 1,
+        "Eldershade Bud": 1,
+        "Sylvanmoon Nectar": 1
+      }
+    },
+    {
+      "name": "EternalflameEssence",
+      "ingredients": {
+        "Icewrought Resin": 1,
+        "Snowwraith Eye": 1,
+        "Sunsorrow Catalyst": 1,
+        "Duneburst Essence": 1
+      }
+    },
+    {
+      "name": "PyrofuryShard",
+      "ingredients": {
+        "Chillfang Chip": 1,
+        "Cryogenic Oil": 1,
+        "Mirageflame Heart": 1,
+        "Cryostone Shard": 1
+      }
+    },
+    {
+      "name": "MagmaforgedEmber",
+      "ingredients": {
+        "Smoldering Ashdust": 1,
+        "Smeltcore Oil": 1,
+        "Winterborn Echo": 1,
+        "Glacialweave Thread": 1
+      }
+    },
+    {
+      "name": "StormtideEssence",
+      "ingredients": {
+        "Flametail Whipcord": 1,
+        "Pyrocrystal Core": 1,
+        "Eternalflame Essence": 1,
+        "Pyrofury Shard": 1
+      }
+    },
+    {
+      "name": "Aegir'sBreath",
+      "ingredients": {
+        "Blazecore Fragment": 1,
+        "Flare Beetle Shell": 1,
+        "Magmaforged Ember": 1,
+        "Stormtide Essence": 1
+      }
+    },
+    {
+      "name": "SeastarPrism",
+      "ingredients": {
+        "Molten Vein Fiber": 1,
+        "Krakkin Ink Resin": 1,
+        "Aegir's Breath": 1,
+        "Seastar Prism": 1
       }
     }
   ],
   "UNIQUE": [
     {
-      "name": "AbyssOceanElixir",
+      "name": "WhisperrootBlade",
       "ingredients": {
-        "TsunamiGem": 1,
-        "AbyssScale": 1,
-        "OceanHeart": 1,
-        "TridentShard": 1
+        "Luminous Spores": 1,
+        "Barkwyrm Spine": 1,
+        "Ancestor’s Sap": 1,
+        "Heartwood Branch": 1
       }
     },
     {
-      "name": "TsunamiElixir",
+      "name": "SpiritleafCloak",
       "ingredients": {
-        "TsunamiGem": 4
+        "Sylvan Boneplate": 1,
+        "Echoing Bark": 1,
+        "Silent Blizzard Thread": 1,
+        "Crownshard of Frostmaiden": 1
       }
     },
     {
-      "name": "BurningfangQueenscarabCore",
+      "name": "AntlerKing'sPauldrons",
       "ingredients": {
-        "QueenScarabShell": 2,
-        "Sunstone": 1,
-        "BurningFang": 1
+        "Spiritbark Resin": 1,
+        "Moonroot Shard": 1,
+        "Cinderhide": 1,
+        "Ashen Phoenix Feather": 1
       }
     },
     {
-      "name": "BurningfangBlade",
+      "name": "ScarabKing'sArmor",
       "ingredients": {
-        "BurningFang": 4
+        "Shiverroot Bark": 1,
+        "Glacier Soul Dust": 1,
+        "Blazing Crown Shard": 1,
+        "Deepwater Gem": 1
       }
     },
     {
-      "name": "MysticmushroomNature's embraceBlade",
+      "name": "CursedSunblade",
       "ingredients": {
-        "Nature's Embrace": 2,
-        "WhisperingSeed": 1,
-        "MysticMushroom": 1
+        "Glacial Wind Core": 1,
+        "Cryo Sigil Dust": 1,
+        "Trenchwhale Spine": 1,
+        "Trench Leviathan Bone": 1
       }
     },
     {
-      "name": "AncienttreeNature's embraceBand",
+      "name": "PermafrostLance",
       "ingredients": {
-        "AncientTreeHeart": 2,
-        "VerdantSpiritCore": 1,
-        "Nature's Embrace": 1
+        "Wendigo Spine Shard": 1,
+        "Frozen Time Echo": 1,
+        "Heartwood of the Ancients": 1,
+        "Sylvan Soulseed": 1
       }
     },
     {
-      "name": "BlizzardessenceFrostBlade",
+      "name": "ShatterspikeHammer",
       "ingredients": {
-        "TearOfWinter": 1,
-        "FrozenCore": 1,
-        "BlizzardEssence": 1,
-        "FrostHeart": 1
+        "Moonice Crystal": 1,
+        "Flamebeast Tendon": 1,
+        "Verdantwyrm Scale": 1,
+        "Celestial Sporecluster": 1
       }
     },
     {
-      "name": "AuroraFrozencoreAmulet",
+      "name": "FrozenWyrmHelm",
       "ingredients": {
-        "FrozenCore": 1,
-        "TearOfWinter": 1,
-        "AuroraFeather": 1,
-        "WyrmIceScale": 1
+        "Volcanic Emberheart": 1,
+        "Inferno Chimera Fang": 1,
+        "Duneshaper's Hourglass": 1,
+        "Sandwyrm's Fang": 1
       }
     },
     {
-      "name": "BlazingFireelementcoreCharm",
+      "name": "BlazefuryKatars",
       "ingredients": {
-        "HellflameSoul": 1,
-        "FireElementCore": 1,
-        "BlazingGem": 2
+        "Eruption Stone Scale": 1,
+        "Inferno Drake Claw": 1,
+        "Mirageheart Opal": 1,
+        "Scorched Sunfire Sigil": 1
       }
     },
     {
-      "name": "CrownofflamesFireelementcoreBand",
+      "name": "CindersoulCirclet",
       "ingredients": {
-        "CrownOfFlames": 1,
-        "FlameHeart": 1,
-        "FireElementCore": 1,
-        "HellflameSoul": 1
+        "Obsidian Core Chunk": 1,
+        "Volcanite Thread": 1,
+        "Frostwyrm's Heart": 1,
+        "Echo of the Eternal Winter": 1
+      }
+    },
+    {
+      "name": "KrakenlashWhip",
+      "ingredients": {
+        "Salted Sharkskin": 1,
+        "Tidebeast Tendon": 1,
+        "Glacial Wyrmscale": 1,
+        "Celestine Iceheart": 1
+      }
+    },
+    {
+      "name": "Siren’sVoiceRing",
+      "ingredients": {
+        "Sea Spirit Fragment": 1,
+        "Abyssal Nerve Cord": 1,
+        "Molten Titan Core": 1,
+        "Embermaw Scale": 1
+      }
+    },
+    {
+      "name": "AbyssWhisperMask",
+      "ingredients": {
+        "Stormwhale Blubber": 1,
+        "Abyss Ink Crystal": 1,
+        "Inferno Serpent Eye": 1,
+        "Pyroclast Heartstone": 1
       }
     }
   ],
   "LEGENDARY": [
     {
-      "name": "AbyssOceanBlade",
+      "name": "ElderwoodLongbow",
       "ingredients": {
-        "AbyssScale": 2,
-        "OceanHeart": 2
+        "Ancestor’s Sap": 1,
+        "Heartwood Branch": 1,
+        "Sylvan Heart Core": 1,
+        "Verdant Sigil Stone": 1
       }
     },
     {
-      "name": "EyeofthesunQueenscarabTalisman",
+      "name": "WildheartTotem",
       "ingredients": {
-        "QueenScarabShell": 2,
-        "EyeOfTheSun": 2
+        "Silent Blizzard Thread": 1,
+        "Crownshard of Frostmaiden": 1,
+        "Elderleaf Emblem": 1,
+        "Songstone Fragment": 1
       }
     },
     {
-      "name": "Nature's embraceBlade",
+      "name": "VerdantWrath",
       "ingredients": {
-        "Nature's Embrace": 3,
-        "WhisperingSeed": 1
+        "Cinderhide": 1,
+        "Ashen Phoenix Feather": 1,
+        "Crownice Crystal": 1,
+        "Frozen Eternity Core": 1
       }
     },
     {
-      "name": "WyrmiceTalisman",
+      "name": "VoiceoftheGrove",
       "ingredients": {
-        "WyrmIceScale": 4
+        "Blazing Crown Shard": 1,
+        "Deepwater Gem": 1,
+        "Absolute Zero Core": 1,
+        "Aurorafrost Gem": 1
       }
     },
     {
-      "name": "HellflamesoulTotem",
+      "name": "MirageBlade",
       "ingredients": {
-        "HellflameSoul": 4
+        "Trenchwhale Spine": 1,
+        "Trench Leviathan Bone": 1,
+        "Infernal Spine Segment": 1,
+        "Molten Crown Fragment": 1
+      }
+    },
+    {
+      "name": "EclipsingBlade",
+      "ingredients": {
+        "Heartwood of the Ancients": 1,
+        "Sylvan Soulseed": 1,
+        "Hellfire Sigil": 1,
+        "Core of Eruption": 1
+      }
+    },
+    {
+      "name": "Pharaoh’sGrasp",
+      "ingredients": {
+        "Verdantwyrm Scale": 1,
+        "Celestial Sporecluster": 1,
+        "Kraken's Breath Core": 1,
+        "Stormcore Pearl": 1
+      }
+    },
+    {
+      "name": "Anubis’sJudgment",
+      "ingredients": {
+        "Duneshaper's Hourglass": 1,
+        "Sandwyrm's Fang": 1,
+        "Crest of the Deep King": 1,
+        "Heart of the Maelstrom": 1
+      }
+    },
+    {
+      "name": "DesertSovereign’sHelm",
+      "ingredients": {
+        "Mirageheart Opal": 1,
+        "Scorched Sunfire Sigil": 1,
+        "Primordial Sylva Root": 1,
+        "Pharaohstone of the Eternal Dunes": 1
+      }
+    },
+    {
+      "name": "GlacialCrown",
+      "ingredients": {
+        "Frostwyrm's Heart": 1,
+        "Echo of the Eternal Winter": 1,
+        "Heart of the Endless Tundra": 1,
+        "Core of the Primordial Volcano": 1
+      }
+    },
+    {
+      "name": "AbyssalIceblade",
+      "ingredients": {
+        "Glacial Wyrmscale": 1,
+        "Celestine Iceheart": 1,
+        "Abyssal Monolith Crystal": 1,
+        "Sylvan Heart Core": 1
+      }
+    },
+    {
+      "name": "Winter'sRequiem",
+      "ingredients": {
+        "Molten Titan Core": 1,
+        "Embermaw Scale": 1,
+        "Verdant Sigil Stone": 1,
+        "Elderleaf Emblem": 1
+      }
+    },
+    {
+      "name": "CrownoftheWhiteSilence",
+      "ingredients": {
+        "Inferno Serpent Eye": 1,
+        "Pyroclast Heartstone": 1,
+        "Songstone Fragment": 1,
+        "Crownice Crystal": 1
+      }
+    },
+    {
+      "name": "VolcanicEdge",
+      "ingredients": {
+        "Soul of the Leviathan": 1,
+        "Abyssal Pearlheart": 1,
+        "Frozen Eternity Core": 1,
+        "Absolute Zero Core": 1
+      }
+    },
+    {
+      "name": "InfernalCrown",
+      "ingredients": {
+        "Tidalwyrm Scale": 1,
+        "Tempestborn Shell": 1,
+        "Aurorafrost Gem": 1,
+        "Infernal Spine Segment": 1
+      }
+    },
+    {
+      "name": "CorepiercerGreatsword",
+      "ingredients": {
+        "Ancestor’s Sap": 1,
+        "Heartwood Branch": 1,
+        "Molten Crown Fragment": 1,
+        "Hellfire Sigil": 1
+      }
+    },
+    {
+      "name": "VolcanicHowl",
+      "ingredients": {
+        "Silent Blizzard Thread": 1,
+        "Crownshard of Frostmaiden": 1,
+        "Core of Eruption": 1,
+        "Kraken's Breath Core": 1
+      }
+    },
+    {
+      "name": "MantleoftheInfernalStar",
+      "ingredients": {
+        "Cinderhide": 1,
+        "Ashen Phoenix Feather": 1,
+        "Stormcore Pearl": 1,
+        "Crest of the Deep King": 1
+      }
+    },
+    {
+      "name": "TridentoftheLeviathan",
+      "ingredients": {
+        "Blazing Crown Shard": 1,
+        "Deepwater Gem": 1,
+        "Heart of the Maelstrom": 1,
+        "Primordial Sylva Root": 1
+      }
+    },
+    {
+      "name": "TsunamiMantle",
+      "ingredients": {
+        "Trenchwhale Spine": 1,
+        "Trench Leviathan Bone": 1,
+        "Pharaohstone of the Eternal Dunes": 1,
+        "Heart of the Endless Tundra": 1
+      }
+    },
+    {
+      "name": "ScepteroftheSeaKing",
+      "ingredients": {
+        "Heartwood of the Ancients": 1,
+        "Sylvan Soulseed": 1,
+        "Core of the Primordial Volcano": 1,
+        "Abyssal Monolith Crystal": 1
+      }
+    },
+    {
+      "name": "Leviathan’sSpine",
+      "ingredients": {
+        "Verdantwyrm Scale": 1,
+        "Celestial Sporecluster": 1,
+        "Sylvan Heart Core": 1,
+        "Verdant Sigil Stone": 1
       }
     }
   ]

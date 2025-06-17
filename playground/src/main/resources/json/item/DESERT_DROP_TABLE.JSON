@@ -1,35 +1,50 @@
 {
   "COMMON": [
-    "CactusSap",
-    "SandOre",
-    "DryTwig",
-    "ScorpionShell",
-    "DustRock",
-    "DesertInsect"
+    "Scorched Cactus Pulp",
+    "Dustworn Quartz Chip",
+    "Scorchsand Granule",
+    "Dunevine Husk",
+    "Sunscourge Pebble",
+    "Mirage Bloom Petal",
+    "Sandshell Fragment",
+    "Scorpionspine Chip",
+    "Sunburnt Gourd Husk",
+    "Zephyring Dust",
+    "Aridroot Tendril",
+    "Goldenflare Grain",
+    "Dustveil Bloom",
+    "Thornwhisper Spine"
   ],
   "UNCOMMON": [
-    "BoneFragment",
-    "ClayLump",
-    "RoughJewel",
-    "CactusNeedle",
-    "SnakeSkin"
+    "Mirageglass Shard",
+    "Dunewhisper Resin",
+    "Sunscourge Carapace",
+    "Siroccobloom Nectar",
+    "Cinderwell Sand",
+    "Gilded Cactus Spine",
+    "Aridshroud Petal",
+    "Emberwoven Fibers"
   ],
   "RARE": [
-    "AncientRelic",
-    "AmberPiece",
-    "GoldenSand",
-    "DuneFlower"
+    "Shifting Sandstone",
+    "Mirage Orchid Petal",
+    "Solarflare Prism",
+    "Sunforged Amber",
+    "Duneblood Pearl",
+    "Scorchfire Essence"
   ],
   "EPIC": [
-    "Sunstone",
-    "ScarabJewel",
-    "BurningFang"
+    "Sunsorrow Catalyst",
+    "Duneburst Essence",
+    "Mirageflame Heart"
   ],
   "UNIQUE": [
-    "DesertPhantomDust",
-    "QueenScarabShell"
+    "Duneshaper's Hourglass",
+    "Sandwyrm's Fang",
+    "Mirageheart Opal",
+    "Scorched Sunfire Sigil"
   ],
   "LEGENDARY": [
-    "EyeOfTheSun"
+    "Pharaohstone of the Eternal Dunes"
   ]
 }

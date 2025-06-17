@@ -1,35 +1,85 @@
 {
   "COMMON": [
-    "IceShard",
-    "FrozenBerry",
-    "SnowFiber",
-    "ChillRoot",
-    "ColdScale",
-    "IceMoss"
+    "Frostscale Plate",
+    "Frostbirch Leaf",
+    "Cracked Iceflake",
+    "Snowsilt Cloth",
+    "Snowhare Fur",
+    "Icicle Fragment",
+    "Frostnut Husk",
+    "Frostwoven Thread",
+    "Snowmelt Lily Petal",
+    "Permafrost Pellet",
+    "Iceveil Fiber",
+    "Stormicicle Chip",
+    "Breachice Crystal",
+    "Glintsnow Dust",
+    "Frostbloom Fragment",
+    "Winterflare Bark",
+    "Coldheart Pebble",
+    "Snowdrift Strand",
+    "Boreal Shard",
+    "Hoarfrost Lichen",
+    "Glacial Melt Droplet"
   ],
   "UNCOMMON": [
-    "GlacierFur",
-    "FrostBone",
-    "SnowCrystal",
-    "IceFeather",
-    "ShiveringLeaf"
+    "Icicle Thread",
+    "Icetooth Fragment",
+    "Woolly Beast Fur",
+    "Chillglass Bead",
+    "Chillhide Strip",
+    "Permafrost Thread",
+    "Frostshard Dust",
+    "Frostveil Petal",
+    "Stormfrost Essence",
+    "Icetide Pearl",
+    "Snowsong Sap",
+    "Hailsteel Chip",
+    "Glimmerfrost Vine",
+    "Crystalbreeze Sap",
+    "Wintreshroud Pollen"
   ],
   "RARE": [
-    "FrozenGem",
-    "YetiTooth",
-    "WinterBloom",
-    "IceNail"
+    "Glacier Core Dust",
+    "Snow Leopard Pelt",
+    "Frozen Marrow",
+    "Frozen Spine Shard",
+    "Icewrought Resin",
+    "Snowwraith Eye",
+    "Chillfang Chip",
+    "Cryogenic Oil",
+    "Frostshard Prism",
+    "Icebound Spine",
+    "Silentsnow Pearl",
+    "Everfrost Heart",
+    "Hailstone Core",
+    "Aurorafrost Crystal"
   ],
   "EPIC": [
-    "AuroraFeather",
-    "FrozenCore",
-    "FrostHeart"
+    "Shiverroot Bark",
+    "Glacier Soul Dust",
+    "Glacial Wind Core",
+    "Cryo Sigil Dust",
+    "Wendigo Spine Shard",
+    "Frozen Time Echo",
+    "Moonice Crystal",
+    "Cryostone Shard",
+    "Winterborn Echo",
+    "Glacialweave Thread"
   ],
   "UNIQUE": [
-    "BlizzardEssence",
-    "WyrmIceScale"
+    "Silent Blizzard Thread",
+    "Crownshard of Frostmaiden",
+    "Frostwyrm's Heart",
+    "Echo of the Eternal Winter",
+    "Glacial Wyrmscale",
+    "Celestine Iceheart"
   ],
   "LEGENDARY": [
-    "TearOfWinter"
+    "Crownice Crystal",
+    "Frozen Eternity Core",
+    "Absolute Zero Core",
+    "Aurorafrost Gem",
+    "Heart of the Endless Tundra"
   ]
 }

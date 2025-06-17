@@ -1,6 +1,7 @@
 package kr.alham.playground
 
 import jakarta.annotation.PostConstruct
+import kr.alham.playground.domain.area.FieldType
 import kr.alham.playground.domain.card.MonsterCard
 import kr.alham.playground.domain.card.PlayerCard
 import kr.alham.playground.domain.common.TargetElementStatus
@@ -29,566 +30,8 @@ class TestComponentSetting(
         /**
          * 숲재료
          */
-        materialRepository.save(
-            Material(
-                name = "Twisted Vine Fiber",
-                description = "고목을 휘감은 덩굴의 섬유. 튼튼하고 유연하여 방어구 바인딩에 적합하다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
 
-        materialRepository.save(
-            Material(
-                name = "Amber Sap",
-                description = "수백 년 된 나무에서 뽑은 호박 수액. 마력 전달의 매개로 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
 
-        materialRepository.save(
-            Material(
-                name = "Direwolf Hide",
-                description = "숲의 포식자 디어울프의 가죽. 가볍지만 뛰어난 내구성을 지닌다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Oakheart Shard",
-                description = "정령나무의 단단한 중심부 조각. 근거리 무기의 손잡이에 자주 쓰인다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Luminous Spores",
-                description = "밤에 빛나는 버섯의 포자. 마법 장비에 빛나는 효과를 부여할 수 있다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Fernscale Bark",
-                description = "양치식물의 껍질을 강화해 만든 재료. 가볍고 내구성이 뛰어나다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Wolfroot Tendon",
-                description = "숲 늑대의 힘줄. 활 시위나 채찍 손잡이에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Elderseed Resin",
-                description = "고목의 씨앗에서 추출한 끈적한 수지. 마법 전도에 좋다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Barkwyrm Spine",
-                description = "나무 드래곤의 척추 조각. 검이나 창의 핵심 재료로 쓰인다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Sylvan Heart Core",
-                description = "숲의 정령들이 지키던 생명의 핵. 전설급 장비의 중심 재료다.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Dryleaf Bundle",
-                description = "바싹 마른 나뭇잎 뭉치. 저급 가죽 재료 대체용으로 사용된다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Twigknit Cord",
-                description = "가는 가지를 꼬아 만든 끈. 장비 바인딩에 적합하다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Sporecap Dust",
-                description = "버섯 모자의 가루. 마법 도료로 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Thornvine Stem",
-                description = "가시넝쿨의 줄기. 적을 구속하는 마법에 응용된다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Timberwolf Fang",
-                description = "숲의 사냥꾼 송곳니. 무기 재료로 사용 시 출혈 효과를 강화한다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Glowlily Petal",
-                description = "밤에 빛나는 꽃잎. 장비에 야간 시야 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Sylvan Boneplate",
-                description = "숲의 고대 짐승의 뼈 판. 강력한 방어구 재료다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Echoing Bark",
-                description = "소리를 흡수하는 나무껍질. 은신 특화 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Ancestor’s Sap",
-                description = "정령 나무의 피와 같은 수액. 회복 능력을 강화시킨다.",
-                itemRarity = ItemRarity.UNIQUE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Verdant Sigil Stone",
-                description = "숲의 고대 마법이 봉인된 인장석. 자연 속성 강화에 사용된다.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Barkcloth Strip",
-                description = "얇은 나무껍질을 가공한 천. 기본 방어구의 내피로 사용된다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Dewdrop Pearl",
-                description = "새벽 이슬이 맺힌 듯한 작은 수정. 마법 장비 기초 재료다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Mushcap Sponge",
-                description = "버섯 윗부분에서 채취한 스펀지. 재료 결합에 쓰이는 흡수 재료.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Vinesilk Thread",
-                description = "덩굴에서 뽑아낸 실. 유연성과 강도가 우수하다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Thistle Dust",
-                description = "가시풀을 갈아 만든 가루. 무기 마법 부여에 종종 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Barkling Jawbone",
-                description = "숲의 소형 수호정령 턱뼈. 악세사리 제작에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Lifebloom Nectar",
-                description = "희귀 식물의 꽃꿀. 회복 장비 제작에 적합하다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Willowfang Chip",
-                description = "버드나무 야수의 이빨 조각. 마법 무기 강화에 사용된다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Dryad's Whisper Leaf",
-                description = "드라이어드가 속삭였다는 전설의 잎사귀. 장비에 정령 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Ancient Thorn Core",
-                description = "가시의 중심부 결정체. 강력한 출혈 속성을 부여한다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Spiritbark Resin",
-                description = "정령나무에서만 얻을 수 있는 희귀 수지. 고급 마법 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Moonroot Shard",
-                description = "달빛에 노출된 뿌리에서 추출한 결정. 야간 효과가 있다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Heartwood Branch",
-                description = "숲의 정령 나무 핵에서 뽑아낸 가지. 전설급 지팡이 재료.",
-                itemRarity = ItemRarity.UNIQUE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Elderleaf Emblem",
-                description = "고대 숲의 권위를 상징하는 잎 문장. 장비에 자연 속성 최고 강화 효과.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Songstone Fragment",
-                description = "자연의 노래가 담긴 수정 조각. 회복/버프계 장비의 핵심 재료.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
-
-
-        materialRepository.save(
-            Material(
-                name = "Twisted Vine Fiber",
-                description = "고목을 휘감은 덩굴의 섬유. 튼튼하고 유연하여 방어구 바인딩에 적합하다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Amber Sap",
-                description = "수백 년 된 나무에서 뽑은 호박 수액. 마력 전달의 매개로 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Direwolf Hide",
-                description = "숲의 포식자 디어울프의 가죽. 가볍지만 뛰어난 내구성을 지닌다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Oakheart Shard",
-                description = "정령나무의 단단한 중심부 조각. 근거리 무기의 손잡이에 자주 쓰인다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Luminous Spores",
-                description = "밤에 빛나는 버섯의 포자. 마법 장비에 빛나는 효과를 부여할 수 있다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Fernscale Bark",
-                description = "양치식물의 껍질을 강화해 만든 재료. 가볍고 내구성이 뛰어나다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Wolfroot Tendon",
-                description = "숲 늑대의 힘줄. 활 시위나 채찍 손잡이에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Elderseed Resin",
-                description = "고목의 씨앗에서 추출한 끈적한 수지. 마법 전도에 좋다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Barkwyrm Spine",
-                description = "나무 드래곤의 척추 조각. 검이나 창의 핵심 재료로 쓰인다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Sylvan Heart Core",
-                description = "숲의 정령들이 지키던 생명의 핵. 전설급 장비의 중심 재료다.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Dryleaf Bundle",
-                description = "바싹 마른 나뭇잎 뭉치. 저급 가죽 재료 대체용으로 사용된다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Twigknit Cord",
-                description = "가는 가지를 꼬아 만든 끈. 장비 바인딩에 적합하다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Sporecap Dust",
-                description = "버섯 모자의 가루. 마법 도료로 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Thornvine Stem",
-                description = "가시넝쿨의 줄기. 적을 구속하는 마법에 응용된다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Timberwolf Fang",
-                description = "숲의 사냥꾼 송곳니. 무기 재료로 사용 시 출혈 효과를 강화한다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Glowlily Petal",
-                description = "밤에 빛나는 꽃잎. 장비에 야간 시야 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Sylvan Boneplate",
-                description = "숲의 고대 짐승의 뼈 판. 강력한 방어구 재료다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Echoing Bark",
-                description = "소리를 흡수하는 나무껍질. 은신 특화 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Ancestor’s Sap",
-                description = "정령 나무의 피와 같은 수액. 회복 능력을 강화시킨다.",
-                itemRarity = ItemRarity.UNIQUE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Verdant Sigil Stone",
-                description = "숲의 고대 마법이 봉인된 인장석. 자연 속성 강화에 사용된다.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Barkcloth Strip",
-                description = "얇은 나무껍질을 가공한 천. 기본 방어구의 내피로 사용된다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Dewdrop Pearl",
-                description = "새벽 이슬이 맺힌 듯한 작은 수정. 마법 장비 기초 재료다.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Mushcap Sponge",
-                description = "버섯 윗부분에서 채취한 스펀지. 재료 결합에 쓰이는 흡수 재료.",
-                itemRarity = ItemRarity.COMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Vinesilk Thread",
-                description = "덩굴에서 뽑아낸 실. 유연성과 강도가 우수하다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Thistle Dust",
-                description = "가시풀을 갈아 만든 가루. 무기 마법 부여에 종종 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Barkling Jawbone",
-                description = "숲의 소형 수호정령 턱뼈. 악세사리 제작에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Lifebloom Nectar",
-                description = "희귀 식물의 꽃꿀. 회복 장비 제작에 적합하다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Willowfang Chip",
-                description = "버드나무 야수의 이빨 조각. 마법 무기 강화에 사용된다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Dryad's Whisper Leaf",
-                description = "드라이어드가 속삭였다는 전설의 잎사귀. 장비에 정령 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Ancient Thorn Core",
-                description = "가시의 중심부 결정체. 강력한 출혈 속성을 부여한다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Spiritbark Resin",
-                description = "정령나무에서만 얻을 수 있는 희귀 수지. 고급 마법 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Moonroot Shard",
-                description = "달빛에 노출된 뿌리에서 추출한 결정. 야간 효과가 있다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Heartwood Branch",
-                description = "숲의 정령 나무 핵에서 뽑아낸 가지. 전설급 지팡이 재료.",
-                itemRarity = ItemRarity.UNIQUE
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Elderleaf Emblem",
-                description = "고대 숲의 권위를 상징하는 잎 문장. 장비에 자연 속성 최고 강화 효과.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
-
-        materialRepository.save(
-            Material(
-                name = "Songstone Fragment",
-                description = "자연의 노래가 담긴 수정 조각. 회복/버프계 장비의 핵심 재료.",
-                itemRarity = ItemRarity.LEGENDARY
-            )
-        )
         /**
          * 사막 재료
          */
@@ -597,7 +40,8 @@ class TestComponentSetting(
             Material(
                 name = "Twisted Vine Fiber",
                 description = "고목을 휘감은 덩굴의 섬유. 튼튼하고 유연하여 방어구 바인딩에 적합하다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -605,7 +49,8 @@ class TestComponentSetting(
             Material(
                 name = "Amber Sap",
                 description = "수백 년 된 나무에서 뽑은 호박 수액. 마력 전달의 매개로 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -613,7 +58,8 @@ class TestComponentSetting(
             Material(
                 name = "Direwolf Hide",
                 description = "숲의 포식자 디어울프의 가죽. 가볍지만 뛰어난 내구성을 지닌다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -621,7 +67,8 @@ class TestComponentSetting(
             Material(
                 name = "Oakheart Shard",
                 description = "정령나무의 단단한 중심부 조각. 근거리 무기의 손잡이에 자주 쓰인다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -629,7 +76,8 @@ class TestComponentSetting(
             Material(
                 name = "Luminous Spores",
                 description = "밤에 빛나는 버섯의 포자. 마법 장비에 빛나는 효과를 부여할 수 있다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -637,7 +85,8 @@ class TestComponentSetting(
             Material(
                 name = "Fernscale Bark",
                 description = "양치식물의 껍질을 강화해 만든 재료. 가볍고 내구성이 뛰어나다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -645,7 +94,8 @@ class TestComponentSetting(
             Material(
                 name = "Wolfroot Tendon",
                 description = "숲 늑대의 힘줄. 활 시위나 채찍 손잡이에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -653,7 +103,8 @@ class TestComponentSetting(
             Material(
                 name = "Elderseed Resin",
                 description = "고목의 씨앗에서 추출한 끈적한 수지. 마법 전도에 좋다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -661,7 +112,8 @@ class TestComponentSetting(
             Material(
                 name = "Barkwyrm Spine",
                 description = "나무 드래곤의 척추 조각. 검이나 창의 핵심 재료로 쓰인다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -669,7 +121,8 @@ class TestComponentSetting(
             Material(
                 name = "Sylvan Heart Core",
                 description = "숲의 정령들이 지키던 생명의 핵. 전설급 장비의 중심 재료다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -677,7 +130,8 @@ class TestComponentSetting(
             Material(
                 name = "Dryleaf Bundle",
                 description = "바싹 마른 나뭇잎 뭉치. 저급 가죽 재료 대체용으로 사용된다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -685,7 +139,8 @@ class TestComponentSetting(
             Material(
                 name = "Twigknit Cord",
                 description = "가는 가지를 꼬아 만든 끈. 장비 바인딩에 적합하다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -693,7 +148,8 @@ class TestComponentSetting(
             Material(
                 name = "Sporecap Dust",
                 description = "버섯 모자의 가루. 마법 도료로 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -701,7 +157,8 @@ class TestComponentSetting(
             Material(
                 name = "Thornvine Stem",
                 description = "가시넝쿨의 줄기. 적을 구속하는 마법에 응용된다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -709,7 +166,8 @@ class TestComponentSetting(
             Material(
                 name = "Timberwolf Fang",
                 description = "숲의 사냥꾼 송곳니. 무기 재료로 사용 시 출혈 효과를 강화한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -717,7 +175,8 @@ class TestComponentSetting(
             Material(
                 name = "Glowlily Petal",
                 description = "밤에 빛나는 꽃잎. 장비에 야간 시야 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -725,7 +184,8 @@ class TestComponentSetting(
             Material(
                 name = "Sylvan Boneplate",
                 description = "숲의 고대 짐승의 뼈 판. 강력한 방어구 재료다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -733,7 +193,8 @@ class TestComponentSetting(
             Material(
                 name = "Echoing Bark",
                 description = "소리를 흡수하는 나무껍질. 은신 특화 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -741,15 +202,17 @@ class TestComponentSetting(
             Material(
                 name = "Ancestor’s Sap",
                 description = "정령 나무의 피와 같은 수액. 회복 능력을 강화시킨다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.FOREST
             )
         )
 
         materialRepository.save(
             Material(
                 name = "Verdant Sigil Stone",
-                description = "숲의 고대 마법이 봉인된 인장석. 자연 속성 강화에 사용된다.",
-                itemRarity = ItemRarity.LEGENDARY
+                description = "숲의 고대 마법이 봉인된Ancient Thorn Core 인장석. 자연 속성 강화에 사용된다.",
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -757,7 +220,8 @@ class TestComponentSetting(
             Material(
                 name = "Barkcloth Strip",
                 description = "얇은 나무껍질을 가공한 천. 기본 방어구의 내피로 사용된다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -765,7 +229,8 @@ class TestComponentSetting(
             Material(
                 name = "Dewdrop Pearl",
                 description = "새벽 이슬이 맺힌 듯한 작은 수정. 마법 장비 기초 재료다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -773,7 +238,8 @@ class TestComponentSetting(
             Material(
                 name = "Mushcap Sponge",
                 description = "버섯 윗부분에서 채취한 스펀지. 재료 결합에 쓰이는 흡수 재료.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -781,7 +247,8 @@ class TestComponentSetting(
             Material(
                 name = "Vinesilk Thread",
                 description = "덩굴에서 뽑아낸 실. 유연성과 강도가 우수하다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -789,7 +256,8 @@ class TestComponentSetting(
             Material(
                 name = "Thistle Dust",
                 description = "가시풀을 갈아 만든 가루. 무기 마법 부여에 종종 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -797,7 +265,8 @@ class TestComponentSetting(
             Material(
                 name = "Barkling Jawbone",
                 description = "숲의 소형 수호정령 턱뼈. 악세사리 제작에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -805,7 +274,8 @@ class TestComponentSetting(
             Material(
                 name = "Lifebloom Nectar",
                 description = "희귀 식물의 꽃꿀. 회복 장비 제작에 적합하다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -813,7 +283,8 @@ class TestComponentSetting(
             Material(
                 name = "Willowfang Chip",
                 description = "버드나무 야수의 이빨 조각. 마법 무기 강화에 사용된다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -821,23 +292,18 @@ class TestComponentSetting(
             Material(
                 name = "Dryad's Whisper Leaf",
                 description = "드라이어드가 속삭였다는 전설의 잎사귀. 장비에 정령 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.FOREST
             )
         )
 
-        materialRepository.save(
-            Material(
-                name = "Ancient Thorn Core",
-                description = "가시의 중심부 결정체. 강력한 출혈 속성을 부여한다.",
-                itemRarity = ItemRarity.EPIC
-            )
-        )
 
         materialRepository.save(
             Material(
                 name = "Spiritbark Resin",
                 description = "정령나무에서만 얻을 수 있는 희귀 수지. 고급 마법 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -845,7 +311,8 @@ class TestComponentSetting(
             Material(
                 name = "Moonroot Shard",
                 description = "달빛에 노출된 뿌리에서 추출한 결정. 야간 효과가 있다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -853,7 +320,8 @@ class TestComponentSetting(
             Material(
                 name = "Heartwood Branch",
                 description = "숲의 정령 나무 핵에서 뽑아낸 가지. 전설급 지팡이 재료.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -861,7 +329,8 @@ class TestComponentSetting(
             Material(
                 name = "Elderleaf Emblem",
                 description = "고대 숲의 권위를 상징하는 잎 문장. 장비에 자연 속성 최고 강화 효과.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -869,7 +338,8 @@ class TestComponentSetting(
             Material(
                 name = "Songstone Fragment",
                 description = "자연의 노래가 담긴 수정 조각. 회복/버프계 장비의 핵심 재료.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.FOREST
             )
         )
 
@@ -880,7 +350,8 @@ class TestComponentSetting(
             Material(
                 name = "Frostscale Plate",
                 description = "빙설 도마뱀의 비늘 판. 냉기 저항을 높이는 재료다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -888,7 +359,8 @@ class TestComponentSetting(
             Material(
                 name = "Icicle Thread",
                 description = "눈꽃에서 뽑아낸 실. 마법 로브에 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -896,7 +368,8 @@ class TestComponentSetting(
             Material(
                 name = "Glacier Core Dust",
                 description = "빙하의 중심에서 채취한 결정 가루. 냉기 속성 강화에 쓰인다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -904,7 +377,8 @@ class TestComponentSetting(
             Material(
                 name = "Snow Leopard Pelt",
                 description = "차가운 대지를 지배하는 야수의 가죽. 은신에 특화된 장비에 사용된다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -912,7 +386,8 @@ class TestComponentSetting(
             Material(
                 name = "Shiverroot Bark",
                 description = "추위에 견디는 마법 나무의 껍질. 방어구 내피로 이상적이다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -920,7 +395,8 @@ class TestComponentSetting(
             Material(
                 name = "Frostbirch Leaf",
                 description = "냉기 속에서만 자라는 자작나무 잎. 약한 냉기 저항력을 지닌다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -928,7 +404,8 @@ class TestComponentSetting(
             Material(
                 name = "Icetooth Fragment",
                 description = "빙설 늑대의 송곳니 조각. 날카로운 무기의 소재로 이상적이다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -936,7 +413,8 @@ class TestComponentSetting(
             Material(
                 name = "Frozen Marrow",
                 description = "냉동된 야수의 골수. 물리 방어에 강한 성질을 띤다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -944,7 +422,8 @@ class TestComponentSetting(
             Material(
                 name = "Glacier Soul Dust",
                 description = "빙하에 갇힌 정령의 재. 장비에 냉기 마법을 부여한다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -952,7 +431,8 @@ class TestComponentSetting(
             Material(
                 name = "Crownice Crystal",
                 description = "얼음의 군주가 남긴 수정. 절대 냉기를 품고 있다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -960,7 +440,8 @@ class TestComponentSetting(
             Material(
                 name = "Cracked Iceflake",
                 description = "얇은 얼음 조각. 낮은 등급 냉기 장비 재료.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -968,7 +449,8 @@ class TestComponentSetting(
             Material(
                 name = "Snowsilt Cloth",
                 description = "눈에서 짜낸 섬유. 추위 방지 효과가 있다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -976,7 +458,8 @@ class TestComponentSetting(
             Material(
                 name = "Woolly Beast Fur",
                 description = "빙설지대 야수의 털. 방한복 제작에 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -984,7 +467,8 @@ class TestComponentSetting(
             Material(
                 name = "Chillglass Bead",
                 description = "차가운 유리 결정. 마법 아이템에 주로 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -992,7 +476,8 @@ class TestComponentSetting(
             Material(
                 name = "Frozen Spine Shard",
                 description = "냉기 짐승의 척추 조각. 방어구에 강한 냉기 저항을 부여한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1000,7 +485,8 @@ class TestComponentSetting(
             Material(
                 name = "Icewrought Resin",
                 description = "얼어붙은 나무 수액. 장비 표면을 단단하게 코팅한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1008,7 +494,8 @@ class TestComponentSetting(
             Material(
                 name = "Glacial Wind Core",
                 description = "빙하 속 바람의 핵. 속도 증가 장비 제작에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1016,7 +503,8 @@ class TestComponentSetting(
             Material(
                 name = "Cryo Sigil Dust",
                 description = "냉기 룬의 잔해. 강력한 마법 장비 강화용이다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1024,7 +512,8 @@ class TestComponentSetting(
             Material(
                 name = "Silent Blizzard Thread",
                 description = "소리 없이 휘몰아치는 눈보라에서 채취한 실. 은신 장비에 적합하다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1032,7 +521,8 @@ class TestComponentSetting(
             Material(
                 name = "Frozen Eternity Core",
                 description = "시간조차 멈춘 얼음의 결정체. 영구 냉기 효과를 지닌다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1040,7 +530,8 @@ class TestComponentSetting(
             Material(
                 name = "Snowhare Fur",
                 description = "눈 토끼의 따뜻한 털. 방한 장비의 내피로 사용된다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1048,7 +539,8 @@ class TestComponentSetting(
             Material(
                 name = "Icicle Fragment",
                 description = "뾰족한 고드름 조각. 기본 냉기 속성 장비에 쓰인다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1056,7 +548,8 @@ class TestComponentSetting(
             Material(
                 name = "Frostnut Husk",
                 description = "냉기 식물의 외피. 마법 재료 보조용.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1064,7 +557,8 @@ class TestComponentSetting(
             Material(
                 name = "Chillhide Strip",
                 description = "차가운 짐승 가죽을 얇게 벗겨낸 조각. 갑옷 보강용.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1072,7 +566,8 @@ class TestComponentSetting(
             Material(
                 name = "Permafrost Thread",
                 description = "녹지 않는 실. 마법 로브 강화용으로 이상적이다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1080,7 +575,8 @@ class TestComponentSetting(
             Material(
                 name = "Frostshard Dust",
                 description = "분쇄된 얼음 수정. 마법 속성 부여에 사용된다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1088,7 +584,8 @@ class TestComponentSetting(
             Material(
                 name = "Snowwraith Eye",
                 description = "설령의 눈동자. 냉기 속성 극대화에 필수.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1096,7 +593,8 @@ class TestComponentSetting(
             Material(
                 name = "Chillfang Chip",
                 description = "빙설 표범의 이빨 파편. 날붙이에 빙결 효과 부여.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1104,7 +602,8 @@ class TestComponentSetting(
             Material(
                 name = "Cryogenic Oil",
                 description = "냉기 유지용 기름. 장비의 온도를 조절한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1112,7 +611,8 @@ class TestComponentSetting(
             Material(
                 name = "Wendigo Spine Shard",
                 description = "빙설 괴물의 척추 조각. 방어구에 광역 냉기 저항 부여.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1120,7 +620,8 @@ class TestComponentSetting(
             Material(
                 name = "Frozen Time Echo",
                 description = "빙결된 시간의 잔재. 시간 지연/방어 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1128,7 +629,8 @@ class TestComponentSetting(
             Material(
                 name = "Moonice Crystal",
                 description = "달빛을 반사하는 얼음 수정. 회복+냉기 하이브리드 장비용.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1136,7 +638,8 @@ class TestComponentSetting(
             Material(
                 name = "Crownshard of Frostmaiden",
                 description = "냉기의 여왕이 남긴 왕관 조각. 마법 집중 속성을 부여한다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1144,7 +647,8 @@ class TestComponentSetting(
             Material(
                 name = "Absolute Zero Core",
                 description = "절대영도의 핵심. 모든 생명체의 움직임을 멈추게 할 수 있다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1152,7 +656,8 @@ class TestComponentSetting(
             Material(
                 name = "Aurorafrost Gem",
                 description = "오로라의 얼음에서 탄생한 보석. 냉기 속성의 최고 등급 재료.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.GLACIER
             )
         )
 
@@ -1163,7 +668,8 @@ class TestComponentSetting(
             Material(
                 name = "Charstone Ore",
                 description = "불의 심장에서 채굴한 암석. 무기 강화에 필수적이다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1171,7 +677,8 @@ class TestComponentSetting(
             Material(
                 name = "Obsidian Flake",
                 description = "화산암의 얇은 조각. 날붙이 무기에 치명적인 예리함을 부여한다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1179,7 +686,8 @@ class TestComponentSetting(
             Material(
                 name = "Smoldering Ashdust",
                 description = "끊임없이 연기 나는 재. 화염 마법 부여용으로 인기다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1187,7 +695,8 @@ class TestComponentSetting(
             Material(
                 name = "Flamebeast Tendon",
                 description = "화염 짐승의 힘줄. 활과 채찍 같은 장비에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1195,7 +704,8 @@ class TestComponentSetting(
             Material(
                 name = "Cinderhide",
                 description = "불에 그을린 짐승의 가죽. 열에 강하고 유연하다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1203,7 +713,8 @@ class TestComponentSetting(
             Material(
                 name = "Coalcrack Pebble",
                 description = "갈라진 석탄 조각. 기본적인 화속성 부여 재료다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1211,7 +722,8 @@ class TestComponentSetting(
             Material(
                 name = "Firebeast Horn Chip",
                 description = "화염 야수의 뿔 조각. 강도 높은 장비 강화에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1219,7 +731,8 @@ class TestComponentSetting(
             Material(
                 name = "Smeltcore Oil",
                 description = "용광로 바닥에서 추출된 오일. 금속 가공의 핵심이다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1227,7 +740,8 @@ class TestComponentSetting(
             Material(
                 name = "Volcanic Emberheart",
                 description = "화산 심장에서 꺼낸 불덩어리. 공격 속성에 불을 더한다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1235,7 +749,8 @@ class TestComponentSetting(
             Material(
                 name = "Infernal Spine Segment",
                 description = "지옥 불꽃 속 생물의 척추. 고대 장비에 쓰이는 귀중한 파편.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1243,7 +758,8 @@ class TestComponentSetting(
             Material(
                 name = "Charred Husk Fragment",
                 description = "불에 탄 생물의 잔해. 저급 장비의 연료나 부품으로 쓰인다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1251,7 +767,8 @@ class TestComponentSetting(
             Material(
                 name = "Smokestone Dust",
                 description = "화산재가 응결된 가루. 연막 효과 장비에 사용된다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1259,7 +776,8 @@ class TestComponentSetting(
             Material(
                 name = "Ironblaze Scale",
                 description = "불속성 도마뱀의 비늘. 내구성이 뛰어나며 공격력을 높인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1267,7 +785,8 @@ class TestComponentSetting(
             Material(
                 name = "Fumehide Scrap",
                 description = "유황가스에 그을린 가죽. 방어구의 내화성 강화를 도와준다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1275,7 +794,8 @@ class TestComponentSetting(
             Material(
                 name = "Flametail Whipcord",
                 description = "불꼬리 생물의 신경줄기. 채찍류 무기 제작에 활용된다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1283,7 +803,8 @@ class TestComponentSetting(
             Material(
                 name = "Pyrocrystal Core",
                 description = "마그마 결정의 심장부. 화염 속성 장비의 핵심 재료.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1291,7 +812,8 @@ class TestComponentSetting(
             Material(
                 name = "Inferno Chimera Fang",
                 description = "지옥불 키메라의 송곳니. 공격 장비에 속성 폭발 효과를 부여한다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1299,7 +821,8 @@ class TestComponentSetting(
             Material(
                 name = "Eruption Stone Scale",
                 description = "분화하는 화산석에서 얻은 비늘. 방어구에 충격 저항을 더한다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1307,7 +830,8 @@ class TestComponentSetting(
             Material(
                 name = "Ashen Phoenix Feather",
                 description = "불사조의 재에서 얻은 깃털. 착용 장비에 회생 효과를 부여한다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1315,7 +839,8 @@ class TestComponentSetting(
             Material(
                 name = "Molten Crown Fragment",
                 description = "화염 군주의 왕관 파편. 전설 무기에 불의 의지를 부여한다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1323,7 +848,8 @@ class TestComponentSetting(
             Material(
                 name = "Ashen Horn Chip",
                 description = "불에 그을린 짐승의 뿔 조각. 저급 무기 장식용으로 쓰인다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1331,7 +857,8 @@ class TestComponentSetting(
             Material(
                 name = "Lavasoot Lump",
                 description = "용암 가루가 뭉쳐 생긴 덩어리. 기본 내열 강화 재료다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1339,7 +866,8 @@ class TestComponentSetting(
             Material(
                 name = "Crackstone Flake",
                 description = "지각 균열에서 채취한 석편. 방어구 강화에 소량 사용된다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1347,7 +875,8 @@ class TestComponentSetting(
             Material(
                 name = "Emberworm Scale",
                 description = "작은 화염 벌레의 비늘. 장비에 열기 전달 효과를 부여한다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1355,7 +884,8 @@ class TestComponentSetting(
             Material(
                 name = "Firefang Residue",
                 description = "불속성 생물의 이빨 잔해. 검의 칼날 마법 도료로 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1363,7 +893,8 @@ class TestComponentSetting(
             Material(
                 name = "Sulfurhide Strip",
                 description = "유황 연기 속에서 채취한 가죽 조각. 방독 효과를 제공한다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1371,7 +902,8 @@ class TestComponentSetting(
             Material(
                 name = "Blazecore Fragment",
                 description = "불의 심장이라 불리는 결정의 일부. 장비에 마나 연소 속성을 부여한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1379,7 +911,8 @@ class TestComponentSetting(
             Material(
                 name = "Flare Beetle Shell",
                 description = "폭발성 곤충의 등껍질. 공격 장비 강화에 사용된다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1387,7 +920,8 @@ class TestComponentSetting(
             Material(
                 name = "Molten Vein Fiber",
                 description = "용암이 흐르는 광맥에서 채취한 섬유. 유연성과 내구성이 뛰어나다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1395,7 +929,8 @@ class TestComponentSetting(
             Material(
                 name = "Inferno Drake Claw",
                 description = "화염 드레이크의 발톱. 파괴력 강화용 고급 재료.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1403,7 +938,8 @@ class TestComponentSetting(
             Material(
                 name = "Obsidian Core Chunk",
                 description = "용암에서 응결된 핵심 암석. 방어구에 불반사 효과를 부여한다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1411,7 +947,8 @@ class TestComponentSetting(
             Material(
                 name = "Volcanite Thread",
                 description = "화염정령의 힘이 깃든 실. 고열에도 끄떡없는 마법 재료.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1419,7 +956,8 @@ class TestComponentSetting(
             Material(
                 name = "Blazing Crown Shard",
                 description = "화염 군주의 왕관 파편. 착용 시 일정 확률로 화염구 발동.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1427,7 +965,8 @@ class TestComponentSetting(
             Material(
                 name = "Hellfire Sigil",
                 description = "지옥불의 상징 문양. 전설급 무기와 방어구에 불타는 오라를 부여한다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1435,7 +974,8 @@ class TestComponentSetting(
             Material(
                 name = "Core of Eruption",
                 description = "분출의 근원. 타격 시 지면을 흔드는 폭발 효과를 생성한다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.VOLCANO
             )
         )
 
@@ -1447,7 +987,8 @@ class TestComponentSetting(
             Material(
                 name = "Nautilus Shell Chip",
                 description = "소용돌이 무늬가 아름다운 패각 조각. 장신구에 자주 쓰인다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1455,7 +996,8 @@ class TestComponentSetting(
             Material(
                 name = "Coral Thread",
                 description = "산호초에서 얻은 가늘고 질긴 실. 방어구 스티칭에 적합하다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1463,7 +1005,8 @@ class TestComponentSetting(
             Material(
                 name = "Krakkin Ink Resin",
                 description = "심해 괴수의 검은 수지. 마법 봉인을 위한 촉매다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1471,7 +1014,8 @@ class TestComponentSetting(
             Material(
                 name = "Salted Sharkskin",
                 description = "거친 상어 가죽. 빠른 회피형 장비에 적합하다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1479,7 +1023,8 @@ class TestComponentSetting(
             Material(
                 name = "Deepwater Gem",
                 description = "심해의 압력을 견디고 생성된 보석. 마력 집중에 유리하다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1487,7 +1032,8 @@ class TestComponentSetting(
             Material(
                 name = "Seagrass Thread",
                 description = "질긴 바닷풀을 엮은 실. 방어구의 스티칭 재료로 쓰인다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1495,7 +1041,8 @@ class TestComponentSetting(
             Material(
                 name = "Shellscale Flake",
                 description = "대형 갑각류의 껍데기 조각. 방어구의 외장재로 적합하다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1503,7 +1050,8 @@ class TestComponentSetting(
             Material(
                 name = "Echo Pearl Dust",
                 description = "심해 진주의 가루. 장비에 마나 회복 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1511,7 +1059,8 @@ class TestComponentSetting(
             Material(
                 name = "Tidebeast Tendon",
                 description = "파도 짐승의 힘줄. 유연하면서도 매우 단단하다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1519,7 +1068,8 @@ class TestComponentSetting(
             Material(
                 name = "Kraken's Breath Core",
                 description = "심연에서 나온 공기의 핵. 전설급 무기에 바다의 분노를 담는다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1527,7 +1077,8 @@ class TestComponentSetting(
             Material(
                 name = "Kelpwrap Fiber",
                 description = "해조류 섬유. 유연하고 바닷물에 강하다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1535,7 +1086,8 @@ class TestComponentSetting(
             Material(
                 name = "Crustacean Fang",
                 description = "딱딱한 게 송곳니. 작은 장신구 강화 재료다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1543,7 +1095,8 @@ class TestComponentSetting(
             Material(
                 name = "Tideglass Shard",
                 description = "물결처럼 휘는 유리 조각. 마법 반사 장비에 쓰인다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1551,7 +1104,8 @@ class TestComponentSetting(
             Material(
                 name = "Brinebeast Hide",
                 description = "염수에 사는 짐승의 가죽. 염분에 강한 방어구 제작에 적합하다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1559,7 +1113,8 @@ class TestComponentSetting(
             Material(
                 name = "Octovoid Ink Sack",
                 description = "심해 문어의 먹물 주머니. 혼란 속성 장비에 응용된다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1567,7 +1122,8 @@ class TestComponentSetting(
             Material(
                 name = "Pearled Claw Tip",
                 description = "진주처럼 광택나는 집게발 끝. 고급 무기 장식용 재료.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1575,7 +1131,8 @@ class TestComponentSetting(
             Material(
                 name = "Sea Spirit Fragment",
                 description = "바다의 정령이 남긴 파편. 치유/보호 계열 장비에 주로 사용된다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1583,7 +1140,8 @@ class TestComponentSetting(
             Material(
                 name = "Abyssal Nerve Cord",
                 description = "심연 생물의 신경 다발. 고급 장신구 제작에 적합하다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1591,7 +1149,8 @@ class TestComponentSetting(
             Material(
                 name = "Trenchwhale Spine",
                 description = "해구 고래의 척추 뼈. 전설 갑옷의 기틀을 이룬다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1599,7 +1158,8 @@ class TestComponentSetting(
             Material(
                 name = "Stormcore Pearl",
                 description = "폭풍의 중심에서 자라난 진주. 물과 번개 속성을 동시에 부여한다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1607,7 +1167,8 @@ class TestComponentSetting(
             Material(
                 name = "Sandstone Coral Chip",
                 description = "바닷가 산호초의 돌기. 방어구 표면 강화에 쓰인다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1615,7 +1176,8 @@ class TestComponentSetting(
             Material(
                 name = "Bubblestone Pebble",
                 description = "파도에 깎인 둥근 돌. 장신구 장식에 쓰이는 값싼 재료.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1623,7 +1185,8 @@ class TestComponentSetting(
             Material(
                 name = "Salted Shell Dust",
                 description = "조개껍질을 간 가루. 마법 장비 보조 재료다.",
-                itemRarity = ItemRarity.COMMON
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1631,7 +1194,8 @@ class TestComponentSetting(
             Material(
                 name = "Eelskin Strap",
                 description = "전기 뱀장어의 가죽 띠. 유연성과 전기 저항을 동시에 제공한다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1639,7 +1203,8 @@ class TestComponentSetting(
             Material(
                 name = "Kelpink Blob",
                 description = "심해 해조류에서 추출한 점액. 방어구의 미끄럼 방지 기능을 향상시킨다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1647,7 +1212,8 @@ class TestComponentSetting(
             Material(
                 name = "Coralbone Fragment",
                 description = "산호와 뼈가 뒤섞인 조각. 공격 무기 강화에 적합하다.",
-                itemRarity = ItemRarity.UNCOMMON
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1655,7 +1221,8 @@ class TestComponentSetting(
             Material(
                 name = "Tide Elemental Core",
                 description = "조수의 흐름을 따르는 정령의 핵. 마법 장비에 흐름 기반 효과를 부여한다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1663,7 +1230,8 @@ class TestComponentSetting(
             Material(
                 name = "Pearlglass Lens",
                 description = "진주처럼 투명한 렌즈. 시야 확대 및 명중 보정 장비에 사용된다.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1671,7 +1239,8 @@ class TestComponentSetting(
             Material(
                 name = "Sailfish Fin Blade",
                 description = "돛돔의 등지느러미를 칼날처럼 가공한 재료. 찌르기형 무기 강화에 특화.",
-                itemRarity = ItemRarity.RARE
+                itemRarity = ItemRarity.RARE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1679,7 +1248,8 @@ class TestComponentSetting(
             Material(
                 name = "Stormwhale Blubber",
                 description = "폭풍고래의 지방. 물리/전기 피해 흡수 방어구에 쓰인다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1687,7 +1257,8 @@ class TestComponentSetting(
             Material(
                 name = "Abyss Ink Crystal",
                 description = "심연 문어의 먹물을 굳힌 결정. 혼란 마법 장비에 사용된다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1695,7 +1266,8 @@ class TestComponentSetting(
             Material(
                 name = "Siren Scale Flake",
                 description = "세이렌의 비늘 파편. 장비에 매혹 또는 방해 효과를 부여한다.",
-                itemRarity = ItemRarity.EPIC
+                itemRarity = ItemRarity.EPIC,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1703,7 +1275,8 @@ class TestComponentSetting(
             Material(
                 name = "Trench Leviathan Bone",
                 description = "해구의 거대한 생물의 뼈. 전설 갑옷의 척추 강화 소재다.",
-                itemRarity = ItemRarity.UNIQUE
+                itemRarity = ItemRarity.UNIQUE,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1711,7 +1284,8 @@ class TestComponentSetting(
             Material(
                 name = "Crest of the Deep King",
                 description = "심해 군주의 문장. 바다 속성 전설 장비에만 사용되는 최고급 재료.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.COAST
             )
         )
 
@@ -1719,9 +1293,1392 @@ class TestComponentSetting(
             Material(
                 name = "Heart of the Maelstrom",
                 description = "거대한 소용돌이 중심에서 채취한 심장. 물+바람 복합 속성을 부여한다.",
-                itemRarity = ItemRarity.LEGENDARY
+                itemRarity = ItemRarity.LEGENDARY,
+                dropArea = FieldType.COAST
             )
         )
+
+        /**
+         * COMMON 장비 추가 생성
+         */
+        materialRepository.save(Material(
+            name = "Whispering Vine Tip",
+            description = "부드러운 속삭임을 머금은 덩굴 끝부분으로, 은밀함을 돕는 포션에 쓰인다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Mossglisten Pebble",
+            description = "이끼가 엉겨 붙은 작은 자갈로, 기초 치유 연마제 원료로 활용된다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.FOREST
+        ))
+
+        // DESERT 지역 – COMMON 재료 2종 추가
+        materialRepository.save(Material(
+            name = "Scorched Cactus Pulp",
+            description = "태양 아래 말라버린 선인장 과육으로, 생명력 회복 물약 보조재료다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Dustworn Quartz Chip",
+            description = "사막 바람에 깎인 수정 파편으로, 정밀 연금 도구 윤활제에 쓰인다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.DESERT
+        ))
+
+        // GLACIER 지역 – COMMON 재료 2종 추가
+        materialRepository.save(Material(
+            name = "Frostwoven Thread",
+            description = "차가운 공기를 엮어 만든 실로, 방한 의류 보강재로 사용된다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Snowmelt Lily Petal",
+            description = "녹는 눈 속에서 피어나는 백합 꽃잎으로, 순환 회복 포션 원료다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.GLACIER
+        ))
+
+        // VOLCANO 지역 – COMMON 재료 2종 추가
+        materialRepository.save(Material(
+            name = "Cindered Root Fragment",
+            description = "불타다 남은 뿌리 조각으로, 발화 장치 작동 촉매에 쓰인다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Molten Glass Shard",
+            description = "용암이 식어 굳은 유리 조각, 간이 방어구 장식에 활용된다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.VOLCANO
+        ))
+
+        // COAST 지역 – COMMON 재료 2종 추가
+        materialRepository.save(Material(
+            name = "Saltcrystal Sliver",
+            description = "바닷물 결정이 응집된 조각, 고농축 전해질 포션 보조재료다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Tide-lashed Kelp Strip",
+            description = "조류에 감긴 다시마 줄기로, 점착 유연제 원료로 사용된다.",
+            itemRarity = ItemRarity.COMMON,
+            dropArea = FieldType.COAST
+        ))
+
+        // FOREST 지역 – COMMON 재료 10종
+        materialRepository.save(
+            Material(
+                name = "Dewspun Moss",
+                description = "이슬방울을 머금은 이끼 조각으로, 기초 치유 물약 재료로 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Shadowleaf Pod",
+                description = "숲 그늘에서 자란 작은 꼬투리로, 은은한 향이 나는 향수 원료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Quietmoss Cloth",
+                description = "부드러운 이끼 섬유로 만든 천 조각, 경량 갑옷 보강재로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Blightthorn Sprig",
+                description = "병리 가시가 돋친 작은 가지, 독 연금약 조제에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Starpetal Dust",
+                description = "밤하늘의 꽃잎을 말려 분말로 만든 재료, 간단한 완화 효과를 가진다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Moonshroud Bark",
+                description = "달빛 아래 자란 나무 껍질, 수면제 조합에 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Glimmerfern Frond",
+                description = "미약하게 빛을 내는 양치식물 잎사귀, 염료로 활용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Emberroot Shard",
+                description = "불씨 뿌리 조각으로, 미약한 열기를 내는 점화제로 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Faefoam Pellet",
+                description = "요정의 거품 같은 알갱이, 마법진 활성화 재료로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Fairydew Droplet",
+                description = "요정의 이슬 방울이 응축된 미세 액체, 정령 소환에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+
+        // DESERT 지역 – COMMON 재료 10종
+        materialRepository.save(
+            Material(
+                name = "Scorchsand Granule",
+                description = "작은 모래 입자로, 기초 내열 포션 재료로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Dunevine Husk",
+                description = "사막 덩굴 껍질 파편, 보습 연고 원료로 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Sunscourge Pebble",
+                description = "태양열로 달궈진 작은 돌 조각, 방어 마법 보조재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Mirage Bloom Petal",
+                description = "사막의 환영꽃 꽃잎, 환각 유도 물약에 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Sandshell Fragment",
+                description = "모래 속에서 수집한 조개껍데기 조각, 미백 화장품 원료로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Scorpionspine Chip",
+                description = "전갈의 가시 조각, 독성 포션 강화제로 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Sunburnt Gourd Husk",
+                description = "태양에 그을린 박과 껍질 조각, 방어 연금술 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Zephyring Dust",
+                description = "바람의 잔재가 섞인 미세 분말, 속도 부여 물약에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Aridroot Tendril",
+                description = "건조 환경에 자생하는 뿌리 가닥, 갈증 해소제 원료로 활용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Goldenflare Grain",
+                description = "금빛을 띠는 곡물 알갱이, 체력 회복 포션에 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+
+        // GLACIER 지역 – COMMON 재료 10종
+        materialRepository.save(
+            Material(
+                name = "Permafrost Pellet",
+                description = "영구 동토층에서 떼어낸 작은 알갱이로, 냉기 저항 포션 원료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Iceveil Fiber",
+                description = "엷은 얼음 막을 닮은 섬유, 방한 의류 보강재로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Stormicicle Chip",
+                description = "폭풍 속 빙결 조각, 번개 속성 강화 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Breachice Crystal",
+                description = "균열 빙하에서 채집한 수정, 투명 망토 제작에 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Glintsnow Dust",
+                description = "반짝이는 눈가루, 은빛 염료 원료로 활용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Frostbloom Fragment",
+                description = "얼어붙은 꽃잎 조각, 얼음 정령 호출 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Winterflare Bark",
+                description = "차가운 불꽃을 담은 나무 껍질, 특수 횃불 제작에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Coldheart Pebble",
+                description = "차가운 감정을 품은 돌 조각, 냉기 함정 제작 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Snowdrift Strand",
+                description = "눈더미에서 건진 섬유질 조각, 방한 담요 보강용이다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Boreal Shard",
+                description = "북녘 숲 빙결 조각, 얼음 룬 스톤 원료로 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+
+        // VOLCANO 지역 – COMMON 재료 10종
+        materialRepository.save(
+            Material(
+                name = "Magmaberry Husk",
+                description = "용암 대지를 견딘 열매 껍질, 내열 물약 재료로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Scorchcore Pellet",
+                description = "불꽃 중심부에서 떨어진 알갱이, 발화 포션 원료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Lavafern Tendril",
+                description = "용암 옆에서 자란 양치식물 가닥, 열 마법 강화제로 활용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Emberbur Spore",
+                description = "잿더미에서 자라는 균류 포자, 연소 독 포션 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Magmaflow Thread",
+                description = "끓는 용암을 닮은 섬유, 내열 섬유 갑옷 보강재로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Fireglow Husk",
+                description = "잔불처럼 빛나는 껍질 조각, 야간 신호용 횃불 제작에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Searstone Fragment",
+                description = "뜨겁게 달궈진 돌 조각, 무기 담금질 보조재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Ashroot Bark",
+                description = "재 속에서 자란 뿌리 껍질, 독성 해독제 원료로 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Flameglass Sliver",
+                description = "용암이 식어 굳은 유리 조각, 빛나는 마법 장식에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Blazeleaf Strip",
+                description = "열기를 품은 잎사귀 줄기, 화염 방어 포션 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+
+        // COAST 지역 – COMMON 재료 10종
+        materialRepository.save(
+            Material(
+                name = "Saltpetal Husk",
+                description = "염분을 가득 머금은 꽃잎 껍질, 소금 결정 추출 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Tidefoam Droplet",
+                description = "파도 거품이 응결된 작은 방울, 수면제 강화제로 활용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Brinepearl Chip",
+                description = "짠물 속 진주 파편, 광채 물약 원료로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Wavevine Thread",
+                description = "파도줄기를 닮은 섬유, 유연성 포션 보강재다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Stormshell Fragment",
+                description = "폭풍 해안에서 얻은 껍데기 조각, 방어력 포션에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Seafoam Dust",
+                description = "바다 거품을 말린 분말, 가벼운 부력 포션 원료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Coralmoss Strand",
+                description = "산호 이끼 가닥, 재생 물약 조합에 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Deepcurrent Crystal",
+                description = "심해 전류를 품은 수정, 속성 전환 룬 제작에 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Tidereed Husk",
+                description = "조수 갈대 껍질, 목재 방어구 경량화에 쓰이는 섬유다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Nautiflare Pellet",
+                description = "해저 화염 떨림이 담긴 알갱이, 불 속성 포션 기초 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+
+        // FOREST 지역 – COMMON 재료 2종 추가
+        materialRepository.save(
+            Material(
+                name = "Morningsong Mushroom",
+                description = "이른 아침 숲바닥에 피어나는 버섯으로, 기운을 돋우는 포션에 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Bramblekin Thistle",
+                description = "가시가 돋은 작은 엉겅퀴, 기초 보호 마법 강화재로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+
+        // DESERT 지역 – COMMON 재료 2종 추가
+        materialRepository.save(
+            Material(
+                name = "Dustveil Bloom",
+                description = "모래 폭풍 속에서도 피어나는 꽃으로, 시야 차단 물약 조합에 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Thornwhisper Spine",
+                description = "가늘고 날카로운 사막 가시, 소량의 독성 포션 제조 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+
+        // GLACIER 지역 – COMMON 재료 2종 추가
+        materialRepository.save(
+            Material(
+                name = "Hoarfrost Lichen",
+                description = "서리 덮인 바위에 붙은 지의류, 냉기 저항 물약 보조재료로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Glacial Melt Droplet",
+                description = "빙하가 녹으며 떨어진 순수 물방울, 정화 포션 원료로 활용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+
+        // VOLCANO 지역 – COMMON 재료 2종 추가
+        materialRepository.save(
+            Material(
+                name = "Charflare Ember",
+                description = "불꽃이 사그라든 잿더미 조각으로, 점화 장치 보조재료로 사용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Pyroclast Dust",
+                description = "화산 분출물에서 얻은 미세 분말, 열 폭발 포션 제조 재료다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+
+        // COAST 지역 – COMMON 재료 2종 추가
+        materialRepository.save(
+            Material(
+                name = "Barnacle Paste",
+                description = "따개비를 곱게 갈아 만든 반죽으로, 접착 포션 원료로 활용된다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Seaglint Sand",
+                description = "조개 조각이 섞인 반짝이는 모래, 은빛 염료와 연금 재료로 쓰인다.",
+                itemRarity = ItemRarity.COMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+
+        /**
+         * 추가 UNCOMMON 재료
+         */
+
+        // FOREST 지역 – UNCOMMON 재료 8종
+        materialRepository.save(
+            Material(
+                name = "Echoflora Bloom",
+                description = "숲의 속삭임이 깃든 꽃잎으로, 기억 강화 포션 재료로 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Sylphwing Petal",
+                description = "요정의 날개를 닮은 꽃잎, 정신 회복 연금약 원료로 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Gloomshroud Spore",
+                description = "어둠에 강한 버섯 포자로, 야간 투시 물약 제조에 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Verdantstem Shoot",
+                description = "강인한 생명력을 담은 새싹, 체력 회복 포션 강화재로 활용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Gladeheart Sap",
+                description = "신성한 숲의 심장수액으로, 축복 부여 물약 재료로 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Thornvale Spike",
+                description = "험준한 가시줄기 조각, 방어력 강화 염료 원료로 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Wilderwood Essence",
+                description = "거친 숲의 기운을 응축한 정수, 공격 포션에 은은한 추가 효과를 더한다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Spiritbloom Pollen",
+                description = "정령의 꽃가루로, 영혼 소환 의식에 사용되는 귀한 재료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.FOREST
+            )
+        )
+
+        // DESERT 지역 – UNCOMMON 재료 8종
+        materialRepository.save(
+            Material(
+                name = "Mirageglass Shard",
+                description = "환영이 비치는 유리 조각으로, 시야 교란 포션 조합에 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Dunewhisper Resin",
+                description = "사막 바람의 속삭임을 머금은 수지, 은신 물약 강화재로 활용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Sunscourge Carapace",
+                description = "태양에 그을린 껍질 조각, 화염 방어 염료 원료로 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Siroccobloom Nectar",
+                description = "열풍 속에서 피는 꽃의 진한 꿀, 체온 조절 물약 재료로 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Cinderwell Sand",
+                description = "잿더미 속 미묘하게 빛나는 모래, 정밀 연금 장비 윤활제 원료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Gilded Cactus Spine",
+                description = "황금빛을 띠는 선인장 가시로, 전기 방어 포션 강화재로 활용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Aridshroud Petal",
+                description = "건조한 모래바람을 견딘 꽃잎, 불안정 속성 포션 조합에 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Emberwoven Fibers",
+                description = "잔불을 엮어 만든 섬유질, 스태미나 연장 염료에 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.DESERT
+            )
+        )
+
+        // GLACIER 지역 – UNCOMMON 재료 8종
+        materialRepository.save(
+            Material(
+                name = "Frostveil Petal",
+                description = "차가운 안개가 깃든 꽃잎으로, 냉기 속성 포션 원료로 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Stormfrost Essence",
+                description = "폭풍 속에서 응결된 냉기 정수, 번개 방어 물약 부재료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Icetide Pearl",
+                description = "빙하 파도 속에서 빚어진 진주, 특수 장신구 제작 재료로 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Snowsong Sap",
+                description = "함박눈 속에 맺힌 수액, 수면 안정제 강화 원료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Hailsteel Chip",
+                description = "우박처럼 단단한 금속 조각, 갑옷 강화 첨가제로 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Glimmerfrost Vine",
+                description = "은빛 서리가 맺힌 덩굴 조각, 은폐 마법 보조재료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Crystalbreeze Sap",
+                description = "투명한 바람의 수액, 정밀 마법 도구 윤활제로 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Wintreshroud Pollen",
+                description = "혹한을 견뎌낸 꽃가루, 얼음 정령 강화 포션에 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.GLACIER
+            )
+        )
+
+        // VOLCANO 지역 – UNCOMMON 재료 8종
+        materialRepository.save(
+            Material(
+                name = "Infernoheart Ember",
+                description = "심연의 불씨를 품은 재로, 파괴 속성 포션 강화재로 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Pyroclast Vein",
+                description = "용암 흐름이 응고된 선맥, 화염 장판 주문 부재료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Magmaheart Core",
+                description = "마그마의 중심 에너지를 응축한 핵심, 화속성 무기 룬 제작에 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Ashenflame Spores",
+                description = "잿더미에서 자라는 불꽃 균사체, 독성 함유 포션 조합에 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Blazebloom Nectar",
+                description = "용암열을 머금은 꽃의 꿀, 체온 상승 물약 원료로 활용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Searshock Residue",
+                description = "격변적 열기에 남은 잔해, 충격파 방어 물약 부재료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Cinderbark Essence",
+                description = "탄화한 나무 껍질 수액, 지속 화염 보호막 주문 강화재로 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Sulfurspike Cord",
+                description = "유황 가시가 뭉친 섬유질, 중독 연성 포션 조합에 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.VOLCANO
+            )
+        )
+
+        // COAST 지역 – UNCOMMON 재료 8종
+        materialRepository.save(
+            Material(
+                name = "Tidalwreath Shell",
+                description = "조수의 고리 모양으로 빚어진 껍데기, 순환 물리 보호막 포션에 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Saltglimmer Pearl",
+                description = "염분을 머금은 진주, 마법 장신구 윤활제로 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Brineheart Essence",
+                description = "심해의 염류 정수, 수분 회복 포션 강화재로 활용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Marid's Tear",
+                description = "물 정령의 눈물로 만들어진 액체, 정령 소환 의식에 필수적인 재료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Surgeleaf Frond",
+                description = "파도의 힘을 머금은 잎사귀, 속도 강화 물약 부재료다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Abyssal Sand",
+                description = "심해 퇴적물이 섞인 모래, 깊은 수중 탐사 포션 원료로 사용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Corallight Spore",
+                description = "빛을 발하는 산호 균사체, 재생 속성 물약에 쓰인다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+        materialRepository.save(
+            Material(
+                name = "Driftwood Resin",
+                description = "해류에 깎인 나무 수지, 접착 및 방수 연고 재료로 활용된다.",
+                itemRarity = ItemRarity.UNCOMMON,
+                dropArea = FieldType.COAST
+            )
+        )
+
+        /**
+         * 추가 RARE 재료
+         */
+
+        materialRepository.save(Material(
+            name = "Spiritroot Bloom",
+            description = "숲의 깊은 뿌리에서 피어난 꽃으로, 정령 소환 및 자연 계열 주문의 힘을 증폭한다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Mysticfern Frond",
+            description = "비전의 기운이 깃든 양치식물 잎사귀로, 마나 회복 포션 및 마법 도구 강화에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Whisperbark Fragment",
+            description = "고요한 숲의 나무껍질 파편으로, 소리 흡수 및 은신 주문에 필수적인 재료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.FOREST
+        ))
+
+        // DESERT 지역 – RARE 재료 3종 추가
+        materialRepository.save(Material(
+            name = "Shifting Sandstone",
+            description = "영원히 흘러가는 모래처럼 부드럽게 움직이는 사암 결정으로, 공간 변경 주문의 핵심 재료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Mirage Orchid Petal",
+            description = "오아시스의 환영난초 꽃잎으로, 착시 마법 및 인식 교란 포션에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Solarflare Prism",
+            description = "태양빛을 굴절시키는 프리즘 결정체로, 빛 계열 주문을 강력히 증폭한다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.DESERT
+        ))
+
+        // GLACIER 지역 – RARE 재료 3종 추가
+        materialRepository.save(Material(
+            name = "Frostshard Prism",
+            description = "냉기를 굴절시키는 수정 파편으로, 빙속성 포션 및 주문 강화에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Icebound Spine",
+            description = "얼어붙은 식물의 가시로, 냉기 함정 제작 및 방패 주문 강화에 필수적인 재료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Silentsnow Pearl",
+            description = "고요한 눈밭에서 채취한 진주로, 은폐 및 잠행 마법 강화 재료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.GLACIER
+        ))
+
+        // VOLCANO 지역 – RARE 재료 3종 추가
+        materialRepository.save(Material(
+            name = "Pyrestone Shard",
+            description = "불꽃을 머금은 돌 파편으로, 화염 함정 및 폭발 주문 강화에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Scoriaheart Fragment",
+            description = "용암 암설 스코리아의 핵심 파편으로, 방어구 강화 룬 제작에 사용된다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Caldera Embergem",
+            description = "칼데라 깊은 곳에서 채취한 불꽃 결정체로, 폭발 마법 증폭에 필수적이다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.VOLCANO
+        ))
+
+        // COAST 지역 – RARE 재료 3종 추가
+        materialRepository.save(Material(
+            name = "Maelstrom Pearl",
+            description = "소용돌이 속에서 형성된 진주로, 어둠 속성 주문 및 방어 강화에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Coralshadow Spire",
+            description = "산호의 어둠 기운이 응축된 결정으로, 은폐 및 환각 주문 증폭에 사용된다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Tsunami Shard",
+            description = "거대한 해일의 잔재가 깃든 수정 파편으로, 물 속성 폭발 주문 강화에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.COAST
+        ))
+
+        // FOREST 지역 – RARE 재료 3종
+        materialRepository.save(Material(
+            name = "Eldergrove Sap",
+            description = "수백 년 된 고목에서 채취한 진액으로, 초자연적 치유력을 지닌 전설級 포션 재료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Moonpetal Nectar",
+            description = "달빛을 머금은 꽃잎에서 추출한 꿀로, 야간 증폭 및 정신 강화 포션에 사용된다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Radiantwood Core",
+            description = "숲의 정수가 응축된 나무 심장부로, 마법 장비 강화 및 룬 문양 각인 재료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.FOREST
+        ))
+
+        // DESERT 지역 – RARE 재료 3종
+        materialRepository.save(Material(
+            name = "Sunforged Amber",
+            description = "사막의 태양열로 단단해진 호박으로, 태양 속성 주문 증폭에 탁월한 재료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Duneblood Pearl",
+            description = "모래 폭풍 속 희귀 조개에서 얻은 진주로, 열 저항 및 체력 회복 포션에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Scorchfire Essence",
+            description = "불타는 모래바람의 정수를 응축한 액체로, 파괴 속성 포션과 폭발물 제작에 필수적이다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.DESERT
+        ))
+
+        // GLACIER 지역 – RARE 재료 3종
+        materialRepository.save(Material(
+            name = "Everfrost Heart",
+            description = "영겁의 냉기가 결정화된 수정 심장으로, 강력한 냉기 속성 주문 제작에 사용된다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Hailstone Core",
+            description = "우박의 핵심 에너지를 압축한 결정체로, 방어력 강화 물약 및 보호막 주문 부재료로 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Aurorafrost Crystal",
+            description = "북극광의 빛을 담은 얼음 수정으로, 시각 교란 및 매혹 주문 강화에 활용된다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.GLACIER
+        ))
+
+        // VOLCANO 지역 – RARE 재료 3종
+        materialRepository.save(Material(
+            name = "Obsidianheart Core",
+            description = "용암이 식어 응결된 흑요석 핵으로, 방어구 및 무기 룬 각인에 사용된다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Infernalsteel Fragment",
+            description = "지옥불꽃이 통과한 금속 조각으로, 화염 속성 무기 및 갑옷 강화에 탁월하다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Volcanic Embergem",
+            description = "용암심장에서 솟아난 불꽃 결정체로, 연소 주문 증폭 및 폭발물 제조에 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.VOLCANO
+        ))
+
+        // COAST 지역 – RARE 재료 3종
+        materialRepository.save(Material(
+            name = "Tidebound Coral",
+            description = "조수의 힘이 깃든 산호로, 해일 주문 및 수류 마법 강화에 사용된다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Seastorm Essence",
+            description = "폭풍 해양의 영혼을 응축한 정수로, 소환 및 보호 주문 부재료로 쓰인다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Moonlit Nautilus",
+            description = "달빛이 스며든 달팽이 껍데기로, 은폐 및 혼란 주문 강화 원료다.",
+            itemRarity = ItemRarity.RARE,
+            dropArea = FieldType.COAST
+        ))
+
+        /**
+         * 추가 UNIQUE 재료
+         */
+        materialRepository.save(Material(
+            name = "Heartwood of the Ancients",
+            description = "고대의 심장부에서 채취한 특별한 나무 심지로, 최고의 생명력 증강 마법에 사용되는 유일한 재료다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Sylvan Soulseed",
+            description = "숲의 정령이 깃든 씨앗으로, 자연의 근원을 깨우는 소환 의식에 필수적인 재료다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Verdantwyrm Scale",
+            description = "전설 속 숲의 용 비늘 조각으로, 대자연의 보호막 주문에 단 하나뿐인 강화제로 쓰인다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Celestial Sporecluster",
+            description = "별빛과 숲의 생기가 결합된 희귀 포자 송이로, 치유와 재생 마법에 혁명적인 힘을 부여한다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.FOREST
+        ))
+
+        // DESERT 지역 – UNIQUE 재료 4종
+        materialRepository.save(Material(
+            name = "Duneshaper's Hourglass",
+            description = "모래의 흐름을 담은 유리 모래시계로, 시간 조작 주문에 단 하나뿐인 핵심 재료다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Sandwyrm's Fang",
+            description = "사막의 모래벌레 이빨로, 고대의 늙은 모래벌레가 남긴 희귀한 독성 강화제로 쓰인다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Mirageheart Opal",
+            description = "환영 속에서만 빛나는 오팔로, 현실 왜곡 및 환각 마법의 근원 재료다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Scorched Sunfire Sigil",
+            description = "태양의 정수를 담아 불타는 주술로 새겨진 고대 문장, 화염 마법 연구에 필수적이다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.DESERT
+        ))
+
+        // GLACIER 지역 – UNIQUE 재료 4종
+        materialRepository.save(Material(
+            name = "Frostwyrm's Heart",
+            description = "빙설 속 고대 용의 심장 결정으로, 극한의 냉기 마법에 단 하나뿐인 힘을 부여한다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Echo of the Eternal Winter",
+            description = "영원의 한기를 담은 숨결 결정체로, 시간과 공간을 얼려버리는 마법에 사용된다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Glacial Wyrmscale",
+            description = "빙하의 용 비늘 조각으로, 방어와 냉기 반사 마법 강화에 유일한 핵심 재료다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Celestine Iceheart",
+            description = "별빛이 응결된 얼음 결정으로, 신성한 냉기 주문 및 보호막 생성에 쓰인다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.GLACIER
+        ))
+
+        // VOLCANO 지역 – UNIQUE 재료 4종
+        materialRepository.save(Material(
+            name = "Molten Titan Core",
+            description = "거대한 화산 거인의 핵심 에너지가 응축된 결정체로, 강력한 화염 파괴 주문의 원천이다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Embermaw Scale",
+            description = "용암 속 용의 비늘로, 극한 화염 방어와 반격 주문에 단 하나뿐인 강화제로 쓰인다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Inferno Serpent Eye",
+            description = "화염의 뱀 정수로 이루어진 수정 구슬로, 불속성 집중 및 폭발 마법에 유일하게 사용된다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Pyroclast Heartstone",
+            description = "화산 분출물의 심장이 응결된 돌로, 화염 속성 주문 및 방어구 룬 조각에 필요하다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.VOLCANO
+        ))
+
+        // COAST 지역 – UNIQUE 재료 4종
+        materialRepository.save(Material(
+            name = "Soul of the Leviathan",
+            description = "심연의 괴물 레비아탄의 영혼 정수로, 해일 소환 및 해양 정령 마법에 필수적이다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Abyssal Pearlheart",
+            description = "심해의 심장부에서 채취한 진주 결정으로, 깊은 수중 마법과 치유에 유일한 힘을 준다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Tidalwyrm Scale",
+            description = "해양의 용 비늘로, 물 속성 방어와 정화 주문 강화에 단 하나뿐인 핵심 재료다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Tempestborn Shell",
+            description = "폭풍에 탄생한 조개껍질로, 폭풍 소환 및 대기 마법 연구에 필수적인 재료다.",
+            itemRarity = ItemRarity.UNIQUE,
+            dropArea = FieldType.COAST
+        ))
+
+        // FOREST 지역 – EPIC 재료 3종
+        materialRepository.save(Material(
+            name = "Arcaneleaf Petal",
+            description = "고대 숲의 마법 기운이 깃든 꽃잎으로, 강력한 자연 계열 마법 증폭제 역할을 한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Eldershade Bud",
+            description = "숲의 어두운 장막 속에서 피어난 꽃봉오리로, 은신 및 그림자 마법에 극대화된 효과를 부여한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.FOREST
+        ))
+        materialRepository.save(Material(
+            name = "Sylvanmoon Nectar",
+            description = "달빛 아래서만 채취할 수 있는 꿀로, 치유와 보호의 자연 마법을 비약적으로 강화한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.FOREST
+        ))
+
+        // DESERT 지역 – EPIC 재료 3종
+        materialRepository.save(Material(
+            name = "Sunsorrow Catalyst",
+            description = "사막의 뜨거운 태양열을 응축한 수정으로, 파괴적인 태양 속성 주문을 폭발적으로 증폭한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Duneburst Essence",
+            description = "모래 폭풍의 진수를 농축한 액체로, 공간 변형 및 모래 속성 마법에 막대한 시너지 효과를 제공한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.DESERT
+        ))
+        materialRepository.save(Material(
+            name = "Mirageflame Heart",
+            description = "환영과 불꽃이 공존하는 심장 결정체로, 착시와 화염 속성의 복합 마법을 구현하는 핵심 재료다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.DESERT
+        ))
+
+        // GLACIER 지역 – EPIC 재료 3종
+        materialRepository.save(Material(
+            name = "Cryostone Shard",
+            description = "극한의 냉기가 응결된 수정 파편으로, 얼음 마법의 위력을 한층 더 극대화시킨다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Winterborn Echo",
+            description = "영원의 한기를 담은 메아리 결정으로, 시간 동결 및 강력한 보호막 주문에 필수적인 재료다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.GLACIER
+        ))
+        materialRepository.save(Material(
+            name = "Glacialweave Thread",
+            description = "빙결 에너지가 실처럼 엮인 섬유로, 얼음 방어구 및 마법 도구의 성능을 극대화한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.GLACIER
+        ))
+
+        // VOLCANO 지역 – EPIC 재료 3종
+        materialRepository.save(Material(
+            name = "Eternalflame Essence",
+            description = "용암의 영원한 불꽃 기운을 농축한 정수로, 불속성 파괴 마법을 극도로 강화한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Pyrofury Shard",
+            description = "격렬한 화염 폭풍 속에서 얻은 수정 파편으로, 폭발 및 화염 함정 마법에 치명적인 위력을 제공한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.VOLCANO
+        ))
+        materialRepository.save(Material(
+            name = "Magmaforged Ember",
+            description = "화산 속 태고의 불씨를 간직한 잔광으로, 무기 룬 각인과 방어구 강화에 최상의 결과를 낸다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.VOLCANO
+        ))
+
+        // COAST 지역 – EPIC 재료 3종
+        materialRepository.save(Material(
+            name = "Stormtide Essence",
+            description = "폭풍 해일의 거센 기운을 압축한 액체로, 물과 바람 마법을 동시에 증폭하는 만능 재료다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Aegir's Breath",
+            description = "심해의 신 아에기르의 숨결을 담은 결정으로, 해양 정령 소환 및 보호 주문에 절대적인 힘을 부여한다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.COAST
+        ))
+        materialRepository.save(Material(
+            name = "Seastar Prism",
+            description = "바닷속 별빛이 결정화된 프리즘으로, 치유와 방어를 동시에 수행하는 고급 마법에 사용된다.",
+            itemRarity = ItemRarity.EPIC,
+            dropArea = FieldType.COAST
+        ))
+
+        // FOREST 지역 – LEGENDARY 재료 1종
+        materialRepository.save(Material(
+            name = "Primordial Sylva Root",
+            description = "원초적 숲의 정신이 응결된 뿌리 심장으로, 자연 마법을 완전하게 재창조하는 전설급 재료다.",
+            itemRarity = ItemRarity.LEGENDARY,
+            dropArea = FieldType.FOREST
+        ))
+
+        // DESERT 지역 – LEGENDARY 재료 1종
+        materialRepository.save(Material(
+            name = "Pharaohstone of the Eternal Dunes",
+            description = "영원의 사막을 지키는 고대 파라오의 유물로, 시간과 모래를 다스리는 전설급 마법의 핵심 원료다.",
+            itemRarity = ItemRarity.LEGENDARY,
+            dropArea = FieldType.DESERT
+        ))
+
+        // GLACIER 지역 – LEGENDARY 재료 1종
+        materialRepository.save(Material(
+            name = "Heart of the Endless Tundra",
+            description = "끝없는 툰드라의 심장 결정체로, 세계를 얼리는 절대 냉기 마법에 필요한 전설급 재료다.",
+            itemRarity = ItemRarity.LEGENDARY,
+            dropArea = FieldType.GLACIER
+        ))
+
+        // VOLCANO 지역 – LEGENDARY 재료 1종
+        materialRepository.save(Material(
+            name = "Core of the Primordial Volcano",
+            description = "원시 화산의 핵 에너지를 봉인한 결정으로, 대지를 불태우는 전설급 재앙 마법의 원천이다.",
+            itemRarity = ItemRarity.LEGENDARY,
+            dropArea = FieldType.VOLCANO
+        ))
+
+        // COAST 지역 – LEGENDARY 재료 1종
+        materialRepository.save(Material(
+            name = "Abyssal Monolith Crystal",
+            description = "심해의 광맥이 응결된 모노리스 결정으로, 해양 대마법의 중심이 되는 전설급 재료다.",
+            itemRarity = ItemRarity.LEGENDARY,
+            dropArea = FieldType.COAST
+        ))
+
 
         /**
          * 숲 장비 아이템
@@ -2818,7 +3775,7 @@ class TestComponentSetting(
     }
 
     @PostConstruct
-    fun cardInit(){
+    fun cardInit() {
         val playerCards: List<PlayerCard> = listOf(
             PlayerCard(
                 battlePhase = BattlePhase.PREPARATION,
@@ -3049,11 +4006,11 @@ class TestComponentSetting(
             )
         )
 
-        playerCards.forEach{
+        playerCards.forEach {
             cardService.savePlayerCard(it)
         }
 
-        monsterCards.forEach{
+        monsterCards.forEach {
             cardService.saveMonsterCard(it)
         }
 
@@ -3512,11 +4469,11 @@ class TestComponentSetting(
             )
         )
 
-        playerCardsTwo.forEach{
+        playerCardsTwo.forEach {
             cardService.savePlayerCard(it)
         }
 
-        monsterCardsTwo.forEach{
+        monsterCardsTwo.forEach {
             cardService.saveMonsterCard(it)
         }
 

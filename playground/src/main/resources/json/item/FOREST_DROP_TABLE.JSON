@@ -1,35 +1,84 @@
 {
   "COMMON": [
-    "HerbLeaf",
-    "Twig",
-    "MossStone",
-    "ForestGrass",
-    "BarkChip",
-    "BugCarapace"
+    "Twisted Vine Fiber",
+    "Fernscale Bark",
+    "Dryleaf Bundle",
+    "Twigknit Cord",
+    "Barkcloth Strip",
+    "Dewdrop Pearl",
+    "Mushcap Sponge",
+    "Whispering Vine Tip",
+    "Mossglisten Pebble",
+    "Dewspun Moss",
+    "Shadowleaf Pod",
+    "Quietmoss Cloth",
+    "Blightthorn Sprig",
+    "Starpetal Dust",
+    "Moonshroud Bark",
+    "Glimmerfern Frond",
+    "Emberroot Shard",
+    "Faefoam Pellet",
+    "Fairydew Droplet",
+    "Morningsong Mushroom",
+    "Bramblekin Thistle"
   ],
   "UNCOMMON": [
-    "OakBranch",
-    "MushroomSpore",
-    "StickySap",
-    "WildBerry",
-    "AntlerHorn"
+    "Amber Sap",
+    "Wolfroot Tendon",
+    "Sporecap Dust",
+    "Thornvine Stem",
+    "Vinesilk Thread",
+    "Thistle Dust",
+    "Barkling Jawbone",
+    "Echoflora Bloom",
+    "Sylphwing Petal",
+    "Gloomshroud Spore",
+    "Verdantstem Shoot",
+    "Gladeheart Sap",
+    "Thornvale Spike",
+    "Wilderwood Essence",
+    "Spiritbloom Pollen"
   ],
   "RARE": [
-    "ForestCrystal",
-    "EmeraldMoss",
-    "Moonroot",
-    "SilverLeaf"
+    "Direwolf Hide",
+    "Oakheart Shard",
+    "Elderseed Resin",
+    "Timberwolf Fang",
+    "Glowlily Petal",
+    "Lifebloom Nectar",
+    "Willowfang Chip",
+    "Dryad's Whisper Leaf",
+    "Spiritroot Bloom",
+    "Mysticfern Frond",
+    "Whisperbark Fragment",
+    "Eldergrove Sap",
+    "Moonpetal Nectar",
+    "Radiantwood Core"
   ],
   "EPIC": [
-    "AncientTreeHeart",
-    "DruidStone",
-    "MysticMushroom"
+    "Luminous Spores",
+    "Barkwyrm Spine",
+    "Sylvan Boneplate",
+    "Echoing Bark",
+    "Spiritbark Resin",
+    "Moonroot Shard",
+    "Arcaneleaf Petal",
+    "Eldershade Bud",
+    "Sylvanmoon Nectar"
   ],
   "UNIQUE": [
-    "VerdantSpiritCore",
-    "Nature's Embrace"
+    "Ancestor’s Sap",
+    "Heartwood Branch",
+    "Heartwood of the Ancients",
+    "Sylvan Soulseed",
+    "Verdantwyrm Scale",
+    "Celestial Sporecluster"
   ],
   "LEGENDARY": [
-    "WhisperingSeed"
+    "Sylvan Heart Core",
+    "Verdant Sigil Stone",
+    "Elderleaf Emblem",
+    "Songstone Fragment",
+    "Primordial Sylva Root"
   ]
 }
