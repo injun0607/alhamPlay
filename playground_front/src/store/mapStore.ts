@@ -34,7 +34,7 @@ const createInitialMap = (): MapTile[][] => {
 export const useMapStore = create<MapStore>()((set, get) => ({
   mapData: {
     tiles: createInitialMap(),
-    size: { width: 10, height: 10 }
+    size: { width: 5, height: 5 }
   },
   currentPosition: { x: 0, y: 0 },
   
