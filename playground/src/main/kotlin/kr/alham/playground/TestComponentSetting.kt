@@ -1,6 +1,7 @@
 package kr.alham.playground
 
 import jakarta.annotation.PostConstruct
+import kr.alham.playground.domain.area.FieldArea
 import kr.alham.playground.domain.area.FieldType
 import kr.alham.playground.domain.card.MonsterCard
 import kr.alham.playground.domain.card.PlayerCard
@@ -13,6 +14,7 @@ import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.EquipmentType
 import kr.alham.playground.domain.item.ItemRarity
 import kr.alham.playground.domain.item.Material
+import kr.alham.playground.repository.area.FieldAreaRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import kr.alham.playground.service.card.CardService
@@ -22,7 +24,8 @@ import org.springframework.stereotype.Component
 class TestComponentSetting(
     private val equipmentRepository: EquipmentRepository,
     private val materialRepository: MaterialRepository,
-    private val cardService: CardService
+    private val cardService: CardService,
+    private val fieldAreaRepository: FieldAreaRepository
 
 ) {
     @PostConstruct
@@ -5165,6 +5168,49 @@ class TestComponentSetting(
         }
 
 
+    }
+
+    @PostConstruct
+    fun initField(){
+        fieldAreaRepository.save(
+            FieldArea(
+                name = "ForestArea",
+                description = "깊고 넓은 숲",
+                fieldType = FieldType.FOREST,
+            )
+        )
+
+        fieldAreaRepository.save(
+            FieldArea(
+                name = "VolcanoArea",
+                description = "용암이 있는 화산 지역",
+                fieldType = FieldType.VOLCANO,
+            )
+        )
+
+        fieldAreaRepository.save(
+            FieldArea(
+                name = "GlacierArea",
+                description = "얼음과 눈으로 뒤덮인 빙하 지역",
+                fieldType = FieldType.GLACIER,
+            )
+        )
+
+        fieldAreaRepository.save(
+            FieldArea(
+                name = "CoastalArea",
+                description = "바다와 해변이 있는 해안 지역",
+                fieldType = FieldType.COAST,
+            )
+        )
+
+        fieldAreaRepository.save(
+            FieldArea(
+                name = "DesertArea",
+                description = "뜨겁고 건조한 사막 지역",
+                fieldType = FieldType.DESERT,
+            )
+        )
     }
 
 

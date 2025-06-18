@@ -8,6 +8,7 @@ import kr.alham.playground.dto.gather.GatherMaterialDTO
 import kr.alham.playground.service.area.AreaService
 import kr.alham.playground.service.gather.GatherService
 import kr.alham.playground.service.inventory.InventoryService
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/field")
+@CrossOrigin(origins = ["*"])
 class FieldController(
     private val areaService: AreaService,
     private val gatherService: GatherService,
@@ -24,8 +26,8 @@ class FieldController(
 ) {
 
 
-    @GetMapping("/{fieldType}/{fieldId}")
-    fun getFieldArea(@PathVariable fieldType: String,
+    @GetMapping("/{fieldId}")
+    fun getFieldArea(
                      @PathVariable fieldId: Long
     ): FieldAreaDTO{
         val fieldArea = areaService.findFieldArea(fieldId)

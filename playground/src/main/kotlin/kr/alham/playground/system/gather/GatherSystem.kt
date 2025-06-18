@@ -39,7 +39,7 @@ class GatherSystem(
         val dropItems = dropTable[pickedItemRarity]
             ?: throw IllegalArgumentException("No items found for rarity: $pickedItemRarity")
 
-        return MaterialDTO(itemRarity, dropItems.random())
+        return MaterialDTO(pickedItemRarity, dropItems.random())
     }
 
 
