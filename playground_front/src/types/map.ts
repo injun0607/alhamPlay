@@ -1,5 +1,23 @@
 export type TileType = 'EXPLORE' | 'PEACE';
 
+export interface FieldDataDTO{
+  name: string;
+  description: string;
+  fieldType: string;
+}
+
+
+export interface GatherMaterialDTO{
+  areaId: number | null;
+  x: number | null;
+  y: number | null;
+}
+
+export interface MaterialDTO{
+
+}
+
+
 export interface TileAction {
   type: 'EXPLORE' | 'GATHER' | 'MOVE' | 'MAP_MOVE' | 'INN' | 'BLACKSMITH' | 'MARKET' | 'GUILD';
   available: boolean;

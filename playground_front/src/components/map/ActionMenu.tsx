@@ -1,45 +1,47 @@
 'use client'
 
-import { useMapStore } from '@/store/mapStore';
-import { useGameStore } from '@/store/gameStore';
+import { GatherMaterialDTO } from '@/types/map';
 
-export const ActionMenu = () => {
-  const { currentPosition, mapData } = useMapStore();
-  const { startGathering, isGathering } = useGameStore();
-  const currentTile = mapData.tiles[currentPosition.y][currentPosition.x];
+interface ActionMenuProps{
+  gatherInfo: GatherMaterialDTO;
+}
+
+export const ActionMenu = ({gatherInfo}: ActionMenuProps) => {
+  
+  const {areaId, x, y} = gatherInfo;
+
+
 
   const handleAction = (action: string) => {
+    if(areaId === null || x === null || y === null){
+      alert('채집 위치를 선택해주세요.');
+      return;
+    }
+
     switch (action) {
       case 'GATHER':
-        if (!isGathering) {
-          startGathering();
-        }
+        
+        alert('채집 ' + areaId + ' ' + x + ' ' + y);
         break;
       case 'EXPLORE':
-        // TODO: 탐험 기능 구현
+        alert('모험 ' + areaId + ' ' + x + ' ' + y);
         break;
     }
   };
 
   return (
-    <div className="mt-4 p-4 bg-white rounded-lg shadow">
-      <h3 className="text-lg font-semibold mb-2">행동 선택</h3>
-      <div className="grid grid-cols-2 gap-2">
-        <button
-          onClick={() => handleAction('EXPLORE')}
-          className="p-3 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
-        >
-          탐험
+    <div>
+      {/* 하단 선택지 */}
+      <div className="flex gap-4 mt-4">
+        <button 
+        onClick={() => handleAction('GATHER')}
+        className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+          채집
         </button>
-        <button
-          onClick={() => handleAction('GATHER')}
-          disabled={isGathering}
-          className={`
-            p-3 text-white rounded transition-colors
-            ${isGathering ? 'bg-gray-400 cursor-not-allowed' : 'bg-yellow-500 hover:bg-yellow-600'}
-          `}
-        >
-          {isGathering ? '채집 중...' : '채집'}
+        <button 
+        onClick={() => handleAction('EXPLORE')}
+        className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+          모험
         </button>
       </div>
     </div>
