@@ -1,51 +1,90 @@
 'use client'
 
 import { create } from 'zustand';
-import { Inventory, InventoryItem, ResourceType } from '@/types/inventory';
+import { UserInventory, EquipmentInventory, MaterialInventory } from '@/types/inventory';
+import { ItemType, ItemRarity } from '@/types/item';
+import { axiosInstance } from '@/hooks/common/axiosInstance';
 
-export const useInventoryStore = create<Inventory>()((set) => ({
-  items: [],
+// 타입을 직접 정의
+interface EquipmentInventoryItemDTO {
+  id: number;
+  name: string;
+  description: string;
+  type: ItemType;
+  itemRarity: ItemRarity;
+  itemOrder: number;
+}
+
+interface MaterialInventoryItemDTO {
+  id: number;
+  name: string;
+  description: string;
+  type: ItemType;
+  itemRarity: ItemRarity;
+  itemOrder: number;
+}
+
+interface InventoryStore {
+  equipmentInventory: EquipmentInventory;
+  materialInventory: MaterialInventory;
+  isInventoryInitialized: boolean;
+  initInventory: (initData: UserInventory) => void;
+  addItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => void;
+  removeItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => void;
+}
+
+export const InventoryStore = create<InventoryStore>()((set) => ({
+  equipmentInventory: {
+    equipmentItemList: [],
+  },
+  materialInventory: {
+    materialItemList: [],
+  },
+  isInventoryInitialized: false,
   
-  addItem: (type: ResourceType) => {
+  initInventory: (initData: UserInventory) => {
+    set({
+      equipmentInventory: initData.playerEquipmentInventory,
+      materialInventory: initData.playerMaterialInventory,
+      isInventoryInitialized: true
+    })
+  },
+
+  addItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => {
     set((state) => {
-      // 같은 타입의 아이템이 있는지 확인
-      const existingItem = state.items.find(item => item.type === type);
-      
-      if (existingItem) {
-        // 이미 있는 아이템의 수량 증가
+      if(item.type === "EQUIPMENT"){
         return {
-          items: state.items.map(item =>
-            item.id === existingItem.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          )
-        };
-      } else {
-        // 새로운 아이템 추가
-        const newItem: InventoryItem = {
-          id: crypto.randomUUID(),
-          type,
-          quantity: 1,
-          createdAt: Date.now()
-        };
-        return { items: [...state.items, newItem] };
+          equipmentInventory: {
+            equipmentItemList: [...state.equipmentInventory.equipmentItemList, item]
+          }
+        }
       }
-    });
+      else{
+        return {
+          materialInventory: {
+            materialItemList: [...state.materialInventory.materialItemList, item]
+          }
+        }
+      }
+    })
   },
-  
-  removeItem: (id: string) => {
-    set((state) => ({
-      items: state.items.filter(item => item.id !== id)
-    }));
-  },
-  
-  updateItemQuantity: (id: string, quantity: number) => {
-    set((state) => ({
-      items: state.items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(0, quantity) }
-          : item
-      )
-    }));
+
+  removeItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => {
+    set((state) => {
+      if(item.type === "EQUIPMENT"){
+        return {
+          equipmentInventory: {
+            equipmentItemList: state.equipmentInventory.equipmentItemList.filter(i => i.id !== item.id)
+          }
+        }
+      }
+      else{
+        return {
+          materialInventory: {
+            materialItemList: state.materialInventory.materialItemList.filter(i => i.id !== item.id)
+          }
+        }
+      }
+    })
   }
-})); 
+}))

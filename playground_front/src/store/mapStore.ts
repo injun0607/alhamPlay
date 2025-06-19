@@ -1,7 +1,7 @@
 'use client'
 
 import { create } from 'zustand';
-import { MapData, MapTile, TileType, TileAction } from '../types/map';
+import { MapData, TileAction } from '../types/map';
 
 interface MapStore {
   mapData: MapData | null;
@@ -12,27 +12,6 @@ interface MapStore {
   getAvailableActions: () => TileAction[];
   fetchMapData: () => Promise<void>;
 }
-
-const createInitialMap = (): MapTile[][] => {
-  const map: MapTile[][] = [];
-  for (let y = 0; y < 5; y++) {
-    map[y] = [];
-    for (let x = 0; x < 5; x++) {
-      map[y][x] = {
-        position: { x, y },
-        type: 'EXPLORE', // 기본적으로 탐험맵으로 설정
-        actions: [
-          { type: 'EXPLORE', available: true },
-          { type: 'GATHER', available: true },
-          { type: 'MOVE', available: true },
-          { type: 'MAP_MOVE', available: true }
-        ],
-        explored: false
-      };
-    }
-  }
-  return map;
-};
 
 export const useMapStore = create<MapStore>()((set, get) => ({
   mapData: null,

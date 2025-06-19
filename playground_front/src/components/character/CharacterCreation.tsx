@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useCharacterStore } from '@/store/characterStore';
 import { useRouter } from 'next/navigation';
 
@@ -140,7 +140,6 @@ export const CharacterCreation = () => {
   const { setCharacterStats, addItemToInventory, setCharacterName } = useCharacterStore();
   const [name, setName] = useState("");
   const [selectedRegion, setSelectedRegion] = useState<RegionChoice | null>(null);
-  const [showNameInput, setShowNameInput] = useState(true);
   const [error, setError] = useState("");
 
   const handleRegionSelect = (region: RegionChoice) => {
@@ -182,18 +181,16 @@ export const CharacterCreation = () => {
         >
           <h2 className="text-2xl font-bold mb-6 text-center">기억 조각 - 성향 선택</h2>
           
-          {showNameInput && (
-            <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">이름을 입력하세요</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:border-blue-500"
-                placeholder="캐릭터 이름"
-              />
-            </div>
-          )}
+          <div className="mb-6">
+            <label className="block text-sm font-medium mb-2">이름을 입력하세요</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 bg-gray-800 rounded border border-gray-700 focus:outline-none focus:border-blue-500"
+              placeholder="캐릭터 이름"
+            />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {REGION_CHOICES.map((region) => (

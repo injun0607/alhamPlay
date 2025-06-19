@@ -11,7 +11,7 @@ const menuItems: { type: MenuType; icon: string; label: string }[] = [
 ];
 
 export const MainMenu = () => {
-  const { isOpen, currentMenu, openMenu, closeMenu } = useMenuStore();
+  const { currentMenu, openMenu } = useMenuStore();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const toggleMenu = () => {

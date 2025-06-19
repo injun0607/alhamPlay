@@ -41,7 +41,6 @@ export const BattlePhaseWrapper = ({ phase }: { phase: PhaseType }) => {
   useEffect(() => {
     // 현재 페이즈의 인덱스를 찾습니다
     const currentPhaseIndex = phaseOrder.indexOf(phase);
-    const currentPhaseKey = phase.toLowerCase() as keyof BattleStateType;
     
     // 이전 페이즈들이 완료되지 않았다면 첫 번째 미완료 페이즈로 이동
     for (let i = 0; i < currentPhaseIndex; i++) {
@@ -55,7 +54,7 @@ export const BattlePhaseWrapper = ({ phase }: { phase: PhaseType }) => {
 
     // 현재 페이즈 상태 설정
     moveToPhase(phase);
-  }, [phase, router, moveToPhase]);
+  }, [phase, router, moveToPhase, state]);
 
   return (
     <BattlePhaseScreen

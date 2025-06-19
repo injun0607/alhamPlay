@@ -1,7 +1,6 @@
 'use client'
 
 import { useMenuStore } from '@/store/menuStore';
-import { Inventory } from '../inventory/Inventory';
 import { MenuType } from '@/types/menu';
 
 const MenuContent = ({ type }: { type: MenuType }) => {
@@ -10,7 +9,6 @@ const MenuContent = ({ type }: { type: MenuType }) => {
       return (
         <div className="p-4">
           <h3 className="text-lg font-semibold mb-4">인벤토리</h3>
-          <Inventory />
         </div>
       );
     case '스킬':

@@ -1,4 +1,7 @@
+import { ItemRarity } from "./item";
+
 export type TileType = 'EXPLORE' | 'PEACE';
+
 
 export interface FieldDataDTO{
   name: string;
@@ -14,9 +17,9 @@ export interface GatherMaterialDTO{
 }
 
 export interface MaterialDTO{
-
+  itemRarity: ItemRarity,
+  name: string
 }
-
 
 export interface TileAction {
   type: 'EXPLORE' | 'GATHER' | 'MOVE' | 'MAP_MOVE' | 'INN' | 'BLACKSMITH' | 'MARKET' | 'GUILD';

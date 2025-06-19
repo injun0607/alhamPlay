@@ -1,9 +1,8 @@
 'use client'
 
+import React from 'react';
 import { useMapStore } from '@/store/mapStore';
-import { MapTile } from '@/types/map';
 import { useEffect } from 'react';
-import { Map } from './Map';
 import { MainMenu } from '../menu/MainMenu';
 import { MenuPanel } from '../menu/MenuPanel';
 

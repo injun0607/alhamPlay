@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, useCallback } from 'react';
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
 import { axiosInstance } from './axiosInstance';
-
 
 interface ApiResponse<T> {
     data: T | null;
@@ -16,7 +15,7 @@ interface UseApiOptions<T> {
     onError?: (error: AxiosError) => void;
 }
 
-export function useApi<T = any>(){
+export function useApi<T = unknown>(){
     const [state, setState] = useState<ApiResponse<T>>({
         data: null,
         loading: false,
@@ -38,7 +37,7 @@ export function useApi<T = any>(){
         }
     },[])
 
-    const post = useCallback(async <D = any>(url: string, data: D, options?: UseApiOptions<T>) => {
+    const post = useCallback(async <D = unknown>(url: string, data: D, options?: UseApiOptions<T>) => {
         try{
             setState(prev => ({...prev,loading:true,error:null}));
             const response = await axiosInstance.post<T>(url, data);
@@ -53,7 +52,7 @@ export function useApi<T = any>(){
         }
     },[])
 
-    const put = useCallback(async <D = any>(url: string, data: D, options?: UseApiOptions<T>) => {
+    const put = useCallback(async <D = unknown>(url: string, data: D, options?: UseApiOptions<T>) => {
         try{
             setState(prev => ({...prev, loading:true, error:null}));
             const response = await axiosInstance.put<T>(url, data);
@@ -89,5 +88,4 @@ export function useApi<T = any>(){
         put,
         del,
     }
-
 }

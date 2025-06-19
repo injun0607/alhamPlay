@@ -3,7 +3,7 @@
 import { create } from 'zustand';
 import { Character } from '@/types/character';
 import { ResourceType } from '@/types/inventory';
-import { useInventoryStore } from './inventoryStore';
+// import { useInventoryStore } from './inventoryStore';
 
 interface GameState {
   character: Character | null;
@@ -75,7 +75,7 @@ export const useGameStore = create<GameState>()((set, get) => ({
     set({ lastGatheredResource: randomResource });
     
     // 인벤토리에 아이템 추가
-    useInventoryStore.getState().addItem(randomResource);
+    // useInventoryStore.getState().addItem(randomResource);
     
     // TODO: 추후 블록체인 연동 시 여기에 자원 획득 로직 추가
     // 1. 맵의 자원 정보 확인 (블록체인)

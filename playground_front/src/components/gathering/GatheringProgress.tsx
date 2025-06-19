@@ -21,7 +21,7 @@ export const GatheringProgress = () => {
 
       if (progress >= 100) {
         clearInterval(interval);
-        const resource = gatherResource();
+        gatherResource();
         finishGathering();
         setShowResourceMessage(true);
         setTimeout(() => setShowResourceMessage(false), 3000);

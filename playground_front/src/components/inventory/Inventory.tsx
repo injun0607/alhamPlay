@@ -1,52 +1,47 @@
 'use client'
 
-import { useInventoryStore } from '@/store/inventoryStore';
+import { useState,useEffect } from "react";
 
-export const Inventory = () => {
-  const { items, removeItem, updateItemQuantity } = useInventoryStore();
+import MaterialInventoryTab from "./MaterialInventoryTab";
+import EquipmentInventoryTab from "./EquipmentInventoryTab";
+import { InventoryStore } from "@/store/inventoryStore";
+
+interface InventoryProps {
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+export default function Inventory({setIsOpen}:InventoryProps) {
+
+  const {materialInventory,equipmentInventory} = InventoryStore();
+  const [selectedTab,setSelectedTab] = useState("material");
+
+  
 
   return (
-    <div className="p-4">
-      <div className="space-y-2">
-        {items.length === 0 ? (
-          <p className="text-gray-500 text-center">인벤토리가 비어있습니다</p>
-        ) : (
-          items.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center justify-between p-2 bg-gray-50 rounded"
-            >
-              <div>
-                <span className="font-medium">{item.type}</span>
-                <span className="text-sm text-gray-500 ml-2">
-                  x{item.quantity}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
-                  className="text-gray-500 hover:text-gray-700"
-                  disabled={item.quantity <= 1}
-                >
-                  -
-                </button>
-                <button
-                  onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => removeItem(item.id)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  삭제
-                </button>
-              </div>
-            </div>
-          ))
-        )}
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 w-96 max-h-96">
+        {/* 탭 버튼들 */}
+        <div className="flex gap-2 mb-4">
+          <button 
+            onClick={() => setSelectedTab('material')}
+            className={`px-4 py-2 rounded ${selectedTab === 'material' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
+            재료
+          </button>
+          <button 
+            onClick={() => setSelectedTab('equipment')}
+            className={`px-4 py-2 rounded ${selectedTab === 'equipment' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
+            장비
+          </button>
+        </div>
+        
+        {/* 탭 내용 */}
+        {selectedTab === 'material' ? <MaterialInventoryTab materialInventory={materialInventory} /> : <EquipmentInventoryTab equipmentInventory={equipmentInventory} />}
+        <button onClick={() => setIsOpen(false)} className="mt-4 px-4 py-2 bg-gray-300 rounded">
+          닫기
+        </button>
       </div>
     </div>
-  );
-}; 
+  )
+}

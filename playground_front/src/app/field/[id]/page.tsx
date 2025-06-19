@@ -2,20 +2,19 @@
 
 import React, { useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { useApi } from '@/hook/common/useApi';
-import { FieldData } from '@/types/map';
+import { useApi } from '@/hooks/common/useApi';
+import { FieldDataDTO } from '@/types/map';
 import { Map } from '@/components/map/Map';
-import { ActionMenu } from '@/components/map/ActionMenu';
 
 export default function FieldPage() {
     const params = useParams();
     const id = Number(params.id);
     
-    const { data: fieldData, loading, error, get } = useApi<FieldData>();
+    const { data: fieldData, loading, error, get } = useApi<FieldDataDTO>();
 
     useEffect(() => {
         get(`/field/${id}`);
-    }, [id]);
+    }, [id, get]);
 
     if (loading) return <div>Loading... </div>;
     if (error) return <div>Error: {error}</div>;

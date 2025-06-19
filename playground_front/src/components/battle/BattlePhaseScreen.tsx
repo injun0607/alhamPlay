@@ -7,7 +7,6 @@ import { Card, PhaseType, BattlePhase } from '@/types/battle';
 import { FaArrowRight } from 'react-icons/fa';
 import { tsParticles } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
-import type { Container, Engine } from "@tsparticles/engine";
 
 interface BattlePhaseScreenProps {
   phaseType: PhaseType;
@@ -31,13 +30,11 @@ const TUTORIAL_MAX_MANA = 10;
 const CARD_MANA_COST = 2; // 각 카드의 기본 마나 소모량
 
 export const BattlePhaseScreen = ({ phaseType, onPhaseComplete, onBack }: BattlePhaseScreenProps) => {
-  const { battleState, userCards, setPhaseCards, completePhase, moveToPhase } = useBattleStore();
+  const { battleState, userCards, setPhaseCards, completePhase } = useBattleStore();
   const [selectedCards, setSelectedCards] = useState<OrderedCard[]>([]);
-  const [currentMana, setCurrentMana] = useState(TUTORIAL_MAX_MANA);
   const [isCompleting, setIsCompleting] = useState(false);
 
   const availableCards = userCards.filter(card => card.phaseType === phaseType);
-  const currentPhaseState = battleState[phaseType.toLowerCase() as keyof typeof battleState] as BattlePhase;
 
   // 이전 상태 복원을 위한 useEffect
   useEffect(() => {
@@ -96,18 +93,6 @@ export const BattlePhaseScreen = ({ phaseType, onPhaseComplete, onBack }: Battle
     onPhaseComplete?.();
   };
 
-  const handleBack = () => {
-    // 현재 상태 저장
-    setPhaseCards(phaseType, selectedCards);
-    
-    const previousPhase = phaseType === 'PHASE2' ? 'PHASE1' : 
-                         phaseType === 'PHASE3' ? 'PHASE2' : null;
-    
-    if (previousPhase) {
-      moveToPhase(previousPhase);
-      onBack?.();
-    }
-  };
 
   // 마나 게이지 컴포넌트
   const ManaGauge = () => {
