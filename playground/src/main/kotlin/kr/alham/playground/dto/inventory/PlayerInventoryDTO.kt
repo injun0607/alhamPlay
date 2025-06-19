@@ -22,7 +22,7 @@ data class PlayerMaterialInventoryDTO(
 }
 
 data class PlayerMaterialInventoryItemDTO(
-    val materialId: Long,
+    val id: Long,
     val name: String,
     val description: String,
     val type: ItemType,
@@ -42,7 +42,7 @@ data class PlayerEquipmentInventoryDTO(
 }
 
 data class PlayerEquipmentInventoryItemDTO(
-    val equipmentId: Long,
+    val id: Long,
     val name: String,
     val description: String,
     val type: ItemType,

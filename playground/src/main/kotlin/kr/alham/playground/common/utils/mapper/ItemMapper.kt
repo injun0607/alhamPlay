@@ -15,7 +15,7 @@ object ItemMapper{
             "Material ID cannot be null"
         }
         return PlayerMaterialInventoryItemDTO(
-            materialId = materialId,
+            id = materialId,
             itemOrder = materialInventoryItem.itemOrder,
             name = materialInventoryItem.material.name,
             type = materialInventoryItem.material.type,
@@ -33,7 +33,7 @@ object ItemMapper{
         }
 
         return PlayerEquipmentInventoryItemDTO(
-            equipmentId = equipmentId,
+            id = equipmentId,
             itemOrder = equipmentInventoryItem.itemOrder,
             name = equipmentInventoryItem.equipment.name,
             type = equipmentInventoryItem.equipment.type,
