@@ -3,7 +3,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { FieldDataDTO, GatherMaterialDTO,  MaterialDTO } from '@/types/map';
 import { ActionMenu } from './ActionMenu';
-import { useApi } from '@/hooks/common/useApi';
 import GatherProgressBar from './GatherProgressBar';
 
 interface MapProps {
@@ -12,17 +11,17 @@ interface MapProps {
 }
 
 export function Map({ id, fieldData }: MapProps) {
+
+  
+  const [isGathering, setIsGathering] = useState(false);
+  const [gatheringProgress, setGatheringProgress] = useState(0);
   const [gatherInfo, setGatherInfo] = useState<GatherMaterialDTO>({
     areaId: id,
     x: null,
     y: null
   });
-  const [isGathering, setIsGathering] = useState(false);
-  const [gatheringProgress, setGatheringProgress] = useState(0);
-  const [isGatheringComplete, setIsGatheringComplete] = useState(false);
+ 
 
-  // 백엔드 API 요청을 위한 훅
-  const { post: postGathering } = useApi<MaterialDTO>();
 
   const handleTileClick = (x: number, y: number) => {
     setGatherInfo(prev => ({
@@ -34,7 +33,7 @@ export function Map({ id, fieldData }: MapProps) {
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     // 방향키만 처리하고 다른 키는 무시
-    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key) || isGathering) {
       return;
     }
 
@@ -69,7 +68,7 @@ export function Map({ id, fieldData }: MapProps) {
       }
       return {...prev, x, y};
     })
-  },[])
+  },[isGathering])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -78,72 +77,11 @@ export function Map({ id, fieldData }: MapProps) {
     }
   },[handleKeyDown])
 
-  // 백엔드에 채집 결과 요청
-  const requestGatheringResult = useCallback(async () => {
-    try {
-      const result = await postGathering('/field/gather', gatherInfo);
-      if (result) {
-        showGatheringComplete(result);
-      }
-    } catch (error) {
-      console.error('채집 결과 요청 실패:', error);
-      // 에러 시 기본 자원 지급 (임시)
-      const fallbackResult: MaterialDTO = {
-           name: '나무', itemRarity: "COMMON"
-      };
-      showGatheringComplete(fallbackResult);
-    } finally {
-      setIsGatheringComplete(false);
-    }
-  },[]);
 
-  // 채집 완료 시 백엔드 요청
-  useEffect(() => {
-    if (isGatheringComplete && gatherInfo.x !== null && gatherInfo.y !== null) {
-      requestGatheringResult();
-    }
-  }, [isGatheringComplete, gatherInfo.x, gatherInfo.y, requestGatheringResult]);
+
 
   // 채집 시작 함수
-  const startGathering = () => {
-    setIsGathering(true);
-    setGatheringProgress(0);
-    
-    // 프로그레스 시뮬레이션 (실제로는 API 호출 시간에 맞춰 조정)
-    const interval = setInterval(() => {
-      setGatheringProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsGathering(false);
-          setIsGatheringComplete(true);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 50);
-  };
-
-  // 채집 완료 알림 표시
-  const showGatheringComplete = (result: MaterialDTO) => {
-    const notification = document.createElement('div');
-    notification.className = 'fixed bottom-4 left-4 bg-yellow-600 text-white p-3 rounded-lg border-2 border-yellow-400 z-50 min-w-48';
-    
-    const resourcesHtml = `<div class="text-sm">'📦' ${result.name} - ${result.itemRarity}</div>`
-    
-    
-    notification.innerHTML = `
-      <div class="font-bold">🎒 자원 획득!</div>
-      ${resourcesHtml}
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      if (document.body.contains(notification)) {
-        document.body.removeChild(notification);
-      }
-    }, 5000);
-  };
+  
 
   return (
     <div className="flex flex-col items-center gap-8 p-4">
@@ -193,10 +131,10 @@ export function Map({ id, fieldData }: MapProps) {
       </div>
       
       <ActionMenu 
-        gatherInfo={gatherInfo} 
+        gatherInfo={gatherInfo}
         isGathering={isGathering}
-        isGatheringComplete={isGatheringComplete}
-        onStartGathering={startGathering}
+        setIsGathering={setIsGathering}
+        setGatheringProgress={setGatheringProgress}
       />
     </div>
   );
