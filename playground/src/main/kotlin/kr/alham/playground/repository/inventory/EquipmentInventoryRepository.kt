@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository
 @Repository
 interface EquipmentInventoryRepository:JpaRepository<EquipmentInventory, Long> {
 
-    @Query("SELECT ei FROM EquipmentInventory ei JOIN FETCH ei.player LEFT JOIN FETCH ei.equipmentItemList WHERE ei.player.id = :playerId")
+    @Query("""SELECT ei FROM EquipmentInventory ei 
+            JOIN FETCH ei.player 
+            LEFT JOIN FETCH ei.equipmentItemList eil 
+            LEFT JOIN FETCH eil.equipment 
+            WHERE ei.player.id = :playerId""")
     fun findEquipmentInventoryByPlayerId(playerId: Long): EquipmentInventory?
 }

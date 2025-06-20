@@ -20,6 +20,7 @@ import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import kotlin.math.log
 
 @Service
 class InventoryService(
@@ -31,16 +32,21 @@ class InventoryService(
     private val materialRepository: MaterialRepository,
 ) {
 
+    //TODO() 뭔가 n+1문제있는것 같음 확인 필요
     fun getPlayerInventory(playerId: Long): PlayerInventoryDTO{
+        println("getPlayerInventory called with playerId: $playerId")
         val equipmentInventory =  getEquipmentInventoryByPlayerId(playerId)
+        println("Equipment Inventory check finished")
         val materialInventory = getMaterialInventoryByPlayerId(playerId)
-
+        println("Material Inventory check finished")
         val equipmentInventoryId = requireNotNull(equipmentInventory.id) { "Equipment inventory ID must not be null" }
         val materialInventoryId = requireNotNull(materialInventory.id) { "Material inventory ID must not be null" }
 
+        println("Equipment Inventory Check")
         val equipmentInventoryItemList = getEquipmentInventoryItemListByInventoryId(equipmentInventoryId)
         val materialInventoryItemList = getMaterialInventoryItemListByInventoryId(materialInventoryId)
 
+        println("Equipment Inventory Check Finished")
 
         val equipmentInventoryItemListDTO = equipmentInventoryItemList.map {
             ItemMapper.equipmentInventoryItemToDTO(it)

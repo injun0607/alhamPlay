@@ -14,7 +14,8 @@ import kr.alham.playground.repository.inventory.MaterialInventoryRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import kr.alham.playground.service.player.PlayerService
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -50,30 +51,30 @@ class InventoryServiceTest {
     lateinit var equipmentInventoryItemRepository: EquipmentInventoryItemRepository
 
     var equipmentOne : Equipment = Equipment(
-        name = "TestEquipment",
+        name = "TestEnvironmentTestEquipment",
         description = "Test Equipment Description"
     )
     var equipmentTwo : Equipment = Equipment(
-        name = "TestEquipment2",
+        name = "TestEnvironmentTestEquipment2",
         description = "Test Equipment Description 2"
     )
     var equipmentThree : Equipment = Equipment(
-        name = "TestEquipment3",
+        name = "TestEnvironmentTestEquipment3",
         description = "Test Equipment Description 3"
     )
 
     var materialOne: Material = Material(
-        name = "TestMaterial",
+        name = "TestEnvironmentTestMaterial",
         description = "Test Material Description"
     )
 
     var materialTwo: Material = Material(
-        name = "TestMaterial2",
+        name = "TestEnvironmentTestMaterial2",
         description = "Test Material Description 2"
     )
 
     var materialThree: Material = Material(
-        name = "TestMaterial3",
+        name = "TestEnvironmentTestMaterial3",
         description = "Test Material Description 3"
     )
 
@@ -132,7 +133,7 @@ class InventoryServiceTest {
         println("인벤토리확인")
         equipmentInventoryRepository.findEquipmentInventoryByPlayerId(1L)
         assertEquals(1, inventory.equipmentItemList.size)
-        assertEquals("TestEquipment", inventory.equipmentItemList[0].equipment.name)
+        assertEquals("TestEnvironmentTestEquipment", inventory.equipmentItemList[0].equipment.name)
 
         EquipmentInventoryItem.create(
             inventory,
@@ -142,7 +143,7 @@ class InventoryServiceTest {
         equipmentInventoryRepository.save(inventory)
 
         assertEquals(2, inventory.equipmentItemList.size)
-        assertEquals("TestEquipment2", inventory.equipmentItemList[1].equipment.name)
+        assertEquals("TestEnvironmentTestEquipment2", inventory.equipmentItemList[1].equipment.name)
 
     }
 
@@ -168,7 +169,7 @@ class InventoryServiceTest {
         println("인벤토리확인")
         materialInventoryRepository.findMaterialInventoryByPlayerId(1L)
         assertEquals(1, materialInventory.materialItemList.size)
-        assertEquals("TestMaterial", materialInventory.materialItemList[0].material.name)
+        assertEquals("TestEnvironmentTestMaterial", materialInventory.materialItemList[0].material.name)
 
         MaterialInventoryItem.create(
             materialInventory,
@@ -178,7 +179,7 @@ class InventoryServiceTest {
         materialInventoryRepository.save(materialInventory)
 
         assertEquals(2, materialInventory.materialItemList.size)
-        assertEquals("TestMaterial2", materialInventory.materialItemList[1].material.name)
+        assertEquals("TestEnvironmentTestMaterial2", materialInventory.materialItemList[1].material.name)
 
 
     }
@@ -201,8 +202,8 @@ class InventoryServiceTest {
         assertEquals(1, playerMaterialInventory.materialItemList.size)
 
         // 아이템 이름 확인
-        assertEquals("TestEquipment", playerEquipmentInventory.equipmentItemList[0].equipment.name)
-        assertEquals("TestMaterial", playerMaterialInventory.materialItemList[0].material.name)
+        assertEquals("TestEnvironmentTestEquipment", playerEquipmentInventory.equipmentItemList[0].equipment.name)
+        assertEquals("TestEnvironmentTestMaterial", playerMaterialInventory.materialItemList[0].material.name)
 
 
     }
@@ -220,9 +221,9 @@ class InventoryServiceTest {
         assertNotNull(inventoryItemList)
         assertEquals(3, inventoryItemList.size)
 
-        assertEquals("TestEquipment", inventoryItemList[0].equipment.name)
-        assertEquals("TestEquipment2", inventoryItemList[1].equipment.name)
-        assertEquals("TestEquipment3", inventoryItemList[2].equipment.name)
+        assertEquals("TestEnvironmentTestEquipment", inventoryItemList[0].equipment.name)
+        assertEquals("TestEnvironmentTestEquipment2", inventoryItemList[1].equipment.name)
+        assertEquals("TestEnvironmentTestEquipment3", inventoryItemList[2].equipment.name)
     }
 
 

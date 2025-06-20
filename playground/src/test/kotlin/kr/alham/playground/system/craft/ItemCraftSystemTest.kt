@@ -77,22 +77,34 @@ class ItemCraftSystemTest{
          */
 
         val ingredients = mapOf(
-            "WetGem" to 1,
-            "BeachSand" to 1,
-            "CrabClaw" to 1,
-            "DeepCoral" to 1
+            "Sandshell Fragment" to  1,
+            "Scorpionspine Chip" to 1,
+            "Sunburnt Gourd Husk" to 1,
+            "Zephyring Dust" to 1
         )
 
         val ingredients2 = mapOf(
-            "HellflameSoul" to 4
+            "Aridroot Tendril" to 1,
+            "Goldenflare Grain" to 1,
+            "Permafrost Pellet" to 1,
+            "Iceveil Fiber" to 1
         )
 
-        val recipe =findRecipe(ingredients,recipeMap)
+        val ingredients3 = mapOf(
+            "Stormicicle Chip" to 1,
+            "Breachice Crystal" to 1,
+            "Glintsnow Dust" to 1,
+            "Frostbloom Fragment" to 1
+        )
+
+        val recipe = findRecipe(ingredients,recipeMap)
         val recipe2 = findRecipe(ingredients2,recipeMap)
+        val recipe3 = findRecipe(ingredients3,recipeMap)
 
 
-        assertEquals("BeachsandCrabFang", recipe?.name, "Recipe name should be BeachsandCrabFang")
-        assertEquals("HellflamesoulTotem", recipe2?.name, "Recipe name should be HellflamesoulTotem")
+        assertEquals("ColdhideBracers", recipe?.name, "Recipe name should be BeachsandCrabFang")
+        assertEquals("FrostTreadBoots", recipe2?.name, "Recipe name should be HellflamesoulTotem")
+        assertEquals("AshwrapSandals", recipe3?.name, "Recipe name should be HellflamesoulTotem")
 
     }
 
