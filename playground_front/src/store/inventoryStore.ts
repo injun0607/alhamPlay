@@ -55,14 +55,14 @@ export const InventoryStore = create<InventoryStore>()((set) => ({
       if(item.type === "EQUIPMENT"){
         return {
           equipmentInventory: {
-            equipmentItemList: [...state.equipmentInventory.equipmentItemList, item]
+            equipmentItemList: [...state.equipmentInventory.equipmentItemList, item].sort((a,b)=>a.itemOrder-b.itemOrder)
           }
         }
       }
       else{
         return {
           materialInventory: {
-            materialItemList: [...state.materialInventory.materialItemList, item]
+            materialItemList: [...state.materialInventory.materialItemList, item].sort((a,b)=>a.itemOrder-b.itemOrder)
           }
         }
       }
@@ -74,14 +74,14 @@ export const InventoryStore = create<InventoryStore>()((set) => ({
       if(item.type === "EQUIPMENT"){
         return {
           equipmentInventory: {
-            equipmentItemList: state.equipmentInventory.equipmentItemList.filter(i => i.id !== item.id)
+            equipmentItemList: state.equipmentInventory.equipmentItemList.filter(i => i.itemOrder !== item.itemOrder).sort((a,b)=>a.itemOrder-b.itemOrder)
           }
         }
       }
       else{
         return {
           materialInventory: {
-            materialItemList: state.materialInventory.materialItemList.filter(i => i.id !== item.id)
+            materialItemList: state.materialInventory.materialItemList.filter(i => i.itemOrder !== item.itemOrder).sort((a,b)=>a.itemOrder-b.itemOrder)
           }
         }
       }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Inventory from '@/components/inventory/Inventory';
+import Craft from '@/components/craft/Craft';
 import { InventoryStore } from '@/store/inventoryStore';
 import { useApi } from '@/hooks/common/useApi';
 import { UserInventory } from '@/types/inventory';
@@ -12,10 +13,16 @@ interface GameNavigationProps {
 
 export default function GameNavigation({ className = '' }: GameNavigationProps) {
     const [isInventoryOpen, setIsInventoryOpen] = useState(false);
+    const [isCraftOpen, setIsCraftOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const {isInventoryInitialized,initInventory} = InventoryStore();
     const {data,loading,error,get} = useApi<UserInventory>();
+
+
+    const toggleCraft = useCallback(() => {
+        setIsCraftOpen(prev => !prev);
+    }, []);
 
     const toggleInventory = useCallback(() => {
         setIsInventoryOpen(prev => !prev);
@@ -48,7 +55,7 @@ export default function GameNavigation({ className = '' }: GameNavigationProps) 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             // 처리할 키만 필터링
-            const targetKeys = ['i', 'escape', 'm'];
+            const targetKeys = ['i', 'escape', 'm', 'c'];
             if (!targetKeys.includes(e.key.toLowerCase())) {
                 return;
             }
@@ -69,6 +76,11 @@ export default function GameNavigation({ className = '' }: GameNavigationProps) 
                     e.stopPropagation();
                     toggleMenu();
                     break;
+                case 'c':
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleCraft();
+                    break;
             }
         };
 
@@ -76,7 +88,7 @@ export default function GameNavigation({ className = '' }: GameNavigationProps) 
         return () =>{ 
             window.removeEventListener('keydown', handleKeyDown)
         };
-    }, [toggleInventory, closeModals, toggleMenu]);
+    }, [toggleInventory, closeModals, toggleMenu, toggleCraft]);
 
     return (
         <>
@@ -108,6 +120,13 @@ export default function GameNavigation({ className = '' }: GameNavigationProps) 
                     🔧
                 </button>
 
+                {/* 크래프트 버튼 */}
+                <button
+                    className="w-12 h-12 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg shadow-lg flex items-center justify-center transition-colors"
+                    title="크래프트"
+                >
+                    🔨
+                </button>
                 {/* 도움말 버튼 */}
                 <button
                     className="w-12 h-12 bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg flex items-center justify-center transition-colors"
@@ -119,6 +138,8 @@ export default function GameNavigation({ className = '' }: GameNavigationProps) 
 
             {/* 인벤토리 모달 */}
             {isInventoryOpen && (<Inventory setIsOpen={setIsInventoryOpen}/>)}
+            {/* 크래프트 모달 */}
+            {isCraftOpen && (<Craft/>)}
 
             {/* 메뉴 모달 */}
             {isMenuOpen && (
