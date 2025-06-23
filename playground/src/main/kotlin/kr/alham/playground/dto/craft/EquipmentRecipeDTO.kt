@@ -11,4 +11,19 @@ data class EquipmentRecipeDTO(
             materialDTO.itemRarity.value * quantity
         }.sum().toDouble()
     }
+
+    companion object {
+        fun fromIngredientsInfo(ingredientsInfoDTOList: IngredientsInfoDTOList): EquipmentRecipeDTO {
+            return ingredientsInfoDTOList.ingredients
+                .associate { materialInfo ->
+                    MaterialDTO(
+                        itemRarity = materialInfo.itemRarity,
+                        name = materialInfo.name
+                    ) to materialInfo.quantity
+                }.let { ingredientsMap ->
+                    EquipmentRecipeDTO(ingredientsMap)
+                }
+        }
+    }
+
 }

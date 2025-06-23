@@ -16,7 +16,7 @@ class ItemRecipeLoader {
 
     private val recipePath = RECIPE_JSON_PATH
 
-    @Cacheable("equipmentRecipe")
+//    @Cacheable("equipmentRecipe")
     fun loadEquipmentRecipe(): Map<ItemRarity,List<EquipmentRecipe>> {
         val fileName = recipePath + "EQUIPMENT_RECIPE.JSON"
         val inputStream = javaClass.getResourceAsStream(fileName)

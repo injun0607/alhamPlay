@@ -39,7 +39,7 @@ object ItemMapper{
             type = equipmentInventoryItem.equipment.type,
             description = equipmentInventoryItem.equipment.description,
             itemRarity = equipmentInventoryItem.equipment.itemRarity,
-            equipmentType = equipmentInventoryItem.equipment.equipmentType
+            equipmentType = equipmentInventoryItem.equipment.equipmentType,
         )
     }
 

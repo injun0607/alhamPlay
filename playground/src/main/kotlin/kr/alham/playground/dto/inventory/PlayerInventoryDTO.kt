@@ -1,5 +1,6 @@
 package kr.alham.playground.dto.inventory
 
+import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.EquipmentType
 import kr.alham.playground.domain.item.ItemRarity
 import kr.alham.playground.domain.item.ItemType
@@ -49,5 +50,19 @@ data class PlayerEquipmentInventoryItemDTO(
     val equipmentType: EquipmentType,
     val itemRarity: ItemRarity,
     val itemOrder: Int
-)
+){
+    companion object {
+        fun fromEntity(equipmentItem: Equipment): PlayerEquipmentInventoryItemDTO {
+            return PlayerEquipmentInventoryItemDTO(
+                id = equipmentItem.id ?: 0L,
+                name = equipmentItem.name,
+                description = equipmentItem.description,
+                type = equipmentItem.type,
+                equipmentType = equipmentItem.equipmentType,
+                itemRarity = equipmentItem.itemRarity,
+                itemOrder = 0
+            )
+        }
+    }
+}
 

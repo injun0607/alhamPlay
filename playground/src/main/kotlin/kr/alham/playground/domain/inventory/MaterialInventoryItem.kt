@@ -21,10 +21,11 @@ class MaterialInventoryItem(
     var itemOrder: Int = 0,
 ) {
     companion object {
-        fun create(materialInventory: MaterialInventory, material: Material): MaterialInventoryItem {
+        fun create(materialInventory: MaterialInventory, material: Material,itemOrder : Int): MaterialInventoryItem {
             return MaterialInventoryItem(
                 materialInventory = materialInventory,
-                material = material
+                material = material,
+                itemOrder = itemOrder
             ).also {
                 materialInventory.addMaterialItem(it)
             }

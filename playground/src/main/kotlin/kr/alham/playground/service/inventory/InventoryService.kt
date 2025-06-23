@@ -75,15 +75,17 @@ class InventoryService(
             ItemType.EQUIPMENT -> {
                 // 장비 아이템을 인벤토리에 저장하는 로직
                 val equipmentInventory = getEquipmentInventoryByPlayerId(playerId)
+                val itemOrder = equipmentInventory.equipmentItemList.size + 1
                 val equipment = getEquipmentById(itemId)
-                EquipmentInventoryItem.create(equipmentInventory,equipment)
+                EquipmentInventoryItem.create(equipmentInventory,equipment,itemOrder)
             }
             ItemType.MATERIAL -> {
                 // 재료 아이템을 인벤토리에 저장하는 로직
                 // materialItemInventoryRepository.save(itemInfo)
                 val materialInventory = getMaterialInventoryByPlayerId(playerId)
+                val itemOrder = materialInventory.materialItemList.size + 1
                 val material = getMaterialById(itemId)
-                MaterialInventoryItem.create(materialInventory, material)
+                MaterialInventoryItem.create(materialInventory, material, itemOrder)
             }
         }
 
@@ -119,6 +121,12 @@ class InventoryService(
 
     fun getEquipmentInventoryItemListByInventoryId(inventoryItemId: Long): List<EquipmentInventoryItem> {
         return equipmentInventoryItemRepository.getEquipmentInventoryItemListByInventoryId(inventoryItemId)
+    }
+
+    fun getEquipmentByName(equipmentName: String): Equipment {
+        // 장비 아이템을 이름으로 가져오는 로직
+        return equipmentRepository.findEquipmentByName(equipmentName)
+            ?: throw IllegalArgumentException("Equipment not found with name: $equipmentName")
     }
 
 

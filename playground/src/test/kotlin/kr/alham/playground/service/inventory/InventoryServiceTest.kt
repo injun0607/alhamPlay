@@ -123,7 +123,8 @@ class InventoryServiceTest {
 
         EquipmentInventoryItem.create(
             inventory!!,
-            equipmentOne
+            equipmentOne,
+            0
         )
 
         //저장후에 inventory에 아이템이 잘 들어갔는지 확인
@@ -137,7 +138,7 @@ class InventoryServiceTest {
 
         EquipmentInventoryItem.create(
             inventory,
-            equipmentTwo
+            equipmentTwo,1
         )
 
         equipmentInventoryRepository.save(inventory)
@@ -159,7 +160,7 @@ class InventoryServiceTest {
 
         MaterialInventoryItem.create(
             materialInventory!!,
-            materialOne
+            materialOne,0
         )
 
         //저장후에 inventory에 아이템이 잘 들어갔는지 확인
@@ -173,7 +174,7 @@ class InventoryServiceTest {
 
         MaterialInventoryItem.create(
             materialInventory,
-            materialTwo
+            materialTwo,1
         )
 
         materialInventoryRepository.save(materialInventory)

@@ -23,10 +23,11 @@ class EquipmentInventoryItem(
 
 ){
     companion object {
-        fun create(equipmentInventory: EquipmentInventory, equipment: Equipment): EquipmentInventoryItem {
+        fun create(equipmentInventory: EquipmentInventory, equipment: Equipment,itemOrder: Int): EquipmentInventoryItem {
             return EquipmentInventoryItem(
                 equipmentInventory = equipmentInventory,
-                equipment = equipment
+                equipment = equipment,
+                itemOrder = itemOrder
             ).also {
                 equipmentInventory.addEquipmentItem(it)
             }

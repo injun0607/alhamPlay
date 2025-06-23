@@ -4,7 +4,12 @@ import jakarta.persistence.*
 import kr.alham.playground.domain.common.TargetElementStatus
 
 @Entity
-@Table(name = "al_equipment")
+@Table(
+    name = "al_equipment",
+    indexes = [
+        Index(name = "idx_equipment_name", columnList = "name", unique = true),
+    ]
+)
 class Equipment(
 
     @Id
