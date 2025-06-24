@@ -100,6 +100,13 @@ export default function Craft() {
             const result = await postCraft<IngredientsInfoDTOList>('/craft/equipment', equipmentRecipe)
             if (result) {
                 addItem(result);
+                ingredientMaterialList.forEach(item => {
+                    if(item){
+                        removeItem(item);
+                    }
+                });
+                setIngredientMaterialList([null, null, null, null]);
+                alert("크래프트 성공 : " + result.name + " itemRarity : " + result.itemRarity);
             }
         } catch (error) {
             console.error('크래프트 실패:', error);
@@ -107,10 +114,7 @@ export default function Craft() {
             setIsCrafting(false);
         }
 
-
     }
-
-
 
 
 

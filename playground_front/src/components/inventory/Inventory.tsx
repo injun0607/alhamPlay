@@ -15,7 +15,19 @@ export default function Inventory({setIsOpen}:InventoryProps) {
   const {materialInventory,equipmentInventory} = InventoryStore();
   const [selectedTab,setSelectedTab] = useState("material");
 
-  
+  useEffect(()=>{
+    const handleTabChange = (e:KeyboardEvent) => {
+      if(e.key === 'Tab'){
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedTab(prev => prev === 'material' ? 'equipment' : 'material');
+      };
+    };
+    window.addEventListener('keydown',handleTabChange);
+    return () => {
+      window.removeEventListener('keydown',handleTabChange);
+    };
+  },[])
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
