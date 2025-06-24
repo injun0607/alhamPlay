@@ -22,6 +22,7 @@ class Equipment(
     override var type: ItemType = ItemType.EQUIPMENT,
     @Enumerated(EnumType.STRING)
     override var itemRarity: ItemRarity = ItemRarity.COMMON,
+    override var itemImg: String = "",
     @Enumerated(EnumType.STRING)
     var equipmentType: EquipmentType = EquipmentType.WEAPON,
 ) : Item {

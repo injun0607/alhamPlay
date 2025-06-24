@@ -42,9 +42,6 @@ export default function Craft() {
             newIngredients[index] = null;
             setIngredientMaterialList(newIngredients);
 
-            // 인벤토리로 다시 추가
-            addItem(ingredient);
-
             // 로컬 materialList에도 다시 추가
             const newMaterialList = [...materialList, ingredient].sort((a, b) => a.itemOrder - b.itemOrder);
             setMaterialList(newMaterialList);

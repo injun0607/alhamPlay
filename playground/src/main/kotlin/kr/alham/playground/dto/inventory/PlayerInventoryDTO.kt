@@ -28,7 +28,8 @@ data class PlayerMaterialInventoryItemDTO(
     val description: String,
     val type: ItemType,
     val itemRarity: ItemRarity,
-    val itemOrder: Int
+    val itemOrder: Int,
+    val itemImg: String
 )
 
 
@@ -49,7 +50,8 @@ data class PlayerEquipmentInventoryItemDTO(
     val type: ItemType,
     val equipmentType: EquipmentType,
     val itemRarity: ItemRarity,
-    val itemOrder: Int
+    val itemOrder: Int,
+    val itemImg: String
 ){
     companion object {
         fun fromEntity(equipmentItem: Equipment): PlayerEquipmentInventoryItemDTO {
@@ -60,7 +62,8 @@ data class PlayerEquipmentInventoryItemDTO(
                 type = equipmentItem.type,
                 equipmentType = equipmentItem.equipmentType,
                 itemRarity = equipmentItem.itemRarity,
-                itemOrder = 0
+                itemOrder = 0,
+                itemImg = equipmentItem.itemImg
             )
         }
     }

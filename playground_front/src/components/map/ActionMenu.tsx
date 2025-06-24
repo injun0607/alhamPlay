@@ -61,7 +61,7 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
   }, [isGatheringComplete, gatherInfo.x, gatherInfo.y, requestGatheringResult]);
 
   const startGathering = () => {
-    if(isGathering) return;
+    if(isGathering || gatherInfo.x === null || gatherInfo.y === null) return;
 
     setIsGathering(true);
     setGatheringProgress(0);

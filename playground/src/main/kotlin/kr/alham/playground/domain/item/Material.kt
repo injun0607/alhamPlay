@@ -21,6 +21,7 @@ class Material(
     override var type: ItemType = ItemType.MATERIAL,
     @Enumerated(EnumType.STRING)
     override var itemRarity: ItemRarity = ItemRarity.COMMON,
+    override var itemImg: String = "",
     @Enumerated(EnumType.STRING)
     var dropArea: FieldType = FieldType.FOREST
 ) : Item {

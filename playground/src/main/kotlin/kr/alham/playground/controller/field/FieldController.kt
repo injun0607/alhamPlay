@@ -58,7 +58,8 @@ class FieldController(
             itemRarity = gatherResult.itemRarity,
             type = itemInfo.type,
             description = itemInfo.description,
-            itemOrder = 0
+            itemOrder = 0,
+            itemImg = itemInfo.itemImg
         )
     }
 

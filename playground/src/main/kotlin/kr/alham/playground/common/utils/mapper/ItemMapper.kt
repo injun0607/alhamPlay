@@ -20,7 +20,8 @@ object ItemMapper{
             name = materialInventoryItem.material.name,
             type = materialInventoryItem.material.type,
             description = materialInventoryItem.material.description,
-            itemRarity = materialInventoryItem.material.itemRarity
+            itemRarity = materialInventoryItem.material.itemRarity,
+            itemImg = materialInventoryItem.material.itemImg
         )
     }
 
@@ -40,6 +41,7 @@ object ItemMapper{
             description = equipmentInventoryItem.equipment.description,
             itemRarity = equipmentInventoryItem.equipment.itemRarity,
             equipmentType = equipmentInventoryItem.equipment.equipmentType,
+            itemImg = equipmentInventoryItem.equipment.itemImg
         )
     }
 

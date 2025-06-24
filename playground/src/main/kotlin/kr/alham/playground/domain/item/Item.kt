@@ -6,6 +6,7 @@ interface Item {
     var description: String
     var type: ItemType
     var itemRarity: ItemRarity
+    var itemImg: String
 }
 
 

@@ -22,7 +22,8 @@ export interface MaterialInventoryItemDTO{
   description: string,
   type: ItemType,
   itemRarity: ItemRarity,
-  itemOrder: number
+  itemOrder: number,
+  itemImg: string,
 }
 
 export interface EquipmentInventoryItemDTO{
