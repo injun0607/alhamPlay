@@ -1,11 +1,11 @@
 package kr.alham.playground.service.craft
 
-import kr.alham.playground.dto.craft.EquipmentDTO
 import kr.alham.playground.dto.craft.EquipmentRecipeDTO
 import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryItemDTO
 import kr.alham.playground.service.inventory.InventoryService
 import kr.alham.playground.system.craft.ItemCraftSystem
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CraftService(
@@ -13,12 +13,19 @@ class CraftService(
     private val inventoryService: InventoryService,
 ) {
 
+    @Transactional
     fun makeEquipment(playerId: Long ,equipmentRecipeDTO: EquipmentRecipeDTO): PlayerEquipmentInventoryItemDTO {
         //검증은 무조건 해야한다. 해당 유저가 아이템이 있는지 검증은 무조건 하기
-        //해당 유저의 인벤토리에서 해당 아이템이 카운트만큼있는지 확인 => equipmentRecipe에있는정보 다불러온다음에 카운트하면될듯?
 
         val recipe = craftSystem.craftEquipment(equipmentRecipeDTO)
         val equipment = inventoryService.getEquipmentByName(recipe.name)
+        //기존 재료 검증 및 삭제
+        inventoryService.deleteMaterialItemByRecipe(playerId, equipmentRecipeDTO)
+        //장비아이템 저장
+        inventoryService.saveItemToPlayerInventory(
+            playerId,
+            equipment
+        )
 
         return PlayerEquipmentInventoryItemDTO.fromEntity(equipment)
     }

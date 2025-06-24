@@ -14,7 +14,7 @@ interface MaterialInventoryRepository:JpaRepository<MaterialInventory, Long> {
             LEFT JOIN FETCH m.player p
             LEFT JOIN FETCH m.materialItemList mli
             LEFT JOIN FETCH mli.material 
-            WHERE m.player.id = :playerId""")
+            WHERE m.player.id = :playerId order by mli.itemOrder""")
     fun findMaterialInventoryByPlayerId(playerId: Long): MaterialInventory?
 
 }

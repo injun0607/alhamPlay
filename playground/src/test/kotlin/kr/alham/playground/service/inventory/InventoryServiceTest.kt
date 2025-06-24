@@ -7,6 +7,8 @@ import kr.alham.playground.domain.inventory.MaterialInventoryItem
 import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.Material
 import kr.alham.playground.domain.player.Player
+import kr.alham.playground.dto.craft.EquipmentRecipeDTO
+import kr.alham.playground.dto.craft.MaterialDTO
 import kr.alham.playground.repository.inventory.EquipmentInventoryItemRepository
 import kr.alham.playground.repository.inventory.EquipmentInventoryRepository
 import kr.alham.playground.repository.inventory.MaterialInventoryItemRepository
@@ -17,6 +19,7 @@ import kr.alham.playground.service.player.PlayerService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.DirtiesContext
@@ -226,6 +229,89 @@ class InventoryServiceTest {
         assertEquals("TestEnvironmentTestEquipment2", inventoryItemList[1].equipment.name)
         assertEquals("TestEnvironmentTestEquipment3", inventoryItemList[2].equipment.name)
     }
+
+    @Test
+    fun deleteMaterialItemByRecipeTest() {
+        initPlayerAndInventory()
+
+        inventoryService.saveItemToPlayerInventory(1L, materialOne)
+        inventoryService.saveItemToPlayerInventory(1L, materialTwo)
+        inventoryService.saveItemToPlayerInventory(1L, materialThree)
+        inventoryService.saveItemToPlayerInventory(1L, materialOne)
+        inventoryService.saveItemToPlayerInventory(1L, materialOne)
+        inventoryService.saveItemToPlayerInventory(1L, materialTwo)
+        inventoryService.saveItemToPlayerInventory(1L, materialThree)
+
+
+
+        // 재료 아이템 삭제
+        val ingredients:EquipmentRecipeDTO = EquipmentRecipeDTO(
+            mapOf(
+                MaterialDTO(
+                    itemRarity = materialOne.itemRarity,
+                    name = materialOne.name
+                ) to 3,
+                MaterialDTO(
+                    itemRarity = materialTwo.itemRarity,
+                    name = materialTwo.name
+                ) to 1,
+                MaterialDTO(
+                    itemRarity = materialThree.itemRarity,
+                    name = materialThree.name
+                ) to 1
+            )
+        )
+
+        inventoryService.deleteMaterialItemByRecipe(1L, ingredients)
+
+        println("====삭제후 인벤토리확인=====")
+        // 삭제 후 인벤토리 확인
+        val materialInventory = inventoryService.getMaterialInventoryByPlayerId(1L)
+        assertEquals(2, materialInventory.materialItemList.size,)
+        assertEquals("TestEnvironmentTestMaterial2", materialInventory.materialItemList[0].material.name)
+        assertEquals("TestEnvironmentTestMaterial3", materialInventory.materialItemList[1].material.name)
+        assertEquals(2, materialInventory.materialItemList[0].itemOrder)
+        assertEquals(3, materialInventory.materialItemList[1].itemOrder)
+    }
+
+    @Test
+    fun deleteMaterialItemByRecipeFailTest() {
+        initPlayerAndInventory()
+
+        inventoryService.saveItemToPlayerInventory(1L, materialOne)
+        inventoryService.saveItemToPlayerInventory(1L, materialTwo)
+        inventoryService.saveItemToPlayerInventory(1L, materialThree)
+        inventoryService.saveItemToPlayerInventory(1L, materialOne)
+        inventoryService.saveItemToPlayerInventory(1L, materialOne)
+        inventoryService.saveItemToPlayerInventory(1L, materialTwo)
+        inventoryService.saveItemToPlayerInventory(1L, materialThree)
+
+
+
+        // 재료 아이템 삭제
+        val ingredients:EquipmentRecipeDTO = EquipmentRecipeDTO(
+            mapOf(
+                MaterialDTO(
+                    itemRarity = materialOne.itemRarity,
+                    name = materialOne.name
+                ) to 6,
+                MaterialDTO(
+                    itemRarity = materialTwo.itemRarity,
+                    name = materialTwo.name
+                ) to 1,
+                MaterialDTO(
+                    itemRarity = materialThree.itemRarity,
+                    name = materialThree.name
+                ) to 1
+            )
+        )
+
+        assertThrows<IllegalStateException> {
+            inventoryService.deleteMaterialItemByRecipe(1L, ingredients)
+        }
+
+    }
+
 
 
 

@@ -5,10 +5,8 @@ import kr.alham.playground.domain.inventory.EquipmentInventory
 import kr.alham.playground.domain.inventory.EquipmentInventoryItem
 import kr.alham.playground.domain.inventory.MaterialInventory
 import kr.alham.playground.domain.inventory.MaterialInventoryItem
-import kr.alham.playground.domain.item.Equipment
-import kr.alham.playground.domain.item.Item
-import kr.alham.playground.domain.item.ItemType
-import kr.alham.playground.domain.item.Material
+import kr.alham.playground.domain.item.*
+import kr.alham.playground.dto.craft.EquipmentRecipeDTO
 import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryDTO
 import kr.alham.playground.dto.inventory.PlayerInventoryDTO
 import kr.alham.playground.dto.inventory.PlayerMaterialInventoryDTO
@@ -32,7 +30,6 @@ class InventoryService(
     private val materialRepository: MaterialRepository,
 ) {
 
-    //TODO() 뭔가 n+1문제있는것 같음 확인 필요
     fun getPlayerInventory(playerId: Long): PlayerInventoryDTO{
         println("getPlayerInventory called with playerId: $playerId")
         val equipmentInventory =  getEquipmentInventoryByPlayerId(playerId)
@@ -89,6 +86,33 @@ class InventoryService(
             }
         }
 
+    }
+
+    @Transactional
+    fun deleteMaterialItemByRecipe(playerId: Long, equipmentRecipeDTO: EquipmentRecipeDTO) {
+        // 플레이어의 인벤토리에서 아이템을 삭제하는 로직
+        val playerMaterialInventory = getMaterialInventoryByPlayerId(playerId)
+        //검증하고 -> 삭제를 같이 하자
+        //레시피의 아이템과 개수를 같이 확인
+        val ingredients = equipmentRecipeDTO.ingredients
+        val materialItemList = playerMaterialInventory.materialItemList
+
+        // 재료 아이템 개수 검증
+        ingredients.entries.forEach { (material,quantity) ->
+            val count = materialItemList.count{it.material.name == material.name}
+            check(quantity <= count) {
+                "Not enough material: ${material.name} for player ID: $playerId"
+            }
+        }
+
+        ingredients.entries.forEach { (material, quantity) ->
+            // 해당 재료 아이템을 찾아서 삭제
+            //뒤에서 부터 이름이 같은 아이템 찾기
+            val removeMaterialList = materialItemList.asReversed()
+                .filter{it.material.name == material.name}
+                .take(quantity)
+            materialItemList.removeAll(removeMaterialList)
+        }
     }
 
     fun getEquipmentInventoryByPlayerId(playerId: Long): EquipmentInventory {
