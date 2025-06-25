@@ -12,6 +12,13 @@ class BattleController(
     private val dropService: DropService
 ) {
 
+
+    fun ready(playerId: Long){
+
+
+
+    }
+
     fun playBattle(monsterBattleDTO: MonsterBattleDTO){
         /**
          * 전투 시작 -> 전투 진행 -> 전투 결과에 따라 결투 생성

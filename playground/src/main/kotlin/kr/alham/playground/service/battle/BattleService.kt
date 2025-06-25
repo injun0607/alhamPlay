@@ -5,6 +5,7 @@ import kr.alham.playground.domain.card.Card
 import kr.alham.playground.domain.common.TargetElementStatus
 import kr.alham.playground.domain.enums.BattlePhase
 import kr.alham.playground.domain.enums.BattleResult
+import kr.alham.playground.dto.battle.BattleSessionDTO
 import kr.alham.playground.dto.battle.MonsterBattleDTO
 import kr.alham.playground.dto.card.CardIdDTO
 import kr.alham.playground.service.monster.MonsterService
@@ -12,14 +13,33 @@ import kr.alham.playground.service.player.PlayerService
 import kr.alham.playground.system.battle.monster.MonsterCardProvider
 import kr.alham.playground.system.cardeffect.CardEffectFactory
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class BattleService(
     private val cardEffectFactory: CardEffectFactory,
     private val playerService: PlayerService,
     private val monsterService: MonsterService,
-    private val monsterCardProvider: MonsterCardProvider
+    private val monsterCardProvider: MonsterCardProvider,
+
 ) {
+
+    /**
+     * 배틀준비 단계
+     * 배틀세션 생성 -> 몬스터 선택
+     */
+    fun readyBattle(playerId: Long): BattleSessionDTO {
+
+        val uuid = UUID.randomUUID().toString()
+
+
+
+
+
+        //monster랜덤 선택
+
+        TODO()
+    }
 
     fun monsterBattle(monsterBattleDTO: MonsterBattleDTO): BattleResult {
 

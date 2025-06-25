@@ -3,6 +3,7 @@ package kr.alham.playground.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import kr.alham.playground.domain.battle.BattleSession
 import org.springframework.cache.CacheManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -23,6 +24,23 @@ class RedisConfig {
         template.connectionFactory = redisConnectionFactory
         template.keySerializer = StringRedisSerializer()
         template.valueSerializer = StringRedisSerializer()
+        return template
+    }
+
+    @Bean
+    fun battleSessionRedisTemplate(
+        redisConnectionFactory: RedisConnectionFactory,
+        objectMapper: ObjectMapper
+    ): RedisTemplate<String,BattleSession>{
+        val template = RedisTemplate<String,BattleSession>()
+        template.connectionFactory = redisConnectionFactory
+
+        val serializer = Jackson2JsonRedisSerializer(objectMapper,BattleSession::class.java)
+
+        template.keySerializer = StringRedisSerializer()
+        template.valueSerializer = serializer
+        template.afterPropertiesSet()
+
         return template
     }
 

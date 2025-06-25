@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class MonsterService(
     private val monsterRepository: MonsterRepository,
-    private val monsterCardInfoRepository: MonsterCardInfoRepository
+    private val monsterCardInfoRepository: MonsterCardInfoRepository,
 ) {
     fun findMonsterById(monsterId: Long): Monster{
         return monsterRepository.findById(monsterId).orElseThrow {
@@ -38,5 +38,32 @@ class MonsterService(
         )
         return monsterCardInfoRepository.save(monsterCardInfo)
     }
+
+//    @Transactional
+//    fun saveMonsterDropItem(monsterId:Long , item: Item){
+//        val monster = findMonsterById(monsterId)
+//
+//        when(item.type) {
+//
+//            monsterRe
+//
+//            ItemType.EQUIPMENT -> {
+//                val monsterDropInfo = monsterDropInfoRepository.findByMonsterId(monsterId)
+//                    ?: throw IllegalArgumentException("Monster drop info not found for monster id: $monsterId")
+//                monsterDropInfo.addEquipment(item)
+//                monsterDropInfoRepository.save(monsterDropInfo)
+//            }
+//            ItemType.MATERIAL -> {
+//                val monsterDropInfo = monsterDropInfoRepository.findByMonsterId(monsterId)
+//                    ?: throw IllegalArgumentException("Monster drop info not found for monster id: $monsterId")
+//                monsterDropInfo.addMaterial(item)
+//                monsterDropInfoRepository.save(monsterDropInfo)
+//            }
+//            else -> throw IllegalArgumentException("Unsupported item type: ${item.type}")
+//        }
+//
+//    }
+
+
 
 }

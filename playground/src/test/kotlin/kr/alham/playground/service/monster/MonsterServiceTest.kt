@@ -28,6 +28,7 @@ class MonsterServiceTest{
     @Autowired
     lateinit var monsterCardInfoRepository: MonsterCardInfoRepository
 
+
     @Autowired
     lateinit var cardService: CardService
 
@@ -36,7 +37,7 @@ class MonsterServiceTest{
         // 테스트용 몬스터 서비스 초기화
         monsterService = MonsterService(
             monsterRepository = monsterRepository,
-            monsterCardInfoRepository = monsterCardInfoRepository
+            monsterCardInfoRepository = monsterCardInfoRepository,
         )
     }
 
