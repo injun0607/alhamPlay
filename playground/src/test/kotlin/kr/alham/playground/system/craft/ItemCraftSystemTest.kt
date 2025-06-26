@@ -102,9 +102,9 @@ class ItemCraftSystemTest{
         val recipe3 = findRecipe(ingredients3,recipeMap)
 
 
-        assertEquals("ColdhideBracers", recipe?.name, "Recipe name should be BeachsandCrabFang")
-        assertEquals("FrostTreadBoots", recipe2?.name, "Recipe name should be HellflamesoulTotem")
-        assertEquals("AshwrapSandals", recipe3?.name, "Recipe name should be HellflamesoulTotem")
+        assertEquals("Coldhide Bracers", recipe?.name, "Recipe name should be BeachsandCrabFang")
+        assertEquals("Frost Tread Boots", recipe2?.name, "Recipe name should be HellflamesoulTotem")
+        assertEquals("Ashwrap Sandals", recipe3?.name, "Recipe name should be HellflamesoulTotem")
 
     }
 
@@ -240,12 +240,44 @@ class ItemCraftSystemTest{
             name = "WhisperingSeed"
         )
 
+        val legendaryMaterial2 = MaterialDTO(
+            itemRarity = ItemRarity.LEGENDARY,
+            name = "Verdant Sigil Stone"
+        )
+
+        val legendaryMaterial3 = MaterialDTO(
+            itemRarity = ItemRarity.LEGENDARY,
+            name = "Sylvan Heart Core"
+        )
+
+        val legendaryMaterial4 = MaterialDTO(
+            itemRarity = ItemRarity.LEGENDARY,
+            name = "Heartwood Branch"
+        )
+
+        val legendaryMaterial5 = MaterialDTO(
+            itemRarity = ItemRarity.LEGENDARY,
+            name = "Ancestor’s Sap"
+        )
+
         val equipmentRecipeDTO = EquipmentRecipeDTO(
             ingredients = mapOf(
-                uniqueMaterial to 3,
-                legendaryMaterial to 1
+               legendaryMaterial2 to 1,
+                legendaryMaterial3 to 1,
+                legendaryMaterial4 to 1,
+                legendaryMaterial5 to 1,
             )
         )
+
+        /**
+         * "name": "Elderwood Longbow",
+         *       "ingredients": {
+         *         "Ancestor’s Sap": 1,
+         *         "Heartwood Branch": 1,
+         *         "Sylvan Heart Core": 1,
+         *         "Verdant Sigil Stone": 1
+         *       }
+         */
 
 
         val randomLegendaryMaterial = MaterialDTO(
@@ -270,7 +302,7 @@ class ItemCraftSystemTest{
         val fixedRecipe = itemCraftSystem.craftEquipment(equipmentRecipeDTO)
         val randomRecipe = itemCraftSystem.craftEquipment(randomEquipmentRecipeDTO)
 
-        assertEquals("Nature's embraceBlade",fixedRecipe.name, "Crafted item name should be Nature's embraceBlade")
+        assertEquals("Elderwood Longbow",fixedRecipe.name, "Crafted item name should be Elderwood Longbow")
         assertEquals(true,legendaryRecipeList?.contains(randomRecipe) , "Crafted item should contain Nature's Embrace")
 
     }

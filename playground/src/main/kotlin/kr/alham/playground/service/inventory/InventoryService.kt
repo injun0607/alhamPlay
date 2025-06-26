@@ -7,6 +7,7 @@ import kr.alham.playground.domain.inventory.MaterialInventory
 import kr.alham.playground.domain.inventory.MaterialInventoryItem
 import kr.alham.playground.domain.item.*
 import kr.alham.playground.dto.craft.EquipmentRecipeDTO
+import kr.alham.playground.dto.craft.IngredientsInfoDTOList
 import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryDTO
 import kr.alham.playground.dto.inventory.PlayerInventoryDTO
 import kr.alham.playground.dto.inventory.PlayerMaterialInventoryDTO
@@ -82,37 +83,51 @@ class InventoryService(
                 val materialInventory = getMaterialInventoryByPlayerId(playerId)
                 val itemOrder = materialInventory.materialItemList.size + 1
                 val material = getMaterialById(itemId)
-                MaterialInventoryItem.create(materialInventory, material, itemOrder)
+                //있으면 quantity를 증가시키고 없으면 새로 생성
+                val existingItem = materialInventory.materialItemList.find { it.material.id == material.id }
+                if (existingItem != null) {
+                    existingItem.quantity += 1
+                }else{
+                    MaterialInventoryItem.create(materialInventory, material, itemOrder)
+                }
             }
         }
 
     }
 
     @Transactional
-    fun deleteMaterialItemByRecipe(playerId: Long, equipmentRecipeDTO: EquipmentRecipeDTO) {
+    fun deleteMaterialItemByRecipe(playerId: Long, ingredientsInfoDTOList: IngredientsInfoDTOList) {
         // 플레이어의 인벤토리에서 아이템을 삭제하는 로직
         val playerMaterialInventory = getMaterialInventoryByPlayerId(playerId)
         //검증하고 -> 삭제를 같이 하자
         //레시피의 아이템과 개수를 같이 확인
-        val ingredients = equipmentRecipeDTO.ingredients
+        val ingredients = ingredientsInfoDTOList.ingredients
         val materialItemList = playerMaterialInventory.materialItemList
 
-        // 재료 아이템 개수 검증
-        ingredients.entries.forEach { (material,quantity) ->
-            val count = materialItemList.count{it.material.name == material.name}
-            check(quantity <= count) {
-                "Not enough material: ${material.name} for player ID: $playerId"
+
+        ingredients.forEach { ingredient ->
+            val materialItem = requireNotNull(materialItemList.find{it.id == ingredient.inventoryItemId})
+            check(ingredient.quantity <= materialItem.quantity) {
+                "Not enough material: ${ingredient.name} for player ID: $playerId"
             }
+
         }
 
-        ingredients.entries.forEach { (material, quantity) ->
-            // 해당 재료 아이템을 찾아서 삭제
-            //뒤에서 부터 이름이 같은 아이템 찾기
-            val removeMaterialList = materialItemList.asReversed()
-                .filter{it.material.name == material.name}
-                .take(quantity)
-            materialItemList.removeAll(removeMaterialList)
+        ingredients.forEach { ingredient ->
+            val materialItem = requireNotNull(materialItemList.find { it.id == ingredient.inventoryItemId})
+            materialItem.quantity -= ingredient.quantity
+            if(materialItem.quantity == 0 ){
+                materialItemList.remove(materialItem)
+            }
         }
+    }
+
+    @Transactional
+    fun deletePlayerInventoryEquipmentByEquipmentId(equipmentId:Long, playerId: Long){
+        val equipmentInventory =  getEquipmentInventoryByPlayerId(playerId)
+
+
+
     }
 
     fun getEquipmentInventoryByPlayerId(playerId: Long): EquipmentInventory {

@@ -3,9 +3,10 @@ package kr.alham.playground.dto.craft
 import kr.alham.playground.domain.item.ItemRarity
 
 data class IngredientsInfoDTO(
+  val inventoryItemId: Long = 0L,
   val name: String = "",
   val itemRarity: ItemRarity = ItemRarity.COMMON,
-  val quantity: Int = 0,
+  val quantity: Int = 1,
 ){}
 
 data class IngredientsInfoDTOList(

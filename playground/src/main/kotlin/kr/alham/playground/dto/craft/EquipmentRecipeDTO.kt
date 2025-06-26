@@ -14,15 +14,10 @@ data class EquipmentRecipeDTO(
 
     companion object {
         fun fromIngredientsInfo(ingredientsInfoDTOList: IngredientsInfoDTOList): EquipmentRecipeDTO {
-            return ingredientsInfoDTOList.ingredients
-                .associate { materialInfo ->
-                    MaterialDTO(
-                        itemRarity = materialInfo.itemRarity,
-                        name = materialInfo.name
-                    ) to materialInfo.quantity
-                }.let { ingredientsMap ->
-                    EquipmentRecipeDTO(ingredientsMap)
-                }
+            return ingredientsInfoDTOList.ingredients.
+                groupBy { MaterialDTO(it.itemRarity, it.name) }.
+                mapValues { (_, items) -> items.size }.
+                let { EquipmentRecipeDTO(it) }
         }
     }
 

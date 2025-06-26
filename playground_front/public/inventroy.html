@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>레트로 인벤토리</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+    }
+    .pixel-border {
+      border: 4px solid #000;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body class="bg-[#222] text-white p-8">
+  <h1 class="text-xl mb-6 text-yellow-300">▶ INVENTORY</h1>
+
+  <div class="bg-[#111] p-4 pixel-border w-fit grid grid-cols-4 gap-4">
+    <!-- 아이템 카드 -->
+    <div class="bg-[#333] pixel-border p-2 w-24 h-24 flex flex-col items-center justify-center">
+      <img src="https://via.placeholder.com/32" class="w-8 h-8 mb-1" />
+      <div class="text-[8px] text-white text-center leading-tight">플로피</div>
+      <div class="text-[8px] text-blue-300">x3</div>
+    </div>
+
+    <div class="bg-[#333] pixel-border p-2 w-24 h-24 flex flex-col items-center justify-center">
+      <img src="https://via.placeholder.com/32" class="w-8 h-8 mb-1" />
+      <div class="text-[8px] text-white text-center leading-tight">CRT 눈알</div>
+      <div class="text-[8px] text-purple-300">x1</div>
+    </div>
+
+    <div class="bg-[#333] pixel-border p-2 w-24 h-24 flex flex-col items-center justify-center">
+      <img src="https://via.placeholder.com/32" class="w-8 h-8 mb-1" />
+      <div class="text-[8px] text-white text-center leading-tight">녹슨기어</div>
+      <div class="text-[8px] text-gray-400">x15</div>
+    </div>
+
+    <div class="bg-[#333] pixel-border p-2 w-24 h-24 flex flex-col items-center justify-center">
+      <img src="https://via.placeholder.com/32" class="w-8 h-8 mb-1" />
+      <div class="text-[8px] text-white text-center leading-tight">크리스탈</div>
+      <div class="text-[8px] text-yellow-300">x2</div>
+    </div>
+  </div>
+</body>
+</html>

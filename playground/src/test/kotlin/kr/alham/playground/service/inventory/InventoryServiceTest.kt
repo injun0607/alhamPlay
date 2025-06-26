@@ -8,6 +8,8 @@ import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.Material
 import kr.alham.playground.domain.player.Player
 import kr.alham.playground.dto.craft.EquipmentRecipeDTO
+import kr.alham.playground.dto.craft.IngredientsInfoDTO
+import kr.alham.playground.dto.craft.IngredientsInfoDTOList
 import kr.alham.playground.dto.craft.MaterialDTO
 import kr.alham.playground.repository.inventory.EquipmentInventoryItemRepository
 import kr.alham.playground.repository.inventory.EquipmentInventoryRepository
@@ -242,25 +244,49 @@ class InventoryServiceTest {
         inventoryService.saveItemToPlayerInventory(1L, materialTwo)
         inventoryService.saveItemToPlayerInventory(1L, materialThree)
 
+        val ingredients = IngredientsInfoDTOList(
+            listOf(
+                IngredientsInfoDTO(
+                    itemRarity = materialOne.itemRarity,
+                    name = materialOne.name,
+                    inventoryItemId = 1L,
+                    quantity = 3
+                ),
+                IngredientsInfoDTO(
+                    itemRarity = materialTwo.itemRarity,
+                    name = materialTwo.name,
+                    inventoryItemId = 2L,
+                    quantity = 1
+                ),
+                IngredientsInfoDTO(
+                    itemRarity = materialThree.itemRarity,
+                    name = materialThree.name,
+                    inventoryItemId = 3L,
+                    quantity = 1
+                ),
+
+            )
+
+        )
 
 
         // 재료 아이템 삭제
-        val ingredients:EquipmentRecipeDTO = EquipmentRecipeDTO(
-            mapOf(
-                MaterialDTO(
-                    itemRarity = materialOne.itemRarity,
-                    name = materialOne.name
-                ) to 3,
-                MaterialDTO(
-                    itemRarity = materialTwo.itemRarity,
-                    name = materialTwo.name
-                ) to 1,
-                MaterialDTO(
-                    itemRarity = materialThree.itemRarity,
-                    name = materialThree.name
-                ) to 1
-            )
-        )
+//        :EquipmentRecipeDTO = EquipmentRecipeDTO(
+//            mapOf(
+//                MaterialDTO(
+//                    itemRarity = materialOne.itemRarity,
+//                    name = materialOne.name
+//                ) to 3,
+//                MaterialDTO(
+//                    itemRarity = materialTwo.itemRarity,
+//                    name = materialTwo.name
+//                ) to 1,
+//                MaterialDTO(
+//                    itemRarity = materialThree.itemRarity,
+//                    name = materialThree.name
+//                ) to 1
+//            )
+//        )
 
         inventoryService.deleteMaterialItemByRecipe(1L, ingredients)
 
@@ -289,21 +315,28 @@ class InventoryServiceTest {
 
 
         // 재료 아이템 삭제
-        val ingredients:EquipmentRecipeDTO = EquipmentRecipeDTO(
-            mapOf(
-                MaterialDTO(
+        val ingredients = IngredientsInfoDTOList(
+            listOf(
+                IngredientsInfoDTO(
                     itemRarity = materialOne.itemRarity,
-                    name = materialOne.name
-                ) to 6,
-                MaterialDTO(
+                    name = materialOne.name,
+                    inventoryItemId = 1L,
+                    quantity = 6
+                ),
+                IngredientsInfoDTO(
                     itemRarity = materialTwo.itemRarity,
-                    name = materialTwo.name
-                ) to 1,
-                MaterialDTO(
+                    name = materialTwo.name,
+                    inventoryItemId = 2L,
+                    quantity = 1
+                ),
+                IngredientsInfoDTO(
                     itemRarity = materialThree.itemRarity,
-                    name = materialThree.name
-                ) to 1
-            )
+                    name = materialThree.name,
+                    inventoryItemId = 3L,
+                    quantity = 1
+                ),
+
+                )
         )
 
         assertThrows<IllegalStateException> {

@@ -19,7 +19,7 @@ class CraftController(
     @PostMapping("/equipment")
     fun equipmentCraft(@RequestBody ingredientsInfoDTOList: IngredientsInfoDTOList):PlayerEquipmentInventoryItemDTO{
         val playerId = 1L
-        return craftService.makeEquipment(playerId,EquipmentRecipeDTO.fromIngredientsInfo(ingredientsInfoDTOList))
+        return craftService.makeEquipment(playerId, ingredientsInfoDTOList)
     }
 
 }
