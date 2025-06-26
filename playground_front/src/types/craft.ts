@@ -8,6 +8,7 @@ export interface EquipmentDTO{
 }
 
 export interface IngredientsInfoDTO{
+    inventoryItemId: number,
     name: string,
     quantity: number,
     itemRarity: ItemRarity

@@ -72,7 +72,7 @@ export default function Craft() {
             }
 
             materialCountMap.forEach(({ material, count }) => {
-                ingredientList.ingredients.push({ name: material.name, quantity: count, itemRarity: material.itemRarity })
+                ingredientList.ingredients.push({ inventoryItemId: material.inventoryItemId, name: material.name, quantity: count, itemRarity: material.itemRarity })
             })
 
             // console.log(JSON.stringify(ingredientList))

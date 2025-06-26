@@ -18,16 +18,19 @@ export interface UserInventory {
 
 export interface MaterialInventoryItemDTO{
   id: number,
+  inventoryItemId: number,
   name: string,
   description: string,
   type: ItemType,
   itemRarity: ItemRarity,
   itemOrder: number,
   itemImg: string,
+  quantity: number,
 }
 
 export interface EquipmentInventoryItemDTO{
   id: number,
+  inventoryItemId: number,
   name: string,
   description: string,
   type: ItemType,
