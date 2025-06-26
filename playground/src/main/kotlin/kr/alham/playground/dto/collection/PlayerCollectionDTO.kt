@@ -34,6 +34,8 @@ data class PlayerCollectionDTO(
                     )
                 }else{
                     MaterialCollectionDTO(
+                        name = material.name,
+                        itemImg = material.itemImg,
                         isCollected = false
                     )
                 }
@@ -57,6 +59,8 @@ data class PlayerCollectionDTO(
                     )
                 }else{
                     EquipmentCollectionDTO(
+                        name = equipment.name,
+                        itemImg = equipment.itemImg,
                         isCollected = false
                     )
                 }

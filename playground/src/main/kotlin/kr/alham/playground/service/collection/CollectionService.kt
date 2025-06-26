@@ -37,8 +37,6 @@ class CollectionService(
             allEquipmentList = allEquipmentList
         )
 
-
-        TODO()
     }
 
     fun isExistsCollection(playerId: Long,item: Item): Boolean{

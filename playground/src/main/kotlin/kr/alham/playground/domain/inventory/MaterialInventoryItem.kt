@@ -19,6 +19,8 @@ class MaterialInventoryItem(
     var material: Material = Material(),
 
     var itemOrder: Int = 0,
+
+    var quantity: Int = 1
 ) {
     companion object {
         fun create(materialInventory: MaterialInventory, material: Material,itemOrder : Int): MaterialInventoryItem {
