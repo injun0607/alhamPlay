@@ -33,10 +33,22 @@ export const InventoryStore = create<InventoryStore>()((set) => ({
 
   addItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => {
     set((state) => {
-      if('quantity' in item && item.type === "MATERIAL"){
-        return {
-          materialInventory: {
-            materialItemList: [...state.materialInventory.materialItemList, item as MaterialInventoryItemDTO].sort((a,b)=>a.itemOrder-b.itemOrder)
+      if(item.type === "MATERIAL" && 'quantity' in item){
+      const existingItem = state.materialInventory.materialItemList.find(i => i.inventoryItemId === item.inventoryItemId);
+        if(existingItem){
+          return {
+            materialInventory: {
+              materialItemList: state.materialInventory.materialItemList.map(i => 
+                i.inventoryItemId === item.inventoryItemId ? 
+                {...i, quantity: i.quantity + 1} : i)
+                .sort((a,b)=>a.itemOrder-b.itemOrder)
+            }
+          }
+        }else{
+          return {
+            materialInventory: {
+              materialItemList: [...state.materialInventory.materialItemList, item as MaterialInventoryItemDTO].sort((a,b)=>a.itemOrder-b.itemOrder)
+            }
           }
         }
       }
@@ -53,10 +65,24 @@ export const InventoryStore = create<InventoryStore>()((set) => ({
 
   removeItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => {
     set((state) => {
-      if('quantity' in item && item.type === "MATERIAL"){
-        return {
-          materialInventory: {
-            materialItemList: state.materialInventory.materialItemList.filter(i => i.inventoryItemId !== item.inventoryItemId).sort((a,b)=>a.itemOrder-b.itemOrder)
+      if(item.type === "MATERIAL" && 'quantity' in item){
+        const existingItem = state.materialInventory.materialItemList.find(i => i.inventoryItemId === item.inventoryItemId);
+        if(existingItem){
+          if(existingItem.quantity > 1){
+            return {
+              materialInventory: {
+                materialItemList: state.materialInventory.materialItemList.map(i => 
+                  i.inventoryItemId === item.inventoryItemId ? 
+                  {...i, quantity: i.quantity - 1} : i)
+                  .sort((a,b)=>a.itemOrder-b.itemOrder)
+              }
+            }
+          }else{
+            return {
+              materialInventory: {
+                materialItemList: state.materialInventory.materialItemList.filter(i => i.inventoryItemId !== item.inventoryItemId).sort((a,b)=>a.itemOrder-b.itemOrder)
+              }
+            } 
           }
         }
       }

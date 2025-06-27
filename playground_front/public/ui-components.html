@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레트로 UI 컴포넌트</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(45deg, #0f0f23, #1a1a2e, #16213e);
+      image-rendering: pixelated;
+    }
+    
+    .pixel-border {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-button {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+      transition: all 0.1s ease;
+    }
+    
+    .pixel-button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        2px 2px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-button:active {
+      transform: translate(4px, 4px);
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0px 0px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-input {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 3px 3px 0px rgba(0,0,0,0.5),
+        inset -1px -1px 0px rgba(255,255,255,0.3);
+      background: #1a1a1a;
+    }
+    
+    .pixel-select {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 3px 3px 0px rgba(0,0,0,0.5),
+        inset -1px -1px 0px rgba(255,255,255,0.3);
+      background: #1a1a1a;
+    }
+    
+    .pixel-checkbox {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5);
+      background: #1a1a1a;
+    }
+    
+    .pixel-progress {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 3px 3px 0px rgba(0,0,0,0.5),
+        inset -1px -1px 0px rgba(255,255,255,0.3);
+      background: #1a1a1a;
+    }
+    
+    .pixel-progress-fill {
+      background: linear-gradient(90deg, #00ff00, #00cc00);
+      box-shadow: inset 2px 2px 0px rgba(255,255,255,0.3);
+    }
+    
+    .scan-line {
+      background: linear-gradient(
+        transparent 50%, 
+        rgba(0, 255, 0, 0.05) 50%
+      );
+      background-size: 100% 4px;
+      animation: scan 3s linear infinite;
+    }
+    
+    @keyframes scan {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(4px); }
+    }
+    
+    .blink {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0.3; }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .glow {
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+    
+    .rarity-common { background: linear-gradient(45deg, #666, #888); }
+    .rarity-uncommon { background: linear-gradient(45deg, #2d5a2d, #4a7c4a); }
+    .rarity-rare { background: linear-gradient(45deg, #2d2d5a, #4a4a7c); }
+    .rarity-epic { background: linear-gradient(45deg, #5a2d5a, #7c4a7c); }
+    .rarity-legendary { background: linear-gradient(45deg, #5a5a2d, #7c7c4a); }
+  </style>
+</head>
+<body class="min-h-screen p-4">
+  <div class="relative max-w-6xl mx-auto">
+    <!-- 배경 효과 -->
+    <div class="absolute inset-0 bg-black opacity-10 scan-line"></div>
+    
+    <!-- 헤더 -->
+    <div class="relative mb-8">
+      <h1 class="text-3xl text-green-400 mb-2">▶ UI COMPONENTS</h1>
+      <div class="text-xs text-gray-400">레트로 픽셀 게임 스타일 UI 컴포넌트 모음</div>
+    </div>
+    
+    <!-- 버튼 섹션 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6 mb-6">
+      <h2 class="text-lg text-blue-400 mb-4">▶ BUTTONS</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- 기본 버튼 -->
+        <div class="space-y-2">
+          <div class="text-xs text-gray-400">Primary</div>
+          <button class="w-full pixel-button bg-green-600 text-white py-2 text-xs font-bold hover:bg-green-500">
+            [ PRIMARY ]
+          </button>
+        </div>
+        
+        <!-- 보조 버튼 -->
+        <div class="space-y-2">
+          <div class="text-xs text-gray-400">Secondary</div>
+          <button class="w-full pixel-button bg-blue-600 text-white py-2 text-xs font-bold hover:bg-blue-500">
+            [ SECONDARY ]
+          </button>
+        </div>
+        
+        <!-- 위험 버튼 -->
+        <div class="space-y-2">
+          <div class="text-xs text-gray-400">Danger</div>
+          <button class="w-full pixel-button bg-red-600 text-white py-2 text-xs font-bold hover:bg-red-500">
+            [ DANGER ]
+          </button>
+        </div>
+        
+        <!-- 비활성화 버튼 -->
+        <div class="space-y-2">
+          <div class="text-xs text-gray-400">Disabled</div>
+          <button class="w-full pixel-button bg-gray-600 text-gray-400 py-2 text-xs font-bold cursor-not-allowed" disabled>
+            [ DISABLED ]
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 입력 필드 섹션 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6 mb-6">
+      <h2 class="text-lg text-blue-400 mb-4">▶ INPUT FIELDS</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 텍스트 입력 -->
+        <div class="space-y-2">
+          <label class="block text-xs text-green-300">TEXT INPUT:</label>
+          <input 
+            type="text" 
+            class="w-full pixel-input p-3 text-white text-sm focus:outline-none focus:border-green-400"
+            placeholder="Enter text..."
+            value="Sample text"
+          >
+        </div>
+        
+        <!-- 비밀번호 입력 -->
+        <div class="space-y-2">
+          <label class="block text-xs text-green-300">PASSWORD:</label>
+          <input 
+            type="password" 
+            class="w-full pixel-input p-3 text-white text-sm focus:outline-none focus:border-green-400"
+            placeholder="Enter password..."
+            value="password123"
+          >
+        </div>
+        
+        <!-- 숫자 입력 -->
+        <div class="space-y-2">
+          <label class="block text-xs text-green-300">NUMBER:</label>
+          <input 
+            type="number" 
+            class="w-full pixel-input p-3 text-white text-sm focus:outline-none focus:border-green-400"
+            placeholder="Enter number..."
+            value="42"
+          >
+        </div>
+        
+        <!-- 선택 박스 -->
+        <div class="space-y-2">
+          <label class="block text-xs text-green-300">SELECT:</label>
+          <select class="w-full pixel-select p-3 text-white text-sm focus:outline-none focus:border-green-400">
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 체크박스 & 라디오 섹션 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6 mb-6">
+      <h2 class="text-lg text-blue-400 mb-4">▶ CHECKBOXES & RADIOS</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 체크박스들 -->
+        <div class="space-y-3">
+          <div class="text-xs text-green-300 mb-2">CHECKBOXES:</div>
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" class="pixel-checkbox w-4 h-4" checked>
+            <span class="text-xs text-white">Option 1</span>
+          </label>
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" class="pixel-checkbox w-4 h-4">
+            <span class="text-xs text-white">Option 2</span>
+          </label>
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" class="pixel-checkbox w-4 h-4">
+            <span class="text-xs text-white">Option 3</span>
+          </label>
+        </div>
+        
+        <!-- 라디오 버튼들 -->
+        <div class="space-y-3">
+          <div class="text-xs text-green-300 mb-2">RADIO BUTTONS:</div>
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="radio" name="radio" class="pixel-checkbox w-4 h-4" checked>
+            <span class="text-xs text-white">Choice 1</span>
+          </label>
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="radio" name="radio" class="pixel-checkbox w-4 h-4">
+            <span class="text-xs text-white">Choice 2</span>
+          </label>
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="radio" name="radio" class="pixel-checkbox w-4 h-4">
+            <span class="text-xs text-white">Choice 3</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 프로그레스 바 섹션 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6 mb-6">
+      <h2 class="text-lg text-blue-400 mb-4">▶ PROGRESS BARS</h2>
+      
+      <div class="space-y-4">
+        <!-- HP 바 -->
+        <div class="space-y-2">
+          <div class="text-xs text-red-300">HEALTH: 75/100</div>
+          <div class="pixel-progress w-full h-6">
+            <div class="pixel-progress-fill h-full" style="width: 75%"></div>
+          </div>
+        </div>
+        
+        <!-- MP 바 -->
+        <div class="space-y-2">
+          <div class="text-xs text-blue-300">MANA: 45/80</div>
+          <div class="pixel-progress w-full h-6">
+            <div class="pixel-progress-fill h-full bg-gradient-to-r from-blue-500 to-blue-600" style="width: 56%"></div>
+          </div>
+        </div>
+        
+        <!-- 경험치 바 -->
+        <div class="space-y-2">
+          <div class="text-xs text-yellow-300">EXP: 1250/2000</div>
+          <div class="pixel-progress w-full h-6">
+            <div class="pixel-progress-fill h-full bg-gradient-to-r from-yellow-500 to-yellow-600" style="width: 62%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 아이템 카드 섹션 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6 mb-6">
+      <h2 class="text-lg text-blue-400 mb-4">▶ ITEM CARDS</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <!-- Common 아이템 -->
+        <div class="pixel-border bg-gradient-to-br from-gray-700 to-gray-800 p-3 flex flex-col items-center cursor-pointer hover:glow">
+          <div class="w-10 h-10 rarity-common rounded mb-2 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">철</span>
+          </div>
+          <div class="text-[8px] text-white text-center leading-tight">철광석</div>
+          <div class="text-[6px] text-green-300">x15</div>
+        </div>
+        
+        <!-- Uncommon 아이템 -->
+        <div class="pixel-border bg-gradient-to-br from-gray-700 to-gray-800 p-3 flex flex-col items-center cursor-pointer hover:glow">
+          <div class="w-10 h-10 rarity-uncommon rounded mb-2 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">크</span>
+          </div>
+          <div class="text-[8px] text-white text-center leading-tight">크리스탈</div>
+          <div class="text-[6px] text-blue-300">x3</div>
+        </div>
+        
+        <!-- Rare 아이템 -->
+        <div class="pixel-border bg-gradient-to-br from-gray-700 to-gray-800 p-3 flex flex-col items-center cursor-pointer hover:glow">
+          <div class="w-10 h-10 rarity-rare rounded mb-2 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">마</span>
+          </div>
+          <div class="text-[8px] text-white text-center leading-tight">마법석</div>
+          <div class="text-[6px] text-purple-300">x1</div>
+        </div>
+        
+        <!-- Epic 아이템 -->
+        <div class="pixel-border bg-gradient-to-br from-gray-700 to-gray-800 p-3 flex flex-col items-center cursor-pointer hover:glow">
+          <div class="w-10 h-10 rarity-epic rounded mb-2 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">다</span>
+          </div>
+          <div class="text-[8px] text-white text-center leading-tight">다이아몬드</div>
+          <div class="text-[6px] text-pink-300">x1</div>
+        </div>
+        
+        <!-- Legendary 아이템 -->
+        <div class="pixel-border bg-gradient-to-br from-gray-700 to-gray-800 p-3 flex flex-col items-center cursor-pointer hover:glow">
+          <div class="w-10 h-10 rarity-legendary rounded mb-2 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">신</span>
+          </div>
+          <div class="text-[8px] text-white text-center leading-tight">신화석</div>
+          <div class="text-[6px] text-yellow-300">x1</div>
+        </div>
+        
+        <!-- 빈 슬롯 -->
+        <div class="pixel-border bg-gradient-to-br from-gray-600 to-gray-700 p-3 flex flex-col items-center opacity-50">
+          <div class="text-[8px] text-gray-500">EMPTY</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 알림 & 메시지 섹션 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6 mb-6">
+      <h2 class="text-lg text-blue-400 mb-4">▶ NOTIFICATIONS</h2>
+      
+      <div class="space-y-4">
+        <!-- 성공 메시지 -->
+        <div class="pixel-border bg-green-900 p-3">
+          <div class="text-xs text-green-300">▶ SUCCESS: Item crafted successfully!</div>
+        </div>
+        
+        <!-- 경고 메시지 -->
+        <div class="pixel-border bg-yellow-900 p-3">
+          <div class="text-xs text-yellow-300">▶ WARNING: Low health detected!</div>
+        </div>
+        
+        <!-- 에러 메시지 -->
+        <div class="pixel-border bg-red-900 p-3">
+          <div class="text-xs text-red-300">▶ ERROR: Insufficient materials!</div>
+        </div>
+        
+        <!-- 정보 메시지 -->
+        <div class="pixel-border bg-blue-900 p-3">
+          <div class="text-xs text-blue-300">▶ INFO: New quest available!</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 하단 상태바 -->
+    <div class="relative mt-6">
+      <div class="bg-black pixel-border p-3">
+        <div class="text-xs text-green-400 flex justify-between">
+          <span>UI COMPONENTS DEMO | VERSION: 1.0.0</span>
+          <span class="blink">READY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

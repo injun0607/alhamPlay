@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레트로 인벤토리 시스템</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(45deg, #0f0f23, #1a1a2e, #16213e);
+      image-rendering: pixelated;
+    }
+    
+    .pixel-border {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-button {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+      transition: all 0.1s ease;
+    }
+    
+    .pixel-button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        2px 2px 0px rgba(0,0,0,0.8);
+    }
+    
+    .item-slot {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.2),
+        inset -2px -2px 0px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+    }
+    
+    .item-slot:hover {
+      border-color: #00ff00;
+      box-shadow: 
+        inset 2px 2px 0px rgba(0,255,0,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0 0 10px rgba(0,255,0,0.5);
+    }
+    
+    .item-slot.selected {
+      border-color: #ffff00;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,0,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0 0 15px rgba(255,255,0,0.7);
+    }
+    
+    .rarity-common { background: linear-gradient(45deg, #666, #888); }
+    .rarity-uncommon { background: linear-gradient(45deg, #2d5a2d, #4a7c4a); }
+    .rarity-rare { background: linear-gradient(45deg, #2d2d5a, #4a4a7c); }
+    .rarity-epic { background: linear-gradient(45deg, #5a2d5a, #7c4a7c); }
+    .rarity-legendary { background: linear-gradient(45deg, #5a5a2d, #7c7c4a); }
+    
+    .scan-line {
+      background: linear-gradient(
+        transparent 50%, 
+        rgba(0, 255, 0, 0.05) 50%
+      );
+      background-size: 100% 4px;
+      animation: scan 3s linear infinite;
+    }
+    
+    @keyframes scan {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(4px); }
+    }
+    
+    .blink {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4">
+  <div class="relative max-w-6xl mx-auto">
+    <!-- 배경 효과 -->
+    <div class="absolute inset-0 bg-black opacity-10 scan-line"></div>
+    
+    <!-- 헤더 -->
+    <div class="relative mb-6">
+      <h1 class="text-2xl text-green-400 mb-2">▶ INVENTORY SYSTEM</h1>
+      <div class="text-xs text-gray-400">Player: USER_001 | Gold: 1,250 | Weight: 45/100</div>
+    </div>
+    
+    <!-- 메인 컨테이너 -->
+    <div class="relative grid grid-cols-1 lg:grid-cols-4 gap-6">
+      
+      <!-- 탭 버튼들 -->
+      <div class="lg:col-span-4 flex gap-2 mb-4">
+        <button class="pixel-button bg-green-600 text-white px-4 py-2 text-xs font-bold">
+          [ MATERIALS ]
+        </button>
+        <button class="pixel-button bg-gray-600 text-gray-300 px-4 py-2 text-xs font-bold">
+          [ EQUIPMENT ]
+        </button>
+        <button class="pixel-button bg-gray-600 text-gray-300 px-4 py-2 text-xs font-bold">
+          [ CONSUMABLES ]
+        </button>
+      </div>
+      
+      <!-- 아이템 그리드 -->
+      <div class="lg:col-span-3">
+        <div class="bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6">
+          <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3">
+            
+            <!-- 아이템 슬롯들 -->
+            <div class="item-slot selected bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-20 h-20 flex flex-col items-center justify-center cursor-pointer">
+              <div class="w-8 h-8 rarity-common rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">철</span>
+              </div>
+              <div class="text-[6px] text-white text-center leading-tight">철광석</div>
+              <div class="text-[6px] text-green-300">x15</div>
+            </div>
+            
+            <div class="item-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-20 h-20 flex flex-col items-center justify-center cursor-pointer">
+              <div class="w-8 h-8 rarity-uncommon rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">크</span>
+              </div>
+              <div class="text-[6px] text-white text-center leading-tight">크리스탈</div>
+              <div class="text-[6px] text-blue-300">x3</div>
+            </div>
+            
+            <div class="item-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-20 h-20 flex flex-col items-center justify-center cursor-pointer">
+              <div class="w-8 h-8 rarity-rare rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">마</span>
+              </div>
+              <div class="text-[6px] text-white text-center leading-tight">마법석</div>
+              <div class="text-[6px] text-purple-300">x1</div>
+            </div>
+            
+            <div class="item-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-20 h-20 flex flex-col items-center justify-center cursor-pointer">
+              <div class="w-8 h-8 rarity-epic rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">다</span>
+              </div>
+              <div class="text-[6px] text-white text-center leading-tight">다이아몬드</div>
+              <div class="text-[6px] text-pink-300">x1</div>
+            </div>
+            
+            <div class="item-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-20 h-20 flex flex-col items-center justify-center cursor-pointer">
+              <div class="w-8 h-8 rarity-legendary rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">신</span>
+              </div>
+              <div class="text-[6px] text-white text-center leading-tight">신화석</div>
+              <div class="text-[6px] text-yellow-300">x1</div>
+            </div>
+            
+            <!-- 빈 슬롯들 -->
+            <div class="item-slot bg-gradient-to-br from-gray-600 to-gray-700 p-2 w-20 h-20 flex flex-col items-center justify-center opacity-50">
+              <div class="text-[8px] text-gray-500">EMPTY</div>
+            </div>
+            
+            <div class="item-slot bg-gradient-to-br from-gray-600 to-gray-700 p-2 w-20 h-20 flex flex-col items-center justify-center opacity-50">
+              <div class="text-[8px] text-gray-500">EMPTY</div>
+            </div>
+            
+            <div class="item-slot bg-gradient-to-br from-gray-600 to-gray-700 p-2 w-20 h-20 flex flex-col items-center justify-center opacity-50">
+              <div class="text-[8px] text-gray-500">EMPTY</div>
+            </div>
+            
+            <div class="item-slot bg-gradient-to-br from-gray-600 to-gray-700 p-2 w-20 h-20 flex flex-col items-center justify-center opacity-50">
+              <div class="text-[8px] text-gray-500">EMPTY</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+      <!-- 사이드바 -->
+      <div class="lg:col-span-1">
+        <div class="bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-4">
+          <h3 class="text-sm text-green-400 mb-4">▶ ITEM INFO</h3>
+          
+          <!-- 선택된 아이템 정보 -->
+          <div class="space-y-3">
+            <div class="text-center">
+              <div class="w-12 h-12 rarity-common rounded mx-auto mb-2 flex items-center justify-center">
+                <span class="text-white font-bold text-sm">철</span>
+              </div>
+              <div class="text-xs text-white font-bold">철광석</div>
+              <div class="text-[8px] text-gray-400">Common Material</div>
+            </div>
+            
+            <div class="text-[8px] text-gray-300 space-y-1">
+              <div>Quantity: 15</div>
+              <div>Weight: 0.5 kg</div>
+              <div>Value: 10 gold</div>
+            </div>
+            
+            <div class="text-[8px] text-gray-400">
+              A basic iron ore used for crafting weapons and armor.
+            </div>
+            
+            <!-- 액션 버튼들 -->
+            <div class="space-y-2 mt-4">
+              <button class="w-full pixel-button bg-blue-600 text-white py-2 text-[8px] font-bold">
+                [ USE ]
+              </button>
+              <button class="w-full pixel-button bg-yellow-600 text-white py-2 text-[8px] font-bold">
+                [ CRAFT ]
+              </button>
+              <button class="w-full pixel-button bg-red-600 text-white py-2 text-[8px] font-bold">
+                [ DROP ]
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 하단 상태바 -->
+    <div class="relative mt-6">
+      <div class="bg-black pixel-border p-3">
+        <div class="text-xs text-green-400 flex justify-between">
+          <span>SELECTED: 철광석 (x15)</span>
+          <span class="blink">READY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

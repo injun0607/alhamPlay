@@ -41,6 +41,9 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
       // 에러 시 기본 자원 지급 (임시)
       const fallbackResult: MaterialInventoryItemDTO = {
         id: 0,
+        inventoryItemId: 0,
+        itemImg: '',
+        quantity: 1,
         name: '나무',
         description: '나무',
         type: 'MATERIAL',

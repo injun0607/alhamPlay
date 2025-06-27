@@ -19,18 +19,32 @@ export default function Craft() {
 
     useEffect(() => {
         setMaterialList(materialInventory.materialItemList);
-    }, [materialInventory]);
+    }, [materialInventory.materialItemList]);
 
     const addIngredient = (material: MaterialInventoryItemDTO) => {
         const emptySlotIndex = ingredientMaterialList.findIndex(ing => ing === null);
         if (emptySlotIndex !== -1) {
+            //재료 세팅
             const newIngredients = [...ingredientMaterialList];
-            newIngredients[emptySlotIndex] = material;
+            newIngredients[emptySlotIndex] = {...material, quantity: 1};
             setIngredientMaterialList(newIngredients);
 
             // 로컬 materialList에서도 제거
-            const newMaterialList = materialList.filter(item => item.itemOrder !== material.itemOrder).sort((a, b) => a.itemOrder - b.itemOrder);
-            setMaterialList(newMaterialList);
+            const selectedMaterial = materialList.find(item => item.inventoryItemId === material.inventoryItemId);
+            if(selectedMaterial && selectedMaterial.quantity > 1){
+
+                const newMaterialList = materialList.map(item => 
+                    item.inventoryItemId === material.inventoryItemId
+                        ? {...item, quantity: item.quantity - 1}
+                        : item
+                ).sort((a, b) => a.itemOrder - b.itemOrder);
+
+                setMaterialList(newMaterialList);
+            }else{
+                const newMaterialList = materialList.filter(item => item.inventoryItemId !== material.inventoryItemId).sort((a, b) => a.itemOrder - b.itemOrder);
+                setMaterialList(newMaterialList);
+            }
+
         }
     }
 
@@ -43,18 +57,36 @@ export default function Craft() {
             setIngredientMaterialList(newIngredients);
 
             // 로컬 materialList에도 다시 추가
-            const newMaterialList = [...materialList, ingredient].sort((a, b) => a.itemOrder - b.itemOrder);
-            setMaterialList(newMaterialList);
+            const selectedMaterial = materialList.find(item => item.inventoryItemId === ingredient.inventoryItemId);
+            if(selectedMaterial){
+                const newMaterialList = materialList.map(item => 
+                    item.inventoryItemId === ingredient.inventoryItemId
+                        ? {...item, quantity: item.quantity + 1}
+                        : item
+                ).sort((a, b) => a.itemOrder - b.itemOrder);
+
+                setMaterialList(newMaterialList);
+            }else{
+                //새로추가
+                materialList.push({
+                    ...ingredient,
+                    quantity: 1
+                });
+                setMaterialList(materialList);
+            }
+
+
         }
     }
 
     const craft = async () => {
         const createEquipmentRecipe = () => {
+
             const materialCountMap = new Map<number, { material: MaterialInventoryItemDTO, count: number }>()
 
             ingredientMaterialList.forEach(item => {
                 if (item === null) return;
-                const itemId = Number(item.id);
+                const itemId = Number(item.inventoryItemId);
                 if (materialCountMap.has(itemId)) {
                     console.log("yes"+itemId)
                     const existing = materialCountMap.get(itemId)!
@@ -65,10 +97,11 @@ export default function Craft() {
                 }
             })
 
-            console.log(Array.from(materialCountMap.entries()));
+            // console.log(Array.from(materialCountMap.entries()));
 
             const ingredientList: IngredientsInfoDTOList = {
-                ingredients: []
+                //생각해야하는게 -> 한번 돌아서 아이템이 몇개가 얼마나있는지 알고 그 상태로 만들어야하는것
+                ingredients:[]
             }
 
             materialCountMap.forEach(({ material, count }) => {
@@ -285,7 +318,7 @@ export default function Craft() {
                                         </span>
                                     </div>
                                     <p className="text-white text-xs font-medium truncate px-1">
-                                        {material.name}
+                                        {material.name} X {material.quantity}
                                     </p>
                                 </div>
                             </div>

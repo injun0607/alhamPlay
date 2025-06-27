@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레트로 크래프트 시스템</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(45deg, #0f0f23, #1a1a2e, #16213e);
+      image-rendering: pixelated;
+    }
+    
+    .pixel-border {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-button {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+      transition: all 0.1s ease;
+    }
+    
+    .pixel-button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        2px 2px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-button:active {
+      transform: translate(4px, 4px);
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0px 0px 0px rgba(0,0,0,0.8);
+    }
+    
+    .craft-slot {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.2),
+        inset -2px -2px 0px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+    }
+    
+    .craft-slot:hover {
+      border-color: #00ff00;
+      box-shadow: 
+        inset 2px 2px 0px rgba(0,255,0,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0 0 10px rgba(0,255,0,0.5);
+    }
+    
+    .craft-slot.filled {
+      border-color: #ffff00;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,0,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0 0 15px rgba(255,255,0,0.7);
+    }
+    
+    .result-slot {
+      border: 3px solid #ff6600;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0 0 20px rgba(255,102,0,0.8);
+    }
+    
+    .rarity-common { background: linear-gradient(45deg, #666, #888); }
+    .rarity-uncommon { background: linear-gradient(45deg, #2d5a2d, #4a7c4a); }
+    .rarity-rare { background: linear-gradient(45deg, #2d2d5a, #4a4a7c); }
+    .rarity-epic { background: linear-gradient(45deg, #5a2d5a, #7c4a7c); }
+    .rarity-legendary { background: linear-gradient(45deg, #5a5a2d, #7c7c4a); }
+    
+    .scan-line {
+      background: linear-gradient(
+        transparent 50%, 
+        rgba(0, 255, 0, 0.05) 50%
+      );
+      background-size: 100% 4px;
+      animation: scan 3s linear infinite;
+    }
+    
+    @keyframes scan {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(4px); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .crafting {
+      animation: crafting 1s infinite;
+    }
+    
+    @keyframes crafting {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .arrow {
+      animation: arrow 1.5s infinite;
+    }
+    
+    @keyframes arrow {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4">
+  <div class="relative max-w-6xl mx-auto">
+    <!-- 배경 효과 -->
+    <div class="absolute inset-0 bg-black opacity-10 scan-line"></div>
+    
+    <!-- 헤더 -->
+    <div class="relative mb-6">
+      <h1 class="text-2xl text-orange-400 mb-2">▶ CRAFTING SYSTEM</h1>
+      <div class="text-xs text-gray-400">Combine materials to create powerful items</div>
+    </div>
+    
+    <!-- 메인 크래프트 영역 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-8 mb-8">
+      <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+        
+        <!-- 재료 슬롯들 -->
+        <div class="space-y-4">
+          <h3 class="text-sm text-green-400 text-center mb-4">▶ INGREDIENTS</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <!-- 슬롯 1 -->
+            <div class="craft-slot filled bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-20 h-20 flex flex-col items-center justify-center cursor-pointer">
+              <div class="w-8 h-8 rarity-common rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">철</span>
+              </div>
+              <div class="text-[6px] text-white text-center leading-tight">철광석</div>
+              <div class="text-[6px] text-green-300">x2</div>
+            </div>
+            
+            <!-- 슬롯 2 -->
+            <div class="craft-slot filled bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-20 h-20 flex flex-col items-center justify-center cursor-pointer">
+              <div class="w-8 h-8 rarity-uncommon rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">크</span>
+              </div>
+              <div class="text-[6px] text-white text-center leading-tight">크리스탈</div>
+              <div class="text-[6px] text-blue-300">x1</div>
+            </div>
+            
+            <!-- 슬롯 3 -->
+            <div class="craft-slot bg-gradient-to-br from-gray-600 to-gray-700 p-2 w-20 h-20 flex flex-col items-center justify-center opacity-50">
+              <div class="text-[8px] text-gray-500">EMPTY</div>
+            </div>
+            
+            <!-- 슬롯 4 -->
+            <div class="craft-slot bg-gradient-to-br from-gray-600 to-gray-700 p-2 w-20 h-20 flex flex-col items-center justify-center opacity-50">
+              <div class="text-[8px] text-gray-500">EMPTY</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 화살표 -->
+        <div class="text-orange-400 text-3xl font-bold arrow">→</div>
+        
+        <!-- 결과 슬롯 -->
+        <div class="space-y-4">
+          <h3 class="text-sm text-orange-400 text-center mb-4">▶ RESULT</h3>
+          <div class="result-slot bg-gradient-to-br from-gray-700 to-gray-800 p-3 w-24 h-24 flex flex-col items-center justify-center">
+            <div class="w-10 h-10 rarity-rare rounded mb-2 flex items-center justify-center">
+              <span class="text-white font-bold text-sm">검</span>
+            </div>
+            <div class="text-[8px] text-white text-center leading-tight">철검</div>
+            <div class="text-[6px] text-purple-300">RARE</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 크래프트 버튼 -->
+      <div class="mt-8 flex justify-center">
+        <button class="pixel-button bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-4 text-sm font-bold hover:from-orange-500 hover:to-red-500 crafting">
+          [ CRAFT ITEM ]
+        </button>
+      </div>
+    </div>
+    
+    <!-- 인벤토리 영역 -->
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 pixel-border p-6">
+      <h3 class="text-sm text-green-400 mb-4">▶ AVAILABLE MATERIALS</h3>
+      
+      <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3">
+        <!-- 재료 아이템들 -->
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-common rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">철</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">철광석</div>
+          <div class="text-[6px] text-green-300">x15</div>
+        </div>
+        
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-uncommon rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">크</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">크리스탈</div>
+          <div class="text-[6px] text-blue-300">x3</div>
+        </div>
+        
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-rare rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">마</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">마법석</div>
+          <div class="text-[6px] text-purple-300">x1</div>
+        </div>
+        
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-epic rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">다</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">다이아몬드</div>
+          <div class="text-[6px] text-pink-300">x1</div>
+        </div>
+        
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-legendary rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">신</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">신화석</div>
+          <div class="text-[6px] text-yellow-300">x1</div>
+        </div>
+        
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-common rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">나</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">나무</div>
+          <div class="text-[6px] text-green-300">x8</div>
+        </div>
+        
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-common rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">돌</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">돌</div>
+          <div class="text-[6px] text-gray-300">x12</div>
+        </div>
+        
+        <div class="craft-slot bg-gradient-to-br from-gray-700 to-gray-800 p-2 w-16 h-16 flex flex-col items-center justify-center cursor-pointer">
+          <div class="w-6 h-6 rarity-uncommon rounded mb-1 flex items-center justify-center">
+            <span class="text-white font-bold text-xs">가</span>
+          </div>
+          <div class="text-[6px] text-white text-center leading-tight">가죽</div>
+          <div class="text-[6px] text-yellow-300">x5</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 하단 상태바 -->
+    <div class="relative mt-6">
+      <div class="bg-black pixel-border p-3">
+        <div class="text-xs text-green-400 flex justify-between">
+          <span>RECIPE: 철검 (철광석 x2 + 크리스탈 x1)</span>
+          <span class="pulse">READY TO CRAFT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 
