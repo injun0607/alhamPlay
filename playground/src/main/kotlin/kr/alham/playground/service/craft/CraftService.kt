@@ -1,5 +1,6 @@
 package kr.alham.playground.service.craft
 
+import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.dto.craft.EquipmentRecipeDTO
 import kr.alham.playground.dto.craft.IngredientsInfoDTOList
 import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryItemDTO
@@ -16,7 +17,7 @@ class CraftService(
 
 
     @Transactional
-    fun makeEquipment(playerId: Long,ingredientsInfoDTOList: IngredientsInfoDTOList): PlayerEquipmentInventoryItemDTO {
+    fun makeEquipment(playerId: Long,ingredientsInfoDTOList: IngredientsInfoDTOList): Equipment {
         //검증은 무조건 해야한다. 해당 유저가 아이템이 있는지 검증은 무조건 하기
         val equipmentRecipeDTO = EquipmentRecipeDTO.fromIngredientsInfo(ingredientsInfoDTOList)
         val recipe = craftSystem.craftEquipment(equipmentRecipeDTO)
@@ -26,12 +27,12 @@ class CraftService(
         inventoryService.deleteMaterialItemByRecipe(playerId,ingredientsInfoDTOList)
 
         //장비아이템 저장
-        inventoryService.saveItemToPlayerInventory(
+        val inventoryId = inventoryService.saveItemToPlayerInventory(
             playerId,
             equipment
         )
 
-        return PlayerEquipmentInventoryItemDTO.fromEntity(equipment)
+        return equipment
     }
 
 

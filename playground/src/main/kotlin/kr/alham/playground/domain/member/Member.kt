@@ -14,6 +14,6 @@ class Member {
     var email : String = ""
 
     @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "player_id", unique = true)
     var player:Player = Player()
 }

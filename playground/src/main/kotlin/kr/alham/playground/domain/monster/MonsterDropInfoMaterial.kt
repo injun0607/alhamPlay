@@ -10,7 +10,7 @@ class MonsterDropInfoMaterial(
     val id : Long? = null,
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "monster_id")
+    @JoinColumn(name = "monster_id", unique = true)
     val monster: Monster = Monster(),
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "monsterDropInfoMaterial", cascade = [CascadeType.ALL], orphanRemoval = true)

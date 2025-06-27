@@ -14,4 +14,7 @@ interface EquipmentInventoryRepository:JpaRepository<EquipmentInventory, Long> {
             LEFT JOIN FETCH eil.equipment 
             WHERE ei.player.id = :playerId order by eil.itemOrder""")
     fun findEquipmentInventoryByPlayerId(playerId: Long): EquipmentInventory?
+
+
+
 }

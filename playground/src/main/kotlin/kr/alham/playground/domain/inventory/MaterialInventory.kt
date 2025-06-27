@@ -11,7 +11,7 @@ class MaterialInventory(
     val id: Long? = null,
 
     @OneToOne
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "player_id", unique = true)
     val player: Player = Player(),
 
     @OneToMany(mappedBy = "materialInventory", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)

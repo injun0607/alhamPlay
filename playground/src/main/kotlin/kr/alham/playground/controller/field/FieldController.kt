@@ -1,6 +1,7 @@
 package kr.alham.playground.controller.field
 
 import kr.alham.playground.common.utils.mapper.FieldAreaMapper
+import kr.alham.playground.common.utils.mapper.ItemMapper
 import kr.alham.playground.domain.area.FieldType
 import kr.alham.playground.domain.inventory.MaterialInventoryItem
 import kr.alham.playground.dto.craft.MaterialDTO
@@ -47,20 +48,16 @@ class FieldController(
 
 
 
-        inventoryService.saveItemToPlayerInventory(
+        val inventoryId = inventoryService.saveItemToPlayerInventory(
             playerId,
             itemInfo
         )
 
-        return PlayerMaterialInventoryItemDTO(
-            id = itemInfo.id!!,
-            name = itemInfo.name,
-            itemRarity = gatherResult.itemRarity,
-            type = itemInfo.type,
-            description = itemInfo.description,
-            itemOrder = 0,
-            itemImg = itemInfo.itemImg
-        )
+        val material = inventoryService.getMaterialInventoryItemListByInventoryId(inventoryId).first{
+            it.material.id == itemInfo.id
+        }
+
+        return ItemMapper.materialInventoryItemToDTO(material)
     }
 
 

@@ -197,6 +197,9 @@ class InventoryServiceTest {
         //플레이어 아이템 저장
         inventoryService.saveItemToPlayerInventory(1L,equipmentOne)
         inventoryService.saveItemToPlayerInventory(1L,materialOne)
+        inventoryService.saveItemToPlayerInventory(1L,materialOne)
+        inventoryService.saveItemToPlayerInventory(1L,materialOne)
+        inventoryService.saveItemToPlayerInventory(1L,materialOne)
 
 
         //플레이어 인벤토리 조회
@@ -210,6 +213,7 @@ class InventoryServiceTest {
         // 아이템 이름 확인
         assertEquals("TestEnvironmentTestEquipment", playerEquipmentInventory.equipmentItemList[0].equipment.name)
         assertEquals("TestEnvironmentTestMaterial", playerMaterialInventory.materialItemList[0].material.name)
+        assertEquals(4, playerMaterialInventory.materialItemList[0].quantity)
 
 
     }
@@ -270,24 +274,6 @@ class InventoryServiceTest {
         )
 
 
-        // 재료 아이템 삭제
-//        :EquipmentRecipeDTO = EquipmentRecipeDTO(
-//            mapOf(
-//                MaterialDTO(
-//                    itemRarity = materialOne.itemRarity,
-//                    name = materialOne.name
-//                ) to 3,
-//                MaterialDTO(
-//                    itemRarity = materialTwo.itemRarity,
-//                    name = materialTwo.name
-//                ) to 1,
-//                MaterialDTO(
-//                    itemRarity = materialThree.itemRarity,
-//                    name = materialThree.name
-//                ) to 1
-//            )
-//        )
-
         inventoryService.deleteMaterialItemByRecipe(1L, ingredients)
 
         println("====삭제후 인벤토리확인=====")
@@ -298,6 +284,8 @@ class InventoryServiceTest {
         assertEquals("TestEnvironmentTestMaterial3", materialInventory.materialItemList[1].material.name)
         assertEquals(2, materialInventory.materialItemList[0].itemOrder)
         assertEquals(3, materialInventory.materialItemList[1].itemOrder)
+        assertEquals(1, materialInventory.materialItemList[0].quantity)
+        assertEquals(1, materialInventory.materialItemList[1].quantity)
     }
 
     @Test

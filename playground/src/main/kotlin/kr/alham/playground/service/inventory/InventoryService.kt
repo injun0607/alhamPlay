@@ -62,12 +62,17 @@ class InventoryService(
     }
 
     //플레이어 인벤토리에 신규 아이템을 저장하는 로직
+    /**
+     * return playerInventoryId
+     */
     @Transactional
-    fun saveItemToPlayerInventory(playerId: Long, itemInfo: Item) {
+    fun saveItemToPlayerInventory(playerId: Long, itemInfo: Item): Long {
         // 플레이어의 인벤토리에 아이템을 저장하는 로직
         // 예: 데이터베이스에 아이템 정보를 저장
 
         val itemId = requireNotNull(itemInfo.id) { "Item ID must not be null" }
+
+        var result = 0L;
 
         when(itemInfo.type){
             ItemType.EQUIPMENT -> {
@@ -76,6 +81,7 @@ class InventoryService(
                 val itemOrder = equipmentInventory.equipmentItemList.size + 1
                 val equipment = getEquipmentById(itemId)
                 EquipmentInventoryItem.create(equipmentInventory,equipment,itemOrder)
+                result = equipmentInventory.id ?: throw IllegalArgumentException("Equipment inventory ID must not be null")
             }
             ItemType.MATERIAL -> {
                 // 재료 아이템을 인벤토리에 저장하는 로직
@@ -90,9 +96,12 @@ class InventoryService(
                 }else{
                     MaterialInventoryItem.create(materialInventory, material, itemOrder)
                 }
+
+                result = materialInventory.id ?: throw IllegalArgumentException("Material inventory ID must not be null")
             }
         }
 
+        return result
     }
 
     @Transactional
@@ -128,6 +137,14 @@ class InventoryService(
 
 
 
+    }
+
+    fun getPlayerEquipmentInventoryItemByEquipmentId(playerId: Long, equipmentId: Long): EquipmentInventoryItem {
+        // 플레이어의 장비 인벤토리에서 특정 장비 아이템을 가져오는 로직
+        return equipmentInventoryItemRepository.getEquipmentInventoryItemsByIdAndEquipmentId(
+            id = playerId,
+            equipmentId = equipmentId
+        )?: throw IllegalArgumentException("Equipment inventory item not found for player ID: $playerId and equipment ID: $equipmentId")
     }
 
     fun getEquipmentInventoryByPlayerId(playerId: Long): EquipmentInventory {

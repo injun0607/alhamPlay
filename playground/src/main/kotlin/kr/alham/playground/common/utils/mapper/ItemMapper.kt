@@ -14,14 +14,21 @@ object ItemMapper{
         val materialId =  requireNotNull(materialInventoryItem.material.id) {
             "Material ID cannot be null"
         }
+
+        val materialInventoryItemId = requireNotNull(materialInventoryItem.id) {
+            "Material Inventory Item ID cannot be null"
+        }
+
         return PlayerMaterialInventoryItemDTO(
             id = materialId,
+            inventoryItemId = materialInventoryItemId,
             itemOrder = materialInventoryItem.itemOrder,
             name = materialInventoryItem.material.name,
             type = materialInventoryItem.material.type,
             description = materialInventoryItem.material.description,
             itemRarity = materialInventoryItem.material.itemRarity,
-            itemImg = materialInventoryItem.material.itemImg
+            itemImg = materialInventoryItem.material.itemImg,
+            quantity = materialInventoryItem.quantity
         )
     }
 
@@ -33,8 +40,13 @@ object ItemMapper{
             "Equipment ID cannot be null"
         }
 
+        val equipmentInventoryItemId = requireNotNull(equipmentInventoryItem.id) {
+            "Equipment Inventory Item ID cannot be null"
+        }
+
         return PlayerEquipmentInventoryItemDTO(
             id = equipmentId,
+            inventoryItemId = equipmentInventoryItemId,
             itemOrder = equipmentInventoryItem.itemOrder,
             name = equipmentInventoryItem.equipment.name,
             type = equipmentInventoryItem.equipment.type,
