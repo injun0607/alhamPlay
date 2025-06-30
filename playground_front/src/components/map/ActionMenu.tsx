@@ -7,7 +7,7 @@ import { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { InventoryStore } from '@/store/inventoryStore';
-
+import GatherResult from './GatherResult';
 
 interface ActionMenuProps {
   gatherInfo: GatherMaterialDTO;
@@ -20,10 +20,10 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
 
   const { addItem } = InventoryStore();
   const [isGatheringComplete, setIsGatheringComplete] = useState(false);
+  const [gatherResult, setGatherResult] = useState<MaterialInventoryItemDTO | null>(null);
+  const [showGatherResult, setShowGatherResult] = useState(false);
   const { areaId, x, y } = gatherInfo;
   const refIsGathering = useRef(isGathering);
-
-
 
   // 백엔드 API 요청을 위한 훅
   const { post: postGathering } = useApi<MaterialInventoryItemDTO>();
@@ -34,7 +34,8 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
       const result = await postGathering('/field/gather', gatherInfo);
       if (result) {
         addItem(result);
-        showGatheringComplete(result);
+        setGatherResult(result);
+        setShowGatherResult(true);
       }
     } catch (error) {
       console.error('채집 결과 요청 실패:', error);
@@ -50,11 +51,12 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
         itemRarity: "COMMON",
         itemOrder: 0
       };
-      showGatheringComplete(fallbackResult);
+      setGatherResult(fallbackResult);
+      setShowGatherResult(true);
     } finally {
       setIsGatheringComplete(false);
     }
-  }, []);
+  }, [gatherInfo, postGathering, addItem]);
 
   // 채집 완료 시 백엔드 요청
   useEffect(() => {
@@ -102,28 +104,6 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
     }
   }, [handleGatherKeyPress])
 
-  // 채집 완료 알림 표시
-  const showGatheringComplete = (result: MaterialInventoryItemDTO) => {
-    const notification = document.createElement('div');
-    notification.className = 'fixed bottom-4 left-4 bg-yellow-600 text-white p-3 rounded-lg border-2 border-yellow-400 z-50 min-w-48';
-
-    const resourcesHtml = `<div class="text-sm">'📦' ${result.name} - ${result.itemRarity}</div>`
-
-
-    notification.innerHTML = `
-      <div class="font-bold">🎒 자원 획득!</div>
-      ${resourcesHtml}
-    `;
-
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      if (document.body.contains(notification)) {
-        document.body.removeChild(notification);
-      }
-    }, 5000);
-  };
-
   const handleAction = (action: string) => {
     if (areaId === null || x === null || y === null) {
       alert('채집 위치를 선택해주세요.');
@@ -141,24 +121,32 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
   };
 
   return (
-    <div>
-      {/* 하단 선택지 */}
-      <div className="flex gap-4 mt-4">
-        <button
-          onClick={() => handleAction('GATHER')}
-          disabled={isGathering || isGatheringComplete}
-          className="px-8 py-4 bg-gradient-to-b from-blue-500 to-blue-700 text-white font-bold rounded-lg border-2 border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed hover:from-blue-600 hover:to-blue-800 transition-all"
-        >
-          {isGathering ? '⛏️ 채집 중...' : isGatheringComplete ? '⏳ 처리 중...' : '⛏️ 채집'}
-        </button>
-        <button
-          onClick={() => handleAction('EXPLORE')}
-          disabled={isGathering || isGatheringComplete}
-          className="px-8 py-4 bg-gradient-to-b from-green-500 to-green-700 text-white font-bold rounded-lg border-2 border-green-300 disabled:opacity-50 disabled:cursor-not-allowed hover:from-green-600 hover:to-green-800 transition-all"
-        >
-          🗺️ 모험
-        </button>
+    <>
+      <div>
+        {/* 하단 선택지 */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="space-y-2">
+            <button 
+            onClick={() => handleAction('GATHER')}
+            disabled={isGathering || isGatheringComplete}
+            className="w-full pixel-button bg-green-600 text-white py-2 text-xs font-bold hover:bg-green-500">
+              {isGathering ? '⛏️ MINING...' : isGatheringComplete ? '⏳ PROCESSING...' : '⛏️ MINE'}
+            </button>
+          </div>
+          <div className="space-y-2">
+            <button className="w-full pixel-button bg-blue-600 text-white py-2 text-xs font-bold hover:bg-blue-500">
+              EXPLORE
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* 채집 결과 알림 */}
+      <GatherResult 
+        result={gatherResult}
+        isVisible={showGatherResult}
+        onClose={() => setShowGatherResult(false)}
+      />
+    </>
   );
 }; 

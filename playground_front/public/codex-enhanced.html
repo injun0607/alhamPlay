@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>레트로 도감 시스템</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(45deg, #0f0f23, #1a1a2e, #16213e);
+      image-rendering: pixelated;
+    }
+    
+    .pixel-border {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-button {
+      border: 3px solid #000;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        4px 4px 0px rgba(0,0,0,0.8);
+      transition: all 0.1s ease;
+    }
+    
+    .pixel-button:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        2px 2px 0px rgba(0,0,0,0.8);
+    }
+    
+    .pixel-button:active {
+      transform: translate(4px, 4px);
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.3),
+        inset -2px -2px 0px rgba(0,0,0,0.5),
+        0px 0px 0px rgba(0,0,0,0.8);
+    }
+    
+    .book-page {
+      border: 3px solid #8B4513;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.4),
+        inset -2px -2px 0px rgba(0,0,0,0.3),
+        6px 6px 0px rgba(0,0,0,0.9);
+      background: linear-gradient(135deg, #F5DEB3, #DEB887, #D2B48C);
+      position: relative;
+    }
+    
+    .book-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(139, 69, 19, 0.1) 2px,
+        rgba(139, 69, 19, 0.1) 4px
+      );
+      pointer-events: none;
+    }
+    
+    .item-card {
+      border: 2px solid #8B4513;
+      box-shadow: 
+        inset 1px 1px 0px rgba(255,255,255,0.3),
+        inset -1px -1px 0px rgba(0,0,0,0.3);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .item-card:hover {
+      border-color: #DAA520;
+      box-shadow: 
+        inset 1px 1px 0px rgba(255,255,255,0.4),
+        inset -1px -1px 0px rgba(0,0,0,0.3),
+        0 0 10px rgba(218, 165, 32, 0.5);
+    }
+    
+    .item-card.discovered {
+      background: linear-gradient(135deg, #F5DEB3, #DEB887);
+    }
+    
+    .item-card.undiscovered {
+      background: linear-gradient(135deg, #696969, #808080);
+      opacity: 0.7;
+    }
+    
+    .item-card.selected {
+      border-color: #FFD700;
+      box-shadow: 
+        inset 1px 1px 0px rgba(255,255,255,0.4),
+        inset -1px -1px 0px rgba(0,0,0,0.3),
+        0 0 15px rgba(255, 215, 0, 0.7);
+    }
+    
+    .silhouette {
+      background: linear-gradient(45deg, #2d2d2d, #404040);
+      border: 2px solid #555;
+      position: relative;
+    }
+    
+    .silhouette::after {
+      content: '?';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #888;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .rarity-common { background: linear-gradient(45deg, #666, #888); }
+    .rarity-uncommon { background: linear-gradient(45deg, #2d5a2d, #4a7c4a); }
+    .rarity-rare { background: linear-gradient(45deg, #2d2d5a, #4a4a7c); }
+    .rarity-epic { background: linear-gradient(45deg, #5a2d5a, #7c4a7c); }
+    .rarity-legendary { background: linear-gradient(45deg, #5a5a2d, #7c7c4a); }
+    
+    .scan-line {
+      background: linear-gradient(
+        transparent 50%, 
+        rgba(0, 255, 0, 0.05) 50%
+      );
+      background-size: 100% 4px;
+      animation: scan 3s linear infinite;
+    }
+    
+    @keyframes scan {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(4px); }
+    }
+    
+    .blink {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0.3; }
+    }
+    
+    .page-flip {
+      animation: pageFlip 0.5s ease-in-out;
+    }
+    
+    @keyframes pageFlip {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(-90deg); }
+      100% { transform: rotateY(0deg); }
+    }
+    
+    .book-spine {
+      background: linear-gradient(90deg, #8B4513, #A0522D, #8B4513);
+      border: 2px solid #654321;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.2),
+        inset -2px -2px 0px rgba(0,0,0,0.5);
+    }
+    
+    .book-binding {
+      background: linear-gradient(90deg, #654321, #8B4513, #654321);
+      border: 2px solid #3E2723;
+      box-shadow: 
+        inset 3px 3px 0px rgba(0,0,0,0.5),
+        inset -1px -1px 0px rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4">
+  <div class="relative max-w-7xl mx-auto">
+    <!-- 배경 효과 -->
+    <div class="absolute inset-0 bg-black opacity-10 scan-line"></div>
+    
+    <!-- 헤더 -->
+    <div class="relative mb-6">
+      <h1 class="text-2xl text-amber-400 mb-2">▶ CODEX SYSTEM</h1>
+      <div class="text-xs text-gray-400">Discover and learn about all items in the world</div>
+    </div>
+    
+    <!-- 메인 도감 컨테이너 -->
+    <div class="relative flex gap-4">
+      
+      <!-- 왼쪽 페이지 (아이템 목록) -->
+      <div class="flex-1">
+        <div class="book-page p-6 h-[600px] overflow-y-auto">
+          <h2 class="text-lg text-amber-800 mb-4 text-center">▶ ITEM CATALOG</h2>
+          
+          <!-- 카테고리 탭 -->
+          <div class="flex gap-2 mb-4">
+            <button class="pixel-button bg-amber-600 text-white px-3 py-1 text-[8px] font-bold">
+              [ ALL ]
+            </button>
+            <button class="pixel-button bg-gray-600 text-gray-300 px-3 py-1 text-[8px] font-bold">
+              [ MATERIALS ]
+            </button>
+            <button class="pixel-button bg-gray-600 text-gray-300 px-3 py-1 text-[8px] font-bold">
+              [ EQUIPMENT ]
+            </button>
+            <button class="pixel-button bg-gray-600 text-gray-300 px-3 py-1 text-[8px] font-bold">
+              [ CONSUMABLES ]
+            </button>
+          </div>
+          
+          <!-- 아이템 그리드 -->
+          <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3">
+            
+            <!-- 발견된 아이템들 -->
+            <div class="item-card discovered selected p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-common rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">철</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">철광석</div>
+            </div>
+            
+            <div class="item-card discovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-uncommon rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">크</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">크리스탈</div>
+            </div>
+            
+            <div class="item-card discovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-rare rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">마</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">마법석</div>
+            </div>
+            
+            <div class="item-card discovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-epic rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">다</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">다이아몬드</div>
+            </div>
+            
+            <div class="item-card discovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-legendary rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">신</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">신화석</div>
+            </div>
+            
+            <div class="item-card discovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-common rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">나</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">나무</div>
+            </div>
+            
+            <div class="item-card discovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-common rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">돌</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">돌</div>
+            </div>
+            
+            <div class="item-card discovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 rarity-uncommon rounded mb-1 flex items-center justify-center">
+                <span class="text-white font-bold text-xs">가</span>
+              </div>
+              <div class="text-[6px] text-amber-800 text-center leading-tight">가죽</div>
+            </div>
+            
+            <!-- 미발견 아이템들 (실루엣) -->
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+            <div class="item-card undiscovered p-2 w-16 h-16 flex flex-col items-center justify-center">
+              <div class="w-8 h-8 silhouette rounded mb-1 flex items-center justify-center">
+              </div>
+              <div class="text-[6px] text-gray-600 text-center leading-tight">???</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+      <!-- 책 등 -->
+      <div class="w-4 flex flex-col">
+        <div class="book-binding flex-1 flex items-center justify-center">
+          <div class="text-[6px] text-amber-200 font-bold transform -rotate-90 whitespace-nowrap">
+            CODEX
+          </div>
+        </div>
+      </div>
+      
+      <!-- 오른쪽 페이지 (상세 정보) -->
+      <div class="flex-1">
+        <div class="book-page p-6 h-[600px] overflow-y-auto">
+          <h2 class="text-lg text-amber-800 mb-4 text-center">▶ ITEM DETAILS</h2>
+          
+          <!-- 선택된 아이템 정보 -->
+          <div class="space-y-4">
+            <!-- 아이템 이미지 -->
+            <div class="text-center">
+              <div class="w-20 h-20 rarity-common rounded mx-auto mb-3 flex items-center justify-center">
+                <span class="text-white font-bold text-lg">철</span>
+              </div>
+              <div class="text-sm text-amber-800 font-bold">철광석</div>
+              <div class="text-[8px] text-amber-600">Common Material</div>
+            </div>
+            
+            <!-- 기본 정보 -->
+            <div class="space-y-2">
+              <div class="text-[8px] text-amber-800 font-bold">▶ BASIC INFO</div>
+              <div class="text-[8px] text-amber-700 space-y-1">
+                <div>Type: Material</div>
+                <div>Rarity: Common</div>
+                <div>Weight: 0.5 kg</div>
+                <div>Value: 10 gold</div>
+                <div>Stack Size: 99</div>
+              </div>
+            </div>
+            
+            <!-- 설명 -->
+            <div class="space-y-2">
+              <div class="text-[8px] text-amber-800 font-bold">▶ DESCRIPTION</div>
+              <div class="text-[8px] text-amber-700 leading-relaxed">
+                A basic iron ore commonly found in mines and caves. Essential material for crafting weapons, armor, and various tools. The quality varies depending on the mining location.
+              </div>
+            </div>
+            
+            <!-- 획득 방법 -->
+            <div class="space-y-2">
+              <div class="text-[8px] text-amber-800 font-bold">▶ ACQUISITION</div>
+              <div class="text-[8px] text-amber-700 space-y-1">
+                <div>• Mining in Iron Mines</div>
+                <div>• Cave Exploration</div>
+                <div>• Monster Drops (Golems)</div>
+                <div>• Merchant Purchase</div>
+              </div>
+            </div>
+            
+            <!-- 크래프트 레시피 -->
+            <div class="space-y-2">
+              <div class="text-[8px] text-amber-800 font-bold">▶ CRAFTING RECIPES</div>
+              <div class="space-y-2">
+                <div class="pixel-border bg-amber-50 p-2">
+                  <div class="text-[8px] text-amber-800 font-bold">철검</div>
+                  <div class="text-[6px] text-amber-700">철광석 x2 + 크리스탈 x1</div>
+                </div>
+                <div class="pixel-border bg-amber-50 p-2">
+                  <div class="text-[8px] text-amber-800 font-bold">철갑옷</div>
+                  <div class="text-[6px] text-amber-700">철광석 x3 + 가죽 x1</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 발견 정보 -->
+            <div class="space-y-2">
+              <div class="text-[8px] text-amber-800 font-bold">▶ DISCOVERY</div>
+              <div class="text-[8px] text-amber-700">
+                First discovered: Day 1, Iron Mine #1<br>
+                Total found: 47 times
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 페이지 네비게이션 -->
+    <div class="relative mt-6 flex justify-center gap-4">
+      <button class="pixel-button bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-500">
+        [ PREV PAGE ]
+      </button>
+      <div class="pixel-border bg-amber-100 px-4 py-2">
+        <span class="text-xs text-amber-800 font-bold">PAGE 1 / 5</span>
+      </div>
+      <button class="pixel-button bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-500">
+        [ NEXT PAGE ]
+      </button>
+    </div>
+    
+    <!-- 하단 상태바 -->
+    <div class="relative mt-6">
+      <div class="bg-black pixel-border p-3">
+        <div class="text-xs text-green-400 flex justify-between">
+          <span>SELECTED: 철광석 | DISCOVERED: 8/24 ITEMS</span>
+          <span class="blink">READY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

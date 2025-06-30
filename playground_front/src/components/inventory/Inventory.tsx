@@ -30,30 +30,44 @@ export default function Inventory({setIsOpen}:InventoryProps) {
   },[])
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-96 max-h-96">
-        {/* 탭 버튼들 */}
-        <div className="flex gap-2 mb-4">
-          <button 
-            onClick={() => setSelectedTab('material')}
-            className={`px-4 py-2 rounded ${selectedTab === 'material' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-          >
-            재료
-          </button>
-          <button 
-            onClick={() => setSelectedTab('equipment')}
-            className={`px-4 py-2 rounded ${selectedTab === 'equipment' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-          >
-            장비
-          </button>
-        </div>
-        
-        {/* 탭 내용 */}
-        {selectedTab === 'material' ? <MaterialInventoryTab materialInventory={materialInventory} /> : <EquipmentInventoryTab equipmentInventory={equipmentInventory} />}
-        <button onClick={() => setIsOpen(false)} className="mt-4 px-4 py-2 bg-gray-300 rounded">
-          닫기
+    <div className="inventory-container">
+      {/* 탭 버튼들 */}
+      <div className="flex inventory-tabs">
+        <button 
+          onClick={() => setSelectedTab('material')}
+          className={`inventory-tab font-bold pixel-button ${
+            selectedTab === 'material' 
+              ? 'bg-blue-600 text-white' 
+              : 'bg-gray-600 text-gray-300'
+          }`}
+        >
+          MATERIALS
+        </button>
+        <button
+          onClick={() => setSelectedTab('equipment')}
+          className={`inventory-tab font-bold pixel-button ${
+            selectedTab === 'equipment' 
+              ? 'bg-blue-600 text-white' 
+              : 'bg-gray-600 text-gray-300'
+          }`}
+        >
+          EQUIPMENT
         </button>
       </div>
+      
+      {/* 탭 내용 */}
+      {selectedTab === 'material' ? (
+        <MaterialInventoryTab materialInventory={materialInventory} />
+      ) : (
+        <EquipmentInventoryTab equipmentInventory={equipmentInventory} />
+      )}
+      
+      <button 
+        onClick={() => setIsOpen(false)} 
+        className="inventory-close w-full pixel-button bg-gray-600 text-white py-2 text-xs font-bold hover:bg-gray-500"
+      >
+        CLOSE
+      </button>
     </div>
   )
 }

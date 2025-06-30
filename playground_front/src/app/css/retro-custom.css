@@ -1,0 +1,598 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: linear-gradient(45deg, #0f0f23, #1a1a2e, #16213e);
+    image-rendering: pixelated;
+    min-height: 100vh;
+  }
+  
+  .pixel-border {
+    border: 3px solid #000;
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      4px 4px 0px rgba(0,0,0,0.8);
+  }
+  
+  .nav-button {
+    border: 3px solid #000;
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      4px 4px 0px rgba(0,0,0,0.8);
+    transition: all 0.1s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .nav-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      2px 2px 0px rgba(0,0,0,0.8);
+  }
+  
+  .nav-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      0px 0px 0px rgba(0,0,0,0.8);
+  }
+  
+  .nav-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .nav-button:hover::before {
+    left: 100%;
+  }
+  
+  .nav-button.active {
+    border-color: #FFD700;
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.4),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      0 0 15px rgba(255, 215, 0, 0.7);
+  }
+  
+  .item-slot {
+    border: 2px solid #8B4513;
+    box-shadow: 
+      inset 1px 1px 0px rgba(255,255,255,0.2),
+      inset -1px -1px 0px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .item-slot:hover {
+    border-color: #00ff00;
+    box-shadow: 
+      inset 1px 1px 0px rgba(0,255,0,0.3),
+      inset -1px -1px 0px rgba(0,0,0,0.3),
+      0 0 10px rgba(0,255,0,0.5);
+  }
+  
+  .item-slot.selected {
+    border-color: #ffff00;
+    box-shadow: 
+      inset 1px 1px 0px rgba(255,255,0,0.3),
+      inset -1px -1px 0px rgba(0,0,0,0.3),
+      0 0 15px rgba(255,255,0,0.7);
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4444;
+    color: white;
+    border: 2px solid #000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: bold;
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  
+  .scan-line {
+    background: linear-gradient(
+      transparent 50%, 
+      rgba(0, 255, 0, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    animation: scan 3s linear infinite;
+  }
+  
+  @keyframes scan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+  }
+  
+  .blink {
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+  }
+  
+  .floating-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .nav-tooltip {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: nowrap;
+    margin-right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  
+  .nav-button:hover .nav-tooltip {
+    opacity: 1;
+  }
+  
+  .nav-button:hover .nav-tooltip::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-left-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .quick-access {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+  
+  .status-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  /* Craft 관련 스타일 */
+  .craft-slot {
+    border: 3px solid #000;
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.2),
+      inset -2px -2px 0px rgba(0,0,0,0.5);
+    transition: all 0.2s ease;
+  }
+  
+  .craft-slot:hover {
+    border-color: #00ff00;
+    box-shadow: 
+      inset 2px 2px 0px rgba(0,255,0,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      0 0 10px rgba(0,255,0,0.5);
+  }
+  
+  .craft-slot.filled {
+    border-color: #00ff00;
+    box-shadow: 
+      inset 2px 2px 0px rgba(0,255,0,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      0 0 15px rgba(0,255,0,0.7);
+  }
+  
+  .result-slot {
+    border: 3px solid #FFD700;
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,215,0,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      0 0 20px rgba(255,215,0,0.8);
+  }
+  
+  .crafting {
+    animation: crafting 0.5s ease-in-out infinite;
+  }
+  
+  @keyframes crafting {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  .arrow {
+    animation: arrow 1s ease-in-out infinite;
+  }
+  
+  @keyframes arrow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+
+  /* Craft 반응형 스타일 */
+  .craft-container {
+    position: fixed;
+    top: 20px;
+    right: 96px;
+    z-index: 40;
+    background: linear-gradient(135deg, #374151, #1f2937);
+    border: 3px solid #000;
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      4px 4px 0px rgba(0,0,0,0.8);
+    overflow-y: auto;
+  }
+
+  /* 데스크톱 (1280px 이상) */
+  .craft-container {
+    width: 320px;
+    padding: 1rem;
+    max-height: calc(100vh - 120px);
+  }
+
+  .craft-container .craft-ingredient-slot {
+    width: 64px;
+    height: 64px;
+    padding: 0.5rem;
+  }
+
+  .craft-container .craft-ingredient-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .craft-container .craft-ingredient-name {
+    font-size: 6px;
+  }
+
+  .craft-container .craft-ingredient-quantity {
+    font-size: 6px;
+  }
+
+  .craft-container .craft-inventory-slot {
+    width: 64px;
+    height: 64px;
+    padding: 0.5rem;
+  }
+
+  .craft-container .craft-button {
+    padding: 0.5rem 1rem;
+    font-size: 12px;
+  }
+
+  .craft-container .craft-status-text {
+    font-size: 8px;
+  }
+
+  /* 태블릿 (768px ~ 1279px) */
+  @media (max-width: 1279px) {
+    .craft-container {
+      width: 288px;
+      padding: 0.75rem;
+      max-height: calc(100vh - 100px);
+    }
+
+    .craft-container .craft-ingredient-slot {
+      width: 56px;
+      height: 56px;
+      padding: 0.5rem;
+    }
+
+    .craft-container .craft-ingredient-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .craft-container .craft-ingredient-name {
+      font-size: 5px;
+    }
+
+    .craft-container .craft-ingredient-quantity {
+      font-size: 5px;
+    }
+
+    .craft-container .craft-inventory-slot {
+      width: 56px;
+      height: 56px;
+      padding: 0.5rem;
+    }
+
+    .craft-container .craft-button {
+      padding: 0.25rem 0.75rem;
+      font-size: 12px;
+    }
+
+    .craft-container .craft-status-text {
+      font-size: 7px;
+    }
+
+    .craft-container .craft-header {
+      margin-bottom: 0.75rem;
+    }
+
+    .craft-container .craft-section {
+      margin-bottom: 1rem;
+    }
+
+    .craft-container .craft-ingredients {
+      gap: 0.75rem;
+    }
+
+    .craft-container .craft-inventory {
+      gap: 0.75rem;
+    }
+
+    .craft-container .craft-status {
+      margin-top: 0.75rem;
+    }
+
+    .craft-container .craft-close {
+      margin-top: 0.75rem;
+    }
+  }
+
+  /* 모바일 (768px 미만) */
+  @media (max-width: 767px) {
+    .craft-container {
+      position: fixed;
+      inset: 20px;
+      width: auto;
+      max-width: 384px;
+      margin: 0 auto;
+      padding: 1rem;
+      max-height: calc(100vh - 40px);
+      z-index: 50;
+    }
+
+    .craft-container .craft-ingredient-slot {
+      width: 64px;
+      height: 64px;
+      padding: 0.5rem;
+    }
+
+    .craft-container .craft-ingredient-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .craft-container .craft-ingredient-name {
+      font-size: 6px;
+    }
+
+    .craft-container .craft-ingredient-quantity {
+      font-size: 6px;
+    }
+
+    .craft-container .craft-inventory-slot {
+      width: 64px;
+      height: 64px;
+      padding: 0.5rem;
+    }
+
+    .craft-container .craft-button {
+      padding: 0.5rem 1rem;
+      font-size: 12px;
+    }
+
+    .craft-container .craft-status-text {
+      font-size: 8px;
+    }
+
+    .craft-container .craft-header {
+      margin-bottom: 1rem;
+    }
+
+    .craft-container .craft-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .craft-container .craft-ingredients {
+      gap: 1rem;
+    }
+
+    .craft-container .craft-inventory {
+      gap: 1rem;
+    }
+
+    .craft-container .craft-status {
+      margin-top: 1rem;
+    }
+
+    .craft-container .craft-close {
+      margin-top: 1rem;
+    }
+  }
+
+  /* 곡괭이 채집 애니메이션 */
+  .pickaxe-swing {
+    animation: pickaxeSwing 1s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+
+  @keyframes pickaxeSwing {
+    0%, 100% {
+      transform: rotate(-15deg);
+    }
+    50% {
+      transform: rotate(15deg);
+    }
+  }
+
+  .pickaxe-hit {
+    animation: pickaxeHit 0.3s ease-out;
+  }
+
+  @keyframes pickaxeHit {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      transform: scale(1.2) rotate(5deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .gather-particle {
+    animation: gatherParticle 1.5s ease-out infinite;
+  }
+
+  @keyframes gatherParticle {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.5);
+    }
+  }
+
+  .gather-progress-ring {
+    animation: gatherProgress 2s linear infinite;
+  }
+
+  @keyframes gatherProgress {
+    0% {
+      stroke-dasharray: 0 100;
+    }
+    100% {
+      stroke-dasharray: 100 100;
+    }
+  }
+
+  /* Inventory 반응형 스타일 */
+  .inventory-container {
+    position: fixed;
+    top: 20px;
+    right: 96px;
+    z-index: 40;
+    background: linear-gradient(135deg, #374151, #1f2937);
+    border: 3px solid #000;
+    box-shadow: 
+      inset 2px 2px 0px rgba(255,255,255,0.3),
+      inset -2px -2px 0px rgba(0,0,0,0.5),
+      4px 4px 0px rgba(0,0,0,0.8);
+    overflow-y: auto;
+  }
+
+  /* 데스크톱 (1280px 이상) */
+  .inventory-container {
+    width: 320px;
+    padding: 1rem;
+    max-height: calc(100vh - 120px);
+  }
+
+  .inventory-container .inventory-tabs {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .inventory-container .inventory-tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 12px;
+  }
+
+  .inventory-container .inventory-slot {
+    width: 64px;
+    height: 64px;
+    padding: 0.5rem;
+  }
+
+  .inventory-container .inventory-close {
+    margin-top: 1rem;
+  }
+
+  /* 태블릿 (768px ~ 1279px) */
+  @media (max-width: 1279px) {
+    .inventory-container {
+      width: 288px;
+      padding: 0.75rem;
+      max-height: calc(100vh - 100px);
+    }
+
+    .inventory-container .inventory-tabs {
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .inventory-container .inventory-tab {
+      padding: 0.25rem 0.5rem;
+      font-size: 12px;
+    }
+
+    .inventory-container .inventory-slot {
+      width: 56px;
+      height: 56px;
+      padding: 0.5rem;
+    }
+
+    .inventory-container .inventory-close {
+      margin-top: 0.75rem;
+    }
+  }
+
+  /* 모바일 (768px 미만) */
+  @media (max-width: 767px) {
+    .inventory-container {
+      position: fixed;
+      inset: 20px;
+      width: auto;
+      max-width: 384px;
+      margin: 0 auto;
+      padding: 1rem;
+      max-height: calc(100vh - 40px);
+      z-index: 50;
+    }
+
+    .inventory-container .inventory-tabs {
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .inventory-container .inventory-tab {
+      padding: 0.5rem 0.75rem;
+      font-size: 12px;
+    }
+
+    .inventory-container .inventory-slot {
+      width: 64px;
+      height: 64px;
+      padding: 0.5rem;
+    }
+
+    .inventory-container .inventory-close {
+      margin-top: 1rem;
+    }
+  }
