@@ -21,7 +21,8 @@ class PlayerEquipmentCollection(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipment_id")
     val equipment: Equipment = Equipment(),
-
+    val level: Int = 1,
+    val quantity: Int = 1,
     val discoveredAt: LocalDateTime = LocalDateTime.now(),
 
 ) {
