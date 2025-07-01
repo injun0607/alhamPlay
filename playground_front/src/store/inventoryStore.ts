@@ -2,19 +2,19 @@
 
 import { create } from 'zustand';
 import { UserInventory, EquipmentInventory, MaterialInventory, EquipmentInventoryItemDTO, MaterialInventoryItemDTO } from '@/types/inventory';
-import { ItemType, ItemRarity } from '@/types/item';
-import { axiosInstance } from '@/hooks/common/axiosInstance';
 
 interface InventoryStore {
   equipmentInventory: EquipmentInventory;
   materialInventory: MaterialInventory;
   isInventoryInitialized: boolean;
+  maxInventorySize: number;
   initInventory: (initData: UserInventory) => void;
-  addItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => void;
+  addItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => boolean;
   removeItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => void;
+  canAddItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => boolean;
 }
 
-export const InventoryStore = create<InventoryStore>()((set) => ({
+export const InventoryStore = create<InventoryStore>()((set, get) => ({
   equipmentInventory: {
     equipmentItemList: [],
   },
@@ -22,6 +22,7 @@ export const InventoryStore = create<InventoryStore>()((set) => ({
     materialItemList: [],
   },
   isInventoryInitialized: false,
+  maxInventorySize: 40,
   
   initInventory: (initData: UserInventory) => {
     set({
@@ -31,7 +32,29 @@ export const InventoryStore = create<InventoryStore>()((set) => ({
     })
   },
 
+  canAddItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => {
+    const state = get();
+    if (item.type === "MATERIAL" && 'quantity' in item) {
+      const existingItem = state.materialInventory.materialItemList.find(i => i.inventoryItemId === item.inventoryItemId);
+      if (existingItem) {
+        return true; // 기존 아이템은 수량만 증가하므로 항상 가능
+      } else {
+        return state.materialInventory.materialItemList.length < state.maxInventorySize;
+      }
+    } else if (item.type === "EQUIPMENT") {
+      return state.equipmentInventory.equipmentItemList.length < state.maxInventorySize;
+    }
+    return false;
+  },
+
   addItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => {
+    const state = get();
+    
+    // 인벤토리 용량 체크
+    if (!state.canAddItem(item)) {
+      return false;
+    }
+
     set((state) => {
       if(item.type === "MATERIAL" && 'quantity' in item){
       const existingItem = state.materialInventory.materialItemList.find(i => i.inventoryItemId === item.inventoryItemId);
@@ -61,6 +84,8 @@ export const InventoryStore = create<InventoryStore>()((set) => ({
       }
       return state;
     })
+    
+    return true;
   },
 
   removeItem: (item: EquipmentInventoryItemDTO | MaterialInventoryItemDTO) => {

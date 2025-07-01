@@ -6,6 +6,7 @@ import { InventoryStore } from '@/store/inventoryStore';
 import { MaterialInventoryItemDTO, EquipmentInventoryItemDTO } from '@/types/inventory';
 import { IngredientsInfoDTOList, IngredientsInfoDTO } from '@/types/craft';
 import MaterialItemSlot from '../inventory/MaterialItemSlot';
+import "@/app/css/craft.css";
 
 interface CraftProps {
     setIsOpen: (isOpen: boolean) => void;
@@ -178,7 +179,7 @@ export default function Craft({ setIsOpen }: CraftProps) {
                     {/* 재료 슬롯들 */}
                     <div className="w-full">
                         <h3 className="text-xs text-green-400 font-bold mb-2 text-center">▶ INGREDIENTS</h3>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="craft-ingredients-grid">
                             {ingredientMaterialList.map((ingredient, index) => (
                                 <div
                                     key={index}

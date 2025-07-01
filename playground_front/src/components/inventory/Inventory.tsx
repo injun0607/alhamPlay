@@ -1,6 +1,7 @@
 'use client'
 
 import { useState,useEffect } from "react";
+import "@/app/css/inventory.css";
 
 import MaterialInventoryTab from "./MaterialInventoryTab";
 import EquipmentInventoryTab from "./EquipmentInventoryTab";

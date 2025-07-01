@@ -1,0 +1,184 @@
+/* Inventory 관련 스타일 */
+
+/* Inventory 반응형 스타일 */
+.inventory-container {
+  position: fixed;
+  top: 20px;
+  right: 96px;
+  z-index: 40;
+  background: linear-gradient(135deg, #374151, #1f2937);
+  border: 3px solid #000;
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.3),
+    inset -2px -2px 0px rgba(0,0,0,0.5),
+    4px 4px 0px rgba(0,0,0,0.8);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #4a5568 #2d3748;
+}
+
+/* Webkit 스크롤바 스타일 */
+.inventory-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inventory-container::-webkit-scrollbar-track {
+  background: #2d3748;
+  border-radius: 4px;
+}
+
+.inventory-container::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+.inventory-container::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* 데스크톱 (1280px 이상) */
+.inventory-container {
+  width: 320px;
+  padding: 1rem;
+  max-height: calc(100vh - 120px);
+  height: 600px; /* 고정 높이 설정 */
+}
+
+.inventory-container .inventory-tabs {
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.inventory-container .inventory-tab {
+  padding: 0.5rem 0.75rem;
+  font-size: 12px;
+}
+
+.inventory-container .inventory-slot {
+  width: 64px;
+  height: 64px;
+  padding: 0.5rem;
+}
+
+.inventory-container .inventory-close {
+  margin-top: 1rem;
+}
+
+/* 태블릿 (768px ~ 1279px) */
+@media (max-width: 1279px) {
+  .inventory-container {
+    width: 288px;
+    padding: 0.75rem;
+    max-height: calc(100vh - 100px);
+    height: 500px; /* 고정 높이 설정 */
+  }
+
+  .inventory-container .inventory-tabs {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .inventory-container .inventory-tab {
+    padding: 0.25rem 0.5rem;
+    font-size: 12px;
+  }
+
+  .inventory-container .inventory-slot {
+    width: 56px;
+    height: 56px;
+    padding: 0.5rem;
+  }
+
+  .inventory-container .inventory-close {
+    margin-top: 0.75rem;
+  }
+}
+
+/* 모바일 (768px 미만) */
+@media (max-width: 767px) {
+  .inventory-container {
+    position: fixed;
+    inset: 20px;
+    width: auto;
+    max-width: 384px;
+    margin: 0 auto;
+    padding: 1rem;
+    max-height: calc(100vh - 40px);
+    height: 600px; /* 고정 높이 설정 */
+    z-index: 50;
+  }
+
+  .inventory-container .inventory-tabs {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .inventory-container .inventory-tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 12px;
+  }
+
+  .inventory-container .inventory-slot {
+    width: 64px;
+    height: 64px;
+    padding: 0.5rem;
+  }
+
+  .inventory-container .inventory-close {
+    margin-top: 1rem;
+  }
+}
+
+/* Item Slot 스타일 */
+.item-slot {
+  border: 2px solid #8B4513;
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.2),
+    inset -1px -1px 0px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.item-slot:hover {
+  border-color: #00ff00;
+  box-shadow: 
+    inset 1px 1px 0px rgba(0,255,0,0.3),
+    inset -1px -1px 0px rgba(0,0,0,0.3),
+    0 0 10px rgba(0,255,0,0.5);
+}
+
+.item-slot.selected {
+  border-color: #ffff00;
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,0,0.3),
+    inset -1px -1px 0px rgba(0,0,0,0.3),
+    0 0 15px rgba(255,255,0,0.7);
+}
+
+/* Pixel Button 스타일 (inventory에서 사용) */
+.pixel-button {
+  border: 3px solid #000;
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.3),
+    inset -2px -2px 0px rgba(0,0,0,0.5),
+    4px 4px 0px rgba(0,0,0,0.8);
+  transition: all 0.1s ease;
+}
+
+.pixel-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.3),
+    inset -2px -2px 0px rgba(0,0,0,0.5),
+    2px 2px 0px rgba(0,0,0,0.8);
+}
+
+.pixel-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.3),
+    inset -2px -2px 0px rgba(0,0,0,0.5),
+    0px 0px 0px rgba(0,0,0,0.8);
+}
+
+ 

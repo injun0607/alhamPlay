@@ -2,6 +2,16 @@ import { ItemRarity } from "./item";
 
 export type TileType = 'EXPLORE' | 'PEACE';
 
+export const FieldTypes = [
+  "FOREST",
+  "CAVE",
+  "MOUNTAIN",
+  "LAKE",
+  "VOLCANO",
+] as const;
+
+export type FieldType = typeof FieldTypes[number];
+
 
 export interface FieldDataDTO{
   name: string;

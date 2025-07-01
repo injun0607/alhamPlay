@@ -104,7 +104,8 @@ export function Map({ id, fieldData }: MapProps) {
                 ${isGatheringHere ? 'bg-yellow-100' : ''}`}
               onClick={() => handleTileClick(x, y)}
               style={{
-                backgroundImage: `url('/images/glacier_map.png')`,
+                // backgroundImage: `url('/images/glacier_map.png')`,
+                backgroundColor: 'black',
                 backgroundSize: '500% 500%',
                 backgroundPosition: `${x * 25}% ${y * 25}%`
               }}

@@ -15,3 +15,10 @@ export const ItemRarities = [
 ] as const;
 
 export type ItemRarity = typeof ItemRarities[number];
+
+export const EquipmentTypes = [
+    "WEAPON"
+] as const;
+
+export type EquipmentType = typeof EquipmentTypes[number];
+
