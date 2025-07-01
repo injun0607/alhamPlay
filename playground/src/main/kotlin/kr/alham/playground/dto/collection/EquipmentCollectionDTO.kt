@@ -13,6 +13,8 @@ data class EquipmentCollectionDTO(
     val equipmentType: EquipmentType = EquipmentType.WEAPON,
     val itemRarity: ItemRarity = ItemRarity.COMMON,
     val itemImg: String = "",
+    val level: Int = 1,
+    val quantity: Int = 1,
     val discoveredAt: String = "",
     val isCollected: Boolean = false,
 ) {

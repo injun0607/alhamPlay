@@ -2602,13 +2602,6 @@ class TestComponentSetting(
             dropArea = FieldType.GLACIER
         ))
 
-        // VOLCANO 지역 – EPIC 재료 3종
-        materialRepository.save(Material(
-            name = "Eternalflame Essence",
-            description = "용암의 영원한 불꽃 기운을 농축한 정수로, 불속성 파괴 마법을 극도로 강화한다.",
-            itemRarity = ItemRarity.EPIC,
-            dropArea = FieldType.VOLCANO
-        ))
         materialRepository.save(Material(
             name = "Pyrofury Shard",
             description = "격렬한 화염 폭풍 속에서 얻은 수정 파편으로, 폭발 및 화염 함정 마법에 치명적인 위력을 제공한다.",
@@ -3370,6 +3363,14 @@ class TestComponentSetting(
         /**
          * 화산 지역 장비
          */
+        // VOLCANO 지역 – EPIC 재료 3종
+        equipmentRepository.save(Equipment(
+            name = "Eternalflame Essence",
+            description = "용암의 영원한 불꽃 기운을 농축한 정수로, 불속성 파괴 마법을 극도로 강화한다.",
+            itemRarity = ItemRarity.EPIC,
+            equipmentType = EquipmentType.WEAPON
+        ))
+
         equipmentRepository.save(
             Equipment(
                 name = "Ashwrap Sandals",

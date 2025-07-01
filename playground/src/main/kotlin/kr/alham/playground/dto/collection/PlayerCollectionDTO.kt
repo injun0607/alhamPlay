@@ -54,6 +54,8 @@ data class PlayerCollectionDTO(
                         equipmentType = equipment.equipmentType,
                         itemRarity = equipment.itemRarity,
                         itemImg = equipment.itemImg,
+                        level = hasEquipmentMap[equipment.id]?.level ?: 1,
+                        quantity = hasEquipmentMap[equipment.id]?.quantity ?: 1,
                         discoveredAt = hasEquipmentMap[equipment.id]?.discoveredAt.toString(),
                         isCollected = true
                     )
