@@ -18,8 +18,7 @@ import kr.alham.playground.repository.inventory.MaterialInventoryRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import kr.alham.playground.service.player.PlayerService
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
@@ -333,6 +332,30 @@ class InventoryServiceTest {
 
     }
 
+
+    @Test
+    fun deletePlayerInventoryEquipmentByInventoryItemIdTest(){
+
+        initPlayerAndInventory()
+
+
+        val equipment = equipmentRepository.findEquipmentByName("TestEnvironmentTestEquipment") ?:
+            throw IllegalStateException("Equipment not found")
+        inventoryService.saveItemToPlayerInventory(1L, equipmentOne)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentTwo)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentThree)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentOne)
+        inventoryService.saveItemToPlayerInventory(1L, equipmentOne)
+
+        inventoryService.deletePlayerInventoryEquipmentByInventoryItemId(1L,1L,equipment.id!!)
+
+        val equipmentInventory = inventoryService.getEquipmentInventoryByPlayerId(1L)
+
+        assertEquals(4,equipmentInventory.equipmentItemList.size)
+        assertEquals(2,equipmentInventory.equipmentItemList.count{it.equipment.id == equipment.id})
+        assertNotEquals("TestEnvironmentTestEquipment", equipmentInventory.equipmentItemList[0].equipment.name)
+
+    }
 
 
 

@@ -132,11 +132,17 @@ class InventoryService(
     }
 
     @Transactional
-    fun deletePlayerInventoryEquipmentByEquipmentId(equipmentId:Long, playerId: Long){
+    fun deletePlayerInventoryEquipmentByInventoryItemId(playerId: Long,inventoryItemId: Long, equipmentId: Long){
         val equipmentInventory =  getEquipmentInventoryByPlayerId(playerId)
+        val inventoryItem =  equipmentInventory.equipmentItemList.find { it.id == inventoryItemId }
+            ?: throw IllegalArgumentException("Equipment inventory item not found with ID: $inventoryItemId")
 
-
-
+        if(inventoryItem.equipment.id == equipmentId) {
+            //장비 아이템이 일치하면 삭제
+            equipmentInventory.equipmentItemList.remove(inventoryItem)
+        }else{
+            throw IllegalArgumentException("Equipment ID does not match for inventory item ID: $inventoryItemId")
+        }
     }
 
     fun getPlayerEquipmentInventoryItemByEquipmentId(playerId: Long, equipmentId: Long): EquipmentInventoryItem {
