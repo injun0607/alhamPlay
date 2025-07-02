@@ -1,495 +1,499 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { useGameStore } from '@/store/gameStore';
+import { useEffect, useRef, useState } from 'react';
 
-interface GameObject {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  speed: number;
+interface GameStats {
+  level: number;
+  experience: number;
   health: number;
   maxHealth: number;
-}
-
-interface Player extends GameObject {
-  experience: number;
-  level: number;
-  weapons: Weapon[];
-  passives: Passive[];
-}
-
-interface Enemy extends GameObject {
-  type: 'slime' | 'skeleton' | 'ghost';
-  damage: number;
-  lastAttack: number;
-}
-
-interface Projectile extends GameObject {
-  damage: number;
-  speed: number;
-  direction: { x: number; y: number };
-  lifetime: number;
-}
-
-interface Weapon {
-  id: string;
-  name: string;
-  damage: number;
-  cooldown: number;
-  lastFired: number;
-  range: number;
-  projectileSpeed: number;
-}
-
-interface Passive {
-  id: string;
-  name: string;
-  effect: string;
-  value: number;
-}
-
-interface GameState {
-  player: Player;
-  enemies: Enemy[];
-  projectiles: Projectile[];
-  experience: number;
-  level: number;
   gameTime: number;
-  isPaused: boolean;
-  isGameOver: boolean;
+  enemiesKilled: number;
 }
 
 export default function SurvivalGame() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [gameState, setGameState] = useState<GameState>({
-    player: {
-      x: 400,
-      y: 300,
-      width: 32,
-      height: 32,
-      speed: 3,
-      health: 100,
-      maxHealth: 100,
-      experience: 0,
-      level: 1,
-      weapons: [
-        {
-          id: 'basic_sword',
-          name: 'Basic Sword',
-          damage: 10,
-          cooldown: 500,
-          lastFired: 0,
-          range: 50,
-          projectileSpeed: 5
-        }
-      ],
-      passives: []
-    },
-    enemies: [],
-    projectiles: [],
-    experience: 0,
+  const gameRef = useRef<any>(null);
+  const [gameStats, setGameStats] = useState<GameStats>({
     level: 1,
+    experience: 0,
+    health: 100,
+    maxHealth: 100,
     gameTime: 0,
-    isPaused: false,
-    isGameOver: false
+    enemiesKilled: 0
   });
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [lastTime, setLastTime] = useState(0);
-  const animationRef = useRef<number>(0);
+  useEffect(() => {
+    if (gameRef.current) return;
 
-  // 게임 초기화
-  const initGame = useCallback(() => {
-    setGameState(prev => ({
-      ...prev,
-      enemies: [],
-      projectiles: [],
-      gameTime: 0,
-      isGameOver: false
-    }));
-  }, []);
-
-  // 적 생성
-  const spawnEnemy = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
-    let x = 0;
-    let y = 0;
-
-    switch (side) {
-      case 0: // top
-        x = Math.random() * canvas.width;
-        y = -50;
-        break;
-      case 1: // right
-        x = canvas.width + 50;
-        y = Math.random() * canvas.height;
-        break;
-      case 2: // bottom
-        x = Math.random() * canvas.width;
-        y = canvas.height + 50;
-        break;
-      case 3: // left
-        x = -50;
-        y = Math.random() * canvas.height;
-        break;
-    }
-
-    const enemyTypes: Enemy['type'][] = ['slime', 'skeleton', 'ghost'];
-    const type = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
-
-    const enemy: Enemy = {
-      x: x,
-      y: y,
-      width: 24,
-      height: 24,
-      speed: 1 + Math.random() * 2,
-      health: 20 + Math.floor(gameState.level * 5),
-      maxHealth: 20 + Math.floor(gameState.level * 5),
-      type,
-      damage: 10 + Math.floor(gameState.level * 2),
-      lastAttack: 0
-    };
-
-    setGameState(prev => ({
-      ...prev,
-      enemies: [...prev.enemies, enemy]
-    }));
-  }, [gameState.level]);
-
-  // 플레이어 이동
-  const movePlayer = useCallback((dx: number, dy: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    setGameState(prev => ({
-      ...prev,
-      player: {
-        ...prev.player,
-        x: Math.max(0, Math.min(canvas.width - prev.player.width, prev.player.x + dx)),
-        y: Math.max(0, Math.min(canvas.height - prev.player.height, prev.player.y + dy))
-      }
-    }));
-  }, []);
-
-  // 무기 발사
-  const fireWeapon = useCallback((weapon: Weapon) => {
-    const now = Date.now();
-    if (now - weapon.lastFired < weapon.cooldown) return;
-
-    // 가장 가까운 적 찾기
-    const nearestEnemy = gameState.enemies.reduce((nearest, enemy) => {
-      const distance = Math.sqrt(
-        Math.pow(enemy.x - gameState.player.x, 2) + 
-        Math.pow(enemy.y - gameState.player.y, 2)
-      );
-      return distance < nearest.distance ? { enemy, distance } : nearest;
-    }, { enemy: null as Enemy | null, distance: Infinity });
-
-    if (!nearestEnemy.enemy) return;
-
-    // 방향 계산
-    const dx = nearestEnemy.enemy.x - gameState.player.x;
-    const dy = nearestEnemy.enemy.y - gameState.player.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const direction = { x: dx / distance, y: dy / distance };
-
-    const projectile: Projectile = {
-      x: gameState.player.x + gameState.player.width / 2,
-      y: gameState.player.y + gameState.player.height / 2,
-      width: 8,
-      height: 8,
-      speed: weapon.projectileSpeed,
-      health: 1,
-      maxHealth: 1,
-      damage: weapon.damage,
-      direction,
-      lifetime: 3000
-    };
-
-    setGameState(prev => ({
-      ...prev,
-      projectiles: [...prev.projectiles, projectile],
-      player: {
-        ...prev.player,
-        weapons: prev.player.weapons.map(w => 
-          w.id === weapon.id ? { ...w, lastFired: now } : w
-        )
-      }
-    }));
-  }, [gameState.player, gameState.enemies]);
-
-  // 게임 업데이트
-  const updateGame = useCallback((deltaTime: number) => {
-    if (gameState.isPaused || gameState.isGameOver) return;
-
-    setGameState(prev => {
-      const newState = { ...prev };
-      newState.gameTime += deltaTime;
-
-      // 적 이동
-      newState.enemies = prev.enemies.map(enemy => {
-        const dx = prev.player.x - enemy.x;
-        const dy = prev.player.y - enemy.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+    const initGame = async () => {
+      try {
+        const Phaser = await import('phaser');
         
-        if (distance > 0) {
-          enemy.x += (dx / distance) * enemy.speed;
-          enemy.y += (dy / distance) * enemy.speed;
-        }
-
-        // 플레이어와 충돌 체크
-        if (distance < 30) {
-          const now = Date.now();
-          if (now - enemy.lastAttack > 1000) {
-            newState.player.health -= enemy.damage;
-            enemy.lastAttack = now;
+        // ===== 게임 설정 =====
+        const config = {
+          type: Phaser.AUTO,
+          width: 1600,
+          height: 1600,
+          parent: 'game-container',
+          backgroundColor: '#1a1a2e',
+          physics: {
+            default: 'arcade',
+            arcade: {
+              gravity: { x: 0, y: 0 },
+              debug: false
+            }
+          },
+          scene: {
+            preload: preload,
+            create: create,
+            update: update
           }
-        }
+        };
 
-        return enemy;
-      });
+        // ===== 게임 인스턴스 생성 =====
+        gameRef.current = new Phaser.Game(config);
 
-      // 투사체 이동
-      newState.projectiles = prev.projectiles
-        .map(projectile => {
-          projectile.x += projectile.direction.x * projectile.speed;
-          projectile.y += projectile.direction.y * projectile.speed;
-          projectile.lifetime -= deltaTime;
-          return projectile;
-        })
-        .filter(projectile => projectile.lifetime > 0);
+        // ===== 게임 오브젝트 변수들 =====
+        let player: any;
+        let enemies: any;
+        let projectiles: any;
+        let experienceOrbs: any;
+        let cursors: any;
+        let wasdKeys: any;
+        let gameTime = 0;
+        let playerStats = {
+          level: 1,
+          experience: 0,
+          health: 100,
+          maxHealth: 100,
+          speed: 200,
+          damage: 20,
+          attackSpeed: 500,
+          lastAttack: 0
+        };
 
-      // 투사체와 적 충돌 체크
-      newState.projectiles = newState.projectiles.filter(projectile => {
-        let hit = false;
-        newState.enemies = newState.enemies.filter(enemy => {
-          const distance = Math.sqrt(
-            Math.pow(enemy.x - projectile.x, 2) + 
-            Math.pow(enemy.y - projectile.y, 2)
-          );
+        // ===== 에셋 로드 함수 =====
+        function preload(this: any) {
+          // 플레이어 스프라이트 생성 (파란색 사각형)
+          this.add.graphics()
+            .fillStyle(0x4a90e2)
+            .fillRect(0, 0, 32, 32)
+            .generateTexture('player', 32, 32);
           
-          if (distance < 20) {
-            enemy.health -= projectile.damage;
-            hit = true;
-            return enemy.health > 0;
-          }
-          return true;
-        });
-        return !hit;
-      });
+          // 적 스프라이트 생성 (빨간색 사각형)
+          this.add.graphics()
+            .fillStyle(0xff4444)
+            .fillRect(0, 0, 24, 24)
+            .generateTexture('enemy', 24, 24);
+          
+          // 투사체 스프라이트 생성 (노란색 원)
+          this.add.graphics()
+            .fillStyle(0xffeb3b)
+            .fillCircle(4, 4, 4)
+            .generateTexture('projectile', 8, 8);
+          
+          // 경험치 오브 스프라이트 생성 (초록색 원)
+          this.add.graphics()
+            .fillStyle(0x00ff00)
+            .fillCircle(8, 8, 8)
+            .generateTexture('experience', 16, 16);
+        }
 
-      // 경험치 획득
-      const killedEnemies = prev.enemies.length - newState.enemies.length;
-      if (killedEnemies > 0) {
-        newState.experience += killedEnemies * 10;
-        newState.player.experience += killedEnemies * 10;
-        
-        // 레벨업 체크
-        const expNeeded = newState.level * 100;
-        if (newState.player.experience >= expNeeded) {
-          newState.level++;
-          newState.player.level++;
-          newState.player.experience -= expNeeded;
-          newState.player.maxHealth += 20;
-          newState.player.health = newState.player.maxHealth;
+        // ===== 게임 초기화 함수 =====
+        function create(this: any) {
+          // 플레이어 생성 및 설정
+          player = this.physics.add.sprite(400, 300, 'player');
+          player.setCollideWorldBounds(true);
+
+          // 적 그룹 생성
+          enemies = this.physics.add.group({
+            classType: Phaser.Physics.Arcade.Sprite,
+            runChildUpdate: true
+          });
+
+          // 투사체 그룹 생성
+          projectiles = this.physics.add.group({
+            classType: Phaser.Physics.Arcade.Sprite,
+            runChildUpdate: true
+          });
+
+          // 경험치 오브 그룹 생성
+          experienceOrbs = this.physics.add.group({
+            classType: Phaser.Physics.Arcade.Sprite,
+            runChildUpdate: true
+          });
+
+          // ===== 키보드 입력 설정 =====
+          if (this.input.keyboard) {
+            cursors = this.input.keyboard.createCursorKeys();
+            wasdKeys = this.input.keyboard.addKeys('W,S,A,D');
+          }
+
+          // ===== 충돌 감지 설정 =====
+          this.physics.add.overlap(player, enemies, playerHit, undefined, this);
+          this.physics.add.overlap(projectiles, enemies, projectileHit, undefined, this);
+          this.physics.add.overlap(player, experienceOrbs, collectExperience, undefined, this);
+
+          // ===== UI 텍스트 생성 =====
+          const uiText = this.add.text(16, 16, '', {
+            fontSize: '18px',
+            color: '#ffffff',
+            fontFamily: 'Arial'
+          });
+          uiText.setScrollFactor(0);
+
+          // ===== 게임 오버 텍스트 생성 =====
+          const gameOverText = this.add.text(400, 300, 'GAME OVER\nPress R to restart', {
+            fontSize: '48px',
+            color: '#ffffff',
+            fontFamily: 'Arial',
+            align: 'center'
+          });
+          gameOverText.setOrigin(0.5);
+          gameOverText.setScrollFactor(0);
+          gameOverText.setVisible(false);
+
+          // ===== 이벤트 리스너 설정 =====
+          this.events.on('updateStats', (stats: any) => {
+            setGameStats(stats);
+            uiText.setText([
+              `Level: ${stats.level}`,
+              `Health: ${stats.health}/${stats.maxHealth}`,
+              `Experience: ${stats.experience}`,
+              `Time: ${Math.floor(stats.gameTime / 1000)}s`,
+              `Enemies Killed: ${stats.enemiesKilled}`,
+              `Enemies: ${enemies.getChildren().length}/100`
+            ]);
+          });
+
+          this.events.on('gameOver', () => {
+            setIsGameOver(true);
+            gameOverText.setVisible(true);
+          });
+
+          this.events.on('restart', () => {
+            setIsGameOver(false);
+            gameOverText.setVisible(false);
+            restartGame(this);
+          });
+        }
+
+        // ===== 게임 업데이트 함수 (매 프레임 실행) =====
+        function update(this: any, time: number, delta: number) {
+          if (isGameOver || isPaused) return;
+
+          gameTime += delta;
+
+          // ===== 플레이어 이동 처리 =====
+          const speed = playerStats.speed;
+          player.setVelocity(0);
+
+          if (cursors && wasdKeys) {
+            if (cursors.left.isDown || wasdKeys.A.isDown) {
+              player.setVelocityX(-speed);
+            } else if (cursors.right.isDown || wasdKeys.D.isDown) {
+              player.setVelocityX(speed);
+            }
+
+            if (cursors.up.isDown || wasdKeys.W.isDown) {
+              player.setVelocityY(-speed);
+            } else if (cursors.down.isDown || wasdKeys.S.isDown) {
+              player.setVelocityY(speed);
+            }
+          }
+
+          // ===== 자동 공격 처리 =====
+          if (time - playerStats.lastAttack > playerStats.attackSpeed) {
+            spawnProjectile(this);
+            playerStats.lastAttack = time;
+          }
+
+          // ===== 적 스폰 처리 =====
+          const currentEnemyCount = enemies.getChildren().length;
+          const maxEnemies = 100; // 최대 적 수 제한
+          
+          // 적 수가 제한보다 적을 때만 스폰
+          if (currentEnemyCount < maxEnemies) {
+            const spawnRate = Math.min(0.05 + (gameTime / 50000), 0.2);
+            if (Math.random() < spawnRate) {
+              spawnEnemy(this);
+            }
+          }
+
+          // ===== 적 이동 처리 =====
+          enemies.getChildren().forEach((enemy: any) => {
+            const speed = enemy.getData('speed');
+            const targetX = player.x;
+            const targetY = player.y;
+            
+            // 적이 플레이어를 향해 이동
+            const angle = Phaser.Math.Angle.Between(enemy.x, enemy.y, targetX, targetY);
+            enemy.setVelocity(
+              Math.cos(angle) * speed,
+              Math.sin(angle) * speed
+            );
+          });
+
+          // ===== 통계 업데이트 =====
+          this.events.emit('updateStats', {
+            level: playerStats.level,
+            experience: playerStats.experience,
+            health: playerStats.health,
+            maxHealth: playerStats.maxHealth,
+            gameTime,
+            enemiesKilled: gameStats.enemiesKilled
+          });
+        }
+
+        // ===== 적 스폰 함수 =====
+        function spawnEnemy(scene: any) {
+          // 화면 가장자리에서 랜덤하게 스폰
+          const side = Math.floor(Math.random() * 4);
+          let x = 0;
+          let y = 0;
+
+          switch (side) {
+            case 0: // 위쪽
+              x = Math.random() * 800;
+              y = -50;
+              break;
+            case 1: // 오른쪽
+              x = 850;
+              y = Math.random() * 600;
+              break;
+            case 2: // 아래쪽
+              x = Math.random() * 800;
+              y = 650;
+              break;
+            case 3: // 왼쪽
+              x = -50;
+              y = Math.random() * 600;
+              break;
+          }
+
+          // 적 생성 및 속성 설정
+          const enemy = enemies.create(x, y, 'enemy');
+          enemy.setData('health', 100 + playerStats.level * 5);
+          enemy.setData('damage', 10 + playerStats.level * 2);
+          enemy.setData('speed', 100 + Math.random() * 50);
+          
+          // 적이 플레이어를 향해 이동하도록 설정
+          enemy.setData('targetX', player.x);
+          enemy.setData('targetY', player.y);
+          
+          // 디버깅: 적 스폰 확인
+          console.log('Enemy spawned at:', x, y, 'Total enemies:', enemies.getChildren().length);
+        }
+
+        // ===== 투사체 스폰 함수 =====
+        function spawnProjectile(scene: any) {
+          // 가장 가까운 적 찾기
+          const nearestEnemy = findNearestEnemy();
+          if (!nearestEnemy) return;
+
+          // 투사체 생성
+          const projectile = projectiles.create(player.x, player.y, 'projectile');
+          
+          // 투사체 방향 계산
+          const angle = Phaser.Math.Angle.Between(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
+          const speed = 400;
+          
+          // 투사체 속도 설정
+          projectile.setVelocity(
+            Math.cos(angle) * speed,
+            Math.sin(angle) * speed
+          );
+
+          // 투사체 수명 설정 (3초 후 자동 제거)
+          scene.time.delayedCall(3000, () => {
+            if (projectile.active) {
+              projectile.destroy();
+            }
+          });
+        }
+
+        // ===== 가장 가까운 적 찾기 함수 =====
+        function findNearestEnemy(): any {
+          let nearest: any = null;
+          let minDistance = Infinity;
+
+          enemies.getChildren().forEach((enemy: any) => {
+            const distance = Phaser.Math.Distance.Between(player.x, player.y, enemy.x, enemy.y);
+            if (distance < minDistance) {
+              minDistance = distance;
+              nearest = enemy;
+            }
+          });
+
+          return nearest;
+        }
+
+        // ===== 플레이어 피격 처리 함수 =====
+        function playerHit(player: any, enemy: any) {
+          const damage = enemy.getData('damage');
+          playerStats.health -= damage;
+
+          if (playerStats.health <= 0) {
+            playerStats.health = 0;
+            if (gameRef.current && gameRef.current.scene.scenes[0]) {
+              gameRef.current.scene.scenes[0].events.emit('gameOver');
+            }
+          }
+        }
+
+        // ===== 투사체 히트 처리 함수 =====
+        function projectileHit(projectile: any, enemy: any) {
+          const damage = playerStats.damage;
+          const currentHealth = enemy.getData('health');
+          const newHealth = currentHealth - damage;
+
+          projectile.destroy();
+
+          if (newHealth <= 0) {
+            // 적 처치 시 경험치 오브 생성
+            const orb = experienceOrbs.create(enemy.x, enemy.y, 'experience');
+            orb.setData('value', 10);
+            
+            enemy.destroy();
+            setGameStats(prev => ({ ...prev, enemiesKilled: prev.enemiesKilled + 1 }));
+          } else {
+            enemy.setData('health', newHealth);
+          }
+        }
+
+        // ===== 경험치 수집 함수 =====
+        function collectExperience(player: any, orb: any) {
+          const value = orb.getData('value');
+          playerStats.experience += value;
+          orb.destroy();
+
+          // 레벨업 체크
+          const expNeeded = playerStats.level * 100;
+          if (playerStats.experience >= expNeeded) {
+            playerStats.level++;
+            playerStats.experience -= expNeeded;
+            playerStats.maxHealth += 20;
+            playerStats.health = playerStats.maxHealth;
+            playerStats.damage += 5;
+            playerStats.attackSpeed = Math.max(200, playerStats.attackSpeed - 50);
+          }
+        }
+
+        // ===== 게임 재시작 함수 =====
+        function restartGame(scene: any) {
+          // 모든 오브젝트 제거
+          enemies.clear(true, true);
+          projectiles.clear(true, true);
+          experienceOrbs.clear(true, true);
+
+          // 플레이어 위치 리셋
+          player.setPosition(400, 300);
+          
+          // 플레이어 스탯 리셋
+          playerStats = {
+            level: 1,
+            experience: 0,
+            health: 100,
+            maxHealth: 100,
+            speed: 200,
+            damage: 20,
+            attackSpeed: 500,
+            lastAttack: 0
+          };
+
+          gameTime = 0;
+        }
+
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to load Phaser:', error);
+        setIsLoading(false);
+      }
+    };
+
+    initGame();
+
+    // ===== 컴포넌트 정리 함수 =====
+    return () => {
+      if (gameRef.current) {
+        gameRef.current.destroy(true);
+        gameRef.current = null;
+      }
+    };
+  }, []);
+
+  // ===== 일시정지/재개 함수 =====
+  const togglePause = () => {
+    setIsPaused(!isPaused);
+    if (gameRef.current) {
+      const scene = gameRef.current.scene.scenes[0];
+      if (scene) {
+        if (isPaused) {
+          scene.scene.resume();
+        } else {
+          scene.scene.pause();
         }
       }
-
-      // 게임오버 체크
-      if (newState.player.health <= 0) {
-        newState.isGameOver = true;
-      }
-
-      return newState;
-    });
-  }, [gameState.isPaused, gameState.isGameOver]);
-
-  // 렌더링
-  const render = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // 캔버스 클리어
-    ctx.fillStyle = '#1a1a2e';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // 플레이어 렌더링
-    ctx.fillStyle = '#4a90e2';
-    ctx.fillRect(gameState.player.x, gameState.player.y, gameState.player.width, gameState.player.height);
-
-    // 체력바
-    const healthBarWidth = 50;
-    const healthBarHeight = 6;
-    const healthPercentage = gameState.player.health / gameState.player.maxHealth;
-    
-    ctx.fillStyle = '#333';
-    ctx.fillRect(gameState.player.x - 9, gameState.player.y - 15, healthBarWidth, healthBarHeight);
-    ctx.fillStyle = '#ff4444';
-    ctx.fillRect(gameState.player.x - 9, gameState.player.y - 15, healthBarWidth * healthPercentage, healthBarHeight);
-
-    // 적 렌더링
-    gameState.enemies.forEach(enemy => {
-      switch (enemy.type) {
-        case 'slime':
-          ctx.fillStyle = '#4caf50';
-          break;
-        case 'skeleton':
-          ctx.fillStyle = '#f5f5f5';
-          break;
-        case 'ghost':
-          ctx.fillStyle = '#9c27b0';
-          break;
-      }
-      ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-
-      // 적 체력바
-      const enemyHealthPercentage = enemy.health / enemy.maxHealth;
-      ctx.fillStyle = '#333';
-      ctx.fillRect(enemy.x - 2, enemy.y - 10, 28, 4);
-      ctx.fillStyle = '#ff4444';
-      ctx.fillRect(enemy.x - 2, enemy.y - 10, 28 * enemyHealthPercentage, 4);
-    });
-
-    // 투사체 렌더링
-    ctx.fillStyle = '#ffeb3b';
-    gameState.projectiles.forEach(projectile => {
-      ctx.fillRect(projectile.x, projectile.y, projectile.width, projectile.height);
-    });
-
-    // UI 렌더링
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '16px Arial';
-    ctx.fillText(`Level: ${gameState.level}`, 10, 30);
-    ctx.fillText(`Health: ${gameState.player.health}/${gameState.player.maxHealth}`, 10, 50);
-    ctx.fillText(`Experience: ${gameState.player.experience}`, 10, 70);
-    ctx.fillText(`Time: ${Math.floor(gameState.gameTime / 1000)}s`, 10, 90);
-    ctx.fillText(`Enemies: ${gameState.enemies.length}`, 10, 110);
-
-    if (gameState.isGameOver) {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '48px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
-      ctx.font = '24px Arial';
-      ctx.fillText(`Survived for ${Math.floor(gameState.gameTime / 1000)} seconds`, canvas.width / 2, canvas.height / 2 + 40);
-      ctx.fillText(`Level: ${gameState.level}`, canvas.width / 2, canvas.height / 2 + 70);
     }
-  }, [gameState]);
+  };
 
-  // 게임 루프
-  const gameLoop = useCallback((currentTime: number) => {
-    const deltaTime = currentTime - lastTime;
-    setLastTime(currentTime);
-
-    updateGame(deltaTime);
-    render();
-
-    // 적 스폰 (시간에 따라 증가)
-    if (Math.random() < 0.02 + (gameState.gameTime / 100000)) {
-      spawnEnemy();
-    }
-
-    // 무기 자동 발사
-    gameState.player.weapons.forEach(weapon => {
-      fireWeapon(weapon);
-    });
-
-    animationRef.current = requestAnimationFrame(gameLoop);
-  }, [lastTime, updateGame, render, spawnEnemy, fireWeapon, gameState.gameTime, gameState.player.weapons]);
-
-  // 키보드 입력 처리
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (gameState.isGameOver) return;
-
-      const speed = gameState.player.speed;
-      switch (e.key) {
-        case 'w':
-        case 'ArrowUp':
-          movePlayer(0, -speed);
-          break;
-        case 's':
-        case 'ArrowDown':
-          movePlayer(0, speed);
-          break;
-        case 'a':
-        case 'ArrowLeft':
-          movePlayer(-speed, 0);
-          break;
-        case 'd':
-        case 'ArrowRight':
-          movePlayer(speed, 0);
-          break;
-        case ' ':
-          e.preventDefault();
-          gameState.player.weapons.forEach(weapon => fireWeapon(weapon));
-          break;
-        case 'r':
-          if (gameState.isGameOver) {
-            initGame();
-          }
-          break;
+  // ===== 게임 재시작 함수 =====
+  const restartGame = () => {
+    if (gameRef.current) {
+      const scene = gameRef.current.scene.scenes[0];
+      if (scene) {
+        scene.events.emit('restart');
       }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameState.isGameOver, gameState.player.speed, gameState.player.weapons, movePlayer, fireWeapon, initGame]);
-
-  // 게임 시작/정지
-  useEffect(() => {
-    if (!gameState.isPaused && !gameState.isGameOver) {
-      animationRef.current = requestAnimationFrame(gameLoop);
     }
+  };
 
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [gameLoop, gameState.isPaused, gameState.isGameOver]);
+  // ===== 로딩 화면 =====
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
+        <div className="text-white text-xl">게임 로딩 중...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
       <div className="mb-4 text-white">
-        <h1 className="text-2xl font-bold mb-2">Survival Game</h1>
+        <h1 className="text-2xl font-bold mb-2">Vampire Survivors Style Game</h1>
         <p className="text-sm text-gray-400">
-          WASD/Arrow Keys: Move | Space: Attack | R: Restart (when game over)
+          WASD/Arrow Keys: Move | Auto Attack | R: Restart
         </p>
       </div>
       
-      <canvas
-        ref={canvasRef}
-        width={800}
-        height={600}
-        className="border-2 border-gray-600 bg-gray-800"
-      />
+      <div id="game-container" className="border-2 border-gray-600" />
       
       <div className="mt-4 text-white text-center">
         <button
-          onClick={() => setGameState(prev => ({ ...prev, isPaused: !prev.isPaused }))}
+          onClick={togglePause}
           className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded mr-2"
         >
-          {gameState.isPaused ? 'Resume' : 'Pause'}
+          {isPaused ? 'Resume' : 'Pause'}
         </button>
         
-        {gameState.isGameOver && (
+        {isGameOver && (
           <button
-            onClick={initGame}
+            onClick={restartGame}
             className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded"
           >
             Restart
           </button>
         )}
+      </div>
+
+      <div className="mt-4 text-white text-sm">
+        <p>Level: {gameStats.level}</p>
+        <p>Health: {gameStats.health}/{gameStats.maxHealth}</p>
+        <p>Experience: {gameStats.experience}</p>
+        <p>Time: {Math.floor(gameStats.gameTime / 1000)}s</p>
+        <p>Enemies Killed: {gameStats.enemiesKilled}</p>
       </div>
     </div>
   );
