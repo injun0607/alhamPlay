@@ -5,8 +5,10 @@ import kr.alham.playground.domain.inventory.EquipmentInventory
 import kr.alham.playground.domain.inventory.EquipmentInventoryItem
 import kr.alham.playground.domain.inventory.MaterialInventory
 import kr.alham.playground.domain.inventory.MaterialInventoryItem
-import kr.alham.playground.domain.item.*
-import kr.alham.playground.dto.craft.EquipmentRecipeDTO
+import kr.alham.playground.domain.item.Equipment
+import kr.alham.playground.domain.item.Item
+import kr.alham.playground.domain.item.ItemType
+import kr.alham.playground.domain.item.Material
 import kr.alham.playground.dto.craft.IngredientsInfoDTOList
 import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryDTO
 import kr.alham.playground.dto.inventory.PlayerInventoryDTO
@@ -19,7 +21,6 @@ import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import kotlin.math.log
 
 @Service
 class InventoryService(
@@ -128,20 +129,6 @@ class InventoryService(
 
 
         }
-
-//        repeat(2){
-//            materialList.forEach{ material ->
-//                val existingItem = materialInventory.materialItemList.find { it.material.id == material.id }
-//                if (existingItem != null) {
-//                    // 이미 존재하는 아이템이면 quantity를 증가시킴
-//                    existingItem.quantity += 1
-//                } else {
-//                    // 새로 생성
-//                    val itemOrder = materialInventory.materialItemList.size + 1
-//                    MaterialInventoryItem.create(materialInventory, material, itemOrder)
-//                }
-//            }
-//        }
 
         return materialList
     }

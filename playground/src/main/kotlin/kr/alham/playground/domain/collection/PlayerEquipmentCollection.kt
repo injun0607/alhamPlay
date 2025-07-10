@@ -22,7 +22,7 @@ class PlayerEquipmentCollection(
     @JoinColumn(name = "equipment_id")
     val equipment: Equipment = Equipment(),
     val level: Int = 1,
-    val quantity: Int = 1,
+    val quantity: Int = 0,
     val discoveredAt: LocalDateTime = LocalDateTime.now(),
 
 ) {
