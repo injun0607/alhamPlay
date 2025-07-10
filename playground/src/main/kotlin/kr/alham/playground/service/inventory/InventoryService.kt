@@ -111,16 +111,37 @@ class InventoryService(
         val materialInventory = getMaterialInventoryByPlayerId(playerId)
         val materialList = getMaterialByNameList(nameList)
 
-        materialList.forEach { material ->
-            //있으면 quantity를 증가시키고 없으면 새로 생성
-            val existingItem = materialInventory.materialItemList.find { it.material.id == material.id }
+        nameList.forEach{
+            val existingItem = materialInventory.materialItemList.find{materialInventoryItem ->
+                materialInventoryItem.material.name == it
+            }
+
             if (existingItem != null) {
+                // 이미 존재하는 아이템이면 quantity를 증가시킴
                 existingItem.quantity += 1
             } else {
+                // 새로 생성
                 val itemOrder = materialInventory.materialItemList.size + 1
-                MaterialInventoryItem.create(materialInventory, material, itemOrder)
+                val findMaterial = materialList.first{ material -> material.name == it }
+                MaterialInventoryItem.create(materialInventory, findMaterial, itemOrder)
             }
+
+
         }
+
+//        repeat(2){
+//            materialList.forEach{ material ->
+//                val existingItem = materialInventory.materialItemList.find { it.material.id == material.id }
+//                if (existingItem != null) {
+//                    // 이미 존재하는 아이템이면 quantity를 증가시킴
+//                    existingItem.quantity += 1
+//                } else {
+//                    // 새로 생성
+//                    val itemOrder = materialInventory.materialItemList.size + 1
+//                    MaterialInventoryItem.create(materialInventory, material, itemOrder)
+//                }
+//            }
+//        }
 
         return materialList
     }

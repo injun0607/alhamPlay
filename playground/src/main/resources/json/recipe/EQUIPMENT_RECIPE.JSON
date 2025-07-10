@@ -1197,6 +1197,21 @@
       }
     },
     {
+      "name": "Elderwood Longbow22",
+      "ingredients": {
+        "Ancestor’s Sap": 4
+      }
+    },
+    {
+      "name": "Wildheart Totem22",
+      "ingredients": {
+        "Silent Blizzard Thread": 1,
+        "Crownshard of Frostmaiden": 1,
+        "Elderleaf Emblem": 1,
+        "Songstone Fragment": 1
+      }
+    },
+    {
       "name": "Verdant Wrath",
       "ingredients": {
         "Cinderhide": 1,

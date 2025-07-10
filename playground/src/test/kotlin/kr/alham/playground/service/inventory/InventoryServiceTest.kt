@@ -99,6 +99,7 @@ class InventoryServiceTest {
 
 
 
+
     @Test
     fun getPlayerInventoryTest(){
         //player가 인벤토리 아이템을 가져와야함
@@ -378,7 +379,7 @@ class InventoryServiceTest {
             materialWater.name
         )
 
-        val savedMaterials = inventoryService.saveInventoryMaterialByNameList(1L, materialNameList)
+        inventoryService.saveInventoryMaterialByNameList(1L, materialNameList)
 
         val playerInventory = inventoryService.getMaterialInventoryByPlayerId(1L)
 

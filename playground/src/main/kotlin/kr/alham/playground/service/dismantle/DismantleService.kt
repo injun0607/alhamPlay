@@ -14,13 +14,14 @@ class DismantleService(
 ) {
 
     @Transactional
-    fun dismantleEquipment(playerId: Long,equipmentInfo : PlayerEquipmentInventoryItemDTO): List<Material> {
-        //해당 장비 인벤토리에 있는지 검수
-
+    fun dismantleEquipment(playerId: Long,equipmentInfo : PlayerEquipmentInventoryItemDTO): List<String> {
         val equipment = inventoryService.getEquipmentByName(equipmentInfo.name)
+        //해당 장비 인벤토리에 있는지 검수
         //유효성 검사 및 삭제 진행
         inventoryService.deletePlayerInventoryEquipmentByInventoryItemId(playerId,equipmentInfo.inventoryItemId, equipmentInfo.id)
         val materialNameList =  dismantleSystem.dismantleEquipment(equipment)
-        return inventoryService.saveInventoryMaterialByNameList(playerId, materialNameList)
+        inventoryService.saveInventoryMaterialByNameList(playerId, materialNameList)
+
+        return materialNameList
     }
 }
