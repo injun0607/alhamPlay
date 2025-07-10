@@ -127,6 +127,7 @@ export default function GatherResult({ result, isVisible, onClose }: GatherResul
         {/* 아이템 정보 */}
         <div className="flex items-center gap-3 mt-2 p-2 bg-gray-700 border border-gray-600">
           <div className="w-8 h-8 bg-gradient-to-br from-gray-600 to-gray-700 border border-gray-500 flex items-center justify-center">
+            {/*TODO 아이템 이미지로 변경 필요 */}
             <span className="text-white font-bold text-xs">{result.name.charAt(0)}</span>
           </div>
           <div className="flex-1">
