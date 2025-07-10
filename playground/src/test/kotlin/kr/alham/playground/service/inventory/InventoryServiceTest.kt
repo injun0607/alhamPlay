@@ -82,6 +82,17 @@ class InventoryServiceTest {
         description = "Test Material Description 3"
     )
 
+    val materialFire = Material(
+        name = "Fire",
+        description = "Fire Material"
+    )
+
+    val materialWater = Material(
+        name = "Water",
+        description = "Water Material"
+    )
+
+
 
 
 
@@ -357,6 +368,41 @@ class InventoryServiceTest {
 
     }
 
+    @Test
+    fun saveInventoryMaterialByNameListTest(){
+        initPlayerAndInventory()
+
+        //fire,water 마테리얼 저장 빈 곳에서
+        val materialNameList = listOf(
+            materialFire.name,
+            materialWater.name
+        )
+
+        val savedMaterials = inventoryService.saveInventoryMaterialByNameList(1L, materialNameList)
+
+        val playerInventory = inventoryService.getMaterialInventoryByPlayerId(1L)
+
+        assertEquals(2, playerInventory.materialItemList.size)
+
+        inventoryService.saveInventoryMaterialByNameList(1L, materialNameList)
+
+        val savedPlayerInventory = inventoryService.getMaterialInventoryItemListByInventoryId(1L)
+
+        assertEquals(2, savedPlayerInventory.size)
+        assertEquals(2, savedPlayerInventory[0].quantity)
+        assertEquals(2, savedPlayerInventory[1].quantity)
+
+        inventoryService.saveInventoryMaterialByNameList(1L, listOf(
+            materialOne.name,
+            materialTwo.name,
+        ))
+
+
+        val savedSavedInventory = inventoryService.getMaterialInventoryItemListByInventoryId(1L)
+        assertEquals(4, savedSavedInventory.size)
+
+    }
+
 
 
     private fun initPlayerAndInventory() {
@@ -398,6 +444,14 @@ class InventoryServiceTest {
         )
         materialRepository.save(
             materialThree
+        )
+
+        materialRepository.save(
+            materialFire
+        )
+
+        materialRepository.save(
+            materialWater
         )
 
     }

@@ -105,6 +105,28 @@ class InventoryService(
     }
 
     @Transactional
+    fun saveInventoryMaterialByNameList(playerId: Long ,nameList :List<String>): List<Material> {
+
+        // 플레이어의 인벤토리에 재료 아이템을 이름으로 저장하는 로직
+        val materialInventory = getMaterialInventoryByPlayerId(playerId)
+        val materialList = getMaterialByNameList(nameList)
+
+        materialList.forEach { material ->
+            //있으면 quantity를 증가시키고 없으면 새로 생성
+            val existingItem = materialInventory.materialItemList.find { it.material.id == material.id }
+            if (existingItem != null) {
+                existingItem.quantity += 1
+            } else {
+                val itemOrder = materialInventory.materialItemList.size + 1
+                MaterialInventoryItem.create(materialInventory, material, itemOrder)
+            }
+        }
+
+        return materialList
+    }
+
+
+    @Transactional
     fun deleteMaterialItemByRecipe(playerId: Long, ingredientsInfoDTOList: IngredientsInfoDTOList) {
         // 플레이어의 인벤토리에서 아이템을 삭제하는 로직
         val playerMaterialInventory = getMaterialInventoryByPlayerId(playerId)
@@ -144,6 +166,7 @@ class InventoryService(
             throw IllegalArgumentException("Equipment ID does not match for inventory item ID: $inventoryItemId")
         }
     }
+
 
     fun getPlayerEquipmentInventoryItemByEquipmentId(playerId: Long, equipmentId: Long): EquipmentInventoryItem {
         // 플레이어의 장비 인벤토리에서 특정 장비 아이템을 가져오는 로직
@@ -190,6 +213,13 @@ class InventoryService(
         return equipmentRepository.findEquipmentByName(equipmentName)
             ?: throw IllegalArgumentException("Equipment not found with name: $equipmentName")
     }
+
+    fun getMaterialByNameList(materialNameList: List<String>): List<Material> {
+        // 재료 아이템을 이름으로 가져오는 로직
+        return materialRepository.findByNameIn(materialNameList)
+    }
+
+
 
 
 }
