@@ -2,3 +2,8 @@
 인벤토리 아이템 추가 시 콜렉션 서비스를 통해 추가하는게 괜찮은건가라는 고민.
 인벤토리 서비스에 콜렉션 서비스가 의존하게 되면, 추후 순환 참조문제나 서비스가 무거워질수있다는 고민
 이벤트리스너를 통해 이벤트 구독 방식으로 구현해보려고 함.
+
+이슈
+ - TransactionalEventListener <- 이게 커밋후에 발생하는건데 이걸 호출하는 CollectionEventListener가 트랜잭션이 안걸려있어서 insert쿼리가 안나가는 문제 확인
+ - TransactionalEventListener 특성에 맞게 CollectionEventListener를 트랜잭션이 걸리도록 수정
+    -After_commit + Propagation.Required 이건 사실상 After_commit + Propagation.Requires_NEW랑 같은데 명시성부분에서 After_commit + Propagation.Requires_NEW 가 더괜찮음
