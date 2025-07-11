@@ -6,7 +6,6 @@ data class ItemCollectionEvent(
     val playerId: Long,
     val itemId: Long,
     val itemType: ItemType,
-    var isNew: Boolean
 ){
 
 }

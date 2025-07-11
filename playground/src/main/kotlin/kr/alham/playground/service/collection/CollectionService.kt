@@ -2,6 +2,7 @@ package kr.alham.playground.service.collection
 
 import kr.alham.playground.domain.collection.PlayerEquipmentCollection
 import kr.alham.playground.domain.collection.PlayerMaterialCollection
+import kr.alham.playground.domain.enums.CollectionLevelEnums
 import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.Item
 import kr.alham.playground.domain.item.ItemType
@@ -24,8 +25,10 @@ class CollectionService(
 
     fun getPlayerCollection(playerId: Long): PlayerCollectionDTO {
 
-        val playerMaterialCollectionList =  playerMaterialCollectionRepository.getAllMaterialCollectionByPlayerId(playerId)
-        val playerEquipmentCollectionList = playerEquipmentCollectionRepository.getAllEquipmentCollectionByPlayerId(playerId)
+        val playerMaterialCollectionList =
+            playerMaterialCollectionRepository.getAllMaterialCollectionByPlayerId(playerId)
+        val playerEquipmentCollectionList =
+            playerEquipmentCollectionRepository.getAllEquipmentCollectionByPlayerId(playerId)
 
         val allEquipmentList = equipmentRepository.findAll()
         val allMaterialList = materialRepository.findAll()
@@ -39,9 +42,9 @@ class CollectionService(
 
     }
 
-    fun isExistsCollection(playerId: Long,item: Item): Boolean{
-        val itemId = requireNotNull(item.id){"아이템 ID가 null입니다."}
-        return when(item.type){
+    fun isExistsCollection(playerId: Long, item: Item): Boolean {
+        val itemId = requireNotNull(item.id) { "아이템 ID가 null입니다." }
+        return when (item.type) {
             ItemType.EQUIPMENT -> {
                 playerEquipmentCollectionRepository.existsPlayerEquipmentCollectionByPlayerIdAndEquipmentId(
                     playerId = playerId,
@@ -60,10 +63,10 @@ class CollectionService(
 
     @Transactional
     fun saveCollection(playerId: Long, item: Item) {
-        val itemId = requireNotNull(item.id){"아이템 ID가 null입니다."}
-        when(item.type){
+        val itemId = requireNotNull(item.id) { "아이템 ID가 null입니다." }
+        when (item.type) {
             ItemType.EQUIPMENT -> {
-                if(!isExistsCollection(playerId,item)){
+                if (!isExistsCollection(playerId, item)) {
                     playerEquipmentCollectionRepository.save(
                         PlayerEquipmentCollection.of(
                             playerId = playerId,
@@ -74,7 +77,7 @@ class CollectionService(
             }
 
             ItemType.MATERIAL -> {
-                if(!isExistsCollection(playerId,item)){
+                if (!isExistsCollection(playerId, item)) {
                     playerMaterialCollectionRepository.save(
                         PlayerMaterialCollection.of(
                             playerId = playerId,
@@ -86,6 +89,38 @@ class CollectionService(
         }
     }
 
+    @Transactional
+    fun updateEquipmentCollection(playerId: Long, equipment: Equipment) {
+
+        //collection 무조건 존재하긴할텐데 한번더 확인//
+        val equipmentId = requireNotNull(equipment.id) { "장비 ID가 null입니다." }
+        if (!isExistsCollection(playerId, equipment)) {
+            //해당케이스는 사실존재하면 안되는 케이스 (방어코드)
+            playerEquipmentCollectionRepository.save(
+                PlayerEquipmentCollection.of(
+                    playerId = playerId,
+                    equipmentId = equipmentId,
+                    quantity = 1
+                )
+            )
+        }else{
+            val playerCollectionInfo = getPlayerEquipmentCollectionByEquipmentId(equipmentId)
+            val quantity = playerCollectionInfo.quantity + 1
+
+            if(playerCollectionInfo.level.checkLevelUpExp(quantity)){
+                playerCollectionInfo.level = playerCollectionInfo.level.levelUp()
+                playerCollectionInfo.quantity = 0 // 레벨업 시에는 수량 초기화
+            }else{
+                playerCollectionInfo.quantity = quantity
+            }
+        }
+
+    }
+
+    fun getPlayerEquipmentCollectionByEquipmentId(equipmentId: Long): PlayerEquipmentCollection {
+        return playerEquipmentCollectionRepository.getPlayerEquipmentCollectionByEquipmentId(equipmentId)
+            ?: throw IllegalArgumentException("해당 장비의 플레이어 컬렉션 정보가 없습니다.")
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package kr.alham.playground.service.collection
 
 import kr.alham.playground.domain.collection.PlayerMaterialCollection
+import kr.alham.playground.domain.enums.CollectionLevelEnums
 import kr.alham.playground.repository.collection.PlayerEquipmentCollectionRepository
 import kr.alham.playground.repository.collection.PlayerMaterialCollectionRepository
 import kr.alham.playground.repository.item.EquipmentRepository
@@ -96,6 +97,49 @@ class CollectionServiceTest{
 
         assertEquals(3, playerCollection.materialCollectionList.count { it.isCollected })
         assertEquals(3, playerCollection.equipmentCollectionList.count { it.isCollected })
+
+
+    }
+
+    @Test
+    fun updateEquipmentCollectionTest(){
+
+        val playerId = 1L
+        val equipment = equipmentRepository.findById(1L).orElseThrow { NoSuchElementException("Equipment not found") }
+        val equipmentTwo = equipmentRepository.findById(2L).orElseThrow { NoSuchElementException("Equipment not found") }
+
+        // Update Equipment Collection
+        //해당장비 없을떄 방어코드 작동확인
+        collectionService.updateEquipmentCollection(playerId, equipment)
+
+        // Verify the update
+        collectionService.isExistsCollection(playerId, equipment).also {
+            assertTrue(it, "Equipment collection should exist after update")
+        }
+
+        collectionService.getPlayerEquipmentCollectionByEquipmentId(equipment.id!!).also{
+            assertEquals(1,it.quantity)
+        }
+
+        //있는 장비 확인
+        collectionService.saveCollection(playerId, equipmentTwo)
+        collectionService.updateEquipmentCollection(playerId, equipmentTwo)
+
+        collectionService.getPlayerEquipmentCollectionByEquipmentId(equipmentTwo.id!!).also {
+            assertEquals(1, it.quantity)
+            assertEquals(CollectionLevelEnums.LEVEL1, it.level)
+        }
+
+        collectionService.updateEquipmentCollection(playerId, equipmentTwo)
+        collectionService.updateEquipmentCollection(playerId, equipmentTwo)
+        collectionService.updateEquipmentCollection(playerId, equipmentTwo)
+        collectionService.updateEquipmentCollection(playerId, equipmentTwo)
+
+        collectionService.getPlayerEquipmentCollectionByEquipmentId(equipmentTwo.id!!).also {
+            assertEquals(0, it.quantity)
+            assertEquals(CollectionLevelEnums.LEVEL2 , it.level)
+        }
+
 
 
     }

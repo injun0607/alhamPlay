@@ -2,6 +2,7 @@ package kr.alham.playground.dto.collection
 
 import kr.alham.playground.domain.collection.PlayerEquipmentCollection
 import kr.alham.playground.domain.collection.PlayerMaterialCollection
+import kr.alham.playground.domain.enums.CollectionLevelEnums
 import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.Material
 
@@ -54,7 +55,7 @@ data class PlayerCollectionDTO(
                         equipmentType = equipment.equipmentType,
                         itemRarity = equipment.itemRarity,
                         itemImg = equipment.itemImg,
-                        level = hasEquipmentMap[equipment.id]?.level ?: 1,
+                        level = hasEquipmentMap[equipment.id]?.level ?: CollectionLevelEnums.LEVEL1,
                         quantity = hasEquipmentMap[equipment.id]?.quantity ?: 1,
                         discoveredAt = hasEquipmentMap[equipment.id]?.discoveredAt.toString(),
                         isCollected = true

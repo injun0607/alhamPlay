@@ -21,4 +21,14 @@ interface PlayerEquipmentCollectionRepository : JpaRepository<PlayerEquipmentCol
         equipmentId: Long
     ): Boolean
 
+    @Query("""
+        SELECT p FROM PlayerEquipmentCollection p
+            JOIN FETCH p.player
+            JOIN FETCH p.equipment
+        WHERE p.equipment.id = :equipmentId
+    """)
+    fun getPlayerEquipmentCollectionByEquipmentId(
+        equipmentId: Long
+    ): PlayerEquipmentCollection?
+
 }

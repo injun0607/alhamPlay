@@ -9,6 +9,7 @@ import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.Item
 import kr.alham.playground.domain.item.ItemType
 import kr.alham.playground.domain.item.Material
+import kr.alham.playground.dto.collection.ItemCollectionEvent
 import kr.alham.playground.dto.craft.IngredientsInfoDTOList
 import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryDTO
 import kr.alham.playground.dto.inventory.PlayerInventoryDTO
@@ -19,17 +20,19 @@ import kr.alham.playground.repository.inventory.MaterialInventoryItemRepository
 import kr.alham.playground.repository.inventory.MaterialInventoryRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class InventoryService(
+    private val applicationEventPublisher: ApplicationEventPublisher,
     private val materialItemInventoryRepository: MaterialInventoryRepository,
     private val materialInventoryItemRepository: MaterialInventoryItemRepository,
     private val equipmentInventoryRepository: EquipmentInventoryRepository,
     private val equipmentInventoryItemRepository: EquipmentInventoryItemRepository,
     private val equipmentRepository: EquipmentRepository,
-    private val materialRepository: MaterialRepository,
+    private val materialRepository: MaterialRepository
 ) {
 
     fun getPlayerInventory(playerId: Long): PlayerInventoryDTO{
@@ -100,8 +103,10 @@ class InventoryService(
 
                 result = materialInventory.id ?: throw IllegalArgumentException("Material inventory ID must not be null")
             }
+
         }
 
+        applicationEventPublisher.publishEvent(ItemCollectionEvent(playerId,itemInfo.id!!, itemInfo.type))
         return result
     }
 
@@ -126,8 +131,6 @@ class InventoryService(
                 val findMaterial = materialList.first{ material -> material.name == it }
                 MaterialInventoryItem.create(materialInventory, findMaterial, itemOrder)
             }
-
-
         }
 
         return materialList
@@ -226,8 +229,6 @@ class InventoryService(
         // 재료 아이템을 이름으로 가져오는 로직
         return materialRepository.findByNameIn(materialNameList)
     }
-
-
 
 
 }
