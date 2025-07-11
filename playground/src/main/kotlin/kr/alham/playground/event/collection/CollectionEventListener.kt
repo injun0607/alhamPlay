@@ -6,8 +6,10 @@ import kr.alham.playground.dto.collection.ItemCollectionEvent
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
 import kr.alham.playground.service.collection.CollectionService
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
+import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
 class CollectionEventListener(
@@ -16,7 +18,8 @@ class CollectionEventListener(
     private val equipmentRepository: EquipmentRepository
 ) {
 
-    @EventListener
+    //아이템 저장은 보장되어야한다. 도감
+    @TransactionalEventListener
     fun collectionNewEvent(itemCollectionEvent: ItemCollectionEvent){
         val item = when(itemCollectionEvent.itemType){
             ItemType.EQUIPMENT -> {

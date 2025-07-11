@@ -6,6 +6,7 @@ import kr.alham.playground.repository.collection.PlayerEquipmentCollectionReposi
 import kr.alham.playground.repository.collection.PlayerMaterialCollectionRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
+import kr.alham.playground.service.inventory.InventoryService
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,6 +29,9 @@ class CollectionServiceTest{
 
     @Autowired
     lateinit var playerEquipmentCollectionRepository: PlayerEquipmentCollectionRepository
+
+    @Autowired
+    lateinit var inventoryService: InventoryService
 
     @Test
     fun `testCollectionRepositoryExsitedMethod`(){
@@ -140,10 +144,29 @@ class CollectionServiceTest{
             assertEquals(CollectionLevelEnums.LEVEL2 , it.level)
         }
 
-
-
     }
 
+    @Test
+    fun registerCollectionTest(){
+        // Given
+        val playerId = 1L
+        val equipment = equipmentRepository.findById(1L)
+
+        inventoryService.saveItemToPlayerInventory(playerId,equipment.get())
+        val playerInventory = inventoryService.getEquipmentInventoryByPlayerId(playerId)
+        val equipmentItem = playerInventory.equipmentItemList[0]
+        // When
+        collectionService.registerCollection(1L,equipmentItem.id!! ,equipmentItem.equipment)
+        // Then
+        val registeredInventory = inventoryService.getEquipmentInventoryByPlayerId(playerId)
+
+        assertEquals(0,registeredInventory.equipmentItemList.size)
+        collectionService.getPlayerEquipmentCollectionByEquipmentId(equipmentItem.id!!).also {
+            assertEquals(1, it.quantity)
+            assertEquals(CollectionLevelEnums.LEVEL1, it.level)
+        }
+
+    }
 
 
 }

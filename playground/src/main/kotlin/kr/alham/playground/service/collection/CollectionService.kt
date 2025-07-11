@@ -8,15 +8,18 @@ import kr.alham.playground.domain.item.Item
 import kr.alham.playground.domain.item.ItemType
 import kr.alham.playground.domain.item.Material
 import kr.alham.playground.dto.collection.PlayerCollectionDTO
+import kr.alham.playground.dto.inventory.DeleteEquipmentInventoryItemEvent
 import kr.alham.playground.repository.collection.PlayerEquipmentCollectionRepository
 import kr.alham.playground.repository.collection.PlayerMaterialCollectionRepository
 import kr.alham.playground.repository.item.EquipmentRepository
 import kr.alham.playground.repository.item.MaterialRepository
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CollectionService(
+    private val applicationEventPublisher: ApplicationEventPublisher,
     private val playerMaterialCollectionRepository: PlayerMaterialCollectionRepository,
     private val playerEquipmentCollectionRepository: PlayerEquipmentCollectionRepository,
     private val materialRepository: MaterialRepository,
@@ -39,8 +42,34 @@ class CollectionService(
             allMaterialList = allMaterialList,
             allEquipmentList = allEquipmentList
         )
-
     }
+
+
+    @Transactional
+    fun registerCollection(playerId: Long , inventoryItemId: Long ,item: Item){
+        val itemId = requireNotNull(item.id) {"아이템 ID가 null입니다." }
+        when (item.type) {
+            ItemType.EQUIPMENT -> {
+                //유효성 검사 및 아이템 존재 여부 확인
+                updateEquipmentCollection(
+                    playerId = playerId,
+                    equipment = item as Equipment
+                )
+
+                applicationEventPublisher.publishEvent(
+                    DeleteEquipmentInventoryItemEvent(
+                        playerId = playerId,
+                        inventoryItemId = inventoryItemId,
+                        equipmentId = itemId
+                    )
+                )
+            }
+            ItemType.MATERIAL ->{
+                return
+            }
+        }
+    }
+
 
     fun isExistsCollection(playerId: Long, item: Item): Boolean {
         val itemId = requireNotNull(item.id) { "아이템 ID가 null입니다." }
