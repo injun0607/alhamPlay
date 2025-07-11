@@ -1,14 +1,17 @@
 package kr.alham.playground.controller.collection
 
 import kr.alham.playground.dto.collection.PlayerCollectionDTO
+import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryItemDTO
 import kr.alham.playground.service.collection.CollectionService
+import kr.alham.playground.service.inventory.InventoryService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/collection")
 @CrossOrigin(origins = ["*"])
 class CollectionController(
-    private val collectionService: CollectionService
+    private val collectionService: CollectionService,
+    private val inventoryService: InventoryService
 ) {
 
     @GetMapping
@@ -18,10 +21,13 @@ class CollectionController(
         return collectionService.getPlayerCollection(playerid)
     }
 
-    @PostMapping("/register")
-    fun registerCollection(): String {
+    @PostMapping("/register/equipment")
+    fun registerCollection(@RequestBody equipmentInventoryItemDTO: PlayerEquipmentInventoryItemDTO): Boolean {
         val playerId = 1L // 예시로 플레이어 ID를 하드코딩
-        TODO()
+
+        val item = inventoryService.getEquipmentById(equipmentInventoryItemDTO.id)
+
+        return collectionService.registerCollection(playerId, equipmentInventoryItemDTO.inventoryItemId, item)
     }
 
 

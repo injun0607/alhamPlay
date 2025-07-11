@@ -46,7 +46,7 @@ class CollectionService(
 
 
     @Transactional
-    fun registerCollection(playerId: Long , inventoryItemId: Long ,item: Item){
+    fun registerCollection(playerId: Long , inventoryItemId: Long ,item: Item): Boolean{
         val itemId = requireNotNull(item.id) {"아이템 ID가 null입니다." }
         when (item.type) {
             ItemType.EQUIPMENT -> {
@@ -63,9 +63,11 @@ class CollectionService(
                         equipmentId = itemId
                     )
                 )
+
+                return true
             }
             ItemType.MATERIAL ->{
-                return
+                return false
             }
         }
     }
@@ -73,6 +75,7 @@ class CollectionService(
 
     fun isExistsCollection(playerId: Long, item: Item): Boolean {
         val itemId = requireNotNull(item.id) { "아이템 ID가 null입니다." }
+        println(item.type)
         return when (item.type) {
             ItemType.EQUIPMENT -> {
                 playerEquipmentCollectionRepository.existsPlayerEquipmentCollectionByPlayerIdAndEquipmentId(
@@ -92,6 +95,8 @@ class CollectionService(
 
     @Transactional
     fun saveCollection(playerId: Long, item: Item) {
+        println("진입")
+        println(item.type)
         val itemId = requireNotNull(item.id) { "아이템 ID가 null입니다." }
         when (item.type) {
             ItemType.EQUIPMENT -> {
@@ -102,6 +107,7 @@ class CollectionService(
                             equipmentId = itemId
                         )
                     )
+                    println("장비 컬렉션 저장 완료: playerId=$playerId, equipmentId=$itemId")
                 }
             }
 

@@ -9,6 +9,8 @@ import kr.alham.playground.service.collection.CollectionService
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
@@ -20,6 +22,7 @@ class CollectionEventListener(
 
     //아이템 저장은 보장되어야한다. 도감
     @TransactionalEventListener
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun collectionNewEvent(itemCollectionEvent: ItemCollectionEvent){
         val item = when(itemCollectionEvent.itemType){
             ItemType.EQUIPMENT -> {
@@ -36,6 +39,7 @@ class CollectionEventListener(
         }
 
         if(!collectionService.isExistsCollection(itemCollectionEvent.playerId,item)){
+            println("아이템 도감에 등록되지 않은 아이템입니다: ${itemCollectionEvent.itemId}")
             collectionService.saveCollection(
                 playerId = itemCollectionEvent.playerId,
                 item = item

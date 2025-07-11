@@ -67,7 +67,13 @@ class CollectionServiceTest{
         collectionService.saveCollection(playerId,equipment)
         assertTrue(playerEquipmentCollectionRepository.existsPlayerEquipmentCollectionByPlayerIdAndEquipmentId(playerId, equipment.id!!))
 
+        val collection = collectionService.getPlayerCollection(1L)
+
+        assertEquals(1, collection.materialCollectionList.count { it.isCollected })
+        assertEquals(1, collection.equipmentCollectionList.count { it.isCollected })
+
     }
+
 
     @Test
     fun `getPlayerCollectionTest - playerCollection테스트`(){
