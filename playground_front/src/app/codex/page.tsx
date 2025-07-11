@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import '../css/codex.css'
 import { useCodexItems, useCodexItemsByCategory, CodexItem } from '@/hooks/common/useCodexApi'
+import CodexDetailPanel from '@/components/codex/CodexDetailPanel'
 
 export default function CodexPage() {
     const [selectedItem, setSelectedItem] = useState<CodexItem | null>(null)
+    const [showDetail, setShowDetail] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [currentCategory, setCurrentCategory] = useState<'material' | 'equipment'>('material')
 
@@ -50,6 +52,19 @@ export default function CodexPage() {
         setCurrentPage(1)
     }, [currentCategory])
 
+    // 아이템 선택 시 상세 정보 표시
+    const handleItemClick = (item: CodexItem) => {
+        if (item.discovered) {
+            setSelectedItem(item)
+            setShowDetail(true)
+        }
+    }
+
+    // 상세 정보 닫기
+    const handleCloseDetail = () => {
+        setShowDetail(false)
+    }
+
     const getRarityClass = (rarity: string) => {
         switch (rarity) {
             case 'common': return 'rarity-common'
@@ -59,6 +74,23 @@ export default function CodexPage() {
             case 'legendary': return 'rarity-legendary'
             default: return 'rarity-common'
         }
+    }
+
+    const getRaritySlotClass = (rarity: string) => {
+        switch (rarity) {
+            case 'common': return 'bg-gray-600 border-gray-500'
+            case 'uncommon': return 'bg-green-600 border-green-500'
+            case 'rare': return 'bg-blue-600 border-blue-500'
+            case 'epic': return 'bg-purple-600 border-purple-500'
+            case 'legendary': return 'bg-yellow-600 border-yellow-500'
+            default: return 'bg-gray-600 border-gray-500'
+        }
+    }
+
+    const getRandomCount = (itemId: number) => {
+        // 임의로 등록 개수 생성 (실제로는 API에서 가져와야 함)
+        const counts = [0, 1, 2, 3, 5, 8, 12, 15, 20, 25, 30, 50, 100]
+        return counts[itemId % counts.length]
     }
 
     return (
@@ -119,35 +151,60 @@ export default function CodexPage() {
 
                             {/* 아이템 그리드 - 항상 5개씩 */}
                             {!isLoading && !error && (
-                                <div className="grid grid-cols-5 gap-1">
+                                <div className="grid grid-cols-5 gap-2">
                                     {currentItems.map((item) => (
                                     <div
                                         key={item.id}
-                                        className={`item-card p-1 aspect-square flex flex-col items-center justify-center cursor-pointer transition-all ${item.discovered ? 'discovered' : 'undiscovered'
-                                            } ${selectedItem?.id === item.id ? 'selected' : ''}`}
-                                        onClick={() => item.discovered && setSelectedItem(item)}
+                                        className={`item-card p-2 aspect-square flex flex-col items-center justify-center cursor-pointer transition-all border-2 ${item.discovered ? 'discovered' : 'undiscovered'
+                                            } ${selectedItem?.id === item.id ? 'selected' : ''} ${item.discovered ? getRaritySlotClass(item.rarity) : 'bg-gray-700 border-gray-600'}`}
+                                        onClick={() => handleItemClick(item)}
                                     >
                                         {item.discovered ? (
                                             <>
-                                                <div className={`w-3/4 h-3/4 ${getRarityClass(item.rarity)} rounded mb-1 flex items-center justify-center overflow-hidden`}>
+                                                <div className="w-full h-3/4 flex items-center justify-center overflow-hidden mb-1">
                                                     {item.imageUrl ? (
                                                         <img 
                                                             src={item.imageUrl} 
                                                             alt={item.name} 
-                                                            className="w-full h-full object-cover"
+                                                            className="w-full h-full object-cover rounded"
                                                         />
                                                     ) : (
-                                                        <span className="text-white font-bold text-xs">{item.shortName}</span>
+                                                        <div className={`w-full h-full ${getRarityClass(item.rarity)} rounded flex items-center justify-center`}>
+                                                            <span className="text-white font-bold text-xs">{item.shortName}</span>
+                                                        </div>
                                                     )}
                                                 </div>
-                                                <div className="text-[6px] text-amber-800 text-center leading-tight">{item.name}</div>
+                                                <div className="text-[6px] text-white text-center leading-tight mb-1">{item.name}</div>
+                                                <div className="w-full mb-1">
+                                                    {/* 진행바 배경 */}
+                                                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                                                        {/* 진행바 채우기 */}
+                                                        <div 
+                                                            className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full transition-all duration-300"
+                                                            style={{ 
+                                                                width: `${Math.min((getRandomCount(item.id) / 5) * 100, 100)}%` 
+                                                            }}
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                                <div className="text-[5px] text-amber-300 text-center font-bold">
+                                                    [{getRandomCount(item.id)}/5]
+                                                </div>
                                             </>
                                         ) : (
                                             <>
-                                                <div className="w-3/4 h-3/4 silhouette rounded mb-1 flex items-center justify-center overflow-hidden">
+                                                <div className="w-full h-3/4 silhouette rounded mb-1 flex items-center justify-center overflow-hidden">
                                                     {/* 미발견 아이템은 기본적으로 ? 표시 */}
                                                 </div>
-                                                <div className="text-[6px] text-gray-600 text-center leading-tight">???</div>
+                                                <div className="text-[6px] text-gray-400 text-center leading-tight mb-1">???</div>
+                                                <div className="w-full mb-1">
+                                                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                                                        <div className="h-full bg-gray-600 rounded-full" style={{ width: '0%' }}></div>
+                                                    </div>
+                                                </div>
+                                                <div className="text-[5px] text-gray-500 text-center font-bold">
+                                                    [0/5]
+                                                </div>
                                             </>
                                         )}
                                     </div>
@@ -192,6 +249,13 @@ export default function CodexPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* 상세 정보 패널 */}
+                <CodexDetailPanel 
+                    item={selectedItem!}
+                    isVisible={showDetail}
+                    onClose={handleCloseDetail}
+                />
             </div>
         </div>
     )

@@ -65,6 +65,7 @@ export default function CodexDetailPage() {
               {/* 아이템 이미지 및 기본 정보 */}
               <div className="text-center">
                 <div className={`w-24 h-24 ${getRarityClass(item.rarity)} rounded mx-auto mb-4 flex items-center justify-center`}>
+                  {/* 아이템 이미지 */}
                   <span className="text-white font-bold text-2xl">{item.shortName}</span>
                 </div>
                 <div className="text-xl text-amber-800 font-bold mb-2">{item.name}</div>

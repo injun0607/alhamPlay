@@ -15,7 +15,8 @@ interface EquipmentInventoryTabProps {
 export default function EquipmentInventoryTab({equipmentInventory}:EquipmentInventoryTabProps) {
 
 
-    const {post} = useApi<MaterialInventoryItemDTO[]>();
+    const {post: postDismantle} = useApi<MaterialInventoryItemDTO[]>();
+    const {post: postRegister} = useApi<boolean>();
 
     const [tooltipItem, setTooltipItem] = useState<EquipmentInventoryItemDTO | null>(null);
     const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -79,17 +80,29 @@ export default function EquipmentInventoryTab({equipmentInventory}:EquipmentInve
         });
     };
 
-    const handleRegister = () => {
+    const handleRegister = async() => {
         // 등록 로직 구현
-        console.log('등록:', clickedItem);
-        setClickedItem(null);
+        if(!clickedItem) return;
+
+        try{
+            const result = await postRegister<EquipmentInventoryItemDTO>('collection/register/equipment', clickedItem);
+
+            if(result){
+                removeItem(clickedItem);
+                alert('등록 완료');
+            }
+        }catch(error){
+            console.error('등록 실패:', error);
+        }finally{
+            setClickedItem(null);
+        }
     };
 
     const handleDisassemble = async () => {
         if(!clickedItem) return;
         // 분해 로직 구현
         try{
-            const result = await post<EquipmentInventoryItemDTO>('/dismantle/equipment', clickedItem);
+            const result = await postDismantle<EquipmentInventoryItemDTO>('/dismantle/equipment', clickedItem);
             
             if(result){
                 result.forEach(item => {
