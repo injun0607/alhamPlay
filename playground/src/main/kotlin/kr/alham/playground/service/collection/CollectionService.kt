@@ -7,6 +7,8 @@ import kr.alham.playground.domain.item.Equipment
 import kr.alham.playground.domain.item.Item
 import kr.alham.playground.domain.item.ItemType
 import kr.alham.playground.domain.item.Material
+import kr.alham.playground.dto.collection.EquipmentCollectionDTO
+import kr.alham.playground.dto.collection.MaterialCollectionDTO
 import kr.alham.playground.dto.collection.PlayerCollectionDTO
 import kr.alham.playground.dto.inventory.DeleteEquipmentInventoryItemEvent
 import kr.alham.playground.repository.collection.PlayerEquipmentCollectionRepository
@@ -40,6 +42,30 @@ class CollectionService(
             playerMaterialCollectionList = playerMaterialCollectionList,
             playerEquipmentCollectionList = playerEquipmentCollectionList,
             allMaterialList = allMaterialList,
+            allEquipmentList = allEquipmentList
+        )
+    }
+
+    fun getMaterialCollection(playerId: Long): List<MaterialCollectionDTO> {
+        val playerMaterialCollectionList =
+            playerMaterialCollectionRepository.getAllMaterialCollectionByPlayerId(playerId)
+
+        val allMaterialList = materialRepository.findAll()
+
+        return PlayerCollectionDTO.materialCollectionOf(
+            playerMaterialCollectionList = playerMaterialCollectionList,
+            allMaterialList = allMaterialList
+        )
+    }
+
+    fun getEquipmentCollection(playerId: Long): List<EquipmentCollectionDTO> {
+        val playerEquipmentCollectionList =
+            playerEquipmentCollectionRepository.getAllEquipmentCollectionByPlayerId(playerId)
+
+        val allEquipmentList = equipmentRepository.findAll()
+
+        return PlayerCollectionDTO.equipmentCollectionOf(
+            playerEquipmentCollectionList = playerEquipmentCollectionList,
             allEquipmentList = allEquipmentList
         )
     }

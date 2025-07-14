@@ -1,5 +1,7 @@
 package kr.alham.playground.controller.collection
 
+import kr.alham.playground.dto.collection.EquipmentCollectionDTO
+import kr.alham.playground.dto.collection.MaterialCollectionDTO
 import kr.alham.playground.dto.collection.PlayerCollectionDTO
 import kr.alham.playground.dto.inventory.PlayerEquipmentInventoryItemDTO
 import kr.alham.playground.service.collection.CollectionService
@@ -15,10 +17,22 @@ class CollectionController(
 ) {
 
     @GetMapping
-    fun getMaterialCollection(): PlayerCollectionDTO{
+    fun getCollection(): PlayerCollectionDTO{
         val playerid = 1L // 예시로 플레이어 ID를 하드코딩
 
         return collectionService.getPlayerCollection(playerid)
+    }
+
+    @GetMapping("/materials")
+    fun getMaterialCollection(): List<MaterialCollectionDTO> {
+        val playerId = 1L // 예시로 플레이어 ID를 하드코딩
+        return collectionService.getMaterialCollection(playerId)
+    }
+
+    @GetMapping("/equipment")
+    fun getEquipmentCollection(): List<EquipmentCollectionDTO> {
+        val playerId = 1L // 예시로 플레이어 ID를 하드코딩
+        return collectionService.getEquipmentCollection(playerId)
     }
 
     @PostMapping("/register/equipment")

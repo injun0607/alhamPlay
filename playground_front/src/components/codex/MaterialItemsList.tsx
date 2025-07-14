@@ -1,0 +1,238 @@
+'use client'
+
+import { useState, useEffect, useMemo } from 'react'
+import { MaterialCollectionDTO } from '@/types/collection'
+import { ItemRarity } from '@/types/item'
+import { CodexItem } from '@/hooks/common/useCodexApi'
+
+interface MaterialItemsListProps {
+    materialItems: MaterialCollectionDTO[]
+    selectedRarities: ItemRarity[]
+    currentPage: number
+    setCurrentPage: (page: number) => void
+    selectedItem: CodexItem | null
+    onItemClick: (item: CodexItem) => void
+    isLoading: boolean
+    error: any
+}
+
+export default function MaterialItemsList({
+    materialItems,
+    selectedRarities,
+    currentPage,
+    setCurrentPage,
+    selectedItem,
+    onItemClick,
+    isLoading,
+    error
+}: MaterialItemsListProps) {
+    const itemsPerPage = 5
+
+    // 필터링된 아이템들 (레어리티별) - useMemo로 최적화
+    const filteredItems = useMemo(() => {
+        return materialItems.filter(materialItem =>
+            selectedRarities.includes(materialItem.itemRarity)
+        )
+    }, [materialItems, selectedRarities])
+
+    // 페이지네이션 계산 - useMemo로 최적화
+    const totalPages = useMemo(() => {
+        return Math.ceil(filteredItems.length / itemsPerPage)
+    }, [filteredItems.length, itemsPerPage])
+
+    const currentItems = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemsPerPage
+        const endIndex = startIndex + itemsPerPage
+        return filteredItems.slice(startIndex, endIndex)
+    }, [filteredItems, currentPage, itemsPerPage])
+
+    // 첫 번째 아이템을 기본 선택 (필터 변경 시에만)
+    useEffect(() => {
+        if (filteredItems.length > 0) {
+            const currentItemExists = selectedItem && filteredItems.some(item => item.materialId === selectedItem.id)
+            if (!currentItemExists) {
+                // MaterialCollectionDTO를 CodexItem으로 변환
+                const firstItem = convertToCodexItem(filteredItems[0])
+                onItemClick(firstItem)
+            }
+        }
+    }, [filteredItems, selectedItem, onItemClick])
+
+    // 카테고리 변경 시 페이지 리셋
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [selectedRarities, setCurrentPage])
+
+    // MaterialCollectionDTO를 CodexItem으로 변환하는 함수
+    const convertToCodexItem = (materialItem: MaterialCollectionDTO): CodexItem => {
+        return {
+            id: materialItem.materialId,
+            name: materialItem.name,
+            shortName: materialItem.name.substring(0, 2),
+            rarity: materialItem.itemRarity,
+            type: materialItem.itemType,
+            discovered: materialItem.isCollected,
+            imageUrl: materialItem.itemImg,
+            description: materialItem.description,
+            value: 0, // 기본값
+            stackSize: 99, // 기본값
+            acquisition: [materialItem.dropArea], // dropArea를 acquisition으로 사용
+            discoveryInfo: {
+                firstFound: materialItem.discoveredAt,
+                totalFound: 1 // 기본값
+            }
+        }
+    }
+
+    const getRarityClass = (rarity: ItemRarity) => {
+        switch (rarity) {
+            case 'COMMON': return 'rarity-common'
+            case 'UNCOMMON': return 'rarity-uncommon'
+            case 'RARE': return 'rarity-rare'
+            case 'EPIC': return 'rarity-epic'
+            case 'UNIQUE': return 'rarity-unique'
+            case 'LEGENDARY': return 'rarity-legendary'
+            default: return 'rarity-common'
+        }
+    }
+
+    const getRaritySlotClass = (rarity: ItemRarity) => {
+        switch (rarity) {
+            case 'COMMON': return 'bg-gray-600 border-gray-500'
+            case 'UNCOMMON': return 'bg-green-600 border-green-500'
+            case 'RARE': return 'bg-blue-600 border-blue-500'
+            case 'EPIC': return 'bg-purple-600 border-purple-500'
+            case 'UNIQUE': return 'bg-orange-600 border-orange-500'
+            case 'LEGENDARY': return 'bg-yellow-600 border-yellow-500'
+            default: return 'bg-gray-600 border-gray-500'
+        }
+    }
+
+    const getRandomCount = (itemId: number) => {
+        const counts = [0, 1, 2, 3, 5, 8, 12, 15, 20, 25, 30, 50, 100]
+        return counts[itemId % counts.length]
+    }
+
+    const handleItemClick = (materialItem: MaterialCollectionDTO) => {
+        if (materialItem.isCollected) {
+            const codexItem = convertToCodexItem(materialItem)
+            onItemClick(codexItem)
+        }
+    }
+
+    // 로딩 상태
+    if (isLoading) {
+        return (
+            <div className="text-center py-8">
+                <div className="text-amber-600 text-sm">Loading materials...</div>
+            </div>
+        )
+    }
+
+    // 에러 상태
+    if (error) {
+        return (
+            <div className="text-center py-8">
+                <div className="text-red-600 text-sm">Failed to load materials</div>
+            </div>
+        )
+    }
+
+    return (
+        <div>
+            {/* 아이템 그리드 - 항상 5개씩 */}
+            <div className="grid grid-cols-5 gap-2">
+                {currentItems.map((materialItem) => (
+                    <div
+                        key={materialItem.materialId}
+                        className={`item-card p-2 aspect-square flex flex-col items-center justify-center cursor-pointer transition-all border-2 ${
+                            materialItem.isCollected ? 'discovered' : 'undiscovered'
+                        } ${
+                            selectedItem?.id === materialItem.materialId ? 'selected' : ''
+                        } ${
+                            materialItem.isCollected ? getRaritySlotClass(materialItem.itemRarity) : 'bg-gray-700 border-gray-600'
+                        }`}
+                        onClick={() => handleItemClick(materialItem)}
+                    >
+                        {materialItem.isCollected ? (
+                            <>
+                                <div className="w-full h-3/4 flex items-center justify-center overflow-hidden mb-1">
+                                    {materialItem.itemImg ? (
+                                        <img 
+                                            src={materialItem.itemImg} 
+                                            alt={materialItem.name} 
+                                            className="w-full h-full object-cover rounded"
+                                        />
+                                    ) : (
+                                        <div className={`w-full h-full ${getRarityClass(materialItem.itemRarity)} rounded flex items-center justify-center`}>
+                                            <span className="text-white font-bold text-xs">{materialItem.name.substring(0, 2)}</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="text-[6px] text-white text-center leading-tight mb-1">{materialItem.name}</div>
+                                <div className="w-full mb-1">
+                                    {/* 진행바 배경 */}
+                                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                                        {/* 진행바 채우기 */}
+                                        <div 
+                                            className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full transition-all duration-300"
+                                            style={{ 
+                                                width: `${Math.min((getRandomCount(materialItem.materialId) / 5) * 100, 100)}%` 
+                                            }}
+                                        ></div>
+                                    </div>
+                                </div>
+                                <div className="text-[5px] text-amber-300 text-center font-bold">
+                                    [{getRandomCount(materialItem.materialId)}/5]
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="w-full h-3/4 silhouette rounded mb-1 flex items-center justify-center overflow-hidden">
+                                    {/* 미발견 아이템은 기본적으로 ? 표시 */}
+                                </div>
+                                <div className="text-[6px] text-gray-400 text-center leading-tight mb-1">???</div>
+                                <div className="w-full mb-1">
+                                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                                        <div className="h-full bg-gray-600 rounded-full" style={{ width: '0%' }}></div>
+                                    </div>
+                                </div>
+                                <div className="text-[5px] text-gray-500 text-center font-bold">
+                                    [0/5]
+                                </div>
+                            </>
+                        )}
+                    </div>
+                ))}
+            </div>
+
+            {/* 페이지 네비게이션 */}
+            <div className="mt-6 flex justify-center gap-4">
+                <button
+                    className="pixel-button bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                >
+                    [ PREV PAGE ]
+                </button>
+                <div className="pixel-border bg-amber-100 px-4 py-2">
+                    <span className="text-xs text-amber-800 font-bold">PAGE {currentPage} / {totalPages}</span>
+                </div>
+                <button
+                    className="pixel-button bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                >
+                    [ NEXT PAGE ]
+                </button>
+            </div>
+
+            {/* 상태 정보 */}
+            <div className="mt-4 text-center">
+                <div className="text-xs text-amber-600">
+                    DISCOVERED: {filteredItems.filter(item => item.isCollected).length}/{filteredItems.length} MATERIALS
+                </div>
+            </div>
+        </div>
+    )
+} 

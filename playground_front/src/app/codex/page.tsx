@@ -3,86 +3,53 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import '../css/codex.css'
-import { useCodexItems, useCodexItemsByCategory, CodexItem } from '@/hooks/common/useCodexApi'
+import { useCodexItems, useCodexItemsByMaterial, useCodexItemsByEquipment, CodexItem } from '@/hooks/common/useCodexApi'
 import CodexDetailPanel from '@/components/codex/CodexDetailPanel'
-import { ItemRarity, ItemType } from '@/types/item'
+import { ItemRarity, ItemType, ItemRarities } from '@/types/item'
+import { useCodexStore } from '@/store/codexStore'
+import MaterialItemsList from '@/components/codex/MaterialItemsList'
+import EquipmentItemsList from '@/components/codex/EquipmentItemsList'
 
-// ItemRarity 배열 정의
-const ITEM_RARITIES: ItemRarity[] = ['COMMON', 'UNCOMMON', 'RARE', 'EPIC', 'UNIQUE', 'LEGENDARY']
+
+
+
 
 export default function CodexPage() {
     const [selectedItem, setSelectedItem] = useState<CodexItem | null>(null)
     const [showDetail, setShowDetail] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [currentCategory, setCurrentCategory] = useState<ItemType>('MATERIAL')
-    const [selectedRarities, setSelectedRarities] = useState<ItemRarity[]>(['COMMON', 'UNCOMMON', 'RARE', 'EPIC', 'LEGENDARY'])
-    const [isNewCodex, setIsNewCodex] = useState(true) // 도감 갱신 플래그
+    const [selectedRarities, setSelectedRarities] = useState<ItemRarity[]>([...ItemRarities])
+
+    const { isFetchAllItems, isFetchMaterialItems, isFetchEquipmentItems, setIsFetchAllItems, setIsFetchMaterialItems, setIsFetchEquipmentItems, resetAllFlags } = useCodexStore()
 
     // React Query로 데이터 가져오기 - 조건부 fetch
-    const { data: allItems, isLoading, error, refetch } = useCodexItems(isNewCodex) // isNewCodex가 true일 때만 fetch
-    const { data: categoryItems, refetch: refetchCategory } = useCodexItemsByCategory(currentCategory, isNewCodex)
-
-    // 필터링된 아이템들 (카테고리별 + 레어리티별)
-    const filteredItems = (categoryItems || allItems || []).filter(item => 
-        selectedRarities.includes(item.rarity)
-    )
-    
-    // 디버깅용 로그
-    console.log('Codex Debug:', {
-        allItems: allItems?.length,
-        categoryItems: categoryItems?.length,
-        filteredItems: filteredItems.length,
-        currentCategory,
-        selectedRarities,
-        selectedItem: selectedItem?.name,
-        isLoading,
-        error,
-        isNewCodex
-    })
-    
-    const itemsPerPage = 5
-    const totalPages = Math.ceil(filteredItems.length / itemsPerPage)
-    const startIndex = (currentPage - 1) * itemsPerPage
-    const endIndex = startIndex + itemsPerPage
-    const currentItems = filteredItems.slice(startIndex, endIndex)
-
-    // 첫 번째 아이템을 기본 선택 (카테고리 변경 시에만)
-    useEffect(() => {
-        if (filteredItems.length > 0) {
-            // 현재 선택된 아이템이 새로운 카테고리에 없으면 첫 번째 아이템 선택
-            const currentItemExists = selectedItem && filteredItems.some(item => item.id === selectedItem.id)
-            if (!currentItemExists) {
-                setSelectedItem(filteredItems[0])
-            }
-        }
-    }, [filteredItems, selectedItem])
-
-    // 카테고리 변경 시 페이지 리셋 (한 번만)
-    useEffect(() => {
-        setCurrentPage(1)
-    }, [currentCategory])
+    const { data: allItems, isLoading, error, refetch } = useCodexItems(isFetchAllItems)
+    const { data: materialItems, refetch: refetchMaterial } = useCodexItemsByMaterial(isFetchMaterialItems)
+    const { data: equipmentItems, refetch: refetchEquipment } = useCodexItemsByEquipment(isFetchEquipmentItems)
 
     // 도감 갱신 플래그에 따른 조건부 fetch
     useEffect(() => {
-        if (isNewCodex) {
-            // 새로운 도감이면 강제로 refetch
+        if (isFetchAllItems) {
             refetch()
-            refetchCategory()
-            setIsNewCodex(false) // fetch 후 플래그 해제
+            resetAllFlags()
+        } else if(isFetchMaterialItems){
+            refetchMaterial()
+            setIsFetchMaterialItems(false)
+        } else if(isFetchEquipmentItems){
+            refetchEquipment()
+            setIsFetchEquipmentItems(false)
         }
-    }, [isNewCodex, refetch, refetchCategory])
+    }, [isFetchAllItems, isFetchMaterialItems, isFetchEquipmentItems, refetch, refetchMaterial, refetchEquipment])
 
     // 상세 패널 열림/닫힘에 따른 스크롤 제어
     useEffect(() => {
         if (showDetail) {
-            // 상세 패널이 열렸을 때 body 스크롤 비활성화
             document.body.style.overflow = 'hidden'
         } else {
-            // 상세 패널이 닫혔을 때 body 스크롤 활성화
             document.body.style.overflow = 'auto'
         }
 
-        // 컴포넌트 언마운트 시 스크롤 복원
         return () => {
             document.body.style.overflow = 'auto'
         }
@@ -95,7 +62,7 @@ export default function CodexPage() {
                 ? prev.filter(r => r !== rarity)
                 : [...prev, rarity]
         )
-        setCurrentPage(1) // 필터 변경 시 첫 페이지로
+        setCurrentPage(1)
     }
 
     // 모든 레어리티 선택/해제
@@ -123,31 +90,7 @@ export default function CodexPage() {
 
     // 도감 강제 갱신 함수 (테스트용)
     const forceRefreshCodex = () => {
-        setIsNewCodex(true)
-    }
-
-    const getRarityClass = (rarity: ItemRarity) => {
-        switch (rarity) {
-            case 'COMMON': return 'rarity-common'
-            case 'UNCOMMON': return 'rarity-uncommon'
-            case 'RARE': return 'rarity-rare'
-            case 'EPIC': return 'rarity-epic'
-            case 'UNIQUE': return 'rarity-unique'
-            case 'LEGENDARY': return 'rarity-legendary'
-            default: return 'rarity-common'
-        }
-    }
-
-    const getRaritySlotClass = (rarity: ItemRarity) => {
-        switch (rarity) {
-            case 'COMMON': return 'bg-gray-600 border-gray-500'
-            case 'UNCOMMON': return 'bg-green-600 border-green-500'
-            case 'RARE': return 'bg-blue-600 border-blue-500'
-            case 'EPIC': return 'bg-purple-600 border-purple-500'
-            case 'UNIQUE': return 'bg-orange-600 border-orange-500'
-            case 'LEGENDARY': return 'bg-yellow-600 border-yellow-500'
-            default: return 'bg-gray-600 border-gray-500'
-        }
+        setIsFetchAllItems(true)
     }
 
     const getRarityFilterClass = (rarity: ItemRarity) => {
@@ -161,12 +104,6 @@ export default function CodexPage() {
             case 'LEGENDARY': return `postit-button ${isSelected ? 'bg-yellow-500 text-white' : 'bg-yellow-300 text-yellow-700'}`
             default: return `postit-button ${isSelected ? 'bg-gray-500 text-white' : 'bg-gray-300 text-gray-700'}`
         }
-    }
-
-    const getRandomCount = (itemId: number) => {
-        // 임의로 등록 개수 생성 (실제로는 API에서 가져와야 함)
-        const counts = [0, 1, 2, 3, 5, 8, 12, 15, 20, 25, 30, 50, 100]
-        return counts[itemId % counts.length]
     }
 
     return (
@@ -210,7 +147,7 @@ export default function CodexPage() {
                         </button>
                         
                         {/* 레어리티별 토글 버튼들 */}
-                        {ITEM_RARITIES.map((rarity) => (
+                        {ItemRarities.map((rarity) => (
                             <button
                                 key={rarity}
                                 onClick={() => toggleRarity(rarity)}
@@ -224,7 +161,6 @@ export default function CodexPage() {
 
                 {/* 메인 도감 컨테이너 */}
                 <div className={`relative flex gap-4 transition-all duration-500 ${showDetail ? 'opacity-40 scale-95' : 'opacity-100 scale-100'}`}>
-
                     {/* 왼쪽 페이지 (아이템 목록) */}
                     <div className="flex-1">
                         <div className="book-page custom-scrollbar p-6 h-[600px] overflow-y-auto">
@@ -252,105 +188,32 @@ export default function CodexPage() {
                                 </button>
                             </div>
 
-                            {/* 로딩 상태 */}
-                            {isLoading && (
-                                <div className="text-center py-8">
-                                    <div className="text-amber-600 text-sm">Loading items...</div>
-                                </div>
-                            )}
-
-                            {/* 에러 상태 */}
-                            {error && (
-                                <div className="text-center py-8">
-                                    <div className="text-red-600 text-sm">Failed to load items</div>
-                                </div>
-                            )}
-
-                            {/* 아이템 그리드 - 항상 5개씩 */}
-                            {!isLoading && !error && (
-                                <div className="grid grid-cols-5 gap-2">
-                                    {currentItems.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        className={`item-card p-2 aspect-square flex flex-col items-center justify-center cursor-pointer transition-all border-2 ${item.discovered ? 'discovered' : 'undiscovered'
-                                            } ${selectedItem?.id === item.id ? 'selected' : ''} ${item.discovered ? getRaritySlotClass(item.rarity) : 'bg-gray-700 border-gray-600'}`}
-                                        onClick={() => handleItemClick(item)}
-                                    >
-                                        {item.discovered ? (
-                                            <>
-                                                <div className="w-full h-3/4 flex items-center justify-center overflow-hidden mb-1">
-                                                    {item.imageUrl ? (
-                                                        <img 
-                                                            src={item.imageUrl} 
-                                                            alt={item.name} 
-                                                            className="w-full h-full object-cover rounded"
-                                                        />
-                                                    ) : (
-                                                        <div className={`w-full h-full ${getRarityClass(item.rarity)} rounded flex items-center justify-center`}>
-                                                            <span className="text-white font-bold text-xs">{item.shortName}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                <div className="text-[6px] text-white text-center leading-tight mb-1">{item.name}</div>
-                                                <div className="w-full mb-1">
-                                                    {/* 진행바 배경 */}
-                                                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
-                                                        {/* 진행바 채우기 */}
-                                                        <div 
-                                                            className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full transition-all duration-300"
-                                                            style={{ 
-                                                                width: `${Math.min((getRandomCount(item.id) / 5) * 100, 100)}%` 
-                                                            }}
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                                <div className="text-[5px] text-amber-300 text-center font-bold">
-                                                    [{getRandomCount(item.id)}/5]
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="w-full h-3/4 silhouette rounded mb-1 flex items-center justify-center overflow-hidden">
-                                                    {/* 미발견 아이템은 기본적으로 ? 표시 */}
-                                                </div>
-                                                <div className="text-[6px] text-gray-400 text-center leading-tight mb-1">???</div>
-                                                <div className="w-full mb-1">
-                                                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
-                                                        <div className="h-full bg-gray-600 rounded-full" style={{ width: '0%' }}></div>
-                                                    </div>
-                                                </div>
-                                                <div className="text-[5px] text-gray-500 text-center font-bold">
-                                                    [0/5]
-                                                </div>
-                                            </>
-                                        )}
-                                    </div>
-                                ))}
-                                </div>
+                            {/* 카테고리별 컴포넌트 렌더링 */}
+                            {currentCategory === 'MATERIAL' ? (
+                                <MaterialItemsList
+                                    materialItems={materialItems || []}
+                                    selectedRarities={selectedRarities}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                    selectedItem={selectedItem}
+                                    onItemClick={handleItemClick}
+                                    isLoading={isLoading}
+                                    error={error}
+                                />
+                            ) : (
+                                <EquipmentItemsList
+                                    equipmentItems={equipmentItems || []}
+                                    selectedRarities={selectedRarities}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                    selectedItem={selectedItem}
+                                    onItemClick={handleItemClick}
+                                    isLoading={isLoading}
+                                    error={error}
+                                />
                             )}
                         </div>
                     </div>
-                </div>
-
-                {/* 페이지 네비게이션 */}
-                <div className={`relative mt-6 flex justify-center gap-4 transition-all duration-500 ${showDetail ? 'opacity-40 scale-95' : 'opacity-100 scale-100'}`}>
-                    <button
-                        className="pixel-button bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                        disabled={currentPage === 1}
-                    >
-                        [ PREV PAGE ]
-                    </button>
-                    <div className="pixel-border bg-amber-100 px-4 py-2">
-                        <span className="text-xs text-amber-800 font-bold">PAGE {currentPage} / {totalPages}</span>
-                    </div>
-                    <button
-                        className="pixel-button bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                        disabled={currentPage === totalPages}
-                    >
-                        [ NEXT PAGE ]
-                    </button>
                 </div>
 
                 {/* 하단 상태바 */}
@@ -358,7 +221,7 @@ export default function CodexPage() {
                     <div className="bg-black pixel-border p-3">
                         <div className="text-xs text-green-400 flex justify-between">
                             <span>
-                                SELECTED: {selectedItem?.name || 'NONE'} | DISCOVERED: {filteredItems.filter((item: CodexItem) => item.discovered).length}/{filteredItems.length} ITEMS | FILTER: {selectedRarities.length}/6 RARITIES
+                                SELECTED: {selectedItem?.name || 'NONE'} | CATEGORY: {currentCategory} | FILTER: {selectedRarities.length}/6 RARITIES
                             </span>
                             <span className="blink">
                                 {isLoading ? 'LOADING...' : error ? 'ERROR' : 'READY'}

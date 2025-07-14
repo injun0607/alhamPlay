@@ -75,5 +75,68 @@ data class PlayerCollectionDTO(
             )
         }
 
+        fun materialCollectionOf(
+            playerMaterialCollectionList: List<PlayerMaterialCollection>,
+            allMaterialList: List<Material>
+        ): List<MaterialCollectionDTO> {
+            val hasMaterialMap = playerMaterialCollectionList.associateBy { it.material.id }
+            val materialCollectionList = allMaterialList.map { material ->
+                val materialId = requireNotNull(material.id) { "Material ID cannot be null" }
+
+                if(hasMaterialMap.containsKey(material.id)){
+                    MaterialCollectionDTO(
+                        materialId = materialId,
+                        name = material.name,
+                        description = material.description,
+                        itemType = material.type,
+                        itemRarity = material.itemRarity,
+                        itemImg = material.itemImg,
+                        discoveredAt = hasMaterialMap[material.id]?.discoveredAt.toString(),
+                        isCollected = true
+                    )
+                }else{
+                    MaterialCollectionDTO(
+                        name = material.name,
+                        itemImg = material.itemImg,
+                        isCollected = false
+                    )
+                }
+            }
+            return materialCollectionList
+        }
+
+        fun equipmentCollectionOf(
+            playerEquipmentCollectionList: List<PlayerEquipmentCollection>,
+            allEquipmentList: List<Equipment>
+        ): List<EquipmentCollectionDTO> {
+            val hasEquipmentMap = playerEquipmentCollectionList.associateBy { it.equipment.id }
+            val equipmentCollectionList = allEquipmentList.map { equipment ->
+                val equipmentId = requireNotNull(equipment.id) { "Equipment ID cannot be null" }
+
+                if(hasEquipmentMap.containsKey(equipment.id)){
+                    EquipmentCollectionDTO(
+                        equipmentId = equipmentId,
+                        name = equipment.name,
+                        description = equipment.description,
+                        itemType = equipment.type,
+                        equipmentType = equipment.equipmentType,
+                        itemRarity = equipment.itemRarity,
+                        itemImg = equipment.itemImg,
+                        level = hasEquipmentMap[equipment.id]?.level ?: CollectionLevelEnums.LEVEL1,
+                        quantity = hasEquipmentMap[equipment.id]?.quantity ?: 1,
+                        discoveredAt = hasEquipmentMap[equipment.id]?.discoveredAt.toString(),
+                        isCollected = true
+                    )
+                }else{
+                    EquipmentCollectionDTO(
+                        name = equipment.name,
+                        itemImg = equipment.itemImg,
+                        isCollected = false
+                    )
+                }
+            }
+            return equipmentCollectionList
+        }
+
     }
 }
