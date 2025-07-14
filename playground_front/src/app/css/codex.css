@@ -38,6 +38,153 @@ body {
     0px 0px 0px rgba(0,0,0,0.8);
 }
 
+/* 상세 패널이 열렸을 때의 시각적 효과 */
+.detail-panel-open {
+  filter: blur(1px);
+  transition: filter 0.5s ease;
+}
+
+.detail-panel-open .book-page {
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.2),
+    inset -2px -2px 0px rgba(0,0,0,0.2),
+    3px 3px 0px rgba(0,0,0,0.6);
+}
+
+.detail-panel-open .pixel-button {
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+.detail-panel-open .postit-button {
+  opacity: 0.6;
+  transform: rotate(-1deg) scale(0.9);
+}
+
+/* 상세 패널 강조 효과 */
+.detail-panel-active {
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.3),
+    0 0 60px rgba(255, 215, 0, 0.1);
+  border-color: #FFD700;
+}
+
+/* 포스트잇 스타일 필터 버튼 */
+.postit-button {
+  border: 2px solid #000;
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.4),
+    inset -1px -1px 0px rgba(0,0,0,0.3),
+    3px 3px 0px rgba(0,0,0,0.6);
+  transition: all 0.2s ease;
+  position: relative;
+  transform: rotate(-1deg);
+}
+
+.postit-button:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.5),
+    inset -1px -1px 0px rgba(0,0,0,0.3),
+    4px 4px 0px rgba(0,0,0,0.7);
+}
+
+.postit-button:active {
+  transform: rotate(0deg) scale(0.95);
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.4),
+    inset -1px -1px 0px rgba(0,0,0,0.3),
+    2px 2px 0px rgba(0,0,0,0.6);
+}
+
+/* 포스트잇 그림자 효과 */
+.postit-button::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: -2px;
+  bottom: -2px;
+  background: rgba(0,0,0,0.3);
+  z-index: -1;
+  transform: rotate(1deg);
+}
+
+/* 커스텀 스크롤바 */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #DAA520 #2d2d2d;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #2d2d2d, #404040);
+  border: 2px solid #555;
+  border-radius: 6px;
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.1),
+    inset -1px -1px 0px rgba(0,0,0,0.3);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #DAA520, #B8860B);
+  border: 2px solid #8B4513;
+  border-radius: 6px;
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.3),
+    inset -1px -1px 0px rgba(0,0,0,0.3);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFD700, #DAA520);
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.4),
+    inset -1px -1px 0px rgba(0,0,0,0.3),
+    0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #B8860B, #8B4513);
+  transform: scale(0.95);
+}
+
+/* 스크롤바 코너 처리 */
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background: #2d2d2d;
+}
+
+/* 상세 패널 전용 스크롤바 */
+.detail-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #FFD700 #1a1a2e;
+}
+
+.detail-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.detail-scrollbar::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #1a1a2e, #16213e);
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.detail-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FFD700, #DAA520);
+  border: 1px solid #8B4513;
+  border-radius: 5px;
+  box-shadow: 
+    inset 1px 1px 0px rgba(255,255,255,0.2),
+    inset -1px -1px 0px rgba(0,0,0,0.2);
+}
+
+.detail-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFF8DC, #FFD700);
+}
+
 .book-page {
   border: 3px solid #8B4513;
   box-shadow: 

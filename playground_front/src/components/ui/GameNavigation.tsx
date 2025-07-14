@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import Inventory from '@/components/inventory/Inventory';
 import Craft from '@/components/craft/Craft';
 import { InventoryStore } from '@/store/inventoryStore';
@@ -15,6 +16,8 @@ export default function GameNavigation({ className = '' }: GameNavigationProps) 
     const [isInventoryOpen, setIsInventoryOpen] = useState(false);
     const [isCraftOpen, setIsCraftOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
+    const isCodexPage = pathname?.startsWith('/codex');
 
     const {isInventoryInitialized,initInventory} = InventoryStore();
     const {data,loading,error,get} = useApi<UserInventory>();
@@ -89,6 +92,11 @@ export default function GameNavigation({ className = '' }: GameNavigationProps) 
             window.removeEventListener('keydown', handleKeyDown)
         };
     }, [toggleInventory, closeModals, toggleMenu, toggleCraft]);
+
+    // codex 페이지에서는 아무것도 렌더링하지 않음
+    if (isCodexPage) {
+        return null;
+    }
 
     return (
         <>

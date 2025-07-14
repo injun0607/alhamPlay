@@ -1,17 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 import { EquipmentCollectionDTO, MaterialCollectionDTO } from '@/types/collection'
-
+import { ItemRarity, ItemType } from '@/types/item'
 
 export interface CodexItem {
   id: number
   name: string
   shortName: string
-  rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'
-  type: 'material' | 'equipment'
+  rarity: ItemRarity
+  type: ItemType
   discovered: boolean
   imageUrl?: string
   description?: string
-  weight?: number
   value?: number
   stackSize?: number
   acquisition?: string[]
@@ -31,12 +30,11 @@ const mockCodexItems: CodexItem[] = [
     id: 1, 
     name: '철광석', 
     shortName: '철', 
-    rarity: 'common', 
-    type: 'material', 
+    rarity: 'COMMON', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/glacier_mat.png',
     description: 'A basic iron ore commonly found in mines and caves.',
-    weight: 0.5,
     value: 10,
     stackSize: 99,
     acquisition: ['Mining in Iron Mines', 'Cave Exploration'],
@@ -53,12 +51,11 @@ const mockCodexItems: CodexItem[] = [
     id: 2, 
     name: '크리스탈', 
     shortName: '크', 
-    rarity: 'uncommon', 
-    type: 'material', 
+    rarity: 'UNCOMMON', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/glacier_tear.png',
     description: 'A crystalline material that glows with magical energy.',
-    weight: 0.3,
     value: 25,
     stackSize: 50,
     acquisition: ['Crystal Caves', 'Magic Shops'],
@@ -74,12 +71,11 @@ const mockCodexItems: CodexItem[] = [
     id: 3, 
     name: '마법석', 
     shortName: '마', 
-    rarity: 'rare', 
-    type: 'material', 
+    rarity: 'RARE', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/dryad_heart.png',
     description: 'A rare magical stone with powerful enchantments.',
-    weight: 0.2,
     value: 100,
     stackSize: 25,
     acquisition: ['Ancient Ruins', 'Rare Monster Drops'],
@@ -95,12 +91,11 @@ const mockCodexItems: CodexItem[] = [
     id: 4, 
     name: '다이아몬드', 
     shortName: '다', 
-    rarity: 'epic', 
-    type: 'material', 
+    rarity: 'EPIC', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/salamandar_heart.png',
     description: 'An extremely rare diamond with legendary properties.',
-    weight: 0.1,
     value: 500,
     stackSize: 10,
     acquisition: ['Deep Mines', 'Legendary Boss Drops'],
@@ -116,12 +111,11 @@ const mockCodexItems: CodexItem[] = [
     id: 5, 
     name: '신화석', 
     shortName: '신', 
-    rarity: 'legendary', 
-    type: 'material', 
+    rarity: 'LEGENDARY', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/volcanic_stone.png',
     description: 'A mythical stone said to contain the power of the gods.',
-    weight: 0.05,
     value: 1000,
     stackSize: 5,
     acquisition: ['Mythical Realm', 'God-tier Boss Drops'],
@@ -137,12 +131,11 @@ const mockCodexItems: CodexItem[] = [
     id: 6, 
     name: '나무', 
     shortName: '나', 
-    rarity: 'common', 
-    type: 'material', 
+    rarity: 'COMMON', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/wood.png',
     description: 'Basic wood material for crafting.',
-    weight: 0.3,
     value: 5,
     stackSize: 99,
     acquisition: ['Forest', 'Tree Cutting'],
@@ -158,12 +151,11 @@ const mockCodexItems: CodexItem[] = [
     id: 7, 
     name: '돌', 
     shortName: '돌', 
-    rarity: 'common', 
-    type: 'material', 
+    rarity: 'COMMON', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/stone_trans.PNG',
     description: 'Basic stone material for building.',
-    weight: 0.8,
     value: 3,
     stackSize: 99,
     acquisition: ['Mountain', 'Stone Quarry'],
@@ -179,12 +171,11 @@ const mockCodexItems: CodexItem[] = [
     id: 8, 
     name: '가죽', 
     shortName: '가', 
-    rarity: 'uncommon', 
-    type: 'material', 
+    rarity: 'UNCOMMON', 
+    type: 'MATERIAL', 
     discovered: true, 
     imageUrl: '/images/wood_trans.PNG',
     description: 'Leather material from animal hides.',
-    weight: 0.2,
     value: 15,
     stackSize: 50,
     acquisition: ['Hunting', 'Animal Drops'],
@@ -196,13 +187,13 @@ const mockCodexItems: CodexItem[] = [
       totalFound: 34
     }
   },
-  { id: 9, name: '미스터리 아이템 1', shortName: '?', rarity: 'common', type: 'material', discovered: false },
-  { id: 10, name: '미스터리 아이템 2', shortName: '?', rarity: 'common', type: 'material', discovered: false },
-  { id: 11, name: '미스터리 아이템 3', shortName: '?', rarity: 'common', type: 'material', discovered: false },
-  { id: 12, name: '미스터리 아이템 4', shortName: '?', rarity: 'common', type: 'material', discovered: false },
-  { id: 13, name: '미스터리 아이템 5', shortName: '?', rarity: 'common', type: 'material', discovered: false },
-  { id: 14, name: '미스터리 아이템 6', shortName: '?', rarity: 'common', type: 'material', discovered: false },
-  { id: 15, name: '미스터리 아이템 7', shortName: '?', rarity: 'common', type: 'material', discovered: false },
+  { id: 9, name: '미스터리 아이템 1', shortName: '?', rarity: 'COMMON', type: 'MATERIAL', discovered: false },
+  { id: 10, name: '미스터리 아이템 2', shortName: '?', rarity: 'COMMON', type: 'MATERIAL', discovered: false },
+  { id: 11, name: '미스터리 아이템 3', shortName: '?', rarity: 'COMMON', type: 'MATERIAL', discovered: false },
+  { id: 12, name: '미스터리 아이템 4', shortName: '?', rarity: 'COMMON', type: 'MATERIAL', discovered: false },
+  { id: 13, name: '미스터리 아이템 5', shortName: '?', rarity: 'COMMON', type: 'MATERIAL', discovered: false },
+  { id: 14, name: '미스터리 아이템 6', shortName: '?', rarity: 'COMMON', type: 'MATERIAL', discovered: false },
+  { id: 15, name: '미스터리 아이템 7', shortName: '?', rarity: 'COMMON', type: 'MATERIAL', discovered: false },
 ]
 
 // API 함수들
@@ -221,17 +212,18 @@ export const codexApi = {
   },
 
   // 카테고리별 아이템 가져오기
-  getItemsByCategory: async (category: 'material' | 'equipment'): Promise<CodexItem[]> => {
+  getItemsByCategory: async (category: ItemType): Promise<CodexItem[]> => {
     await new Promise(resolve => setTimeout(resolve, 400))
     return mockCodexItems.filter(item => item.type === category)
   }
 }
 
 // React Query 훅들
-export const useCodexItems = () => {
+export const useCodexItems = (enabled: boolean = true) => {
   return useQuery({
     queryKey: ['codex', 'items'],
     queryFn: codexApi.getAllItems,
+    enabled: enabled, // 조건부 fetch
     staleTime: 10 * 60 * 1000, // 10분
     gcTime: 30 * 60 * 1000, // 30분 (이전 cacheTime)
     refetchOnWindowFocus: false,
@@ -239,11 +231,11 @@ export const useCodexItems = () => {
   })
 }
 
-export const useCodexItem = (id: number) => {
+export const useCodexItem = (id: number, enabled: boolean = true) => {
   return useQuery({
     queryKey: ['codex', 'item', id],
     queryFn: () => codexApi.getItemById(id),
-    enabled: !!id,
+    enabled: !!id && enabled, // id가 있고 enabled가 true일 때만 fetch
     staleTime: 15 * 60 * 1000, // 15분
     gcTime: 30 * 60 * 1000, // 30분
     refetchOnWindowFocus: false,
@@ -251,10 +243,11 @@ export const useCodexItem = (id: number) => {
   })
 }
 
-export const useCodexItemsByCategory = (category: 'material' | 'equipment') => {
+export const useCodexItemsByCategory = (category: ItemType, enabled: boolean = true) => {
   return useQuery({
     queryKey: ['codex', 'items', category],
     queryFn: () => codexApi.getItemsByCategory(category),
+    enabled: enabled, // 조건부 fetch
     staleTime: 10 * 60 * 1000, // 10분
     gcTime: 30 * 60 * 1000, // 30분
     refetchOnWindowFocus: false,
