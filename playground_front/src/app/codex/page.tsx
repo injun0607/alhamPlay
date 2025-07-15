@@ -31,16 +31,15 @@ export default function CodexPage() {
     // 도감 갱신 플래그에 따른 조건부 fetch
     useEffect(() => {
         if (isFetchAllItems) {
-            refetch()
-            resetAllFlags()
+            setIsFetchAllItems(false)
+            setIsFetchMaterialItems(false)
+            setIsFetchEquipmentItems(false)
         } else if(isFetchMaterialItems){
-            refetchMaterial()
             setIsFetchMaterialItems(false)
         } else if(isFetchEquipmentItems){
-            refetchEquipment()
             setIsFetchEquipmentItems(false)
         }
-    }, [isFetchAllItems, isFetchMaterialItems, isFetchEquipmentItems, refetch, refetchMaterial, refetchEquipment])
+    }, [isFetchAllItems, isFetchMaterialItems, isFetchEquipmentItems])
 
     // 상세 패널 열림/닫힘에 따른 스크롤 제어
     useEffect(() => {

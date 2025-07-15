@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { EquipmentCollectionDTO, MaterialCollectionDTO, PlayerCollectionDTO } from '@/types/collection'
 import { ItemRarity, ItemType } from '@/types/item'
 import { axiosInstance } from './axiosInstance'
@@ -41,11 +42,11 @@ export const codexApi = {
   },
 
   getMaterialItems: async (): Promise<MaterialCollectionDTO[]> => {
-    const response = await axiosInstance.get<MaterialCollectionDTO[]>('/collection/material')
+    const response = await axiosInstance.get<MaterialCollectionDTO[]>('/collection/materials')
     return response.data
   },
   getEquipmentItems: async (): Promise<EquipmentCollectionDTO[]> => {
-    const response = await axiosInstance.get<EquipmentCollectionDTO[]>('/collection/equipment')
+    const response = await axiosInstance.get<EquipmentCollectionDTO[]>('/collection/equipments')
     return response.data
   },
 
@@ -53,7 +54,9 @@ export const codexApi = {
 
 // React Query 훅들
 export const useCodexItems = (enabled: boolean = true) => {
-  return useQuery({
+  const queryClient = useQueryClient()
+  
+  const query = useQuery({
     queryKey: ['codex', 'items'],
     queryFn: codexApi.getAllItems,
     enabled: enabled, // 조건부 fetch
@@ -62,6 +65,16 @@ export const useCodexItems = (enabled: boolean = true) => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   })
+
+  // getAllItems 성공 시 material과 equipment 캐시 동기화
+  useEffect(() => {
+    if (query.data) {
+      queryClient.setQueryData(['codex', 'items', 'material'], query.data.materialCollectionList)
+      queryClient.setQueryData(['codex', 'items', 'equipment'], query.data.equipmentCollectionList)
+    }
+  }, [query.data, queryClient])
+
+  return query
 }
 
 export const useCodexItem = (id: number, enabled: boolean = true) => {

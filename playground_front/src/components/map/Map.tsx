@@ -113,7 +113,7 @@ export function Map({ id, fieldData }: MapProps) {
               {/* 곡괭이 채집 효과 */}
               {isGatheringHere && (
                 <>
-                  {/* 곡괭이 이미지 */}
+                  {/* 곡괭이 이미지 변경필요*/}
                   <div className="absolute inset-0 flex items-center justify-center z-20">
                     <div className="relative">
                       <svg 

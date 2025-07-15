@@ -89,6 +89,7 @@ export default function EquipmentInventoryTab({equipmentInventory}:EquipmentInve
 
             if(result){
                 removeItem(clickedItem);
+                //todo 등록 완료 모달 표시
                 alert('등록 완료');
             }
         }catch(error){

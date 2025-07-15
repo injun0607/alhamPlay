@@ -26,7 +26,7 @@ export default function MaterialItemsList({
     isLoading,
     error
 }: MaterialItemsListProps) {
-    const itemsPerPage = 5
+    const itemsPerPage = 15 // 5x4 그리드로 25개 아이템
 
     // 필터링된 아이템들 (레어리티별) - useMemo로 최적화
     const filteredItems = useMemo(() => {

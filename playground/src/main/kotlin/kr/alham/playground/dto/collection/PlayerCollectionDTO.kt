@@ -35,6 +35,7 @@ data class PlayerCollectionDTO(
                     )
                 }else{
                     MaterialCollectionDTO(
+                        materialId = materialId,
                         name = material.name,
                         itemImg = material.itemImg,
                         isCollected = false
@@ -62,6 +63,7 @@ data class PlayerCollectionDTO(
                     )
                 }else{
                     EquipmentCollectionDTO(
+                        equipmentId = equipmentId,
                         name = equipment.name,
                         itemImg = equipment.itemImg,
                         isCollected = false
@@ -70,8 +72,8 @@ data class PlayerCollectionDTO(
             }
 
             return PlayerCollectionDTO(
-                equipmentCollectionList = equipmentCollectionList,
-                materialCollectionList = materialCollectionList
+                equipmentCollectionList = equipmentCollectionList.sortedBy { it.equipmentId },
+                materialCollectionList = materialCollectionList.sortedBy { it.materialId }
             )
         }
 
@@ -96,13 +98,14 @@ data class PlayerCollectionDTO(
                     )
                 }else{
                     MaterialCollectionDTO(
+                        materialId = materialId,
                         name = material.name,
                         itemImg = material.itemImg,
                         isCollected = false
                     )
                 }
             }
-            return materialCollectionList
+            return materialCollectionList.sortedBy { it.materialId }
         }
 
         fun equipmentCollectionOf(
@@ -129,13 +132,14 @@ data class PlayerCollectionDTO(
                     )
                 }else{
                     EquipmentCollectionDTO(
+                        equipmentId = equipmentId,
                         name = equipment.name,
                         itemImg = equipment.itemImg,
                         isCollected = false
                     )
                 }
             }
-            return equipmentCollectionList
+            return equipmentCollectionList.sortedBy { it.equipmentId }
         }
 
     }

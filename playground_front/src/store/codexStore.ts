@@ -20,7 +20,7 @@ interface CodexStore {
 
 export const useCodexStore = create<CodexStore>((set) => ({
     // 초기 상태
-    isFetchAllItems: false,
+    isFetchAllItems: true,
     isFetchMaterialItems: false,
     isFetchEquipmentItems: false,
     

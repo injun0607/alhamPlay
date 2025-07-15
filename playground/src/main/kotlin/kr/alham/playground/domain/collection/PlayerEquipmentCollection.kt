@@ -44,11 +44,5 @@ class PlayerEquipmentCollection(
         }
     }
 
-    fun levelUpCheck(exp: Int){
-        if(exp <= 0) return
-
-
-    }
-
 
 }

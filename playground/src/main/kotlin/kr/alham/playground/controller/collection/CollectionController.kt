@@ -29,7 +29,7 @@ class CollectionController(
         return collectionService.getMaterialCollection(playerId)
     }
 
-    @GetMapping("/equipment")
+    @GetMapping("/equipments")
     fun getEquipmentCollection(): List<EquipmentCollectionDTO> {
         val playerId = 1L // 예시로 플레이어 ID를 하드코딩
         return collectionService.getEquipmentCollection(playerId)
