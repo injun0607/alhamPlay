@@ -2,11 +2,14 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ResponsiveContainer, ResponsiveGrid, ResponsiveText } from '@/components/ui/ResponsiveContainer'
+import { useGameResponsive } from '@/hooks/useResponsive'
 import './globals.css'
 
 export default function MainTownPage() {
     const router = useRouter()
     const [selectedMenu, setSelectedMenu] = useState<string | null>(null)
+    const { currentBreakpoint} = useGameResponsive()
 
     // 캐릭터 정보 (임시 데이터)
     const characterInfo = {
@@ -67,33 +70,88 @@ export default function MainTownPage() {
             <div className="relative z-10 min-h-screen flex flex-col">
                 {/* 헤더 - 게임 타이틀 */}
                 <div className="bg-black bg-opacity-50 backdrop-blur-sm border-b-2 border-amber-500 p-4">
-                    <div className="max-w-4xl mx-auto">
-                        <h1 className="text-3xl font-['Press_Start_2P'] text-amber-400 text-center">
+                    <ResponsiveContainer maxWidth="desktop">
+                        <ResponsiveText 
+                            sizes={{
+                                mobile: 'text-xl',
+                                'mobile-lg': 'text-2xl',
+                                tablet: 'text-2xl',
+                                'tablet-lg': 'text-3xl',
+                                desktop: 'text-3xl',
+                                'desktop-lg': 'text-3xl',
+                                game: 'text-4xl'
+                            }}
+                            className="font-['Press_Start_2P'] text-amber-400 text-center"
+                        >
                             🎮 RPG 게임
-                        </h1>
-                    </div>
+                        </ResponsiveText>
+                    </ResponsiveContainer>
                 </div>
 
                 {/* 메인 콘텐츠 */}
                 <div className="flex-1 flex items-center justify-center p-8">
-                    <div className="max-w-4xl mx-auto w-full">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <ResponsiveContainer maxWidth="desktop">
+                        <ResponsiveGrid 
+                            cols={{
+                                mobile: 1,
+                                'mobile-lg': 1,
+                                tablet: 2,
+                                'tablet-lg': 2,
+                                desktop: 2,
+                                'desktop-lg': 2,
+                                game: 2
+                            }}
+                            className="gap-6"
+                        >
                             
                             {/* 왼쪽 - 캐릭터 스탯 정보 */}
                             <div className="bg-black bg-opacity-70 backdrop-blur-sm border-2 border-amber-600 rounded-lg p-6">
-                                <h2 className="text-2xl font-['Press_Start_2P'] text-amber-400 text-center mb-6">
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-lg',
+                                        'mobile-lg': 'text-xl',
+                                        tablet: 'text-xl',
+                                        'tablet-lg': 'text-2xl',
+                                        desktop: 'text-2xl',
+                                        'desktop-lg': 'text-2xl',
+                                        game: 'text-3xl'
+                                    }}
+                                    className="font-['Press_Start_2P'] text-amber-400 text-center mb-6"
+                                >
                                     👤 캐릭터 정보
-                                </h2>
+                                </ResponsiveText>
                                 
                                 {/* 닉네임 */}
                                 <div className="text-center mb-6">
-                                    <div className="text-2xl font-bold text-white mb-2">
+                                    <ResponsiveText 
+                                        sizes={{
+                                            mobile: 'text-lg',
+                                            'mobile-lg': 'text-xl',
+                                            tablet: 'text-xl',
+                                            'tablet-lg': 'text-2xl',
+                                            desktop: 'text-2xl',
+                                            'desktop-lg': 'text-2xl',
+                                            game: 'text-3xl'
+                                        }}
+                                        className="font-bold text-white mb-2"
+                                    >
                                         {characterInfo.name}
-                                    </div>
+                                    </ResponsiveText>
                                 </div>
 
                                 {/* 스탯 정보 */}
-                                <div className="grid grid-cols-2 gap-4">
+                                <ResponsiveGrid 
+                                    cols={{
+                                        mobile: 2,
+                                        'mobile-lg': 2,
+                                        tablet: 2,
+                                        'tablet-lg': 2,
+                                        desktop: 2,
+                                        'desktop-lg': 2,
+                                        game: 2
+                                    }}
+                                    className="gap-4"
+                                >
                                     <div className="text-center p-3 bg-gray-800 bg-opacity-50 rounded-lg">
                                         <div className="text-red-400 font-bold text-lg">ATK</div>
                                         <div className="text-white text-2xl font-bold">{characterInfo.stats.atk}</div>
@@ -118,7 +176,7 @@ export default function MainTownPage() {
                                         <div className="text-pink-400 font-bold text-lg">LUK</div>
                                         <div className="text-white text-2xl font-bold">{characterInfo.stats.luk}</div>
                                     </div>
-                                </div>
+                                </ResponsiveGrid>
                             </div>
 
                             {/* 오른쪽 - 메뉴 버튼들 */}
@@ -136,12 +194,34 @@ export default function MainTownPage() {
                                             <div className={`bg-gradient-to-r ${menu.color} ${menu.hoverColor} rounded-lg p-4 border-2 border-transparent group-hover:border-white transition-all duration-300`}>
                                                 <div className="flex items-center justify-between">
                                                     <div>
-                                                        <h3 className="text-xl font-bold text-white">
+                                                        <ResponsiveText 
+                                                            sizes={{
+                                                                mobile: 'text-lg',
+                                                                'mobile-lg': 'text-xl',
+                                                                tablet: 'text-xl',
+                                                                'tablet-lg': 'text-xl',
+                                                                desktop: 'text-xl',
+                                                                'desktop-lg': 'text-xl',
+                                                                game: 'text-2xl'
+                                                            }}
+                                                            className="font-bold text-white"
+                                                        >
                                                             {menu.name}
-                                                        </h3>
-                                                        <p className="text-white text-opacity-90 text-sm mt-1">
+                                                        </ResponsiveText>
+                                                        <ResponsiveText 
+                                                            sizes={{
+                                                                mobile: 'text-xs',
+                                                                'mobile-lg': 'text-sm',
+                                                                tablet: 'text-sm',
+                                                                'tablet-lg': 'text-sm',
+                                                                desktop: 'text-sm',
+                                                                'desktop-lg': 'text-sm',
+                                                                game: 'text-base'
+                                                            }}
+                                                            className="text-white text-opacity-90 mt-1"
+                                                        >
                                                             {menu.description}
-                                                        </p>
+                                                        </ResponsiveText>
                                                     </div>
                                                     <div className="text-2xl">
                                                         {menu.id === 'gathering' && '🌲'}
@@ -162,31 +242,42 @@ export default function MainTownPage() {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </ResponsiveGrid>
 
                         {/* 하단 안내 */}
                         <div className="text-center mt-8">
                             <div className="bg-black bg-opacity-50 backdrop-blur-sm border border-amber-600 rounded-lg p-4 inline-block">
-                                <p className="text-amber-400 text-sm">
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-xs',
+                                        'mobile-lg': 'text-sm',
+                                        tablet: 'text-sm',
+                                        'tablet-lg': 'text-sm',
+                                        desktop: 'text-sm',
+                                        'desktop-lg': 'text-sm',
+                                        game: 'text-base'
+                                    }}
+                                    className="text-amber-400"
+                                >
                                     💡 원하는 메뉴를 클릭하여 이동하세요
-                                </p>
+                                </ResponsiveText>
                             </div>
                         </div>
-                    </div>
+                    </ResponsiveContainer>
                 </div>
 
                 {/* 하단 상태바 */}
                 <div className="bg-black bg-opacity-50 backdrop-blur-sm border-t-2 border-amber-500 p-3">
-                    <div className="max-w-4xl mx-auto">
+                    <ResponsiveContainer maxWidth="desktop">
                         <div className="text-xs text-green-400 flex justify-between">
                             <span>
                                 🏰 메인타운 | 👤 {characterInfo.name} | 💰 골드: 1,250
                             </span>
                             <span className="blink">
-                                READY
+                                READY ({currentBreakpoint})
                             </span>
                         </div>
-                    </div>
+                    </ResponsiveContainer>
                 </div>
             </div>
         </div>

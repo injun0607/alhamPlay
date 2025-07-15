@@ -9,10 +9,8 @@ import { ItemRarity, ItemType, ItemRarities } from '@/types/item'
 import { useCodexStore } from '@/store/codexStore'
 import MaterialItemsList from '@/components/codex/MaterialItemsList'
 import EquipmentItemsList from '@/components/codex/EquipmentItemsList'
-
-
-
-
+import { ResponsiveContainer, ResponsiveText } from '@/components/ui/ResponsiveContainer'
+import { useGameResponsive } from '@/hooks/useResponsive'
 
 export default function CodexPage() {
     const [selectedItem, setSelectedItem] = useState<CodexItem | null>(null)
@@ -22,6 +20,8 @@ export default function CodexPage() {
     const [selectedRarities, setSelectedRarities] = useState<ItemRarity[]>([...ItemRarities])
 
     const { isFetchAllItems, isFetchMaterialItems, isFetchEquipmentItems, setIsFetchAllItems, setIsFetchMaterialItems, setIsFetchEquipmentItems, resetAllFlags } = useCodexStore()
+    const { currentBreakpoint, shouldShowMobileUI } = useGameResponsive()
+
 
     // React Query로 데이터 가져오기 - 조건부 fetch
     const { data: allItems, isLoading, error, refetch } = useCodexItems(isFetchAllItems)
@@ -107,135 +107,172 @@ export default function CodexPage() {
 
     return (
         <div className="min-h-screen p-4 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-            <div className="relative max-w-7xl mx-auto">
-                {/* 배경 효과 */}
-                <div className="absolute inset-0 bg-black opacity-10 scan-line"></div>
+            <ResponsiveContainer maxWidth="desktop">
+                <div className="relative">
+                    {/* 배경 효과 */}
+                    <div className="absolute inset-0 bg-black opacity-10 scan-line"></div>
 
-                {/* 헤더 */}
-                <div className={`relative mb-6 transition-all duration-500 ${showDetail ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
-                    <div className="flex justify-between items-center mb-2">
-                        <h1 className={`text-2xl font-['Press_Start_2P'] transition-all duration-500 ${showDetail ? 'text-gray-500' : 'text-amber-400'}`}>
-                            ▶ CODEX SYSTEM
-                        </h1>
-                        {/* 테스트용 갱신 버튼 */}
-                        <button
-                            onClick={forceRefreshCodex}
-                            className="pixel-button bg-blue-600 text-white px-3 py-1 text-xs font-bold hover:bg-blue-500"
-                        >
-                            [ REFRESH ]
-                        </button>
-                    </div>
-                    <div className={`text-xs transition-all duration-500 ${showDetail ? 'text-gray-500' : 'text-gray-400'}`}>
-                        Discover and learn about all items in the world
-                    </div>
-                </div>
-
-                {/* 레어리티 필터 - 포스트잇 스타일 */}
-                <div className={`relative mb-4 transition-all duration-500 ${showDetail ? 'opacity-30 scale-90' : 'opacity-100 scale-100'}`}>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                        {/* 전체 선택/해제 버튼 */}
-                        <button
-                            onClick={toggleAllRarities}
-                            className={`postit-button px-3 py-1 text-[10px] font-bold transition-all transform hover:scale-105 ${
-                                selectedRarities.length === 6 
-                                    ? 'bg-amber-500 text-white' 
-                                    : 'bg-amber-300 text-amber-700'
-                            }`}
-                        >
-                            {selectedRarities.length === 6 ? 'ALL' : 'NONE'}
-                        </button>
-                        
-                        {/* 레어리티별 토글 버튼들 */}
-                        {ItemRarities.map((rarity) => (
-                            <button
-                                key={rarity}
-                                onClick={() => toggleRarity(rarity)}
-                                className={`${getRarityFilterClass(rarity)} px-3 py-1 text-[10px] font-bold transition-all transform hover:scale-105`}
+                    {/* 헤더 */}
+                    <div className={`relative mb-6 transition-all duration-500 ${showDetail ? 'opacity-50 scale-95' : 'opacity-100 scale-100'}`}>
+                        <div className="flex justify-between items-center mb-2">
+                            <ResponsiveText 
+                                sizes={{
+                                    mobile: 'text-lg',
+                                    'mobile-lg': 'text-xl',
+                                    tablet: 'text-xl',
+                                    'tablet-lg': 'text-2xl',
+                                    desktop: 'text-2xl',
+                                    'desktop-lg': 'text-2xl',
+                                    game: 'text-3xl'
+                                }}
+                                className={`font-['Press_Start_2P'] transition-all duration-500 ${showDetail ? 'text-gray-500' : 'text-amber-400'}`}
                             >
-                                {rarity}
+                                ▶ CODEX SYSTEM
+                            </ResponsiveText>
+                            {/* 테스트용 갱신 버튼 */}
+                            <button
+                                onClick={forceRefreshCodex}
+                                className="pixel-button bg-blue-600 text-white px-3 py-1 text-xs font-bold hover:bg-blue-500"
+                            >
+                                [ REFRESH ]
                             </button>
-                        ))}
+                        </div>
+                        <ResponsiveText 
+                            sizes={{
+                                mobile: 'text-xs',
+                                'mobile-lg': 'text-xs',
+                                tablet: 'text-xs',
+                                'tablet-lg': 'text-xs',
+                                desktop: 'text-xs',
+                                'desktop-lg': 'text-xs',
+                                game: 'text-sm'
+                            }}
+                            className={`transition-all duration-500 ${showDetail ? 'text-gray-500' : 'text-gray-400'}`}
+                        >
+                            Discover and learn about all items in the world
+                        </ResponsiveText>
                     </div>
-                </div>
 
-                {/* 메인 도감 컨테이너 */}
-                <div className={`relative flex gap-4 transition-all duration-500 ${showDetail ? 'opacity-40 scale-95' : 'opacity-100 scale-100'}`}>
-                    {/* 왼쪽 페이지 (아이템 목록) */}
-                    <div className="flex-1">
-                        <div className="book-page custom-scrollbar p-6 h-[600px] overflow-y-auto">
-                            <h2 className="text-lg text-amber-800 mb-4 text-center font-['Press_Start_2P']">▶ ITEM CATALOG</h2>
+                    {/* 레어리티 필터 - 포스트잇 스타일 */}
+                    <div className={`relative mb-4 transition-all duration-500 ${showDetail ? 'opacity-30 scale-90' : 'opacity-100 scale-100'}`}>
+                        <div className="flex flex-wrap gap-2 justify-center">
+                            {/* 전체 선택/해제 버튼 */}
+                            <button
+                                onClick={toggleAllRarities}
+                                className={`postit-button px-3 py-1 text-[10px] font-bold transition-all transform hover:scale-105 ${
+                                    selectedRarities.length === 6 
+                                        ? 'bg-amber-500 text-white' 
+                                        : 'bg-amber-300 text-amber-700'
+                                }`}
+                            >
+                                {selectedRarities.length === 6 ? 'ALL' : 'NONE'}
+                            </button>
+                            
+                            {/* 레어리티별 토글 버튼들 */}
+                            {ItemRarities.map((rarity) => (
+                                <button
+                                    key={rarity}
+                                    onClick={() => toggleRarity(rarity)}
+                                    className={`${getRarityFilterClass(rarity)} px-3 py-1 text-[10px] font-bold transition-all transform hover:scale-105`}
+                                >
+                                    {rarity}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
-                            {/* 카테고리 탭 */}
-                            <div className="flex gap-2 mb-4 justify-center">
-                                <button
-                                    className={`pixel-button px-3 py-1 text-[8px] font-bold transition-colors ${currentCategory === 'MATERIAL'
-                                            ? 'bg-amber-600 text-white'
-                                            : 'bg-gray-600 text-gray-300'
-                                        }`}
-                                    onClick={() => setCurrentCategory('MATERIAL')}
+                    {/* 메인 도감 컨테이너 */}
+                    <div className={`relative flex gap-4 transition-all duration-500 ${showDetail ? 'opacity-40 scale-95' : 'opacity-100 scale-100'}`}>
+                        {/* 왼쪽 페이지 (아이템 목록) */}
+                        <div className="flex-1">
+                            <div className="book-page custom-scrollbar p-6 h-[600px] overflow-y-auto">
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-base',
+                                        'mobile-lg': 'text-lg',
+                                        tablet: 'text-lg',
+                                        'tablet-lg': 'text-lg',
+                                        desktop: 'text-lg',
+                                        'desktop-lg': 'text-lg',
+                                        game: 'text-xl'
+                                    }}
+                                    className="text-amber-800 mb-4 text-center font-['Press_Start_2P']"
                                 >
-                                    MATERIALS
-                                </button>
-                                <button
-                                    className={`pixel-button px-3 py-1 text-[8px] font-bold transition-colors ${currentCategory === 'EQUIPMENT'
-                                            ? 'bg-amber-600 text-white'
-                                            : 'bg-gray-600 text-gray-300'
-                                        }`}
-                                    onClick={() => setCurrentCategory('EQUIPMENT')}
-                                >
-                                    EQUIPMENT
-                                </button>
+                                    ▶ ITEM CATALOG
+                                </ResponsiveText>
+
+                                {/* 카테고리 탭 */}
+                                <div className="flex gap-2 mb-4 justify-center">
+                                    <button
+                                        className={`pixel-button px-3 py-1 text-[8px] font-bold transition-colors ${currentCategory === 'MATERIAL'
+                                                ? 'bg-amber-600 text-white'
+                                                : 'bg-gray-600 text-gray-300'
+                                            }`}
+                                        onClick={() => setCurrentCategory('MATERIAL')}
+                                    >
+                                        MATERIALS
+                                    </button>
+                                    <button
+                                        className={`pixel-button px-3 py-1 text-[8px] font-bold transition-colors ${currentCategory === 'EQUIPMENT'
+                                                ? 'bg-amber-600 text-white'
+                                                : 'bg-gray-600 text-gray-300'
+                                            }`}
+                                        onClick={() => setCurrentCategory('EQUIPMENT')}
+                                    >
+                                        EQUIPMENT
+                                    </button>
+                                </div>
+
+                                {/* 카테고리별 컴포넌트 렌더링 */}
+                                {currentCategory === 'MATERIAL' ? (
+                                    <MaterialItemsList
+                                        materialItems={materialItems || []}
+                                        selectedRarities={selectedRarities}
+                                        currentPage={currentPage}
+                                        setCurrentPage={setCurrentPage}
+                                        selectedItem={selectedItem}
+                                        onItemClick={handleItemClick}
+                                        isLoading={isLoading}
+                                        error={error}
+                                    />
+                                ) : (
+                                    <EquipmentItemsList
+                                        equipmentItems={equipmentItems || []}
+                                        selectedRarities={selectedRarities}
+                                        currentPage={currentPage}
+                                        setCurrentPage={setCurrentPage}
+                                        selectedItem={selectedItem}
+                                        onItemClick={handleItemClick}
+                                        isLoading={isLoading}
+                                        error={error}
+                                    />
+                                )}
                             </div>
-
-                            {/* 카테고리별 컴포넌트 렌더링 */}
-                            {currentCategory === 'MATERIAL' ? (
-                                <MaterialItemsList
-                                    materialItems={materialItems || []}
-                                    selectedRarities={selectedRarities}
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                    selectedItem={selectedItem}
-                                    onItemClick={handleItemClick}
-                                    isLoading={isLoading}
-                                    error={error}
-                                />
-                            ) : (
-                                <EquipmentItemsList
-                                    equipmentItems={equipmentItems || []}
-                                    selectedRarities={selectedRarities}
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                    selectedItem={selectedItem}
-                                    onItemClick={handleItemClick}
-                                    isLoading={isLoading}
-                                    error={error}
-                                />
-                            )}
                         </div>
                     </div>
-                </div>
 
-                {/* 하단 상태바 */}
-                <div className={`relative mt-6 transition-all duration-500 ${showDetail ? 'opacity-40 scale-95' : 'opacity-100 scale-100'}`}>
-                    <div className="bg-black pixel-border p-3">
-                        <div className="text-xs text-green-400 flex justify-between">
-                            <span>
-                                SELECTED: {selectedItem?.name || 'NONE'} | CATEGORY: {currentCategory} | FILTER: {selectedRarities.length}/6 RARITIES
-                            </span>
-                            <span className="blink">
-                                {isLoading ? 'LOADING...' : error ? 'ERROR' : 'READY'}
-                            </span>
+                    {/* 하단 상태바 */}
+                    <div className={`relative mt-6 transition-all duration-500 ${showDetail ? 'opacity-40 scale-95' : 'opacity-100 scale-100'}`}>
+                        <div className="bg-black pixel-border p-3">
+                            <div className="text-xs text-green-400 flex justify-between">
+                                <span>
+                                    SELECTED: {selectedItem?.name || 'NONE'} | CATEGORY: {currentCategory} | FILTER: {selectedRarities.length}/6 RARITIES
+                                </span>
+                                <span className="blink">
+                                    {isLoading ? 'LOADING...' : error ? 'ERROR' : 'READY'} ({currentBreakpoint})
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* 상세 정보 패널 */}
-                <CodexDetailPanel 
-                    item={selectedItem!}
-                    isVisible={showDetail}
-                    onClose={handleCloseDetail}
-                />
-            </div>
+                    {/* 상세 정보 패널 */}
+                    <CodexDetailPanel 
+                        item={selectedItem!}
+                        isVisible={showDetail}
+                        onClose={handleCloseDetail}
+                    />
+                </div>
+            </ResponsiveContainer>
         </div>
     )
 } 

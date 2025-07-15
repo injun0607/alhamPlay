@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo } from 'react'
 import { MaterialCollectionDTO } from '@/types/collection'
 import { ItemRarity } from '@/types/item'
 import { CodexItem } from '@/hooks/common/useCodexApi'
+import { ResponsiveText,ResponsiveGrid } from '@/components/ui/ResponsiveContainer'
+import { useGameResponsive } from '@/hooks/useResponsive'
 
 interface MaterialItemsListProps {
     materialItems: MaterialCollectionDTO[]
@@ -26,6 +28,7 @@ export default function MaterialItemsList({
     isLoading,
     error
 }: MaterialItemsListProps) {
+    const { currentBreakpoint, shouldShowMobileUI } = useGameResponsive()
     const itemsPerPage = 15 // 5x4 그리드로 25개 아이템
 
     // 필터링된 아이템들 (레어리티별) - useMemo로 최적화
@@ -124,7 +127,20 @@ export default function MaterialItemsList({
     if (isLoading) {
         return (
             <div className="text-center py-8">
-                <div className="text-amber-600 text-sm">Loading materials...</div>
+                <ResponsiveText 
+                    sizes={{
+                        mobile: 'text-xs',
+                        'mobile-lg': 'text-sm',
+                        tablet: 'text-sm',
+                        'tablet-lg': 'text-sm',
+                        desktop: 'text-sm',
+                        'desktop-lg': 'text-sm',
+                        game: 'text-base'
+                    }}
+                    className="text-amber-600"
+                >
+                    Loading materials...
+                </ResponsiveText>
             </div>
         )
     }
@@ -133,15 +149,28 @@ export default function MaterialItemsList({
     if (error) {
         return (
             <div className="text-center py-8">
-                <div className="text-red-600 text-sm">Failed to load materials</div>
+                <ResponsiveText 
+                    sizes={{
+                        mobile: 'text-xs',
+                        'mobile-lg': 'text-sm',
+                        tablet: 'text-sm',
+                        'tablet-lg': 'text-sm',
+                        desktop: 'text-sm',
+                        'desktop-lg': 'text-sm',
+                        game: 'text-base'
+                    }}
+                    className="text-red-600"
+                >
+                    Failed to load materials
+                </ResponsiveText>
             </div>
         )
     }
 
     return (
         <div>
-            {/* 아이템 그리드 - 항상 5개씩 */}
-            <div className="grid grid-cols-5 gap-2">
+            {/* 아이템 그리드 - 커스텀 브레이크포인트 테스트 */}
+            <ResponsiveGrid>
                 {currentItems.map((materialItem) => (
                     <div
                         key={materialItem.materialId}
@@ -169,7 +198,20 @@ export default function MaterialItemsList({
                                         </div>
                                     )}
                                 </div>
-                                <div className="text-[6px] text-white text-center leading-tight mb-1">{materialItem.name}</div>
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-[5px]',
+                                        'mobile-lg': 'text-[6px]',
+                                        tablet: 'text-[6px]',
+                                        'tablet-lg': 'text-[6px]',
+                                        desktop: 'text-[6px]',
+                                        'desktop-lg': 'text-[6px]',
+                                        game: 'text-[7px]'
+                                    }}
+                                    className="text-white text-center leading-tight mb-1"
+                                >
+                                    {materialItem.name}
+                                </ResponsiveText>
                                 <div className="w-full mb-1">
                                     {/* 진행바 배경 */}
                                     <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
@@ -182,29 +224,64 @@ export default function MaterialItemsList({
                                         ></div>
                                     </div>
                                 </div>
-                                <div className="text-[5px] text-amber-300 text-center font-bold">
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-[4px]',
+                                        'mobile-lg': 'text-[5px]',
+                                        tablet: 'text-[5px]',
+                                        'tablet-lg': 'text-[5px]',
+                                        desktop: 'text-[5px]',
+                                        'desktop-lg': 'text-[5px]',
+                                        game: 'text-[6px]'
+                                    }}
+                                    className="text-amber-300 text-center font-bold"
+                                >
                                     [{getRandomCount(materialItem.materialId)}/5]
-                                </div>
+                                </ResponsiveText>
                             </>
                         ) : (
                             <>
                                 <div className="w-full h-3/4 silhouette rounded mb-1 flex items-center justify-center overflow-hidden">
                                     {/* 미발견 아이템은 기본적으로 ? 표시 */}
                                 </div>
-                                <div className="text-[6px] text-gray-400 text-center leading-tight mb-1">???</div>
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-[5px]',
+                                        'mobile-lg': 'text-[6px]',
+                                        tablet: 'text-[6px]',
+                                        'tablet-lg': 'text-[6px]',
+                                        desktop: 'text-[6px]',
+                                        'desktop-lg': 'text-[6px]',
+                                        game: 'text-[7px]'
+                                    }}
+                                    className="text-gray-400 text-center leading-tight mb-1"
+                                >
+                                    ???
+                                </ResponsiveText>
                                 <div className="w-full mb-1">
                                     <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
                                         <div className="h-full bg-gray-600 rounded-full" style={{ width: '0%' }}></div>
                                     </div>
                                 </div>
-                                <div className="text-[5px] text-gray-500 text-center font-bold">
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-[4px]',
+                                        'mobile-lg': 'text-[5px]',
+                                        tablet: 'text-[5px]',
+                                        'tablet-lg': 'text-[5px]',
+                                        desktop: 'text-[5px]',
+                                        'desktop-lg': 'text-[5px]',
+                                        game: 'text-[6px]'
+                                    }}
+                                    className="text-gray-500 text-center font-bold"
+                                >
                                     [0/5]
-                                </div>
+                                </ResponsiveText>
                             </>
                         )}
                     </div>
                 ))}
-            </div>
+            </ResponsiveGrid>
 
             {/* 페이지 네비게이션 */}
             <div className="mt-6 flex justify-center gap-4">
@@ -213,7 +290,7 @@ export default function MaterialItemsList({
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
                 >
-                    [ PREV PAGE ]
+                    PREV PAGE
                 </button>
                 <div className="pixel-border bg-amber-100 px-4 py-2">
                     <span className="text-xs text-amber-800 font-bold">PAGE {currentPage} / {totalPages}</span>
@@ -223,15 +300,26 @@ export default function MaterialItemsList({
                     onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                     disabled={currentPage === totalPages}
                 >
-                    [ NEXT PAGE ]
+                    NEXT PAGE
                 </button>
             </div>
 
             {/* 상태 정보 */}
             <div className="mt-4 text-center">
-                <div className="text-xs text-amber-600">
+                <ResponsiveText 
+                    sizes={{
+                        mobile: 'text-xs',
+                        'mobile-lg': 'text-xs',
+                        tablet: 'text-xs',
+                        'tablet-lg': 'text-xs',
+                        desktop: 'text-xs',
+                        'desktop-lg': 'text-xs',
+                        game: 'text-sm'
+                    }}
+                    className="text-amber-600"
+                >
                     DISCOVERED: {filteredItems.filter(item => item.isCollected).length}/{filteredItems.length} MATERIALS
-                </div>
+                </ResponsiveText>
             </div>
         </div>
     )

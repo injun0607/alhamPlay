@@ -2,6 +2,8 @@
 
 import { CodexItem } from '@/hooks/common/useCodexApi'
 import { ItemRarity } from '@/types/item'
+import { ResponsiveContainer, ResponsiveText } from '@/components/ui/ResponsiveContainer'
+import { useGameResponsive } from '@/hooks/useResponsive'
 
 interface CodexDetailPanelProps {
     item: CodexItem
@@ -10,6 +12,8 @@ interface CodexDetailPanelProps {
 }
 
 export default function CodexDetailPanel({ item, isVisible, onClose }: CodexDetailPanelProps) {
+    const { currentBreakpoint, shouldShowMobileUI } = useGameResponsive()
+
     const getRarityClass = (rarity: ItemRarity) => {
         switch (rarity) {
             case 'COMMON': return 'rarity-common'
@@ -46,7 +50,7 @@ export default function CodexDetailPanel({ item, isVisible, onClose }: CodexDeta
                 
                 {/* 상세 정보 내용 */}
                 <div className="p-6 max-h-[85vh] overflow-y-auto detail-scrollbar">
-                    <div className="max-w-4xl mx-auto">
+                    <ResponsiveContainer maxWidth="desktop">
                         <div className="space-y-6">
                             {/* 아이템 이미지 */}
                             <div className="text-center">
@@ -61,50 +65,187 @@ export default function CodexDetailPanel({ item, isVisible, onClose }: CodexDeta
                                         <span className="text-white font-bold text-3xl">{item.shortName}</span>
                                     )}
                                 </div>
-                                <div className="text-xl text-amber-800 font-bold mb-2">{item.name}</div>
-                                <div className="text-sm text-amber-600">{item.rarity} {item.type}</div>
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-lg',
+                                        'mobile-lg': 'text-xl',
+                                        tablet: 'text-xl',
+                                        'tablet-lg': 'text-2xl',
+                                        desktop: 'text-2xl',
+                                        'desktop-lg': 'text-2xl',
+                                        game: 'text-3xl'
+                                    }}
+                                    className="text-amber-800 font-bold mb-2"
+                                >
+                                    {item.name}
+                                </ResponsiveText>
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-xs',
+                                        'mobile-lg': 'text-sm',
+                                        tablet: 'text-sm',
+                                        'tablet-lg': 'text-sm',
+                                        desktop: 'text-sm',
+                                        'desktop-lg': 'text-sm',
+                                        game: 'text-base'
+                                    }}
+                                    className="text-amber-600"
+                                >
+                                    {item.rarity} {item.type}
+                                </ResponsiveText>
                             </div>
                             
                             {/* 아이템 설명 */}
                             <div className="space-y-3">
-                                <div className="text-sm text-amber-800 font-bold">▶ DESCRIPTION</div>
-                                <div className="text-xs text-amber-700 leading-relaxed">
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-xs',
+                                        'mobile-lg': 'text-sm',
+                                        tablet: 'text-sm',
+                                        'tablet-lg': 'text-sm',
+                                        desktop: 'text-sm',
+                                        'desktop-lg': 'text-sm',
+                                        game: 'text-base'
+                                    }}
+                                    className="text-amber-800 font-bold"
+                                >
+                                    ▶ DESCRIPTION
+                                </ResponsiveText>
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-xs',
+                                        'mobile-lg': 'text-xs',
+                                        tablet: 'text-xs',
+                                        'tablet-lg': 'text-xs',
+                                        desktop: 'text-xs',
+                                        'desktop-lg': 'text-xs',
+                                        game: 'text-sm'
+                                    }}
+                                    className="text-amber-700 leading-relaxed"
+                                >
                                     {item.description}
-                                </div>
+                                </ResponsiveText>
                             </div>
                             
                             {/* 기본 정보 */}
                             <div className="space-y-3">
-                                <div className="text-sm text-amber-800 font-bold">▶ BASIC INFO</div>
-                                <div className="text-xs text-amber-700 space-y-1">
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-xs',
+                                        'mobile-lg': 'text-sm',
+                                        tablet: 'text-sm',
+                                        'tablet-lg': 'text-sm',
+                                        desktop: 'text-sm',
+                                        'desktop-lg': 'text-sm',
+                                        game: 'text-base'
+                                    }}
+                                    className="text-amber-800 font-bold"
+                                >
+                                    ▶ BASIC INFO
+                                </ResponsiveText>
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-xs',
+                                        'mobile-lg': 'text-xs',
+                                        tablet: 'text-xs',
+                                        'tablet-lg': 'text-xs',
+                                        desktop: 'text-xs',
+                                        'desktop-lg': 'text-xs',
+                                        game: 'text-sm'
+                                    }}
+                                    className="text-amber-700 space-y-1"
+                                >
                                     <div>Type: {item.type + item.type.slice(1)}</div>
                                     <div>Rarity: {item.rarity + item.rarity.slice(1)}</div>
                                     <div>Value: {item.value} gold</div>
                                     <div>Stack Size: {item.stackSize}</div>
-                                </div>
+                                </ResponsiveText>
                             </div>
                             
                             {/* 획득 방법 */}
                             {item.acquisition && item.acquisition.length > 0 && (
                                 <div className="space-y-3">
-                                    <div className="text-sm text-amber-800 font-bold">▶ ACQUISITION</div>
-                                    <div className="text-xs text-amber-700 space-y-1">
+                                    <ResponsiveText 
+                                        sizes={{
+                                            mobile: 'text-xs',
+                                            'mobile-lg': 'text-sm',
+                                            tablet: 'text-sm',
+                                            'tablet-lg': 'text-sm',
+                                            desktop: 'text-sm',
+                                            'desktop-lg': 'text-sm',
+                                            game: 'text-base'
+                                        }}
+                                        className="text-amber-800 font-bold"
+                                    >
+                                        ▶ ACQUISITION
+                                    </ResponsiveText>
+                                    <ResponsiveText 
+                                        sizes={{
+                                            mobile: 'text-xs',
+                                            'mobile-lg': 'text-xs',
+                                            tablet: 'text-xs',
+                                            'tablet-lg': 'text-xs',
+                                            desktop: 'text-xs',
+                                            'desktop-lg': 'text-xs',
+                                            game: 'text-sm'
+                                        }}
+                                        className="text-amber-700 space-y-1"
+                                    >
                                         {item.acquisition.map((method, index) => (
                                             <div key={index}>• {method}</div>
                                         ))}
-                                    </div>
+                                    </ResponsiveText>
                                 </div>
                             )}
                             
                             {/* 크래프트 레시피 */}
                             {item.craftingRecipes && item.craftingRecipes.length > 0 && (
                                 <div className="space-y-3">
-                                    <div className="text-sm text-amber-800 font-bold">▶ CRAFTING RECIPES</div>
+                                    <ResponsiveText 
+                                        sizes={{
+                                            mobile: 'text-xs',
+                                            'mobile-lg': 'text-sm',
+                                            tablet: 'text-sm',
+                                            'tablet-lg': 'text-sm',
+                                            desktop: 'text-sm',
+                                            'desktop-lg': 'text-sm',
+                                            game: 'text-base'
+                                        }}
+                                        className="text-amber-800 font-bold"
+                                    >
+                                        ▶ CRAFTING RECIPES
+                                    </ResponsiveText>
                                     <div className="space-y-2">
                                         {item.craftingRecipes.map((recipe, index) => (
                                             <div key={index} className="pixel-border bg-amber-50 p-3">
-                                                <div className="text-sm text-amber-800 font-bold">{recipe.name}</div>
-                                                <div className="text-xs text-amber-700">{recipe.materials}</div>
+                                                <ResponsiveText 
+                                                    sizes={{
+                                                        mobile: 'text-xs',
+                                                        'mobile-lg': 'text-sm',
+                                                        tablet: 'text-sm',
+                                                        'tablet-lg': 'text-sm',
+                                                        desktop: 'text-sm',
+                                                        'desktop-lg': 'text-sm',
+                                                        game: 'text-base'
+                                                    }}
+                                                    className="text-amber-800 font-bold"
+                                                >
+                                                    {recipe.name}
+                                                </ResponsiveText>
+                                                <ResponsiveText 
+                                                    sizes={{
+                                                        mobile: 'text-xs',
+                                                        'mobile-lg': 'text-xs',
+                                                        tablet: 'text-xs',
+                                                        'tablet-lg': 'text-xs',
+                                                        desktop: 'text-xs',
+                                                        'desktop-lg': 'text-xs',
+                                                        game: 'text-sm'
+                                                    }}
+                                                    className="text-amber-700"
+                                                >
+                                                    {recipe.materials}
+                                                </ResponsiveText>
                                             </div>
                                         ))}
                                     </div>
@@ -113,19 +254,110 @@ export default function CodexDetailPanel({ item, isVisible, onClose }: CodexDeta
                             
                             {/* 레벨별 해금 스킬 */}
                             <div className="space-y-3">
-                                <div className="text-sm text-amber-800 font-bold">▶ UNLOCK SKILLS</div>
+                                <ResponsiveText 
+                                    sizes={{
+                                        mobile: 'text-xs',
+                                        'mobile-lg': 'text-sm',
+                                        tablet: 'text-sm',
+                                        'tablet-lg': 'text-sm',
+                                        desktop: 'text-sm',
+                                        'desktop-lg': 'text-sm',
+                                        game: 'text-base'
+                                    }}
+                                    className="text-amber-800 font-bold"
+                                >
+                                    ▶ UNLOCK SKILLS
+                                </ResponsiveText>
                                 <div className="space-y-2">
                                     <div className="pixel-border bg-amber-50 p-3">
-                                        <div className="text-sm text-amber-800 font-bold">Level 1 - Basic Crafting</div>
-                                        <div className="text-xs text-amber-700">Unlock basic crafting recipes for this item</div>
+                                        <ResponsiveText 
+                                            sizes={{
+                                                mobile: 'text-xs',
+                                                'mobile-lg': 'text-sm',
+                                                tablet: 'text-sm',
+                                                'tablet-lg': 'text-sm',
+                                                desktop: 'text-sm',
+                                                'desktop-lg': 'text-sm',
+                                                game: 'text-base'
+                                            }}
+                                            className="text-amber-800 font-bold"
+                                        >
+                                            Level 1 - Basic Crafting
+                                        </ResponsiveText>
+                                        <ResponsiveText 
+                                            sizes={{
+                                                mobile: 'text-xs',
+                                                'mobile-lg': 'text-xs',
+                                                tablet: 'text-xs',
+                                                'tablet-lg': 'text-xs',
+                                                desktop: 'text-xs',
+                                                'desktop-lg': 'text-xs',
+                                                game: 'text-sm'
+                                            }}
+                                            className="text-amber-700"
+                                        >
+                                            Unlock basic crafting recipes for this item
+                                        </ResponsiveText>
                                     </div>
                                     <div className="pixel-border bg-amber-50 p-3">
-                                        <div className="text-sm text-amber-800 font-bold">Level 3 - Advanced Crafting</div>
-                                        <div className="text-xs text-amber-700">Unlock advanced crafting recipes and improved efficiency</div>
+                                        <ResponsiveText 
+                                            sizes={{
+                                                mobile: 'text-xs',
+                                                'mobile-lg': 'text-sm',
+                                                tablet: 'text-sm',
+                                                'tablet-lg': 'text-sm',
+                                                desktop: 'text-sm',
+                                                'desktop-lg': 'text-sm',
+                                                game: 'text-base'
+                                            }}
+                                            className="text-amber-800 font-bold"
+                                        >
+                                            Level 3 - Advanced Crafting
+                                        </ResponsiveText>
+                                        <ResponsiveText 
+                                            sizes={{
+                                                mobile: 'text-xs',
+                                                'mobile-lg': 'text-xs',
+                                                tablet: 'text-xs',
+                                                'tablet-lg': 'text-xs',
+                                                desktop: 'text-xs',
+                                                'desktop-lg': 'text-xs',
+                                                game: 'text-sm'
+                                            }}
+                                            className="text-amber-700"
+                                        >
+                                            Unlock advanced crafting recipes and improved efficiency
+                                        </ResponsiveText>
                                     </div>
                                     <div className="pixel-border bg-amber-50 p-3">
-                                        <div className="text-sm text-amber-800 font-bold">Level 5 - Master Crafting</div>
-                                        <div className="text-xs text-amber-700">Unlock master-level recipes and special bonuses</div>
+                                        <ResponsiveText 
+                                            sizes={{
+                                                mobile: 'text-xs',
+                                                'mobile-lg': 'text-sm',
+                                                tablet: 'text-sm',
+                                                'tablet-lg': 'text-sm',
+                                                desktop: 'text-sm',
+                                                'desktop-lg': 'text-sm',
+                                                game: 'text-base'
+                                            }}
+                                            className="text-amber-800 font-bold"
+                                        >
+                                            Level 5 - Master Crafting
+                                        </ResponsiveText>
+                                        <ResponsiveText 
+                                            sizes={{
+                                                mobile: 'text-xs',
+                                                'mobile-lg': 'text-xs',
+                                                tablet: 'text-xs',
+                                                'tablet-lg': 'text-xs',
+                                                desktop: 'text-xs',
+                                                'desktop-lg': 'text-xs',
+                                                game: 'text-sm'
+                                            }}
+                                            className="text-amber-700"
+                                        >
+                                            Unlock master-level recipes and special bonuses
+                                        </ResponsiveText>
                                     </div>
                                 </div>
                             </div>
@@ -133,15 +365,39 @@ export default function CodexDetailPanel({ item, isVisible, onClose }: CodexDeta
                             {/* 발견 정보 */}
                             {item.discoveryInfo && (
                                 <div className="space-y-3">
-                                    <div className="text-sm text-amber-800 font-bold">▶ DISCOVERY</div>
-                                    <div className="text-xs text-amber-700">
+                                    <ResponsiveText 
+                                        sizes={{
+                                            mobile: 'text-xs',
+                                            'mobile-lg': 'text-sm',
+                                            tablet: 'text-sm',
+                                            'tablet-lg': 'text-sm',
+                                            desktop: 'text-sm',
+                                            'desktop-lg': 'text-sm',
+                                            game: 'text-base'
+                                        }}
+                                        className="text-amber-800 font-bold"
+                                    >
+                                        ▶ DISCOVERY
+                                    </ResponsiveText>
+                                    <ResponsiveText 
+                                        sizes={{
+                                            mobile: 'text-xs',
+                                            'mobile-lg': 'text-xs',
+                                            tablet: 'text-xs',
+                                            'tablet-lg': 'text-xs',
+                                            desktop: 'text-xs',
+                                            'desktop-lg': 'text-xs',
+                                            game: 'text-sm'
+                                        }}
+                                        className="text-amber-700"
+                                    >
                                         First discovered: {item.discoveryInfo.firstFound}<br/>
                                         Total found: {item.discoveryInfo.totalFound} times
-                                    </div>
+                                    </ResponsiveText>
                                 </div>
                             )}
                         </div>
-                    </div>
+                    </ResponsiveContainer>
                 </div>
             </div>
         </>
