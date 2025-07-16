@@ -1,20 +1,55 @@
 'use client'
 
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+
 import '../globals.css'
+import { useApi } from '@/hooks/common/useApi'
+import { FieldDataDTO, FieldType } from '@/types/map'
+import { useFieldStore } from '@/store/fieldStore'
+import { CommonResponse } from '@/types/response'
+
 
 export default function FieldSelectionPage() {
     const router = useRouter()
-    const [selectedField, setSelectedField] = useState<string | null>(null)
 
+    const { post } = useApi<FieldDataDTO>();
+    const { get } = useApi<CommonResponse<FieldDataDTO>>();
+    const [checking, setChecking] = useState(true);
+
+    const selectField = async (fieldType: FieldType) => {
+        console.log(fieldType)
+        try{
+            const result = await post<FieldType>(`/field/select`,fieldType);
+            if(result){
+                router.push(`/field/select`)
+            }
+        }catch(error){
+            console.error(error)
+            // 에러 시 사용자에게 알림
+            alert('필드 선택 중 오류가 발생했습니다.')
+        }
+    }
+
+    useEffect(() => {    
+        const fetchFieldData = async () => {
+            const result = await get('/field/select');
+            if(result.status === 'FOUND'){
+                router.push(`/field/select`)
+            } else{
+                setChecking(false);
+            }
+        }
+        fetchFieldData();
+    }, [get]);
+ 
     // 필드 정보
     const fields = [
         {
             id: 'fire',
             name: '화염지역',
             description: '용암과 화염이 가득한 뜨거운 지역',
-            path: '/field/1',
+            type: 'VOLCANO' as FieldType,
             color: 'from-red-600 to-orange-600',
             hoverColor: 'hover:from-red-500 hover:to-orange-500',
             icon: '🔥'
@@ -23,7 +58,7 @@ export default function FieldSelectionPage() {
             id: 'forest',
             name: '숲지역',
             description: '푸른 나무와 생명이 가득한 지역',
-            path: '/field/2',
+            type: 'FOREST' as FieldType,
             color: 'from-green-600 to-emerald-600',
             hoverColor: 'hover:from-green-500 hover:to-emerald-500',
             icon: '🌲'
@@ -32,7 +67,7 @@ export default function FieldSelectionPage() {
             id: 'ice',
             name: '빙하지역',
             description: '얼음과 눈으로 뒤덮인 차가운 지역',
-            path: '/field/3',
+            type: 'GLACIER' as FieldType,
             color: 'from-blue-600 to-cyan-600',
             hoverColor: 'hover:from-blue-500 hover:to-cyan-500',
             icon: '❄️'
@@ -41,7 +76,7 @@ export default function FieldSelectionPage() {
             id: 'desert',
             name: '사막지역',
             description: '모래와 열기로 가득한 건조한 지역',
-            path: '/field/4',
+            type: 'DESERT' as FieldType,
             color: 'from-yellow-600 to-amber-600',
             hoverColor: 'hover:from-yellow-500 hover:to-amber-500',
             icon: '🏜️'
@@ -50,19 +85,17 @@ export default function FieldSelectionPage() {
             id: 'white',
             name: '해얀지역',
             description: '신비로운 빛이 가득한 순백의 지역',
-            path: '/field/5',
+            type: 'COAST' as FieldType,
             color: 'from-gray-600 to-slate-600',
             hoverColor: 'hover:from-gray-500 hover:to-slate-500',
             icon: '✨'
         }
     ]
 
-    const handleFieldClick = (field: any) => {
-        setSelectedField(field.id)
-        // 잠시 후 페이지 이동 (애니메이션 효과)
-        setTimeout(() => {
-            router.push(field.path)
-        }, 300)
+
+
+    if(checking){
+        return <div>Loading...</div>
     }
 
     return (
@@ -99,10 +132,8 @@ export default function FieldSelectionPage() {
                             {fields.map((field) => (
                                 <div
                                     key={field.id}
-                                    className={`relative group cursor-pointer transform transition-all duration-300 hover:scale-105 ${
-                                        selectedField === field.id ? 'scale-105' : ''
-                                    }`}
-                                    onClick={() => handleFieldClick(field)}
+                                    className={`relative group cursor-pointer transform transition-all duration-300 hover:scale-105`}
+                                    onClick={() => selectField(field.type)}
                                 >
                                     {/* 카드 배경 */}
                                     <div className={`bg-gradient-to-br ${field.color} ${field.hoverColor} rounded-lg p-6 h-48 flex flex-col justify-between border-2 border-transparent group-hover:border-white transition-all duration-300`}>
@@ -125,10 +156,7 @@ export default function FieldSelectionPage() {
                                         <div className="absolute inset-0 bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 rounded-lg"></div>
                                     </div>
 
-                                    {/* 선택 효과 */}
-                                    {selectedField === field.id && (
-                                        <div className="absolute -inset-2 bg-amber-400 rounded-lg animate-pulse opacity-50"></div>
-                                    )}
+          
                                 </div>
                             ))}
                         </div>

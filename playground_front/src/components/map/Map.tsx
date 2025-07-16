@@ -4,89 +4,170 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { FieldDataDTO, GatherMaterialDTO,  MaterialDTO } from '@/types/map';
 import { ActionMenu } from './ActionMenu';
 import GatherProgressBar from './GatherProgressBar';
+import { TileDetailView } from './TileDetailView';
 
 interface MapProps {
-  id: number;
   fieldData: FieldDataDTO;
 }
 
-export function Map({ id, fieldData }: MapProps) {
-
-  
+export function Map({ fieldData }: MapProps) {
   const [isGathering, setIsGathering] = useState(false);
   const [gatheringProgress, setGatheringProgress] = useState(0);
   const [gatherInfo, setGatherInfo] = useState<GatherMaterialDTO>({
-    areaId: id,
+    areaType: fieldData.fieldType,
     x: null,
     y: null
   });
- 
+  
+  // 상세화면 관련 상태
+  const [showDetailView, setShowDetailView] = useState(false);
+  const [selectedTile, setSelectedTile] = useState<{ x: number; y: number } | null>(null);
+  
+  // 하루 변경 횟수 제한 (로컬 스토리지에서 관리)
+  const [dailyTransformCount, setDailyTransformCount] = useState(0);
+  const maxDailyTransforms = 3; // 하루 최대 3회 변경 가능
 
+  // 하루 변경 횟수 초기화 (날짜가 바뀌면 리셋)
+  useEffect(() => {
+    const today = new Date().toDateString();
+    const storedDate = localStorage.getItem('lastTransformDate');
+    const storedCount = localStorage.getItem('dailyTransformCount');
+    
+    if (storedDate !== today) {
+      // 날짜가 바뀌었으면 카운트 리셋
+      localStorage.setItem('lastTransformDate', today);
+      localStorage.setItem('dailyTransformCount', '0');
+      setDailyTransformCount(0);
+    } else {
+      // 같은 날이면 저장된 카운트 사용
+      setDailyTransformCount(parseInt(storedCount || '0'));
+    }
+  }, []);
 
   const handleTileClick = (x: number, y: number) => {
+    setSelectedTile({ x, y });
+    setShowDetailView(true);
+  }
+
+  const handleBackFromDetail = () => {
+    setShowDetailView(false);
+    setSelectedTile(null);
+  }
+
+  const handleGather = (x: number, y: number) => {
     setGatherInfo(prev => ({
       ...prev,
       x: x,
       y: y
     }));
+    setIsGathering(true);
+    setGatheringProgress(0);
+    
+    // 채집 진행도 시뮬레이션
+    const interval = setInterval(() => {
+      setGatheringProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setIsGathering(false);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 200);
   }
 
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    // 방향키만 처리하고 다른 키는 무시
-    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key) || isGathering) {
+  const handleTransform = (x: number, y: number) => {
+    if (dailyTransformCount >= maxDailyTransforms) {
+      alert('오늘의 변경 횟수를 모두 사용했습니다!');
       return;
     }
 
-    // 방향키 이벤트 처리
-    e.preventDefault();
-    e.stopPropagation();
+    // 변경 횟수 증가
+    const newCount = dailyTransformCount + 1;
+    setDailyTransformCount(newCount);
+    localStorage.setItem('dailyTransformCount', newCount.toString());
 
-    setGatherInfo(prev => {
-      let x = prev?.x
-      let y = prev?.y
+    // 타일 변경 로직 (여기에 실제 변경 로직 추가)
+    console.log(`타일 (${x}, ${y}) 변경 완료!`);
+    
+    // 변경 완료 알림
+    alert(`타일 (${x}, ${y})이 성공적으로 변경되었습니다!`);
+  }
 
-      if(x === null || y === null){
-        x = 0;
-        y = 0;
-      }else{
-        switch(e.key){
-          case 'ArrowUp':
-            y = Math.max(0, y-1);
-            break;
-          case 'ArrowDown':
-            y = Math.min(4, y+1);
-            break;
-          case 'ArrowLeft':
-            x = Math.max(0, x-1);
-            break;
-          case 'ArrowRight':
-            x = Math.min(4, x+1);
-            break;
-          default:
-            return prev;
-        }
-      }
-      return {...prev, x, y};
-    })
-  },[isGathering])
+  //TODO 키보드 이벤트 취소 제어
+  // const handleKeyDown = useCallback((e: KeyboardEvent) => {
+  //   // 상세화면이 열려있으면 키보드 이벤트 무시
+  //   if (showDetailView) {
+  //     return;
+  //   }
 
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    }
-  },[handleKeyDown])
+  //   // 방향키만 처리하고 다른 키는 무시
+  //   if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key) || isGathering) {
+  //     return;
+  //   }
 
+  //   // 방향키 이벤트 처리
+  //   e.preventDefault();
+  //   e.stopPropagation();
 
+  //   setGatherInfo(prev => {
+  //     let x = prev?.x
+  //     let y = prev?.y
 
+  //     if(x === null || y === null){
+  //       x = 0;
+  //       y = 0;
+  //     }else{
+  //       switch(e.key){
+  //         case 'ArrowUp':
+  //           y = Math.max(0, y-1);
+  //           break;
+  //         case 'ArrowDown':
+  //           y = Math.min(4, y+1);
+  //           break;
+  //         case 'ArrowLeft':
+  //           x = Math.max(0, x-1);
+  //           break;
+  //         case 'ArrowRight':
+  //           x = Math.min(4, x+1);
+  //           break;
+  //         default:
+  //           return prev;
+  //       }
+  //     }
+  //     return {...prev, x, y};
+  //   })
+  // },[isGathering, showDetailView])
 
-  // 채집 시작 함수
-  
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyDown);
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   }
+  // },[handleKeyDown])
 
   return (
-    <div className="flex flex-col items-center gap-8 p-4">
+    <div className={`flex flex-col items-center gap-8 p-4 transition-all duration-300 ${
+      showDetailView ? 'opacity-50 pointer-events-none' : 'opacity-100'
+    }`}>
       {/* 필드 이름 */}
       <h1 className="text-2xl font-bold">{fieldData.name}</h1>
+
+      {/* 하루 변경 횟수 표시 */}
+      <div className="bg-blue-50 rounded-lg p-3 mb-4">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-semibold text-blue-800">오늘의 변경 횟수</span>
+          <span className="text-sm text-blue-600">
+            {dailyTransformCount} / {maxDailyTransforms}
+          </span>
+        </div>
+        <div className="w-full bg-blue-200 rounded-full h-2 mt-2">
+          <div 
+            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+            style={{ width: `${(dailyTransformCount / maxDailyTransforms) * 100}%` }}
+          ></div>
+        </div>
+      </div>
 
       {/* 5x5 타일 맵 */}
       <div className="grid grid-cols-5 gap-1">
@@ -101,10 +182,10 @@ export function Map({ id, fieldData }: MapProps) {
               key={`${x}-${y}`}
               className={`w-20 h-20 border border-gray-300 flex items-center justify-center cursor-pointer transition-all relative overflow-hidden
                 ${isSelected ? 'ring-2 ring-blue-400' : 'hover:opacity-80'}
-                ${isGatheringHere ? 'bg-yellow-100' : ''}`}
-              onClick={() => handleTileClick(x, y)}
+                ${isGatheringHere ? 'bg-yellow-100' : ''}
+                ${showDetailView ? 'cursor-not-allowed' : ''}`}
+              onClick={() => !showDetailView && handleTileClick(x, y)}
               style={{
-                // backgroundImage: `url('/images/glacier_map.png')`,
                 backgroundColor: 'black',
                 backgroundSize: '500% 500%',
                 backgroundPosition: `${x * 25}% ${y * 25}%`
@@ -113,7 +194,6 @@ export function Map({ id, fieldData }: MapProps) {
               {/* 곡괭이 채집 효과 */}
               {isGatheringHere && (
                 <>
-                  {/* 곡괭이 이미지 변경필요*/}
                   <div className="absolute inset-0 flex items-center justify-center z-20">
                     <div className="relative">
                       <svg 
@@ -195,6 +275,19 @@ export function Map({ id, fieldData }: MapProps) {
         setIsGathering={setIsGathering}
         setGatheringProgress={setGatheringProgress}
       />
+
+      {/* 타일 상세화면 */}
+      {showDetailView && selectedTile && (
+        <TileDetailView
+          fieldData={fieldData}
+          selectedTile={selectedTile}
+          onBack={handleBackFromDetail}
+          onGather={handleGather}
+          onTransform={handleTransform}
+          dailyTransformCount={dailyTransformCount}
+          maxDailyTransforms={maxDailyTransforms}
+        />
+      )}
     </div>
   );
 } 

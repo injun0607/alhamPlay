@@ -22,7 +22,7 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
   const [isGatheringComplete, setIsGatheringComplete] = useState(false);
   const [gatherResult, setGatherResult] = useState<MaterialInventoryItemDTO | null>(null);
   const [showGatherResult, setShowGatherResult] = useState(false);
-  const { areaId, x, y } = gatherInfo;
+  const { areaType, x, y } = gatherInfo;
   const refIsGathering = useRef(isGathering);
 
   // 백엔드 API 요청을 위한 훅
@@ -105,7 +105,7 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
   }, [handleGatherKeyPress])
 
   const handleAction = (action: string) => {
-    if (areaId === null || x === null || y === null) {
+    if (areaType === null || x === null || y === null) {
       alert('채집 위치를 선택해주세요.');
       return;
     }
@@ -115,7 +115,7 @@ export const ActionMenu = ({ gatherInfo, isGathering, setIsGathering, setGatheri
         startGathering();
         break;
       case 'EXPLORE':
-        alert('모험 ' + areaId + ' ' + x + ' ' + y);
+        alert('모험 ' + areaType + ' ' + x + ' ' + y);
         break;
     }
   };

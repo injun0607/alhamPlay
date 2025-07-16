@@ -17,7 +17,7 @@ class FieldArea(
     override var tiles: List<Tile> = mutableListOf(),
     @Enumerated(EnumType.STRING)
     var fieldType: FieldType = FieldType.CHAOS
-):Area {
+) : Area {
     override fun getTile(x: Int, y: Int): Tile {
         return tiles.firstOrNull { it.x == x && it.y == y }
             ?: throw IllegalArgumentException("Tile not found at coordinates ($x, $y)")
