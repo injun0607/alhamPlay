@@ -3,11 +3,12 @@ import { ItemRarity } from "./item";
 export type TileType = 'EXPLORE' | 'PEACE';
 
 export const FieldTypes = [
-  "FOREST",
-  "CAVE",
-  "MOUNTAIN",
-  "LAKE",
-  "VOLCANO",
+  'FOREST',
+  'DESERT',
+  'GLACIER',
+  'VOLCANO',
+  'COAST',
+  'CHAOS',
 ] as const;
 
 export type FieldType = typeof FieldTypes[number];
@@ -16,12 +17,13 @@ export type FieldType = typeof FieldTypes[number];
 export interface FieldDataDTO{
   name: string;
   description: string;
-  fieldType: string;
+  fieldType: FieldType;
+  selectedInfo: SelectedTileInfo;
 }
 
 
 export interface GatherMaterialDTO{
-  areaId: number | null;
+  areaType: FieldType;
   x: number | null;
   y: number | null;
 }
@@ -53,3 +55,9 @@ export interface MapData {
     height: number;
   };
 } 
+
+export interface SelectedTileInfo{
+  selectedFlag: boolean;
+  selectedTileX: number;
+  selectedTileY: number;
+}

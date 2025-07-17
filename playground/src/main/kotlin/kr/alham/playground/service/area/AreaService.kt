@@ -2,6 +2,7 @@ package kr.alham.playground.service.area
 
 import kr.alham.playground.domain.area.FieldArea
 import kr.alham.playground.domain.area.FieldType
+import kr.alham.playground.domain.area.Tile
 import kr.alham.playground.repository.area.FieldAreaRepository
 import kr.alham.playground.repository.area.RedisTileCacheRepository
 import kr.alham.playground.system.area.AreaSystem
@@ -20,8 +21,7 @@ class AreaService(
     }
 
     fun selectFieldArea(playerId: Long): FieldType? {
-        val existedTile = redisTileCacheRepository.getPlayerSelectedField(playerId)
-        return existedTile
+        return redisTileCacheRepository.getPlayerSelectedField(playerId)
     }
 
     fun findFieldArea(fieldId: Long): FieldArea{
@@ -51,6 +51,14 @@ class AreaService(
     fun findFieldAreaByType(fieldType: FieldType): FieldArea {
         return fieldAreaRepository.findByFieldType(fieldType)
             ?: throw IllegalArgumentException("Field area with type $fieldType not found")
+    }
+
+    fun saveSelectedTile(playerId: Long, tile: Tile) {
+        redisTileCacheRepository.savePlayerSelectedTile(playerId, tile)
+    }
+
+    fun getSelectedTile(playerId: Long): Tile? {
+        return redisTileCacheRepository.getPlayerSelectedTile(playerId)
     }
 
 

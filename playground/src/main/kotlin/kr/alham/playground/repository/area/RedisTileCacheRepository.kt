@@ -39,9 +39,16 @@ class RedisTileCacheRepository(
         return objectMapper.readValue(json, object : TypeReference<List<Tile>>() {})
     }
 
-    /**
-     * val key = "fieldArea:tiles:$fieldAreaId"
-     *         val json = objectMapper.writeValueAsString(tiles)
-     *         redisTemplate.opsForValue().set(key, json, Duration.ofHours(24))
-     */
+    fun savePlayerSelectedTile(playerId: Long, tile: Tile){
+        val key = RedisKeys.playerSelectedTile(playerId)
+        val json = objectMapper.writeValueAsString(tile)
+        redisTemplate.opsForValue().set(key, json, Duration.ofHours(24))
+    }
+
+    fun getPlayerSelectedTile(playerId: Long): Tile? {
+        val key = RedisKeys.playerSelectedTile(playerId)
+        val json = redisTemplate.opsForValue().get(key) ?: return null
+        return objectMapper.readValue(json, object : TypeReference<Tile>() {})
+    }
+
 }

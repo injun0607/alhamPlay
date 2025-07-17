@@ -4,6 +4,7 @@ import kr.alham.playground.common.utils.CommonResponse
 import kr.alham.playground.common.utils.mapper.FieldAreaMapper
 import kr.alham.playground.common.utils.mapper.ItemMapper
 import kr.alham.playground.domain.area.FieldType
+import kr.alham.playground.domain.area.Tile
 import kr.alham.playground.dto.field.FieldAreaDTO
 import kr.alham.playground.dto.gather.GatherMaterialDTO
 import kr.alham.playground.dto.inventory.PlayerMaterialInventoryItemDTO
@@ -21,7 +22,6 @@ class FieldController(
     private val gatherService: GatherService,
     private val inventoryService: InventoryService
 ) {
-
 
 
     @GetMapping("/select")
@@ -58,6 +58,51 @@ class FieldController(
         }
     }
 
+    @GetMapping("/tiles")
+    fun getPlayerTilesInfo(): CommonResponse<FieldAreaDTO> {
+
+        val playerId = 1L //TODO - 유저 인증 정보 받아서 진행
+
+        val selectedFieldType =  areaService.selectFieldArea(playerId)
+            ?: return CommonResponse.of(
+                HttpStatus.NOT_FOUND,
+                "No field area selected",
+                null
+            )
+
+        val field = areaService.findFieldAreaByType(selectedFieldType)
+
+        //타일 선택여부
+        areaService.getSelectedTile(playerId)?.let { tile ->
+            //있으면 선택된필드 반환
+            return CommonResponse.of(
+                HttpStatus.OK,
+                "Tile selected successfully",
+                FieldAreaMapper.fieldAreaToDTOWithTileInfo(
+                    field,
+                    tile
+                )
+            )
+        } ?: run {
+            return CommonResponse.of(
+                HttpStatus.NO_CONTENT,
+                "No tile selected",
+                FieldAreaMapper.fieldAreaToDTO(field)
+            )
+        }
+    }
+
+    @PostMapping("/tiles")
+    fun savePlayerTilesInfo(
+        @RequestBody tile: Tile
+    ): CommonResponse<Tile> {
+        val playerId = 1L //TODO - 유저 인증 정보 받아서 진행
+
+        //레디스에 플레이어 선택 타일 저장
+        areaService.saveSelectedTile(playerId, tile)
+        return CommonResponse.of(HttpStatus.OK, "Tile saved successfully", tile)
+    }
+
     @GetMapping("/{fieldId}")
     fun getFieldArea(
                      @PathVariable fieldId: Long
@@ -74,8 +119,6 @@ class FieldController(
 
         val gatherResult = gatherService.gatherMaterial(gatherMaterialDTO)
         val itemInfo = gatherService.getMaterialItemByName(gatherResult.name)
-
-
 
         val inventoryId = inventoryService.saveItemToPlayerInventory(
             playerId,

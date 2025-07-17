@@ -13,4 +13,8 @@ object RedisKeys{
     fun battleSession(sessionId: String): String {
         return "battleSession:$sessionId"
     }
+
+    fun playerSelectedTile(playerId: Long): String {
+        return "player:$playerId:selectedTile"
+    }
 }

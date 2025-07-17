@@ -155,8 +155,6 @@ export default function FieldSelectionPage() {
                                         {/* 클릭 효과 */}
                                         <div className="absolute inset-0 bg-white bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 rounded-lg"></div>
                                     </div>
-
-          
                                 </div>
                             ))}
                         </div>
