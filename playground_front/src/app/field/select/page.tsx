@@ -6,6 +6,7 @@ import { useApi } from '@/hooks/common/useApi';
 import { FieldDataDTO } from '@/types/map';
 import { Map } from '@/components/map/Map';
 import { CommonResponse } from '@/types/response';
+import '../../globals.css'
 
 export default function SelectedFieldPage() {    
     const { data: fieldData, loading, error, get } = useApi<CommonResponse<FieldDataDTO>>();

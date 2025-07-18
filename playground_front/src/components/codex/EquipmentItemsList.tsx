@@ -322,22 +322,9 @@ export default function EquipmentItemsList({
                 >
                     PREV PAGE
                 </button>
-
-                <ResponsiveText 
-                    sizes={{
-                        mobile: 'text-xs',
-                        'mobile-lg': 'text-xs',
-                        tablet: 'text-xs',
-                        'tablet-lg': 'text-xs',
-                        desktop: 'text-xs',
-                        'desktop-lg': 'text-xs',
-                        game: 'text-sm'
-                    }}
-                    className="pixel-border bg-amber-100 px-4 py-2"
-                >
-                    PAGE {currentPage} / {totalPages}
-                </ResponsiveText>
-
+                <div className="pixel-border bg-amber-100 px-4 py-2">
+                    <span className="text-xs text-amber-800 font-bold">PAGE {currentPage} / {totalPages}</span>
+                </div>
                 <button
                     className="pixel-button bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}

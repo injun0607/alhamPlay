@@ -5,6 +5,7 @@ import { FieldDataDTO, GatherMaterialDTO,  MaterialDTO } from '@/types/map';
 import { ActionMenu } from './ActionMenu';
 import GatherProgressBar from './GatherProgressBar';
 import { TileDetailView } from './TileDetailView';
+import { useFieldStore } from '@/store/fieldStore';
 
 interface MapProps {
   fieldData: FieldDataDTO;
@@ -21,7 +22,10 @@ export function Map({ fieldData }: MapProps) {
   
   // 상세화면 관련 상태
   const [showDetailView, setShowDetailView] = useState(false);
-  const [selectedTile, setSelectedTile] = useState<{ x: number; y: number } | null>(null);
+  const { selectedTile, setSelectedTile } = useFieldStore();
+  
+  // 확인 모달 상태
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   
   // 하루 변경 횟수 제한 (로컬 스토리지에서 관리)
   const [dailyTransformCount, setDailyTransformCount] = useState(0);
@@ -44,10 +48,54 @@ export function Map({ fieldData }: MapProps) {
     }
   }, []);
 
+  //진입시 선택된 타일 있으면 이동
+  useEffect(()=>{
+    if(fieldData.selectedInfo.selectedFlag){
+      setSelectedTile({ x: fieldData.selectedInfo.selectedTileX , y: fieldData.selectedInfo.selectedTileY })
+      setShowDetailView(true);
+    }
+  },[fieldData.selectedInfo.selectedFlag, fieldData.selectedInfo.selectedTileX, fieldData.selectedInfo.selectedTileY])
+
+  
+  //선택시 키보드 이벤트 처리
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!showConfirmModal) return;
+      
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        setShowConfirmModal(false);
+        setShowDetailView(true);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowConfirmModal(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showConfirmModal]);
+
+  // 타일 클릭 시 선택 상태로 변경
   const handleTileClick = (x: number, y: number) => {
     setSelectedTile({ x, y });
-    setShowDetailView(true);
+    setGatherInfo(prev => ({
+      ...prev,
+      x: x,
+      y: y
+    }));
   }
+
+  // 타일 더블클릭 시 바로 상세화면 열기
+  const handleTileDoubleClick = (x: number, y: number) => {
+    setSelectedTile({ x, y });
+    setShowConfirmModal(true);
+  }
+
+  // 선택 버튼 클릭 시 확인 모달 열기
+  const showDetailViewFunc = useCallback(() => {
+    setShowConfirmModal(true);
+  }, []);
 
   const handleBackFromDetail = () => {
     setShowDetailView(false);
@@ -94,61 +142,8 @@ export function Map({ fieldData }: MapProps) {
     alert(`타일 (${x}, ${y})이 성공적으로 변경되었습니다!`);
   }
 
-  //TODO 키보드 이벤트 취소 제어
-  // const handleKeyDown = useCallback((e: KeyboardEvent) => {
-  //   // 상세화면이 열려있으면 키보드 이벤트 무시
-  //   if (showDetailView) {
-  //     return;
-  //   }
-
-  //   // 방향키만 처리하고 다른 키는 무시
-  //   if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key) || isGathering) {
-  //     return;
-  //   }
-
-  //   // 방향키 이벤트 처리
-  //   e.preventDefault();
-  //   e.stopPropagation();
-
-  //   setGatherInfo(prev => {
-  //     let x = prev?.x
-  //     let y = prev?.y
-
-  //     if(x === null || y === null){
-  //       x = 0;
-  //       y = 0;
-  //     }else{
-  //       switch(e.key){
-  //         case 'ArrowUp':
-  //           y = Math.max(0, y-1);
-  //           break;
-  //         case 'ArrowDown':
-  //           y = Math.min(4, y+1);
-  //           break;
-  //         case 'ArrowLeft':
-  //           x = Math.max(0, x-1);
-  //           break;
-  //         case 'ArrowRight':
-  //           x = Math.min(4, x+1);
-  //           break;
-  //         default:
-  //           return prev;
-  //       }
-  //     }
-  //     return {...prev, x, y};
-  //   })
-  // },[isGathering, showDetailView])
-
-  // useEffect(() => {
-  //   window.addEventListener('keydown', handleKeyDown);
-  //   return () => {
-  //     window.removeEventListener('keydown', handleKeyDown);
-  //   }
-  // },[handleKeyDown])
-
   return (
-    <div className={`flex flex-col items-center gap-8 p-4 transition-all duration-300 ${
-      showDetailView ? 'opacity-50 pointer-events-none' : 'opacity-100'
+    <div className={`flex flex-col items-center gap-8 p-4 transition-all duration-300
     }`}>
       {/* 필드 이름 */}
       <h1 className="text-2xl font-bold">{fieldData.name}</h1>
@@ -174,17 +169,18 @@ export function Map({ fieldData }: MapProps) {
         {Array.from({ length: 25 }, (_, index) => {
           const x = index % 5;
           const y = Math.floor(index / 5);
-          const isSelected = gatherInfo.x === x && gatherInfo.y === y;
-          const isGatheringHere = isGathering && isSelected;
+          const isSelected = selectedTile && selectedTile.x === x && selectedTile.y === y;
+          const isGatheringHere = isGathering && gatherInfo.x === x && gatherInfo.y === y;
           
           return (
             <div
               key={`${x}-${y}`}
               className={`w-20 h-20 border border-gray-300 flex items-center justify-center cursor-pointer transition-all relative overflow-hidden
-                ${isSelected ? 'ring-2 ring-blue-400' : 'hover:opacity-80'}
+                ${isSelected ? 'ring-2 ring-blue-400 bg-blue-50' : 'hover:opacity-80'}
                 ${isGatheringHere ? 'bg-yellow-100' : ''}
                 ${showDetailView ? 'cursor-not-allowed' : ''}`}
               onClick={() => !showDetailView && handleTileClick(x, y)}
+              onDoubleClick={() => !showDetailView && handleTileDoubleClick(x, y)}
               style={{
                 backgroundColor: 'black',
                 backgroundSize: '500% 500%',
@@ -269,12 +265,55 @@ export function Map({ fieldData }: MapProps) {
         )}
       </div>
       
-      <ActionMenu 
+      {/* 선택 버튼 */}
+      {selectedTile && !showDetailView && (
+        <div className="flex gap-4">
+          <button
+            onClick={showDetailViewFunc}
+            className="px-8 py-4 bg-blue-600 text-white border-4 border-blue-800 rounded-none hover:bg-blue-700 hover:border-blue-900 transition-all duration-200 font-bold pixel-font select-button"
+          >
+            선택
+          </button>
+        </div>
+      )}
+      
+      {/* 확인 모달 */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-gray-900 border-4 border-gray-700 rounded-none p-6 max-w-sm w-full mx-4 pixel-art-shadow">
+            <h3 className="text-lg font-bold text-white pixel-font mb-4 text-center">
+              해당 지역을 선택하시겠습니까?
+            </h3>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => {
+                  setShowConfirmModal(false);
+                  setShowDetailView(true);
+                }}
+                className="flex-1 bg-green-600 text-white py-3 px-4 border-2 border-green-800 rounded-none hover:bg-green-700 hover:border-green-900 transition-all duration-200 font-bold pixel-font"
+              >
+                확인
+              </button>
+              <button 
+                onClick={() => setShowConfirmModal(false)}
+                className="flex-1 bg-gray-600 text-white py-3 px-4 border-2 border-gray-800 rounded-none hover:bg-gray-700 hover:border-gray-900 transition-all duration-200 font-bold pixel-font"
+              >
+                취소
+              </button>
+            </div>
+            <div className="text-xs text-gray-400 text-center mt-3 pixel-font">
+              Enter: 확인, Esc: 취소
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* <ActionMenu 
         gatherInfo={gatherInfo}
         isGathering={isGathering}
         setIsGathering={setIsGathering}
         setGatheringProgress={setGatheringProgress}
-      />
+      /> */}
 
       {/* 타일 상세화면 */}
       {showDetailView && selectedTile && (
@@ -288,6 +327,36 @@ export function Map({ fieldData }: MapProps) {
           maxDailyTransforms={maxDailyTransforms}
         />
       )}
+
+      <style jsx>{`
+        .pixel-font {
+          font-family: 'Press Start 2P', 'Courier New', monospace;
+          image-rendering: pixelated;
+        }
+        
+        .select-button {
+          box-shadow: 
+            0 0 0 2px rgba(0,0,0,0.8),
+            4px 4px 0 rgba(0,0,0,0.8),
+            8px 8px 0 rgba(0,0,0,0.6);
+          text-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+        }
+        
+        .select-button:hover {
+          transform: translateY(2px);
+          box-shadow: 
+            0 0 0 2px rgba(0,0,0,0.8),
+            2px 2px 0 rgba(0,0,0,0.8),
+            4px 4px 0 rgba(0,0,0,0.6);
+        }
+        
+        .select-button:active {
+          transform: translateY(4px);
+          box-shadow: 
+            0 0 0 2px rgba(0,0,0,0.8),
+            0px 0px 0 rgba(0,0,0,0.8);
+        }
+      `}</style>
     </div>
   );
 } 
