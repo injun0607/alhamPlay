@@ -8,6 +8,7 @@ export interface CommonResponse<T> {
 export const statusTypes = [
     "OK",
     "FOUND",
+    "NO_CONTENT",
     "NOT_FOUND",
     "BAD_REQUEST",
     "UNAUTHORIZED",

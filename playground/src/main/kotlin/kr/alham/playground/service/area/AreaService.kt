@@ -2,7 +2,7 @@ package kr.alham.playground.service.area
 
 import kr.alham.playground.domain.area.FieldArea
 import kr.alham.playground.domain.area.FieldType
-import kr.alham.playground.domain.area.Tile
+import kr.alham.playground.dto.field.DailyTileInfo
 import kr.alham.playground.repository.area.FieldAreaRepository
 import kr.alham.playground.repository.area.RedisTileCacheRepository
 import kr.alham.playground.system.area.AreaSystem
@@ -35,7 +35,7 @@ class AreaService(
             IllegalArgumentException("Area with id $id not found")
         }
 
-        val filedTiles = redisTileCacheRepository.getTilesByFieldAreaId(id)
+        val fieldTiles = redisTileCacheRepository.getTilesByFieldAreaId(id)
             ?: run{
                 val tiles = areaSystem.initTiles()
                 areaSystem.changeRandomTypeTiles(tiles,10,8,3,2,1,1)
@@ -43,21 +43,37 @@ class AreaService(
                 tiles
             }
 
-        filedArea.tiles = filedTiles
+        filedArea.tiles = fieldTiles
 
         return filedArea
     }
 
     fun findFieldAreaByType(fieldType: FieldType): FieldArea {
-        return fieldAreaRepository.findByFieldType(fieldType)
+
+
+        val fieldArea = fieldAreaRepository.findByFieldType(fieldType)
             ?: throw IllegalArgumentException("Field area with type $fieldType not found")
+
+        val fieldAreaId = requireNotNull(fieldArea.id)
+
+        val filedTiles = redisTileCacheRepository.getTilesByFieldAreaId(fieldAreaId)
+            ?: run{
+                val tiles = areaSystem.initTiles()
+                areaSystem.changeRandomTypeTiles(tiles,10,8,3,2,1,1)
+                redisTileCacheRepository.saveTiles(fieldAreaId, tiles)
+                tiles
+            }
+
+        fieldArea.tiles = filedTiles
+        return fieldArea
+
     }
 
-    fun saveSelectedTile(playerId: Long, tile: Tile) {
-        redisTileCacheRepository.savePlayerSelectedTile(playerId, tile)
+    fun saveDailyTileInfo(playerId: Long, dailyTileInfo: DailyTileInfo) {
+        redisTileCacheRepository.savePlayerSelectedTile(playerId, dailyTileInfo)
     }
 
-    fun getSelectedTile(playerId: Long): Tile? {
+    fun getDailyTileInfo(playerId: Long): DailyTileInfo? {
         return redisTileCacheRepository.getPlayerSelectedTile(playerId)
     }
 

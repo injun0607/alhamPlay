@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import kr.alham.playground.common.RedisKeys
 import kr.alham.playground.domain.area.FieldType
 import kr.alham.playground.domain.area.Tile
+import kr.alham.playground.dto.field.DailyTileInfo
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
 import java.time.Duration
@@ -39,16 +40,16 @@ class RedisTileCacheRepository(
         return objectMapper.readValue(json, object : TypeReference<List<Tile>>() {})
     }
 
-    fun savePlayerSelectedTile(playerId: Long, tile: Tile){
+    fun savePlayerSelectedTile(playerId: Long, dailyTileInfo: DailyTileInfo){
         val key = RedisKeys.playerSelectedTile(playerId)
-        val json = objectMapper.writeValueAsString(tile)
+        val json = objectMapper.writeValueAsString(dailyTileInfo)
         redisTemplate.opsForValue().set(key, json, Duration.ofHours(24))
     }
 
-    fun getPlayerSelectedTile(playerId: Long): Tile? {
+    fun getPlayerSelectedTile(playerId: Long): DailyTileInfo? {
         val key = RedisKeys.playerSelectedTile(playerId)
         val json = redisTemplate.opsForValue().get(key) ?: return null
-        return objectMapper.readValue(json, object : TypeReference<Tile>() {})
+        return objectMapper.readValue(json, object : TypeReference<DailyTileInfo>() {})
     }
 
 }

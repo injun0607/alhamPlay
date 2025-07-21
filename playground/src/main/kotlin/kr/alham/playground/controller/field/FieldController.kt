@@ -5,6 +5,7 @@ import kr.alham.playground.common.utils.mapper.FieldAreaMapper
 import kr.alham.playground.common.utils.mapper.ItemMapper
 import kr.alham.playground.domain.area.FieldType
 import kr.alham.playground.domain.area.Tile
+import kr.alham.playground.dto.field.DailyTileInfo
 import kr.alham.playground.dto.field.FieldAreaDTO
 import kr.alham.playground.dto.gather.GatherMaterialDTO
 import kr.alham.playground.dto.inventory.PlayerMaterialInventoryItemDTO
@@ -72,8 +73,7 @@ class FieldController(
 
         val field = areaService.findFieldAreaByType(selectedFieldType)
 
-        //타일 선택여부
-        areaService.getSelectedTile(playerId)?.let { tile ->
+        areaService.getDailyTileInfo(playerId)?.let { tile ->
             //있으면 선택된필드 반환
             return CommonResponse.of(
                 HttpStatus.OK,
@@ -95,12 +95,35 @@ class FieldController(
     @PostMapping("/tiles")
     fun savePlayerTilesInfo(
         @RequestBody tile: Tile
-    ): CommonResponse<Tile> {
+    ): CommonResponse<DailyTileInfo> {
         val playerId = 1L //TODO - 유저 인증 정보 받아서 진행
 
-        //레디스에 플레이어 선택 타일 저장
-        areaService.saveSelectedTile(playerId, tile)
-        return CommonResponse.of(HttpStatus.OK, "Tile saved successfully", tile)
+        val selectedDailyTileInfo = areaService.getDailyTileInfo(playerId)
+
+        if((selectedDailyTileInfo?.availableUpdateCount?.let{it <= 0}) == true){
+            return CommonResponse.of(
+                HttpStatus.OK,
+                "타일을 더이상 업데이트 할수 없습니다",
+                selectedDailyTileInfo
+            )
+        }
+
+        val availableCnt =  if(selectedDailyTileInfo != null){
+            selectedDailyTileInfo.availableUpdateCount - 1
+        }else{
+            3
+        }
+
+        val selectedFieldType = areaService.selectFieldArea(playerId) ?:
+            throw IllegalArgumentException("No field area selected for player $playerId")
+
+        val selectedField = areaService.findFieldAreaByType(selectedFieldType)
+        val selectedTileType = selectedField.getTile(tile.x, tile.y).type
+        val dailyTileInfo = FieldAreaMapper.tileToDailyTileInfo(tile,selectedTileType)
+        dailyTileInfo.availableUpdateCount = availableCnt
+
+        areaService.saveDailyTileInfo(playerId, dailyTileInfo)
+        return CommonResponse.of(HttpStatus.OK, "Tile saved successfully", dailyTileInfo)
     }
 
     @GetMapping("/{fieldId}")

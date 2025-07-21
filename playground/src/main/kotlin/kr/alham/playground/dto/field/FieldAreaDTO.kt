@@ -7,12 +7,6 @@ data class FieldAreaDTO(
     val name: String = "",
     val description: String = "",
     val fieldType: FieldType,
-    val selectedInfo: SelectedInfo = SelectedInfo(),
+    val dailyTileInfo: DailyTileInfo = DailyTileInfo(),
 ) {
-    data class SelectedInfo(
-        val selectedTileFlag: Boolean = false,
-        val selectedTileX: Int = 0,
-        val selectedTileY: Int = 0,
-    ){}
-
 }

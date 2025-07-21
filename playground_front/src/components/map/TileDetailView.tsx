@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react'
 import { FieldDataDTO } from '@/types/map'
+import { useFieldStore } from '@/store/fieldStore'
 
 interface TileDetailViewProps {
   fieldData: FieldDataDTO
-  selectedTile: { x: number; y: number }
   onBack: () => void
   onGather: (x: number, y: number) => void
   onTransform: (x: number, y: number) => void
@@ -15,7 +15,6 @@ interface TileDetailViewProps {
 
 export function TileDetailView({
   fieldData,
-  selectedTile,
   onBack,
   onGather,
   onTransform,
@@ -25,11 +24,13 @@ export function TileDetailView({
   const [isGathering, setIsGathering] = useState(false)
   const [isTransforming, setIsTransforming] = useState(false)
   const [gatheringProgress, setGatheringProgress] = useState(0)
-
+  const { selectedTile } = useFieldStore();
+  
   const handleGather = () => {
     setIsGathering(true)
     setGatheringProgress(0)
-    onGather(selectedTile.x, selectedTile.y)
+    if(!selectedTile || selectedTile?.selectedTileX == null || selectedTile?.selectedTileY == null) return;
+    onGather(selectedTile.selectedTileX , selectedTile.selectedTileY)
     const interval = setInterval(() => {
       setGatheringProgress(prev => {
         if (prev >= 100) {
@@ -43,12 +44,13 @@ export function TileDetailView({
   }
 
   const handleTransform = () => {
+    if(!selectedTile || selectedTile?.selectedTileX == null || selectedTile?.selectedTileY == null) return;
     if (dailyTransformCount >= maxDailyTransforms) {
       alert('오늘의 변경 횟수를 모두 사용했습니다!')
       return
     }
     setIsTransforming(true)
-    onTransform(selectedTile.x, selectedTile.y)
+    onTransform(selectedTile.selectedTileX, selectedTile.selectedTileY)
     setTimeout(() => setIsTransforming(false), 2000)
   }
 
@@ -60,7 +62,7 @@ export function TileDetailView({
         {/* 헤더 */}
         <div className="flex justify-between items-center mb-6 border-b-2 border-gray-600 pb-4">
           <h2 className="text-xl font-bold text-white pixel-font">
-            {fieldData.name} - ({selectedTile.x}, {selectedTile.y})
+            {fieldData.name} - ({selectedTile?.selectedTileX}, {selectedTile?.selectedTileY})
           </h2>
           <button
             onClick={onBack}
@@ -75,7 +77,7 @@ export function TileDetailView({
           <div className="bg-gray-800 border-2 border-gray-600 rounded-none p-4 mb-4">
             <h3 className="font-semibold text-yellow-400 pixel-font mb-2">타일 정보</h3>
             <div className="text-sm text-gray-300 space-y-1 pixel-font">
-              <div>위치: ({selectedTile.x}, {selectedTile.y})</div>
+              <div>위치: ({selectedTile?.selectedTileX}, {selectedTile?.selectedTileY})</div>
               <div>지역: {fieldData.name}</div>
               <div>상태: {isGathering ? '채집 중...' : isTransforming ? '변경 중...' : '대기 중'}</div>
             </div>

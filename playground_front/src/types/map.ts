@@ -1,6 +1,15 @@
 import { ItemRarity } from "./item";
 
-export type TileType = 'EXPLORE' | 'PEACE';
+export const TileTypes = [
+  'COMMON',
+  'UNCOMMON',
+  'RARE',
+  'EPIC',
+  'UNIQUE',
+  'LEGENDARY',
+]
+
+export type TileType = typeof TileTypes[number];
 
 export const FieldTypes = [
   'FOREST',
@@ -18,7 +27,7 @@ export interface FieldDataDTO{
   name: string;
   description: string;
   fieldType: FieldType;
-  selectedInfo: SelectedTileInfo;
+  dailyTileInfo: DailyTileInfo;
 }
 
 
@@ -56,8 +65,10 @@ export interface MapData {
   };
 } 
 
-export interface SelectedTileInfo{
-  selectedFlag: boolean;
-  selectedTileX: number;
-  selectedTileY: number;
+export interface DailyTileInfo{
+  selectedTileFlag: boolean,
+  selectedTileX: number,
+  selectedTileY: number,
+  selectedTileRarity: TileType,
+  availableUpdateCount: number
 }

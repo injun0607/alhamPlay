@@ -1,14 +1,15 @@
 'use client'
 
 import { create } from 'zustand';
-import { FieldType } from '@/types/map';
+import { DailyTileInfo, FieldType } from '@/types/map';
+
 
 
 interface FieldStore {
     selectedFieldType: FieldType | null;
     setSelectedField: (fieldType: FieldType) => void;
-    selectedTile: { x: number; y: number } | null;
-    setSelectedTile: (tile: { x: number; y: number } | null ) => void;
+    selectedTile: DailyTileInfo | null;
+    setSelectedTile: (dailyTileInfo: DailyTileInfo | null ) => void;
     resetSelectedField: () => void;
 }
 
@@ -18,8 +19,8 @@ export const useFieldStore = create<FieldStore>((set) => ({
     setSelectedField: (fieldType) => {
         set({ selectedFieldType: fieldType })
     },
-    setSelectedTile: (tile) => {
-        set({ selectedTile: tile })
+    setSelectedTile: (dailyTileInfo) => {
+        set({ selectedTile: dailyTileInfo })
     },
     resetSelectedField: () => set({ selectedFieldType: null }),
 }))
