@@ -225,3 +225,16 @@ body {
     }
   }
 
+  .ore-pixel {
+    display: inline-block;
+  }
+  
+  .ore-shake {
+    animation: ore-shake-anim 0.3s infinite alternate;
+  }
+  
+  @keyframes ore-shake-anim {
+    0% { transform: translate(0, 0) rotate(-3deg); }
+    50% { transform: translate(2px, -2px) rotate(3deg); }
+    100% { transform: translate(-2px, 2px) rotate(-3deg); }
+  }

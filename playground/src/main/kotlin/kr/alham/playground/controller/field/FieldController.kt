@@ -102,7 +102,7 @@ class FieldController(
 
         if((selectedDailyTileInfo?.availableUpdateCount?.let{it <= 0}) == true){
             return CommonResponse.of(
-                HttpStatus.OK,
+                HttpStatus.NO_CONTENT,
                 "타일을 더이상 업데이트 할수 없습니다",
                 selectedDailyTileInfo
             )
@@ -135,10 +135,27 @@ class FieldController(
     }
 
     @PostMapping("/gather")
-    fun gatherItem(@RequestBody gatherMaterialDTO: GatherMaterialDTO): PlayerMaterialInventoryItemDTO {
+    fun gatherItem(): PlayerMaterialInventoryItemDTO {
 
         //TODO - 유저 인증 정보 받아서 진행
         val playerId = 1L
+
+        val selectedFieldType =  areaService.selectFieldArea(playerId) ?:
+            throw IllegalArgumentException("No field area selected for player $playerId")
+
+        val selectedArea = areaService.findFieldAreaByType(selectedFieldType)
+
+        val dailyTileInfo = areaService.getDailyTileInfo(playerId) ?:
+            throw IllegalArgumentException("No tile selected for player $playerId")
+
+        val areaId = requireNotNull(selectedArea.id)
+
+        //서버 검증으로 생성
+        val gatherMaterialDTO = GatherMaterialDTO.of(
+            areaId,
+            dailyTileInfo.selectedTileX,
+            dailyTileInfo.selectedTileY,
+        )
 
         val gatherResult = gatherService.gatherMaterial(gatherMaterialDTO)
         val itemInfo = gatherService.getMaterialItemByName(gatherResult.name)

@@ -1,50 +1,95 @@
 'use client'
-
-import React, { useState } from 'react'
-import { FieldDataDTO } from '@/types/map'
+//TODO - 채집 위치 정보도 사실상 디비에 있어서 필요없을것 같긴한데 .. 변경해봐야겠음
+import React, { useState, useEffect,useCallback } from 'react'
+import { FieldDataDTO, GatherMaterialDTO } from '@/types/map'
+import { MaterialInventoryItemDTO } from '@/types/inventory'
 import { useFieldStore } from '@/store/fieldStore'
+import { useApi } from '@/hooks/common/useApi';
+import { InventoryStore } from '@/store/inventoryStore'
 
 interface TileDetailViewProps {
-  fieldData: FieldDataDTO
-  onBack: () => void
-  onGather: (x: number, y: number) => void
-  onTransform: (x: number, y: number) => void
-  dailyTransformCount: number
-  maxDailyTransforms: number
+  fieldData: FieldDataDTO;
+  onBack: () => void;
+  onTransform: (x: number, y: number) => void;
+  dailyTransformCount: number;
+  maxDailyTransforms: number;
 }
 
 export function TileDetailView({
   fieldData,
   onBack,
-  onGather,
   onTransform,
   dailyTransformCount,
-  maxDailyTransforms
+  maxDailyTransforms,
 }: TileDetailViewProps) {
   const [isGathering, setIsGathering] = useState(false)
+  const [isGatheringComplete, setIsGatheringComplete] = useState(false);
+  const [gatherResult, setGatherResult] = useState<MaterialInventoryItemDTO | null>(null);
   const [isTransforming, setIsTransforming] = useState(false)
   const [gatheringProgress, setGatheringProgress] = useState(0)
+  const [showGatherResult, setShowGatherResult] = useState(false)
   const { selectedTile } = useFieldStore();
-  
-  const handleGather = () => {
-    setIsGathering(true)
-    setGatheringProgress(0)
-    if(!selectedTile || selectedTile?.selectedTileX == null || selectedTile?.selectedTileY == null) return;
-    onGather(selectedTile.selectedTileX , selectedTile.selectedTileY)
+  const { addItem } = InventoryStore();
+
+  const { post: postGathering, loading } = useApi<MaterialInventoryItemDTO>();
+
+  const requestGatheringResult = useCallback(async () => {
+    try {
+      const result = await postGathering<null>('/field/gather', null);
+      if (result) {
+        addItem(result);
+        setGatherResult(result);
+        setShowGatherResult(true);
+      }
+    } catch (error) {
+      console.error('채집 결과 요청 실패:', error);
+      // 에러 시 기본 자원 지급 (임시)
+      const fallbackResult: MaterialInventoryItemDTO = {
+        id: 0,
+        inventoryItemId: 0,
+        itemImg: '',
+        quantity: 1,
+        name: '나무',
+        description: '나무',
+        type: 'MATERIAL',
+        itemRarity: "COMMON",
+        itemOrder: 0
+      };
+      setGatherResult(fallbackResult);
+      setShowGatherResult(true);
+    } finally {
+      setIsGatheringComplete(false);
+    }
+  }, [postGathering, addItem]);
+
+  useEffect(() => {
+    if (isGatheringComplete && selectedTile?.selectedTileX !== null && selectedTile?.selectedTileY !== null) {
+      requestGatheringResult();
+    }
+  }, [isGatheringComplete, selectedTile?.selectedTileX, selectedTile?.selectedTileY, requestGatheringResult]);
+
+  const startGathering = () => {
+    if (isGathering || !selectedTile || selectedTile?.selectedTileX == null || selectedTile?.selectedTileY == null) return;
+
+    setIsGathering(true);
+    setGatheringProgress(0);
+
+    let progress = 0;
     const interval = setInterval(() => {
-      setGatheringProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval)
-          setIsGathering(false)
-          return 100
-        }
-        return prev + 2
-      })
-    }, 100)
-  }
+      progress += 1;
+      setGatheringProgress(progress);
+
+      if (progress >= 100) {
+        clearInterval(interval);
+        setIsGathering(false);
+        setIsGatheringComplete(true);
+      }
+    }, 50);
+  };
+
 
   const handleTransform = () => {
-    if(!selectedTile || selectedTile?.selectedTileX == null || selectedTile?.selectedTileY == null) return;
+    if (!selectedTile || selectedTile?.selectedTileX == null || selectedTile?.selectedTileY == null) return;
     if (dailyTransformCount >= maxDailyTransforms) {
       alert('오늘의 변경 횟수를 모두 사용했습니다!')
       return
@@ -55,6 +100,16 @@ export function TileDetailView({
   }
 
   const canTransform = dailyTransformCount < maxDailyTransforms
+
+  // 채집 결과가 있으면 3초 후 자동으로 숨기기
+  useEffect(() => {
+    if (showGatherResult && gatherResult) {
+      const timer = setTimeout(() => {
+        setShowGatherResult(false)
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [showGatherResult, gatherResult])
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
@@ -72,32 +127,49 @@ export function TileDetailView({
           </button>
         </div>
 
-        {/* 타일 정보 */}
-        <div className="mb-6">
-          <div className="bg-gray-800 border-2 border-gray-600 rounded-none p-4 mb-4">
-            <h3 className="font-semibold text-yellow-400 pixel-font mb-2">타일 정보</h3>
-            <div className="text-sm text-gray-300 space-y-1 pixel-font">
-              <div>위치: ({selectedTile?.selectedTileX}, {selectedTile?.selectedTileY})</div>
-              <div>지역: {fieldData.name}</div>
-              <div>상태: {isGathering ? '채집 중...' : isTransforming ? '변경 중...' : '대기 중'}</div>
+        {/* 채집물 이미지 또는 결과 */}
+        <div className="flex justify-center items-center my-4 relative">
+          {loading ? (
+            <div className="text-yellow-200 text-center pixel-font py-8 px-4 bg-gray-800 border-2 border-yellow-400 rounded">
+              결과물 확인중입니다...
             </div>
-          </div>
-
-          {/* 변경 횟수 정보 */}
-          <div className="bg-blue-900 border-2 border-blue-700 rounded-none p-4 mb-4">
-            <h3 className="font-semibold text-blue-300 pixel-font mb-2">오늘의 변경 횟수</h3>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-blue-200">
-                {dailyTransformCount} / {maxDailyTransforms}
-              </span>
-              <div className="w-32 bg-blue-800 border border-blue-600 h-4">
-                <div
-                  className="bg-blue-500 h-full transition-all duration-300"
-                  style={{ width: `${(dailyTransformCount / maxDailyTransforms) * 100}%` }}
-                ></div>
+          ) : showGatherResult && gatherResult ? (
+            // 채집 결과 표시
+            <div className="gather-result-popup">
+              <div className="bg-gradient-to-br from-yellow-600 to-yellow-800 border-4 border-yellow-500 rounded-none p-4 text-center pixel-art-shadow">
+                <div className="text-yellow-300 text-xs mb-2 pixel-font">RESOURCE FOUND!</div>
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-700 border-2 border-gray-500 flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">{gatherResult.name.charAt(0)}</span>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-white font-bold text-sm pixel-font">{gatherResult.name}</div>
+                    <div className="text-xs" style={{ 
+                      color: gatherResult.itemRarity === 'COMMON' ? '#888888' :
+                             gatherResult.itemRarity === 'UNCOMMON' ? '#4CAF50' :
+                             gatherResult.itemRarity === 'RARE' ? '#2196F3' :
+                             gatherResult.itemRarity === 'EPIC' ? '#9C27B0' :
+                             gatherResult.itemRarity === 'UNIQUE' ? '#E91E63' :
+                             gatherResult.itemRarity === 'LEGENDARY' ? '#FF9800' : '#888888'
+                    }}>
+                      {gatherResult.itemRarity}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-yellow-400 font-bold text-sm pixel-font">x{gatherResult.quantity}</div>
               </div>
             </div>
-          </div>
+          ) : (
+            // 기존 광석 이미지
+            <div className={`ore-pixel ${isGathering ? 'ore-shake' : ''}`}>
+              <img
+                src="/images/diamond_pixel.png"
+                alt="광석"
+                className="w-16 h-16"
+                style={{ imageRendering: 'pixelated' }}
+              />
+            </div>
+          )}
         </div>
 
         {/* 채집 진행도 표시 */}
@@ -138,13 +210,12 @@ export function TileDetailView({
         <div className="space-y-3">
           {/* 채집 버튼 */}
           <button
-            onClick={handleGather}
+            onClick={startGathering}
             disabled={isGathering || isTransforming}
-            className={`w-full py-4 px-4 border-2 font-bold pixel-font transition-all duration-200 ${
-              isGathering
+            className={`w-full py-4 px-4 border-2 font-bold pixel-font transition-all duration-200 ${isGathering
                 ? 'bg-yellow-800 border-yellow-600 text-yellow-200 cursor-not-allowed'
                 : 'bg-yellow-600 border-yellow-500 text-white hover:bg-yellow-700 hover:border-yellow-600'
-            }`}
+              }`}
           >
             {isGathering ? '채집 중...' : '채집하기'}
           </button>
@@ -153,19 +224,18 @@ export function TileDetailView({
           <button
             onClick={handleTransform}
             disabled={!canTransform || isGathering || isTransforming}
-            className={`w-full py-4 px-4 border-2 font-bold pixel-font transition-all duration-200 ${
-              !canTransform
+            className={`w-full py-4 px-4 border-2 font-bold pixel-font transition-all duration-200 ${!canTransform
                 ? 'bg-gray-700 border-gray-600 text-gray-400 cursor-not-allowed'
                 : isTransforming
-                ? 'bg-purple-800 border-purple-600 text-purple-200 cursor-not-allowed'
-                : 'bg-purple-600 border-purple-500 text-white hover:bg-purple-700 hover:border-purple-600'
-            }`}
+                  ? 'bg-purple-800 border-purple-600 text-purple-200 cursor-not-allowed'
+                  : 'bg-purple-600 border-purple-500 text-white hover:bg-purple-700 hover:border-purple-600'
+              }`}
           >
             {!canTransform
               ? '변경 횟수 소진'
               : isTransforming
-              ? '변경 중...'
-              : '위치변경'}
+                ? '변경 중...'
+                : '위치변경'}
           </button>
         </div>
 
@@ -193,6 +263,27 @@ export function TileDetailView({
         @keyframes swing {
           0% { transform: rotate(-15deg); }
           100% { transform: rotate(15deg); }
+        }
+        .ore-shake {
+          animation: ore-shake-anim 0.3s infinite alternate;
+        }
+        @keyframes ore-shake-anim {
+          0% { transform: translate(0, 0) rotate(-3deg); }
+          50% { transform: translate(2px, -2px) rotate(3deg); }
+          100% { transform: translate(-2px, 2px) rotate(-3deg); }
+        }
+        .gather-result-popup {
+          animation: popup-appear 0.5s ease-out;
+        }
+        @keyframes popup-appear {
+          0% { 
+            transform: scale(0.5) translateY(20px);
+            opacity: 0;
+          }
+          100% { 
+            transform: scale(1) translateY(0);
+            opacity: 1;
+          }
         }
       `}</style>
     </div>
