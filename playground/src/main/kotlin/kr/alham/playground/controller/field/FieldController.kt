@@ -108,6 +108,15 @@ class FieldController(
             )
         }
 
+        check(!(tile.x == selectedDailyTileInfo?.selectedTileX &&
+                tile.y == selectedDailyTileInfo.selectedTileY)) {
+            return CommonResponse.of(
+                HttpStatus.OK,
+                "이미 선택된 타일입니다",
+                selectedDailyTileInfo
+            )
+        }
+
         val availableCnt =  if(selectedDailyTileInfo != null){
             selectedDailyTileInfo.availableUpdateCount - 1
         }else{

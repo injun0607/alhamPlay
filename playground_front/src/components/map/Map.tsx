@@ -105,7 +105,10 @@ export function Map({ fieldData }: MapProps) {
     } catch (error) {
       console.error(error);
     }
-  }, [curSelectedTile.x, curSelectedTile.y, post, setSelectedTile]);
+
+    console.log("변경완료 : "+ selectedTile?.selectedTileX, selectedTile?.selectedTileY);
+    console.log("변경완료 : "+ curSelectedTile.x, curSelectedTile.y);
+  }, [selectedTile?.selectedTileX, selectedTile?.selectedTileY, curSelectedTile.x, curSelectedTile.y, post, setSelectedTile]);
 
   const handleBackFromDetail = () => {
     setShowDetailView(false);
