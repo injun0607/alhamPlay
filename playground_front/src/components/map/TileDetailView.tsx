@@ -10,22 +10,15 @@ import { InventoryStore } from '@/store/inventoryStore'
 interface TileDetailViewProps {
   fieldData: FieldDataDTO;
   onBack: () => void;
-  onTransform: (x: number, y: number) => void;
-  dailyTransformCount: number;
-  maxDailyTransforms: number;
 }
 
 export function TileDetailView({
   fieldData,
   onBack,
-  onTransform,
-  dailyTransformCount,
-  maxDailyTransforms,
 }: TileDetailViewProps) {
   const [isGathering, setIsGathering] = useState(false)
   const [isGatheringComplete, setIsGatheringComplete] = useState(false);
   const [gatherResult, setGatherResult] = useState<MaterialInventoryItemDTO | null>(null);
-  const [isTransforming, setIsTransforming] = useState(false)
   const [gatheringProgress, setGatheringProgress] = useState(0)
   const [showGatherResult, setShowGatherResult] = useState(false)
   const { selectedTile } = useFieldStore();
@@ -87,19 +80,6 @@ export function TileDetailView({
     }, 50);
   };
 
-
-  const handleTransform = () => {
-    if (!selectedTile || selectedTile?.selectedTileX == null || selectedTile?.selectedTileY == null) return;
-    if (dailyTransformCount >= maxDailyTransforms) {
-      alert('오늘의 변경 횟수를 모두 사용했습니다!')
-      return
-    }
-    setIsTransforming(true)
-    onTransform(selectedTile.selectedTileX, selectedTile.selectedTileY)
-    setTimeout(() => setIsTransforming(false), 2000)
-  }
-
-  const canTransform = dailyTransformCount < maxDailyTransforms
 
   // 채집 결과가 있으면 3초 후 자동으로 숨기기
   useEffect(() => {
@@ -211,7 +191,7 @@ export function TileDetailView({
           {/* 채집 버튼 */}
           <button
             onClick={startGathering}
-            disabled={isGathering || isTransforming}
+            disabled={isGathering}
             className={`w-full py-4 px-4 border-2 font-bold pixel-font transition-all duration-200 ${isGathering
                 ? 'bg-yellow-800 border-yellow-600 text-yellow-200 cursor-not-allowed'
                 : 'bg-yellow-600 border-yellow-500 text-white hover:bg-yellow-700 hover:border-yellow-600'
@@ -219,31 +199,11 @@ export function TileDetailView({
           >
             {isGathering ? '채집 중...' : '채집하기'}
           </button>
-
-          {/* 변경 버튼 */}
-          <button
-            onClick={handleTransform}
-            disabled={!canTransform || isGathering || isTransforming}
-            className={`w-full py-4 px-4 border-2 font-bold pixel-font transition-all duration-200 ${!canTransform
-                ? 'bg-gray-700 border-gray-600 text-gray-400 cursor-not-allowed'
-                : isTransforming
-                  ? 'bg-purple-800 border-purple-600 text-purple-200 cursor-not-allowed'
-                  : 'bg-purple-600 border-purple-500 text-white hover:bg-purple-700 hover:border-purple-600'
-              }`}
-          >
-            {!canTransform
-              ? '변경 횟수 소진'
-              : isTransforming
-                ? '변경 중...'
-                : '위치변경'}
-          </button>
         </div>
 
         {/* 설명 */}
         <div className="mt-4 text-xs text-gray-400 space-y-1 pixel-font">
           <div>• 채집: 해당 타일에서 재료를 수집합니다</div>
-          <div>• 변경: 타일의 특성을 변경하여 다른 재료를 얻을 수 있습니다</div>
-          <div>• 변경은 하루에 {maxDailyTransforms}회만 가능합니다</div>
         </div>
       </div>
       <style jsx>{`

@@ -28,26 +28,7 @@ export function Map({ fieldData }: MapProps) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [tileChanged, setTileChanged] = useState(false);
 
-  // 하루 변경 횟수 제한 (로컬 스토리지에서 관리)
-  const [dailyTransformCount, setDailyTransformCount] = useState(0);
-  const maxDailyTransforms = 3; // 하루 최대 3회 변경 가능
-
-  // 하루 변경 횟수 초기화 (날짜가 바뀌면 리셋)
-  useEffect(() => {
-    const today = new Date().toDateString();
-    const storedDate = localStorage.getItem('lastTransformDate');
-    const storedCount = localStorage.getItem('dailyTransformCount');
-
-    if (storedDate !== today) {
-      // 날짜가 바뀌었으면 카운트 리셋
-      localStorage.setItem('lastTransformDate', today);
-      localStorage.setItem('dailyTransformCount', '0');
-      setDailyTransformCount(0);
-    } else {
-      // 같은 날이면 저장된 카운트 사용
-      setDailyTransformCount(parseInt(storedCount || '0'));
-    }
-  }, []);
+  const availableUpdateCount = selectedTile?.availableUpdateCount ?? 3;
 
   // curSelectedTile이 변경될 때마다 tileChanged 상태 업데이트
   useEffect(() => {
@@ -130,24 +111,6 @@ export function Map({ fieldData }: MapProps) {
     setShowDetailView(false);
   }
 
-  const handleTransform = (x: number, y: number) => {
-    if (dailyTransformCount >= maxDailyTransforms) {
-      alert('오늘의 변경 횟수를 모두 사용했습니다!');
-      return;
-    }
-
-    // 변경 횟수 증가
-    const newCount = dailyTransformCount + 1;
-    setDailyTransformCount(newCount);
-    localStorage.setItem('dailyTransformCount', newCount.toString());
-
-    // 타일 변경 로직 (여기에 실제 변경 로직 추가)
-    console.log(`타일 (${x}, ${y}) 변경 완료!`);
-
-    // 변경 완료 알림
-    alert(`타일 (${x}, ${y})이 성공적으로 변경되었습니다!`);
-  }
-
   return (
     <div className={`flex flex-col items-center gap-8 p-4 transition-all duration-300
     }`}>
@@ -159,13 +122,13 @@ export function Map({ fieldData }: MapProps) {
         <div className="flex items-center justify-between">
           <span className="text-sm font-semibold text-blue-800">오늘의 변경 횟수</span>
           <span className="text-sm text-blue-600">
-            {dailyTransformCount} / {maxDailyTransforms}
+            {availableUpdateCount} / 3
           </span>
         </div>
         <div className="w-full bg-blue-200 rounded-full h-2 mt-2">
           <div
             className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-            style={{ width: `${(dailyTransformCount / maxDailyTransforms) * 100}%` }}
+            style={{ width: `${(availableUpdateCount / 3) * 100}%` }}
           ></div>
         </div>
       </div>
@@ -246,9 +209,6 @@ export function Map({ fieldData }: MapProps) {
         <TileDetailView
           fieldData={fieldData}
           onBack={handleBackFromDetail}
-          onTransform={handleTransform}
-          dailyTransformCount={dailyTransformCount}
-          maxDailyTransforms={maxDailyTransforms}
         />
       )}
 
